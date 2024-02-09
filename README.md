@@ -11,7 +11,7 @@
 
 - Step 1 Download Visual Studio Code and Xampp and Composer and Git
 - here the link: [https://code.visualstudio.com/](https://code.visualstudio.com/) / [https://www.apachefriends.org/](https://www.apachefriends.org/) / [https://getcomposer.org/download/](https://getcomposer.org/download/) / [https://git-scm.com/downloads](https://git-scm.com/downloads)
-- Step 2 open git bash in desktop rigth click mouse and see git bash click it and type this command to clone the project: git clone https://github.com/jakebartolay/vendor-investment-system.git
+- Step 2 open git bash in desktop rigth click mouse and see git bash click it and type this command to clone the project: #
 - Step 3 open the project using visual studio code and copy the .env.example and remove .example and become .env
 - Step 4 open terminal run this two command: composer install and: php artisan key:generate
 - Step 5 to run the project need type command: php artisan serve
