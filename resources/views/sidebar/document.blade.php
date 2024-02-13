@@ -326,8 +326,74 @@
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section">
+        <section class="section dashboard">
             <div style="height: 70vh">
+              <div class="row">
+                <div class="container py-5" style="height: 70vh">
+
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="filter">
+                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                            </li>
+        
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                          </ul>
+                        </div>
+        
+                        <div class="card-body">
+                          <h5 class="card-title">List of Document Information <span>| Today</span></h5>
+        
+                          <table class="table table-borderless datatable">
+                            <thead>
+                              <tr>
+                                <th scope="col">Vendor ID</th>
+                                <th scope="col">Vendor Name</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Starting Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Jake Benten</td>
+                                    <td>Jake Industries</td>
+                                    <td>BRGY 161 JAN LANG BARANGAY NA YAN</td>
+                                    <td>2131232154</td>
+                                    <td>person</td>
+                                    <td>2017-02-02</td>
+                                    <td>2022-02-03</td>
+                                    <td><span class="badge bg-warning">Not Active</span></td>
+                                </tr>
+                                   
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>Kevin Tennyson</td>
+                                  <td>Jake's Tailoring</td>
+                                  <td>BRGY PAG-ASA</td>
+                                  <td>231254767</td>
+                                  <td>equipment</td>
+                                  <td>2017-02-02</td>
+                                  <td>2022-02-03</td>
+                                  <td><span class="badge bg-success">Ative</span></td> 
+                              </tr>
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                </div>
+            </div>
             </div>
         </section>
 
