@@ -12,6 +12,8 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     @include('layout.logo')
+    <i class="bi bi-list toggle-sidebar-btn"></i>
+
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
