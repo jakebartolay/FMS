@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    //
+    
     public function loadRegister()
     {
         if(Auth::user()){
@@ -77,11 +77,11 @@ class AuthController extends Controller
         if(Auth::user() && Auth::user()->role == 1){
             $redirect = '/super-admin/dashboard';
         }
-        else if(Auth::user() && Auth::user()->role == 2){
-            $redirect = '/sub-admin/dashboard';
+        else if(Auth::user() && Auth::user()->role == 4){
+            $redirect = '/admin/dashboard';
         }
         else if(Auth::user() && Auth::user()->role == 3){
-            $redirect = '/admin/dashboard';
+            $redirect = '/manager/dashboard';
         }
         else{
             $redirect = '/dashboard';

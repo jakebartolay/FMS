@@ -26,6 +26,7 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
+                                        <a href="/" class=""><i class="bi bi-arrow-left"></i>HOME</a>
                                         <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                                     </div>
                                     @if($errors->any())
@@ -58,7 +59,7 @@
                                         <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember"
-                                                    value="true" id="rememberMe">
+                                                    value="true" id="rememberMe" checked>
                                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                                             </div>
                                         </div>
@@ -71,7 +72,6 @@
                                                     account</a></p>
                                         </div>
                                     </form>
-                                    <a href="/" class="btn btn-primary">go back</a>
                                 </div>
                             </div>
 

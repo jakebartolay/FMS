@@ -2,12 +2,8 @@
 <html lang="en">
 
 <head>
-
     <title>Register</title>
     @include('layout.header')
-    <!-- Favicons -->
-    <link href="assets/img/logo2.png" rel="icon">
-    <link href="assets/img/logo2.png" rel="apple-touch-icon">
 </head>
 
 <body>

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class SubAdminAuthentication
+class ManagerAuthentication
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class SubAdminAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user() && auth()->user()->role == 2){
+        if(auth()->user() && auth()->user()->role == 4){
             return $next($request);
         }
 
-        return redirect('/admin/dashboard');
+        return redirect('/');
     }
 }

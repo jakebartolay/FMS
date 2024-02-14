@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ $user->name }} | Investment Management</title>
+    <title>{{ $user->name }} | Vendor Management</title>
     @include('layout.header')
 
 </head>
@@ -124,7 +124,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Maria Hudson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -138,7 +138,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Anna Nelson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -152,7 +152,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>David Muldon</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -176,12 +176,12 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                       <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                      <span class="d-none d-md-block dropdown-toggle ps-2">Super Admin</span>
+                      <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user -> name }}</span>
                     </a><!-- End Profile Iamge Icon -->
           
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                       <li class="dropdown-header">
-                        <h6>Super Admin</h6>
+                        <h6>{{ $user-> name }}</h6>
                         <span>Administration</span>
                       </li>
                       <li>
@@ -189,27 +189,18 @@
                       </li>
           
                       <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/users-profile">
-                          <i class="bi bi-person"></i>
-                          <span>My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="/admin/users-profile">
                           <i class="bi bi-gear"></i>
                           <span>Account Settings</span>
                         </a>
                       </li>
+          
                       <li>
                         <hr class="dropdown-divider">
                       </li>
           
                       <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                        <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
                           <i class="bi bi-question-circle"></i>
                           <span>Need Help?</span>
                         </a>
@@ -219,113 +210,168 @@
                       </li>
           
                       <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/login">
+                        <a class="dropdown-item d-flex align-items-center" href="/logout">
                           <i class="bi bi-box-arrow-right"></i>
                           <span>Sign Out</span>
                         </a>
                       </li>
           
                     </ul><!-- End Profile Dropdown Items -->
-                  </li><!-- End Profile Nav -->
+                </li><!-- End Profile Nav -->
 
             </ul>
         </nav><!-- End Icons Navigation -->
 
     </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+        <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/admin/dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/vendor-management">
-              <i class="bi bi-circle"></i><span>Vendor Management</span>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav1" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a class="{{ set_active(['/admin/vendor-management']) }}" href="/admin/vendor-management">
+                            <i class="bi bi-circle"></i><span>Vendor Management</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav2" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/admin/investment-management">
+                            <i class="bi bi-circle"></i><span>investment Management</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/payment">
+                    <i class="bi bi-credit-card-2-front-fill"></i>
+                    <span>Payments</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/document">
+                    <i class="bi bi-files"></i>
+                    <span>Workflow and Approval</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/report">
+                    <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                    <span>Reports</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
         </ul>
-      </li><!-- End Components Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav2" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-          <li>
-            <a class="{{ set_active(['investment-management']) }}" href="/investment-management">
-              <i class="bi bi-circle"></i><span>investment Management</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+    </aside><!-- End Sidebar-->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/payment">
-          <i class="bi bi-credit-card-2-front-fill"></i>
-          <span>Payments</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/document">
-          <i class="bi bi-files"></i>
-          <span>Workflow and Approval</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/report">
-          <i class="bi bi-file-earmark-bar-graph-fill"></i>
-          <span>Reports</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-contact">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-faq">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
     <main id="main" class="main">
 
         <div class="pagetitle">
             <h1>Portfolio</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item">Investment</li>
-                    <li class="breadcrumb-item active">Investment Management</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item">Vendor</li>
+                    <li class="breadcrumb-item active">Vendor Management</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section">
-            <div style="height: 70vh">
+        <section class="section dashboard">
+            <div class="row">
+                <div class="container py-5" style="height: 70vh">
+
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="filter">
+                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                            </li>
+        
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                          </ul>
+                        </div>
+        
+                        <div class="card-body">
+                          <h5 class="card-title">List of Vendor Information <span>| Today</span></h5>
+        
+                          <table class="table table-borderless datatable">
+                            <thead class="table-dark">
+                              <tr>
+                                <th scope="col">Vendor ID</th>
+                                <th scope="col">Vendor Name</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Cost</th>
+                                <th scope="col">Spend</th>
+                                <th scope="col">Starting Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $row)
+                                <tr>
+                                    <td>{{ $row->vendor_id }}</td>
+                                    <td>{{ $row->vendor_name }}</td>
+                                    <td>{{ $row->company_name }}</td>
+                                    <td>{{ $row->address }}</td>
+                                    <td>{{ $row->contact }}</td>
+                                    <td>{{ $row->category }}</td>
+                                    <td>{{ $row->cost }}</td>
+                                    <td>{{ $row->spend }}</td>
+                                    <td>{{ $row->starting_date }}</td>
+                                    <td>{{ $row->end_date }}</td>
+                                    <td>{{ $row->status }}</td>
+                                    {{-- <td><span class="badge bg-warning">{{ $row->status }}</span></td>
+                                    <td><span class="badge bg-success">{{ $row->status }}</span></td> --}}
+                                </tr>
+                            @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                </div>
             </div>
         </section>
 

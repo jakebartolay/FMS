@@ -251,7 +251,7 @@
         </a>
         <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/vendor-management">
+            <a href="/super-admin/vendor-management">
               <i class="bi bi-circle"></i><span>Vendor Management</span>
             </a>
           </li>
@@ -264,7 +264,7 @@
         </a>
         <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/investment-management">
+            <a href="/super-admin/investment-management">
               <i class="bi bi-circle"></i><span>investment Management</span>
             </a>
           </li>
@@ -272,42 +272,26 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/payment">
+        <a class="nav-link collapsed" href="/super-admin/payment">
           <i class="bi bi-credit-card-2-front-fill"></i>
           <span>Payments</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/document">
+        <a class="nav-link collapsed" href="/super-admin/document">
           <i class="bi bi-files"></i>
           <span>Workflow and Approval</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/report">
+        <a class="nav-link collapsed" href="/super-admin/report">
           <i class="bi bi-file-earmark-bar-graph-fill"></i>
           <span>Reports</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-contact">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-faq">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
+      
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -318,7 +302,7 @@
       <h1>Manage</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Manage Role</li>
         </ol>

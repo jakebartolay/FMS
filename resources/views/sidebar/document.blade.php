@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin | Workflow and Approval</title>
+    <title>{{ $user->name }} | Workflow and Approval</title>
     @include('layout.header')
 
 </head>

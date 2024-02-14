@@ -1,13 +1,15 @@
 <?php
 /////////////DATABASE CONTROLLER/////////////////
 use App\Http\Controllers\VendorDisplayController;
+use App\Http\Controllers\UserProfileController;
 
 /////////////USERS SIDE CONTROLLER///////////////
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuperAdminController;
-use App\Http\Controllers\SubAdminController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -26,20 +28,25 @@ Route::get('/', function () {
     return view('index');
 });
 
-function set_active($route) {
-    if(is_array($route)) {
-        return in_array(Request::path(), $route) ? 'active' : '';
-    }
-    return Request::path() == $route ? 'active': '';
-}
+Route::get('/register',[AuthController::class,'loadRegister']);
+Route::post('/register',[AuthController::class,'register'])->name('register');
 
+Route::get('/login',[AuthController::class,'loadLogin']);
+Route::post('/login',[AuthController::class,'login'])->name('login');
+Route::get('/logout',[AuthController::class,'logout']);
+
+
+// function set_active($route) {
+//     if(is_array($route)) {
+//         return in_array(Request::path(), $route) ? 'active' : '';
+//     }
+//     return Request::path() == $route ? 'active': '';
+// }
 
 // ********** User Routes *********
 Route::group(['middleware'=>['web','isUser']],function(){
     Route::get('/dashboard',[UserController::class,'dashboard']);
 });
-
-////////////ADMIN SIDE/////////////
 
 // ********** Super Admin Routes *********
 Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],function(){
@@ -48,58 +55,33 @@ Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],fu
     Route::get('/users',[SuperAdminController::class,'users'])->name('superAdminUsers');
     Route::get('/manage-role',[SuperAdminController::class,'manageRole'])->name('manageRole');
     Route::post('/update-role',[SuperAdminController::class,'updateRole'])->name('updateRole');
+
+    ////SUPER ADMIN SIDE BAR ROUTE////
+    Route::get('/vendor-management',[SuperAdminController::class,'vendormanagement'])->name('superAdminvendormanagement');
+    Route::get('/investment-management',[SuperAdminController::class,'investment'])->name('superAdmininvestment');
+    Route::get('/payment',[SuperAdminController::class,'payment'])->name('superAdminpayment');
+    Route::get('/document',[SuperAdminController::class,'document'])->name('superAdmindocument');
+    Route::get('/report',[SuperAdminController::class,'report'])->name('superAdminreport');
+    
 });
 
-// ********** Sub Admin Routes *********
-Route::group(['prefix' => 'sub-admin','middleware'=>['web','isSubAdmin']],function(){
-    Route::get('/dashboard',[SubAdminController::class,'dashboard']);
+// ********** Manager Routes *********
+Route::group(['prefix' => 'manager','middleware'=>['web','isManager']],function(){
+    Route::get('/dashboard',[ManagerController::class,'dashboard']);
 });
 
 // ********** Admin Routes *********
 Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/dashboard',[AdminController::class,'dashboard']);
+
+    ////ADMIN SIDE BAR ROUTE////
+    Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
+    Route::get('/vendor-management',[AdminController::class,'vendormanagement'])->name('adminVendormanagement');
+    Route::get('/investment-management',[AdminController::class,'investment'])->name('adminInvestment');
+    Route::get('/payment',[AdminController::class,'payment'])->name('adminPayment');
+    Route::get('/document',[AdminController::class,'document'])->name('adminDocument');
+    Route::get('/report',[AdminController::class,'report'])->name('adminReport');
+    Route::get('/pages-contact',[AdminController::class,'contact'])->name('adminContact');
+    Route::get('/pages-faq',[AdminController::class,'faq'])->name('adminFaq');
 });
 
-
-Route::get('/vendor-management', [VendorDisplayController::class, 'show']);
-
-Route::get('/investment-management', function () {
-    return view('sidebar.investmentmanagement');
-});
-
-Route::get('/payment', function () {
-    return view('sidebar.payment');
-});
-
-Route::get('/document', function () {
-    return view('sidebar.document');
-});
-
-Route::get('/report', function () {
-    return view('sidebar.report');
-});
-
-Route::get('/pages-contact', function () {
-    return view('sidebar.contact_page');
-});
-
-Route::get('/pages-faq', function () {
-    return view('sidebar.faq');
-});
-
-
-Route::get('/users-profile', function () {
-    return view('user_profile');
-});
-
-// ////////////LOGIN REGISTER SIDE/////////////
-
-Route::get('/',[AuthController::class,'loadRegister']);
-Route::post('/register',[AuthController::class,'register'])->name('register');
-Route::get('/login',function(){
-    return redirect('/');
-});
-
-Route::get('/',[AuthController::class,'loadLogin']);
-Route::post('/login',[AuthController::class,'login'])->name('login');
-Route::get('/logout',[AuthController::class,'logout']);

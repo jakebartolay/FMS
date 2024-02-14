@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+    <title>{{ $user->name }} | Investment Management</title>
     @include('layout.header')
+
 </head>
 
 <body>
@@ -171,58 +173,60 @@
                 </li><!-- End Messages Nav -->
 
                 <li class="nav-item dropdown pe-3">
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                      <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                      <span class="d-none d-md-block dropdown-toggle ps-2">Super Admin</span>
-                    </a><!-- End Profile Iamge Icon -->
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                      <li class="dropdown-header">
-                        <h6>Super Admin</h6>
-                        <span>Administration</span>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/users-profile">
-                          <i class="bi bi-person"></i>
-                          <span>My Profile</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                          <i class="bi bi-gear"></i>
-                          <span>Account Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                          <i class="bi bi-question-circle"></i>
-                          <span>Need Help?</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-          
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/login">
-                          <i class="bi bi-box-arrow-right"></i>
-                          <span>Sign Out</span>
-                        </a>
-                      </li>
-          
-                    </ul><!-- End Profile Dropdown Items -->
-                  </li><!-- End Profile Nav -->
+
+                  <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user -> name }}</span>
+                  </a><!-- End Profile Iamge Icon -->
+        
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                      <h6>{{ $user-> name }}</h6>
+                      <span>Administration</span>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+        
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center" href="/super-admin/users">
+                        <i class="bi bi-person"></i>
+                        <span>Manage Role</span>
+                      </a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+        
+                    {{-- <li>
+                      <a class="dropdown-item d-flex align-items-center" href="/super-admin/users-profile">
+                        <i class="bi bi-gear"></i>
+                        <span>Account Settings</span>
+                      </a>
+                    </li> --}}
+                    {{-- <li>
+                      <hr class="dropdown-divider">
+                    </li> --}}
+        
+                    {{-- <li>
+                      <a class="dropdown-item d-flex align-items-center" href="/pages-faq">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Need Help?</span>
+                      </a>
+                    </li> --}}
+                    {{-- <li>
+                      <hr class="dropdown-divider">
+                    </li> --}}
+        
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center" href="/logout">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                      </a>
+                    </li>
+        
+                  </ul><!-- End Profile Dropdown Items -->
+              </li><!-- End Profile Nav -->
 
             </ul>
         </nav><!-- End Icons Navigation -->
@@ -235,7 +239,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/admin/dashboard">
+        <a class="nav-link collapsed" href="/">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -247,7 +251,7 @@
         </a>
         <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/vendor-management">
+            <a href="/super-admin/vendor-management">
               <i class="bi bi-circle"></i><span>Vendor Management</span>
             </a>
           </li>
@@ -255,12 +259,12 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
+        <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
           <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav2" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/investment-management">
+            <a class="{{ set_active(['/super-admin/investment-management']) }}" href="/super-admin/investment-management">
               <i class="bi bi-circle"></i><span>investment Management</span>
             </a>
           </li>
@@ -268,138 +272,45 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/payment">
+        <a class="nav-link collapsed" href="/super-admin/payment">
           <i class="bi bi-credit-card-2-front-fill"></i>
           <span>Payments</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/document">
+        <a class="nav-link collapsed" href="/super-admin/document">
           <i class="bi bi-files"></i>
           <span>Workflow and Approval</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/report">
+        <a class="nav-link collapsed" href="/super-admin/report">
           <i class="bi bi-file-earmark-bar-graph-fill"></i>
           <span>Reports</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link " href="/pages-contact">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-faq">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
-
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Contact</h1>
+            <h1>Portfolio</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Pages</li>
-                    <li class="breadcrumb-item active">Contact</li>
+                    <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item">Investment</li>
+                    <li class="breadcrumb-item active">Investment Management</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section contact">
-
-            <div class="row gy-4">
-
-                <div class="col-xl-6">
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="info-box card">
-                                <i class="bi bi-geo-alt"></i>
-                                <h3>Address</h3>
-                                <p>A108 Adam Street,<br>New York, NY 535022</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="info-box card">
-                                <i class="bi bi-telephone"></i>
-                                <h3>Call Us</h3>
-                                <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="info-box card">
-                                <i class="bi bi-envelope"></i>
-                                <h3>Email Us</h3>
-                                <p>info@example.com<br>contact@example.com</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="info-box card">
-                                <i class="bi bi-clock"></i>
-                                <h3>Open Hours</h3>
-                                <p>Monday - Friday<br>9:00AM - 05:00PM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-xl-6">
-                    <div class="card p-4">
-                        <form action="forms/contact.php" method="post" class="php-email-form">
-                            <div class="row gy-4">
-
-                                <div class="col-md-6">
-                                    <input type="text" name="name" class="form-control"
-                                        placeholder="Your Name" required>
-                                </div>
-
-                                <div class="col-md-6 ">
-                                    <input type="email" class="form-control" name="email"
-                                        placeholder="Your Email" required>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="subject" placeholder="Subject"
-                                        required>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                                </div>
-
-                                <div class="col-md-12 text-center">
-                                    <div class="loading">Loading</div>
-                                    <div class="error-message"></div>
-                                    <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                                    <button type="submit">Send Message</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-
+        <section class="section">
+            <div style="height: 70vh">
             </div>
-
         </section>
 
     </main><!-- End #main -->

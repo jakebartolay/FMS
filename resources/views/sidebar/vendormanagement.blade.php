@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin | Vendor Management</title>
+    <title>{{ $user->name }} | Vendor Management</title>
     @include('layout.header')
 
 </head>

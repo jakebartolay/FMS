@@ -67,8 +67,8 @@ class Kernel extends HttpKernel
 
         //custom auth middlewares
         'isSuperAdmin' => \App\Http\Middleware\SuperAdminAuthentication::class,
-        'isSubAdmin' => \App\Http\Middleware\SubAdminAuthentication::class,
         'isAdmin' => \App\Http\Middleware\AdminAuthentication::class,
+        'isManager' => \App\Http\Middleware\ManagerAuthentication::class,
         'isUser' => \App\Http\Middleware\UserAuthentication::class,
     ];
 }
