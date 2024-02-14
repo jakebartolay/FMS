@@ -398,10 +398,9 @@
                                 style="border: 1px solid;">
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}
+                                    <option value="{{ $role->id }}">{{ $role->id }} - {{ $role->name }}
                                     </option>
                                 @endforeach
-                                <option value="0">User</option>
                             </select>
                         </div>
                     </div>
