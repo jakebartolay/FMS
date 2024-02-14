@@ -24,15 +24,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/',[AuthController::class,'loadDashboardIndex']);
 
 Route::get('/register',[AuthController::class,'loadRegister']);
 Route::post('/register',[AuthController::class,'register'])->name('register');
 
 Route::get('/login',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
+
 Route::get('/logout',[AuthController::class,'logout']);
 
 
