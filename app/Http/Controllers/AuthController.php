@@ -77,10 +77,10 @@ class AuthController extends Controller
         if(Auth::user() && Auth::user()->role == 1){
             $redirect = '/super-admin/dashboard';
         }
-        else if(Auth::user() && Auth::user()->role == 4){
+        else if(Auth::user() && Auth::user()->role == 3){
             $redirect = '/admin/dashboard';
         }
-        else if(Auth::user() && Auth::user()->role == 3){
+        else if(Auth::user() && Auth::user()->role == 4){
             $redirect = '/manager/dashboard';
         }
         else{

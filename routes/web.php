@@ -36,12 +36,12 @@ Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::get('/logout',[AuthController::class,'logout']);
 
 
-// function set_active($route) {
-//     if(is_array($route)) {
-//         return in_array(Request::path(), $route) ? 'active' : '';
-//     }
-//     return Request::path() == $route ? 'active': '';
-// }
+function set_active($route) {
+    if(is_array($route)) {
+        return in_array(Request::path(), $route) ? 'active' : '';
+    }
+    return Request::path() == $route ? 'active': '';
+}
 
 // ********** User Routes *********
 Route::group(['middleware'=>['web','isUser']],function(){
