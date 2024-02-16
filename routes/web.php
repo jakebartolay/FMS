@@ -75,11 +75,11 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
-    Route::get('/vendor-management',[AdminController::class,'vendormanagement'])->name('adminVendormanagement');
-    Route::get('/investment-management',[AdminController::class,'investment'])->name('adminInvestment');
-    Route::get('/payment',[AdminController::class,'payment'])->name('adminPayment');
-    Route::get('/document',[AdminController::class,'document'])->name('adminDocument');
-    Route::get('/report',[AdminController::class,'report'])->name('adminReport');
+    Route::get('/vendor-selection',[AdminController::class,'VendorSelection'])->name('adminVendorSelection');
+    Route::get('/negatiation-contract',[AdminController::class,'NegatiationContract'])->name('adminNegatiationContract');
+    Route::get('/vendor-approval',[AdminController::class,'VendorApproval'])->name('adminVendorApproval');
+    Route::get('/performance-monitoring',[AdminController::class,'PerformanceMonitoring'])->name('adminPerformanceMonitoring');
+    Route::get('/invoicing-payment',[AdminController::class,'InvoicingPayment'])->name('adminInvoicingPayment');
     Route::get('/pages-contact',[AdminController::class,'contact'])->name('adminContact');
     Route::get('/pages-faq',[AdminController::class,'faq'])->name('adminFaq');
 });

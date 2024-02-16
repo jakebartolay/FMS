@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>{{ $user->name }} | Payment</title>
-    @include('layout.header')
-
-</head>
-
-<body>
-
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         @include('layout.logo')
         <i class="bi bi-list toggle-sidebar-btn"></i>
+
 
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -124,7 +114,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Maria Hudson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -138,7 +128,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Anna Nelson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -152,7 +142,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>David Muldon</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -223,109 +213,3 @@
         </nav><!-- End Icons Navigation -->
 
     </header><!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-
-        <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/admin/vendor-management">
-                            <i class="bi bi-circle"></i><span>Vendor Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/admin/investment-management">
-                            <i class="bi bi-circle"></i><span>investment Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/payment">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Payments</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/document">
-                    <i class="bi bi-files"></i>
-                    <span>Workflow and Approval</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/report">
-                    <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                    <span>Reports</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-heading">Pages</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
-
-        </ul>
-
-    </aside><!-- End Sidebar-->
-
-    <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>Payment</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item">Payment</li>
-                    <li class="breadcrumb-item active">Payments</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
-        <section class="section">
-            <div style="height: 70vh">
-            </div>
-        </section>
-
-    </main><!-- End #main -->
-
-    @include('layout.footer')
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-    @include('layout.javascript')
-
-</body>
-
-</html>

@@ -23,9 +23,7 @@ class SuperAdminController extends Controller
         $users = User::where('role','!=',1)->get();
         $roles = Role::all();
 
-        $users = User::with('roles')
-        ->where('role','!=',1)
-        ->get();
+        $users = User::with('roles')->where('role','!=',1)->get();
 
         return view('super-admin.user_profile', compact('users','roles', 'user'));
     }

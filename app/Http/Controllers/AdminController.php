@@ -20,38 +20,38 @@ class AdminController extends Controller
         return view('admin.user_profile', compact('user'));
     }
 
-    public function vendormanagement()
+    public function vendorselection()
     {
         $data = vendorInfo::all();
         $user = auth()->user();
 
-        return view('admin.sidebar.vendormanagement', compact(['user','data']));
+        return view('admin.sidebar.vendorselection', compact(['user','data']));
         
     }
 
-    public function investment()
+    public function NegatiationContract()
     {
         $user = auth()->user();
-        return view('admin.sidebar.investmentmanagement', compact('user'));
+        return view('admin.sidebar.negatiationcontract', compact('user'));
     }
 
-    public function payment()
+    public function VendorApproval()
     {
         $user = auth()->user();
-        return view('admin.sidebar.payment', compact('user'));
+        return view('admin.sidebar.vendorapproval', compact('user'));
     }
 
 
-    public function document()
+    public function PerformanceMonitoring()
     {
         $user = auth()->user();
-        return view('admin.sidebar.document', compact('user'));
+        return view('admin.sidebar.performancemonitoring', compact('user'));
     }
 
-    public function report()
+    public function InvoicingPayment()
     {
         $user = auth()->user();
-        return view('admin.sidebar.report', compact('user'));
+        return view('admin.sidebar.invoicingpayment', compact('user'));
     }
 
     public function contact()

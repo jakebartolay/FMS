@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Admin | Profile</title>
+    <title>{{ $user->name }} | Dashboard</title>
     @include('super-admin.layout.header')
 
 </head>
