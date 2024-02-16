@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ $user->name }} | Investment Management</title>
+    <title>{{ $user->name }} | Report</title>
     @include('layout.header')
 
 </head>
@@ -176,12 +176,12 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                       <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                      <span class="d-none d-md-block dropdown-toggle ps-2">Super Admin</span>
+                      <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user -> name }}</span>
                     </a><!-- End Profile Iamge Icon -->
           
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                       <li class="dropdown-header">
-                        <h6>Super Admin</h6>
+                        <h6>{{ $user-> name }}</h6>
                         <span>Administration</span>
                       </li>
                       <li>
@@ -189,143 +189,224 @@
                       </li>
           
                       <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/users-profile">
+                        <a class="dropdown-item d-flex align-items-center" href="/super-admin/users">
                           <i class="bi bi-person"></i>
-                          <span>My Profile</span>
+                          <span>Manage Role</span>
                         </a>
                       </li>
                       <li>
                         <hr class="dropdown-divider">
                       </li>
           
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                      {{-- <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/super-admin/users-profile">
                           <i class="bi bi-gear"></i>
                           <span>Account Settings</span>
                         </a>
-                      </li>
-                      <li>
+                      </li> --}}
+                      {{-- <li>
                         <hr class="dropdown-divider">
-                      </li>
+                      </li> --}}
           
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                      {{-- <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/pages-faq">
                           <i class="bi bi-question-circle"></i>
                           <span>Need Help?</span>
                         </a>
-                      </li>
-                      <li>
+                      </li> --}}
+                      {{-- <li>
                         <hr class="dropdown-divider">
-                      </li>
+                      </li> --}}
           
                       <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/login">
+                        <a class="dropdown-item d-flex align-items-center" href="/logout">
                           <i class="bi bi-box-arrow-right"></i>
                           <span>Sign Out</span>
                         </a>
                       </li>
           
                     </ul><!-- End Profile Dropdown Items -->
-                  </li><!-- End Profile Nav -->
+                </li><!-- End Profile Nav -->
 
             </ul>
         </nav><!-- End Icons Navigation -->
 
     </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+        <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/admin/dashboard">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/dashboard">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/vendor-management">
-              <i class="bi bi-circle"></i><span>Vendor Management</span>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/super-admin/vendor-management">
+                            <i class="bi bi-circle"></i><span>Vendor Management</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/super-admin/investment-management">
+                            <i class="bi bi-circle"></i><span>investment Management</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/super-admin/payment">
+                    <i class="bi bi-credit-card-2-front-fill"></i>
+                    <span>Payments</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/super-admin/document">
+                    <i class="bi bi-files"></i>
+                    <span>Workflow and Approval</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="/super-admin/report">
+                    <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                    <span>Reports</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
         </ul>
-      </li><!-- End Components Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav2" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-          <li>
-            <a class="{{ set_active(['investment-management']) }}" href="/investment-management">
-              <i class="bi bi-circle"></i><span>investment Management</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+    </aside><!-- End Sidebar-->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/payment">
-          <i class="bi bi-credit-card-2-front-fill"></i>
-          <span>Payments</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/document">
-          <i class="bi bi-files"></i>
-          <span>Workflow and Approval</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/report">
-          <i class="bi bi-file-earmark-bar-graph-fill"></i>
-          <span>Reports</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-contact">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/pages-faq">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Portfolio</h1>
+            <h1>Report</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item">Investment</li>
-                    <li class="breadcrumb-item active">Investment Management</li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item">Report</li>
+                    <li class="breadcrumb-item active">Reports</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section">
-            <div style="height: 70vh">
+        <section class="section dashboard">
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <div class="text-start">
+                        <h1>Current Reports</h1>
+                    </div>
+                    <div class="text-end">
+                        <a href="/" class="btn btn-primary my-3"><i class="bi bi-cloud-download-fill"></i>
+                            Download Reports</a>
+                    </div>
+                </div>
+                <!-- Reports -->
+                <div class="card">
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Reports <span>/Today</span></h5>
+
+                        <!-- Line Chart -->
+                        <div id="reportsChart"></div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                new ApexCharts(document.querySelector("#reportsChart"), {
+                                    series: [{
+                                        name: 'Sales',
+                                        data: [31, 40, 28, 51, 42, 82, 56],
+                                    }, {
+                                        name: 'Revenue',
+                                        data: [11, 32, 45, 32, 34, 52, 41]
+                                    }, {
+                                        name: 'Customers',
+                                        data: [15, 11, 32, 18, 9, 24, 11]
+                                    }],
+                                    chart: {
+                                        height: 350,
+                                        type: 'area',
+                                        toolbar: {
+                                            show: false
+                                        },
+                                    },
+                                    markers: {
+                                        size: 4
+                                    },
+                                    colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                    fill: {
+                                        type: "gradient",
+                                        gradient: {
+                                            shadeIntensity: 1,
+                                            opacityFrom: 0.3,
+                                            opacityTo: 0.4,
+                                            stops: [0, 90, 100]
+                                        }
+                                    },
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    stroke: {
+                                        curve: 'smooth',
+                                        width: 2
+                                    },
+                                    xaxis: {
+                                        type: 'datetime',
+                                        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
+                                            "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
+                                            "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
+                                            "2018-09-19T06:30:00.000Z"
+                                        ]
+                                    },
+                                    tooltip: {
+                                        x: {
+                                            format: 'dd/MM/yy HH:mm'
+                                        },
+                                    }
+                                }).render();
+                            });
+                        </script>
+                        <!-- End Line Chart -->
+
+                    </div>
+
+                </div>
+                <!-- End Reports -->
             </div>
         </section>
 

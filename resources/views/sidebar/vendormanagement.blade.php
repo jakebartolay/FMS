@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin | Vendor Management</title>
+    <title>{{ $user->name }} | Vendor Management</title>
     @include('layout.header')
 
 </head>
@@ -328,28 +328,46 @@
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section">
+        <section class="section dashboard">
             <div class="row">
                 <div class="container py-5" style="height: 70vh">
-                    <h4>List of Vendor Information</h4>
-                    <table id="example" class="table table-bordered table-striped nowrap">
-                        <thead>
-                            <tr>
-                                <th>Vendor Id</th>
-                                <th>Vendor Name</th>
-                                <th>Company Name</th>
-                                <th>Address</th>
-                                <th>Contact</th>
-                                <th>Category</th>
-                                <th>Cost</th>
-                                <th>Spend</th>
-                                <th>Starting Date</th>
-                                <th>End Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data as $row)
+
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="filter">
+                          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                            </li>
+        
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                          </ul>
+                        </div>
+        
+                        <div class="card-body">
+                          <h5 class="card-title">List of Vendor Information <span>| Today</span></h5>
+        
+                          <table class="table table-borderless datatable">
+                            <thead class="table-dark">
+                              <tr>
+                                <th scope="col">Vendor ID</th>
+                                <th scope="col">Vendor Name</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Cost</th>
+                                <th scope="col">Spend</th>
+                                <th scope="col">Starting Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $row)
                                 <tr>
                                     <td>{{ $row->vendor_id }}</td>
                                     <td>{{ $row->vendor_name }}</td>
@@ -362,10 +380,14 @@
                                     <td>{{ $row->starting_date }}</td>
                                     <td>{{ $row->end_date }}</td>
                                     <td>{{ $row->status }}</td>
+                                    {{-- <td><span class="badge bg-warning">{{ $row->status }}</span></td>
+                                    <td><span class="badge bg-success">{{ $row->status }}</span></td> --}}
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                 </div>
             </div>
         </section>

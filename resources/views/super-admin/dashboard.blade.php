@@ -189,25 +189,34 @@
                       </li>
           
                       <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/admin/users-profile">
+                        <a class="dropdown-item d-flex align-items-center" href="/super-admin/users">
+                          <i class="bi bi-person"></i>
+                          <span>Manage Role</span>
+                        </a>
+                      </li>
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+          
+                      {{-- <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/super-admin/users-profile">
                           <i class="bi bi-gear"></i>
                           <span>Account Settings</span>
                         </a>
-                      </li>
-          
-                      <li>
+                      </li> --}}
+                      {{-- <li>
                         <hr class="dropdown-divider">
-                      </li>
+                      </li> --}}
           
-                      <li>
-                        <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                      {{-- <li>
+                        <a class="dropdown-item d-flex align-items-center" href="/pages-faq">
                           <i class="bi bi-question-circle"></i>
                           <span>Need Help?</span>
                         </a>
-                      </li>
-                      <li>
+                      </li> --}}
+                      {{-- <li>
                         <hr class="dropdown-divider">
-                      </li>
+                      </li> --}}
           
                       <li>
                         <a class="dropdown-item d-flex align-items-center" href="/logout">
@@ -244,7 +253,7 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/vendor-management">
+                        <a href="/super-admin/vendor-management">
                             <i class="bi bi-circle"></i><span>Vendor Management</span>
                         </a>
                     </li>
@@ -258,7 +267,7 @@
                 </a>
                 <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/investment-management">
+                        <a href="/super-admin/investment-management">
                             <i class="bi bi-circle"></i><span>investment Management</span>
                         </a>
                     </li>
@@ -266,34 +275,25 @@
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/payment">
+                <a class="nav-link collapsed" href="/super-admin/payment">
                     <i class="bi bi-credit-card-2-front-fill"></i>
                     <span>Payments</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/document">
+                <a class="nav-link collapsed" href="/super-admin/document">
                     <i class="bi bi-files"></i>
                     <span>Workflow and Approval</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/report">
+                <a class="nav-link collapsed" href="/super-admin/report">
                     <i class="bi bi-file-earmark-bar-graph-fill"></i>
                     <span>Reports</span>
                 </a>
             </li><!-- End Dashboard Nav -->
-
-            <li class="nav-heading">Pages</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
 
         </ul>
 

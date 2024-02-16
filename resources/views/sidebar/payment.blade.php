@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin | Payment</title>
+    <title>{{ $user->name }} | Payment</title>
     @include('layout.header')
 
 </head>
