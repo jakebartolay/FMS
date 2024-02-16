@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    public function loadDashboardIndex()
+    {
+        if(Auth::user()){
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        return view('index');
+    }
     
     public function loadRegister()
     {

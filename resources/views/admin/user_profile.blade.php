@@ -230,7 +230,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/">
+        <a class="nav-link collapsed" href="/admin/dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>

@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Admin | Profile</title>
+    <title>{{ $user->name }} | Dashboard</title>
     @include('super-admin.layout.header')
 
 </head>
@@ -241,7 +241,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/">
+                <a class="nav-link collapsed" href="/super-admin/dashboard">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>

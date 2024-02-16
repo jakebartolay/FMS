@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>Admin | Profile</title>
+  <title>{{ $user->name }} | Dashboard</title>
   @include('layout.header')
 
 </head>
@@ -239,7 +239,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/">
+        <a class="nav-link collapsed" href="/super-admin/dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -349,7 +349,7 @@
                                       User
                                   @else
               
-                                  {{ $user->roles->name }}
+                                  {{ $user->roles->role_name }}
               
                                   @endif
                               </td>
@@ -398,7 +398,7 @@
                                 style="border: 1px solid;">
                                 <option value="">Select Role</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->id }} - {{ $role->name }}
+                                    <option value="{{ $role->id }}">{{ $role->role }} - {{ $role->role_name }}
                                     </option>
                                 @endforeach
                             </select>
