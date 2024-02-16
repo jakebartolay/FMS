@@ -26,7 +26,7 @@
                                 <div class="card-body">
 
                                     <div class="pt-4 pb-2">
-                                        <a href="/" class=""><i class="bi bi-arrow-left"></i>HOME</a>
+                                        <a href="/" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> HOME</a>
                                         <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                                     </div>
                                     @if($errors->any())
