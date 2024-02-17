@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\vendorInfo;
 use App\Models\vendorUser;
-use DB;
 
 
 class AdminController extends Controller
@@ -60,17 +59,17 @@ class AdminController extends Controller
     {
         $dataCount = vendorInfo::count('*');
         $revenue = vendorInfo::sum('spend');
-        $totalSpend = vendorInfo::sum('spend');
-        $userSpend = vendorInfo::select('vendor_id', DB::raw('SUM(spend) as total_spend'))
-            ->groupBy('vendor_id')
-            ->get();
-        $userSpendArray = $userSpend->pluck('total_spend', 'vendor_id')->toArray();
+        // Query to get the total spend for each user
 
+        // Now, $userSpend contains the total spend for each user
+
+        // Convert $userSpend to an associative array where the keys are the user IDs and the values are the total spends
+        $userSpendArray = $userSpend->pluck('total_spend', 'user_id')->toArray();
         
         $reports = vendorInfo::selectRaw('YEAR(starting_date) as year, MONTH(starting_date) as month, COUNT(*) as customer_count, SUM(spend) as total_spend')
             ->groupBy('year', 'month')
             ->get();
-
+        
         $totalSpendData = [['year_month' => 'Total Spend', 'spend' => $totalSpend]];
         
         $user = auth()->user();

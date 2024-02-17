@@ -244,7 +244,7 @@
                                         new ApexCharts(document.querySelector("#reportsChart"), {
                                             series: [
                                                 {
-                                                    name: 'User Spend',
+                                                    name: 'Customer',
                                                     data: {!! json_encode(array_values($userSpendArray)) !!},
                                                 },
                                                 {
