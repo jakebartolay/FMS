@@ -43,8 +43,13 @@ class AdminController extends Controller
 
     public function VendorApproval()
     {
+        $dataCount = vendorInfo::count('*');
+        $negotiable = vendorInfo::where('status', 'Negotiable')->count();
+        $nonnegotiable = vendorInfo::where('status', 'Non-Negotiable')->count();
+
+        $data = vendorInfo::all();
         $user = auth()->user();
-        return view('admin.sidebar.vendorapproval', compact('user'));
+        return view('admin.sidebar.vendorapproval', compact('user','data','dataCount', 'negotiable', 'nonnegotiable'));
     }
 
 

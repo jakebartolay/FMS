@@ -128,7 +128,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Sales <span>| Today</span></h5>
+                                    <h5 class="card-title">Approve <span>| Today</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -166,7 +166,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                                    <h5 class="card-title">Decline <span>| This Month</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -205,7 +205,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Customers <span>| This Year</span></h5>
+                                    <h5 class="card-title">Failed <span>| This Year</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
