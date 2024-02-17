@@ -821,18 +821,28 @@ h6 {
 }
 
 .dashboard .sales-card .card-icon {
-  color: #4154f1;
-  background: #f6f6fe;
+  color: #ffffff;
+  background: #0d6efd;
 }
 
 .dashboard .revenue-card .card-icon {
-  color: #2eca6a;
-  background: #e0f8e9;
+  color: #ffffff;
+  background: #198754;
 }
 
 .dashboard .customers-card .card-icon {
-  color: #ff771d;
-  background: #ffecdf;
+  color: #ffffff;
+  background: #ff771d;
+}
+
+.dashboard .decline-card .card-icon {
+  color: #ffffff;
+  background: #dc3545;
+}
+
+.dashboard .warning-card .card-icon {
+  color: #ffffff;
+  background: #ffc107;
 }
 
 /* Activity */

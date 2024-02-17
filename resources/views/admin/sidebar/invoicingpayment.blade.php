@@ -37,16 +37,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/vendor-selection">
-                            <i class="bi bi-circle"></i><span>Vendor Selection</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/vendor-approval">
-                            <i class="bi bi-circle"></i><span>Vendor Approval</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/negatiation-contract">
                             <i class="bi bi-circle"></i><span>Negatiation of Contract</span>
                         </a>
