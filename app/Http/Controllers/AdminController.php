@@ -42,9 +42,6 @@ class AdminController extends Controller
         $approve = vendorInfo::where('status', 'Approve')->count();
         $decline = vendorInfo::where('status', 'Decline')->count();
         $waiting = vendorInfo::where('status', 'Waiting')->count();
-        $approveCount = vendorInfo::where('status', 'Approve')->count();
-        $declineCount = vendorInfo::where('status', 'Decline')->count();
-        $waitingCount = vendorInfo::where('status', 'Waiting')->count();
         
         $reports = vendorInfo::selectRaw('YEAR(starting_date) as year, MONTH(starting_date) as month, 
         COUNT(DISTINCT CASE WHEN status = "Approve" THEN vendor_id END) as total_approve,
@@ -57,7 +54,7 @@ class AdminController extends Controller
         $user = auth()->user();
         $data = vendorInfo::all();
         
-        return view('admin.sidebar.performancemonitoring', compact('user', 'reports', 'data', 'dataCount', 'approve', 'decline', 'waiting', 'approveCount', 'declineCount', 'waitingCount'));             
+        return view('admin.sidebar.performancemonitoring', compact('user', 'reports', 'data', 'dataCount', 'approve', 'decline', 'waiting'));             
     }
 
     public function InvoicingPayment()
