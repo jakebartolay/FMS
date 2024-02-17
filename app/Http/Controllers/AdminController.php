@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\vendorInfo;
+use App\Models\vendorUser;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminController extends Controller
 
     public function vendorselection()
     {
-        $data = vendorInfo::all();
+        $data = vendorUser::all();
         $user = auth()->user();
 
         return view('admin.sidebar.vendorselection', compact(['user','data']));
@@ -31,8 +32,13 @@ class AdminController extends Controller
 
     public function NegatiationContract()
     {
+        $dataCount = vendorInfo::count('*');
+        $negotiable = vendorInfo::where('status', 'Negotiable')->count();
+        $nonnegotiable = vendorInfo::where('status', 'Non-Negotiable')->count();
+
+        $data = vendorInfo::all();
         $user = auth()->user();
-        return view('admin.sidebar.negatiationcontract', compact('user'));
+        return view('admin.sidebar.negatiationcontract', compact('user', 'data', 'dataCount', 'negotiable', 'nonnegotiable'));
     }
 
     public function VendorApproval()

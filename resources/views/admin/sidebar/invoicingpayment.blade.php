@@ -32,13 +32,13 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/vendor-selection">
-                            <i class="bi bi-circle"></i><span>Vendor Selection</span>
+                        <a href="/admin/performance-monitoring">
+                            <i class="bi bi-circle"></i><span>Performance & Monitoring</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/negatiation-contract">
-                            <i class="bi bi-circle"></i><span>Negatiation of Contract</span>
+                        <a href="/admin/vendor-selection">
+                            <i class="bi bi-circle"></i><span>Vendor Selection</span>
                         </a>
                     </li>
                     <li>
@@ -47,8 +47,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/performance-monitoring">
-                            <i class="bi bi-circle"></i><span>Performance & Monitoring</span>
+                        <a href="/admin/negatiation-contract">
+                            <i class="bi bi-circle"></i><span>Negatiation of Contract</span>
                         </a>
                     </li>
                     <li>
