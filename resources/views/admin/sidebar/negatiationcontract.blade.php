@@ -37,16 +37,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/vendor-selection">
-                            <i class="bi bi-circle"></i><span>Vendor Selection</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/vendor-approval">
-                            <i class="bi bi-circle"></i><span>Vendor Approval</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/negatiation-contract" class="active">
                             <i class="bi bi-circle"></i><span>Negatiation of Contract</span>
                         </a>
@@ -108,47 +98,41 @@
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
-
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
+                        
+                        <!-- Account Card -->
+                        <div class="col-xxl-3 col-md-3 col-6">
                             <div class="card info-card sales-card">
+                                        <div class="filter">
+                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                    class="bi bi-three-dots"></i></a>
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                <li class="dropdown-header text-start">
+                                                    <h6>Filter</h6>
+                                                </li>
 
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Vendor Account <span>| Today</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people-fill"></i>
+                                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                                            </ul>
                                         </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $dataCount }}</h6>
-                                            <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">increase</span> -->
+                                        <div class="card-body">
+                                            <h5 class="card-title">Account <span>| Today</span></h5>
+                                            <div class="d-flex align-items-center">
+                                                <div
+                                                    class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                    <i class="bi bi-people"></i>
+                                                </div>
+                                                <div class="ps-3">
+                                                    <h6>{{ $dataCount}}</h6>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
                             </div>
-                        </div><!-- End Sales Card -->
+                        </div><!-- End Account Card -->
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
+                        <!-- Approve Card -->
+                        <div class="col-xxl-3 col-md-3 col-6">
+                            <div class="card info-card revenue-card">
 
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -165,7 +149,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Negotiable <span>| Today</span></h5>
+                                    <h5 class="card-title">Approve <span>| Today</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -173,19 +157,17 @@
                                             <i class="bi bi-person-fill-check"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $negotiable }} </h6>
-                                            <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">increase</span> -->
+                                            <h6>{{ $approve }} </h6>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Sales Card -->
+                        </div><!-- End Approve Card -->
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
+                        <!-- Decline Card -->
+                        <div class="col-xxl-3 col-md-3 col-6">
+                            <div class="card info-card decline-card">
 
                                 <div class="filter">
                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
@@ -202,7 +184,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Non-negotiable <span>| Today</span></h5>
+                                    <h5 class="card-title">Decline <span>| Today</span></h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -210,15 +192,47 @@
                                             <i class="bi bi-person-fill-dash"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $nonnegotiable }} </h6>
-                                            <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">increase</span> -->
+                                            <h6>{{ $decline }}</h6>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Sales Card -->
+                        </div><!-- End Decline Card -->
+
+                        <!-- Waiting Card -->
+                        <div class="col-xxl-3 col-md-3 col-6">
+                            <div class="card info-card warning-card">
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Waiting <span>| Today</span></h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-fill-gear"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $waiting }} </h6>
+                                            <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Waiting Card -->
 
                         <!-- Recent Sales -->
                         <div class="col-12">
@@ -259,9 +273,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($data as $row)
+                                        @foreach ($data as $row)
                                             <tr>
-                                                <td>{{ $row->vendor_id }}</td> 
+                                                <th scope="row">{{ $row->vendor_id }}</th> 
                                                 <td>{{ $row->firstname }}</td>
                                                 <td>{{ $row->lastname }}</td>
                                                 <td>{{ $row->company_name }}</td>
@@ -270,12 +284,21 @@
                                                 <td>{{ $row->category }}</td>
                                                 <td>{{ $row->cost }}</td>
                                                 <td>{{ $row->spend }}</td>
-                                                <td>{{ $row->starting_date }}</td>
-                                                <td>{{ $row->end_date }}</td>
-                                                <td><span class="badge bg-secondary">{{ $row->status }}</span></td>
+                                                <td>{{ \Carbon\Carbon::parse($row->starting_date)->toDateString() }}</td> <!-- Convert to Carbon instance -->
+                                                <td>{{ \Carbon\Carbon::parse($row->end_date)->toDateString() }}</td> <!-- Convert to Carbon instance -->
+                                                <td>@if($row->status == 'Approve')
+                                                        <span class="badge bg-success">{{ $row->status }}</span>
+                                                    @elseif($row->status == 'Decline')
+                                                        <span class="badge bg-danger">{{ $row->status }}</span>
+                                                    @elseif($row->status == 'Waiting')
+                                                        <span class="badge bg-warning">{{ $row->status }}</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ $row->status }}</span>
+                                                @endif
+                                                </td>
                                             </tr>
-                                            @endforeach
-                                            {{-- <td><span class="badge bg-secondary">Pending</span></td> --}}
+                                        @endforeach
+                                        {{-- <td><span class="badge bg-secondary">Pending</span></td> --}}
                                         </tbody>
                                     </table>
 

@@ -32,23 +32,13 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/vendor-selection">
-                            <i class="bi bi-circle"></i><span>Vendor Selection</span>
+                        <a href="/admin/performance-monitoring">
+                            <i class="bi bi-circle"></i><span>Performance & Monitoring</span>
                         </a>
                     </li>
                     <li>
                         <a href="/admin/negatiation-contract">
                             <i class="bi bi-circle"></i><span>Negatiation of Contract</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/vendor-approval">
-                            <i class="bi bi-circle"></i><span>Vendor Approval</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/performance-monitoring">
-                            <i class="bi bi-circle"></i><span>Performance & Monitoring</span>
                         </a>
                     </li>
                     <li>
@@ -254,7 +244,7 @@
                                             new ApexCharts(document.querySelector("#reportsChart"), {
                                                 series: [{
                                                     name: 'Sales',
-                                                    data: [31, 40, 28, 51, 42, 82, 56],
+                                                    data: [0, 5, 2, 5, 42, 82, 56],
                                                 }, {
                                                     name: 'Revenue',
                                                     data: [11, 32, 45, 32, 34, 52, 41]
