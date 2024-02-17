@@ -51,7 +51,7 @@ class AdminController extends Controller
         COUNT(DISTINCT CASE WHEN status = "Decline" THEN vendor_id END) as total_decline,
         COUNT(DISTINCT CASE WHEN status = "Waiting" THEN vendor_id END) as total_waiting,
         COUNT(DISTINCT vendor_id) as customer_count')
-            ->groupBy('year', 'month')
+            ->groupBy('month', 'year')
             ->get();
         
         $user = auth()->user();
