@@ -37,11 +37,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/vendor-selection">
-                            <i class="bi bi-circle"></i><span>Vendor Selection</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/vendor-approval" class="active">
                             <i class="bi bi-circle"></i><span>Vendor Approval</span>
                         </a>
@@ -297,15 +292,15 @@
                                                 <td>{{ \Carbon\Carbon::parse($row->starting_date)->toDateString() }}</td> <!-- Convert to Carbon instance -->
                                                 <td>{{ \Carbon\Carbon::parse($row->end_date)->toDateString() }}</td> <!-- Convert to Carbon instance -->
                                                 <td>
-                                                    @if($row->status == 'Approve')
-                                                        <span class="badge bg-success p-2">{{ $row->status }}</span>
-                                                    @elseif($row->status == 'Decline')
-                                                        <span class="badge bg-danger p-2">{{ $row->status }}</span>
-                                                    @elseif($row->status == 'Waiting')
-                                                        <span class="badge bg-warning p-2">{{ $row->status }}</span>
-                                                    @else
-                                                        <span class="badge bg-secondary p-2">{{ $row->status }}</span>
-                                                    @endif
+                                                @if($row->status == 'Approve')
+                                                    <span class="badge bg-success">{{ $row->status }}</span>
+                                                @elseif($row->status == 'Decline')
+                                                    <span class="badge bg-danger">{{ $row->status }}</span>
+                                                @elseif($row->status == 'Waiting')
+                                                    <span class="badge bg-warning">{{ $row->status }}</span>
+                                                @else
+                                                    <span class="badge bg-secondary">{{ $row->status }}</span>
+                                                @endif
                                                 </td>
                                             </tr>
                                         @endforeach
