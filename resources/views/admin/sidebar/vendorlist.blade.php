@@ -77,91 +77,69 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Performance & Monitoring</li>
+                    <li class="breadcrumb-item active">Vendor List</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <div class="row">
-
-                <!-- Left side columns -->
-                <div class="col-lg-12">
-                    <div class="row">
-
-                        <!-- List Vendor Sales -->
-                        <div class="col-xxl-12 col-12">
-                            <div class="card recent-sales overflow-auto">
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">List Vendor <span>| Today</span></h5>
-                                    <table class="table table-borderless datatable">
-                                        <thead>
+            <div class="container-fluid">
+                <div class="row">
+                    {{-- <!-- List Vendor Sales --> --}}
+                    <div class="col-xxl-12 col-12">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <h5 class="card-title">Vendor List</h5>
+                                <table id="example" class="table table-bordered" style="width: 100%">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th >Vendor</th>
+                                            <th>Person</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Address</th>
+                                            <th>Category</th>
+                                            <th>Contract Start</th>
+                                            <th>Contract End</th>
+                                            <th>Payment Term</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data as $row)
                                             <tr>
-                                                <th scope="col">Vendor ID</th>
-                                                <th scope="col">Firstname</th>
-                                                <th scope="col">Lastname</th>
-                                                <th scope="col">Company Name</th>
-                                                <th scope="col">Company Address</th>
-                                                <th scope="col">Company Contact</th>
-                                                <th scope="col">Category</th>
-                                                <th scope="col">Cost</th>
-                                                <th scope="col">Spend</th>
-                                                <th scope="col">Starting Date</th>
-                                                <th scope="col">End Date</th>
-                                                <th scope="col">Status</th>
+                                                <td>{{ $row->vendor_id }}</td>
+                                                <td>{{ $row->vendor_name }}</td>
+                                                <td>{{ $row->contact_person }}</td>
+                                                <td>{{ $row->phone_number }}</td>
+                                                <td>{{ $row->email }}</td>
+                                                <td>{{ $row->address }}</td>
+                                                <td>{{ $row->category }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($row->contract_start)->format('F d, Y') }}
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($row->contract_end)->format('F d, Y') }}
+                                                </td>
+                                                <td>{{ $row->payment_terms }}</td>
+                                                <td>
+                                                    @if ($row->status == 'Approve')
+                                                        <span class="badge bg-success">{{ $row->status }}</span>
+                                                    @elseif($row->status == 'Decline')
+                                                        <span class="badge bg-danger">{{ $row->status }}</span>
+                                                    @elseif($row->status == 'Waiting')
+                                                        <span class="badge bg-warning">{{ $row->status }}</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ $row->status }}</span>
+                                                    @endif
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($data as $row)
-                                                <tr>
-                                                    <th scope="row">{{ $row->vendor_id }}</th>
-                                                    <td>{{ $row->firstname }}</td>
-                                                    <td>{{ $row->lastname }}</td>
-                                                    <td>{{ $row->company_name }}</td>
-                                                    <td>{{ $row->address }}</td>
-                                                    <td>{{ $row->contact }}</td>
-                                                    <td>{{ $row->category }}</td>
-                                                    <td>{{ number_format($row->cost, 2) }}</td>
-                                                    <td>{{ number_format($row->spend, 2) }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($row->starting_date)->toDateString() }}
-                                                    </td> <!-- Convert to Carbon instance -->
-                                                    <td>{{ \Carbon\Carbon::parse($row->end_date)->toDateString() }}
-                                                    </td> <!-- Convert to Carbon instance -->
-                                                    <td>
-                                                        @if ($row->status == 'Approve')
-                                                            <span class="badge bg-success">{{ $row->status }}</span>
-                                                        @elseif($row->status == 'Decline')
-                                                            <span class="badge bg-danger">{{ $row->status }}</span>
-                                                        @elseif($row->status == 'Waiting')
-                                                            <span class="badge bg-warning">{{ $row->status }}</span>
-                                                        @else
-                                                            <span
-                                                                class="badge bg-secondary">{{ $row->status }}</span>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                        </div><!-- End List Vendor Sales -->
+                        </div>
+                    </div><!-- End List Vendor Sales --> 
                 </div>
-            </div><!-- End Left side columns -->
             </div>
         </section>
 
