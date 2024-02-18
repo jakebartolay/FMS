@@ -32,28 +32,18 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/vendorlist">
-                            <i class="bi bi-circle"></i><span>Vendor List</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/addvendor">
                             <i class="bi bi-circle"></i><span>Add Vendor</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/vendorUpdateUser">
+                        <a href="/admin/vendorlist">
+                            <i class="bi bi-circle"></i><span>Vendor List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/updateuser">
                             <i class="bi bi-circle"></i><span>Update User</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/addProduct">
-                            <i class="bi bi-circle"></i><span>Add Product</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/updateProduct">
-                            <i class="bi bi-circle"></i><span>Update Product</span>
                         </a>
                     </li>
                 </ul>

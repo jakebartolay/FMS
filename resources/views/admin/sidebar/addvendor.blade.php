@@ -31,28 +31,18 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/vendorlist">
-                            <i class="bi bi-circle"></i><span>Vendor List</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/addvendor" class="active">
                             <i class="bi bi-circle"></i><span>Add Vendor</span>
                         </a>
                     </li>
                     <li>
+                        <a href="/admin/vendorlist">
+                            <i class="bi bi-circle"></i><span>Vendor List</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/vendorUpdateUser">
                             <i class="bi bi-circle"></i><span>Update User</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/addProduct">
-                            <i class="bi bi-circle"></i><span>Add Product</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/updateProduct">
-                            <i class="bi bi-circle"></i><span>Update Product</span>
                         </a>
                     </li>
                 </ul>
@@ -105,70 +95,136 @@
         <section class="section dashboard">
             <div class="row justify-content-center">
                 <!-- Left side columns -->
-                    <div class="col-xxl-6 col-12">
-                        <!-- Add Vendor -->
-                        <div class="container">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Add Vendor</h5>
-                                    <!-- Multi Columns Form -->
-                                    <form class="row g-3 justify-content-center">
-                                            <div class="col-md-6 col-6">
-                                                <label for="firstname" class="form-label">Firstname</label>
-                                                <input type="text" class="form-control" id="firstname" placeholder="ex.Juan">
+                <div class="col-xxl-12 col-12">
+                    <!-- Add Vendor -->
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Add Vendor</h5>
+                                <hr>
+                                <!-- Horizontal Form -->
+                                <form>
+                                    <div class="row">
+                                    <div class="col-xxl-6 col-6">
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Name *</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputText">
                                             </div>
-                                            <div class="col-md-6 col-6">
-                                                <label for="lastname" class="form-label">Lastname</label>
-                                                <input type="text" class="form-control" id="lastname" placeholder="ex.Dela Cruz">
-                                            </div>
-                                            <div class="break"></div>
-                                            <div class="col-md-6 col-6">
-                                                <label for="lastname" class="form-label">Username</label>
-                                                <input type="text" class="form-control" id="lastname" placeholder="ex.JuanDelaCruz">
-                                            </div>
-                                            <div class="col-md-6 col-6">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" placeholder="**********">
-                                            </div>
-                                            <div class="break"></div>
-                                            <div class="col-md-6 col-6">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
-                                            </div>
-                                            <div class="col-md-6 col-6">
-                                                <label for="phone" class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="phone" placeholder="Phone">
-                                            </div>
-                                            <div class="break"></div>
-                                            <div class="col-md-2 text-center">
-                                                <label for="inputState" class="form-label">Role</label>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputState" class="col-sm-6 col-form-label fw-semibold">Type *</label>
+                                            <div class="col-sm-5">
                                                 <select id="inputState" class="form-select">
-                                                    <option selected>User</option>
-                                                    <option>Admin</option>
-                                                    <option>Manager</option>
+                                                    <option selected>-Select-</option>
+                                                    <option>...</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2 text-center">
-                                                <label for="status" class="form-label">Status</label>
-                                                <select id="status" class="form-select">
-                                                    <option selected>Active</option>
-                                                    <option>Not Active</option>
-                                                    <option>?????</option>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputState" class="col-sm-6 col-form-label fw-semibold">Status *</label>
+                                            <div class="col-sm-5">
+                                                <select id="inputState" class="form-select">
+                                                    <option value="">-Select-</option>
+                                                    <option value="pipeline">Pipeline</option>
+                                                    <option value="live">Live</option>
+                                                    <option value="archived">Archived</option>
                                                 </select>
                                             </div>
-                                            <div class="break"></div>
-                                            <div class="break"></div>
-                                            <div class="text-center">
-                                                <button type="submit" class="btn btn-primary">Create Vendor</button>
-                                                <button type="reset" class="btn btn-warning">Reset</button>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Country of Registration</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputText">
                                             </div>
-                                    </form><!-- End Multi Columns Form -->
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Company Registration</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputText">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Stock Symbol</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputText">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Company Website</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputText">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputState" class="col-sm-6 col-form-label fw-semibold">Deals with</label>
+                                            <div class="col-sm-5">
+                                                <select id="inputState" class="form-select">
+                                                    <option selected>-Select-</option>
+                                                    <option>...</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-xxl-6 col-6">
+                                        <div class="row mb-3">
+                                            <label for="inputState" class="col-sm-6 col-form-label fw-semibold">Internal Representative *</label>
+                                            <div class="col-sm-5">
+                                                <select id="inputState" class="form-select">
+                                                    <option value="">-Select-</option>
+                                                    <option value="pipeline">Pipeline</option>
+                                                    <option value="live">Live</option>
+                                                    <option value="archived">Archived</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="startDate" class="col-sm-6 col-form-label fw-semibold">Relationship Since *</label>
+                                            <div class="col-sm-5">
+                                                <input id="startDate" class="form-control" type="date" />
+                                            </div>
+                                        </div>
+                                        <h5 class="fw-bolder">Contact Information</h5>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Main Contact Person *</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="inputText" placeholder="First Name">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="inputText" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Official Email</label>
+                                            <div class="col-sm-5">
+                                                <input type="email" class="form-control" id="inputEmail" aria-describedby="basic-addon3">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Secondary Email</label>
+                                            <div class="col-sm-5">
+                                                <input type="email" class="form-control" id="inputEmail" aria-describedby="basic-addon3">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="phone" class="col-sm-6 col-form-label fw-semibold">Mobile Number</label>
+                                            <div class="col-sm-5">
+                                                <input type="phone" class="form-control" id="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Create Vendor</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                    </div>
+                                </form><!-- End Horizontal Form -->
+
                             </div>
-                        <!-- Add Vendor -->
                         </div>
+                        <!-- Add Vendor -->
                     </div>
+                </div>
                 <!-- End Left side columns -->
             </div>
         </section>

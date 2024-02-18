@@ -12,8 +12,12 @@ class SuperAdminController extends Controller
     //
     public function dashboard()
     {
+        $users = User::where('role','!=',1)->get();
+        $roles = Role::all();
+        
+        
         $user = auth()->user();
-        return view('super-admin.dashboard', compact('user'));
+        return view('super-admin.dashboard', compact('users','roles', 'user'));
     }
 
     public function users()
@@ -40,39 +44,5 @@ class SuperAdminController extends Controller
             'role' => $request->role_id
         ]);
         return redirect()->back()->with('success','Role has been change successfull.');
-    }
-
-    public function vendormanagement()
-    {
-        $data = vendorInfo::all();
-        $user = auth()->user();
-
-        return view('super-admin.sidebar.vendormanagement', compact(['user','data']));
-        
-    }
-
-    public function investment()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.investmentmanagement', compact('user'));
-    }
-
-    public function payment()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.payment', compact('user'));
-    }
-
-
-    public function document()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.document', compact('user'));
-    }
-
-    public function report()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.report', compact('user'));
     }
 }
