@@ -191,7 +191,7 @@
                       <li>
                         <a class="dropdown-item d-flex align-items-center" href="/super-admin/users">
                           <i class="bi bi-person"></i>
-                          <span>Manage Role</span>
+                          <span>Manage Account</span>
                         </a>
                       </li>
                       <li>

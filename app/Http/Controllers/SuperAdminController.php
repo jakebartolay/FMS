@@ -18,13 +18,11 @@ class SuperAdminController extends Controller
 
     public function users()
     {
-        $user = auth()->user();
-
+        
         $users = User::where('role','!=',1)->get();
         $roles = Role::all();
-
-        $users = User::with('roles')->where('role','!=',1)->get();
-
+        
+        $user = auth()->user();
         return view('super-admin.user_profile', compact('users','roles', 'user'));
     }
 
