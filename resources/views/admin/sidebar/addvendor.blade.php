@@ -105,11 +105,11 @@
                                 <!-- Horizontal Form -->
                                 <form>
                                     <div class="row">
-                                    <div class="col-xxl-6 col-6">
+                                    <div class="col-xxl-6 col-6 col-sm-12">
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Name *</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" id="inputText" placeholder="ex. Juan DelaCruz">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -135,25 +135,25 @@
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Country of Registration</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" id="inputText" placeholder="Country">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Company Registration</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" id="inputText" placeholder="ex. 1000254">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Stock Symbol</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" id="inputText" placeholder="ex. MSFT, GS, AAPL, MA, BUD, LUV">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Company Website</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputText">
+                                                <input type="text" class="form-control" id="inputText" placeholder="https://website.com/">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-6 col-6">
+                                    <div class="col-xxl-6 col-6 col-sm-12">
                                         <div class="row mb-3">
                                             <label for="inputState" class="col-sm-6 col-form-label fw-semibold">Internal Representative *</label>
                                             <div class="col-sm-5">
@@ -184,7 +184,9 @@
                                                 <input id="startDate" class="form-control" type="date" />
                                             </div>
                                         </div>
+                                        <br>
                                         <h5 class="fw-bolder">Contact Information</h5>
+                                        <br>
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Main Contact Person *</label>
                                             <div class="col-sm-3">
@@ -197,22 +199,23 @@
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Official Email</label>
                                             <div class="col-sm-5">
-                                                <input type="email" class="form-control" id="inputEmail" aria-describedby="basic-addon3">
+                                                <input type="email" class="form-control" id="inputEmail" placeholder="example@gmail.com">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="inputEmail3" class="col-sm-6 col-form-label fw-semibold">Secondary Email</label>
                                             <div class="col-sm-5">
-                                                <input type="email" class="form-control" id="inputEmail" aria-describedby="basic-addon3">
+                                                <input type="email" class="form-control" id="inputEmail" placeholder="example@gmail.com">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="phone" class="col-sm-6 col-form-label fw-semibold">Mobile Number</label>
                                             <div class="col-sm-5">
-                                                <input type="phone" class="form-control" id="phone">
+                                                <input type="phone" class="form-control" id="phone" placeholder="(+63) 992 552 222">
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Create Vendor</button>
                                         <button type="reset" class="btn btn-secondary">Reset</button>

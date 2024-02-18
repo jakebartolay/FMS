@@ -35,36 +35,6 @@
                             <i class="bi bi-circle"></i><span>Vendor List</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="/admin/addvendor">
-                            <i class="bi bi-circle"></i><span>Add Vendor</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/vendorUpdateUser">
-                            <i class="bi bi-circle"></i><span>Update User</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/addProduct">
-                            <i class="bi bi-circle"></i><span>Add Product</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/updateProduct">
-                            <i class="bi bi-circle"></i><span>Update Product</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/vendorUpdateUser">
-                            <i class="bi bi-circle"></i><span>Add Project</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/vendorUpdateUser">
-                            <i class="bi bi-circle"></i><span>Add License</span>
-                        </a>
-                    </li>
                 </ul>
             </li><!-- End Components Nav -->
 
