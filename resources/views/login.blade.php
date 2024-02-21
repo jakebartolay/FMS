@@ -17,16 +17,13 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-                            @include('layout.logo')
+                                @include('layout.logo')
                             <br>
-
                             <div class="card mb-3">
 
                                 <div class="card-body">
 
-                                    <div class="pt-4 pb-2">
-                                        <a href="/" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> HOME</a>
+                                    <div class=" pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                                     </div>
                                     @if($errors->any())
@@ -73,6 +70,9 @@
                                         </div>
                                     </form>
                                 </div>
+                            </div>
+                            <div class="d-flex justify-content-center align-self-center">
+                                <span class=""><a href="/" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i>Back to Home Page</a></span>
                             </div>
 
                         </div>

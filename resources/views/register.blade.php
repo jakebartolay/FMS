@@ -15,7 +15,7 @@
                 class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                             @include('layout.logo')
                             <br>
@@ -59,13 +59,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="yourPassword" class="form-label">Password</label>
                                             <input type="password" name="password" class="form-control"
                                                 id="yourPassword" required placeholder="Password">
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-6">
                                             <label for="password_confirmation" class="form-label">Password</label>
                                             <input type="password" name="password_confirmation" class="form-control"
                                                 id="password_confirmation" required placeholder="Re-enter Password">
