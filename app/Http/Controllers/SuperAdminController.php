@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\vendorInfo;
@@ -20,13 +23,14 @@ class SuperAdminController extends Controller
         return view('super-admin.dashboard', compact('users','roles', 'user'));
     }
 
-    public function users()
+    public function users(Request $request)
     {
-
         $users = User::with('roles')->where('role','!=',1)->get();
-
+        $roles = Role::all();
+    
+        // Return the view with the success message
         $user = auth()->user();
-        return view('super-admin.users', compact('users','user'));
+        return view('super-admin.users', compact('users','roles','user'));
     }
 
     public function manageRole()

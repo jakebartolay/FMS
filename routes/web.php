@@ -60,6 +60,7 @@ Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],fu
     Route::get('/dashboard',[SuperAdminController::class,'dashboard']);
 
     Route::get('/users',[SuperAdminController::class,'users'])->name('superAdminUsers');
+    Route::post('/createUsers', [UserController::class, 'createUsers'])->name('createUsers');
     Route::get('/manage-role',[SuperAdminController::class,'manageRole'])->name('manageRole');
     Route::post('/update-role',[SuperAdminController::class,'updateRole'])->name('updateRole');
 
