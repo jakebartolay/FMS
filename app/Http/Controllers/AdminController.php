@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\vendorInfo;
 use App\Models\Role;
+use App\Models\User;
 
 
 class AdminController extends Controller
@@ -12,6 +13,9 @@ class AdminController extends Controller
     //
     public function dashboard()
     {
+        $account1 = vendorInfo::count();
+        $account2 = User::where('role', '=', 0)->count();
+
         $user = auth()->user();
 
         $userRole = Role::find($user->role);
@@ -23,7 +27,7 @@ class AdminController extends Controller
             $roleName = 'Unknown';
         }
 
-        return view('admin.dashboard', compact('user','roleName'));
+        return view('admin.dashboard', compact('user','roleName','account1','account2'));
     }
 
     public function profile()
