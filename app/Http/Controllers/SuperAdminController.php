@@ -38,11 +38,18 @@ class SuperAdminController extends Controller
         return view('super-admin.manage-role', compact(['users','roles','user']));
     }
 
-public function updateRole(Request $request)
-{
-    User::where('id', $request->user_id)->update([
-        'role' => $request->role_id
-    ]);
-    return redirect()->back()->with('success','Role has been changed successfully.');
-}
+    public function updateRole(Request $request)
+    {
+        User::where('id', $request->user_id)->update([
+            'role' => $request->role_id
+        ]);
+        return redirect()->back()->with('success','Role has been changed successfully.');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        // Delegate the updateProfile request to UserController
+        return (new UserController())->updateProfile($request);
+    }
+
 }

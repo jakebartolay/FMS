@@ -43,9 +43,12 @@ function set_active($route) {
 }
 
 // ********** User Routes *********
-Route::group(['middleware'=>['web','isUser']],function(){
+Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/dashboard',[UserController::class,'dashboard']);
 
+    Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
+    Route::post('/profile',[SuperAdminController::class,'editProfile'])->name('/profile');
+    Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
     Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });
 
