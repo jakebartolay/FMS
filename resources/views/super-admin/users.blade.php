@@ -280,7 +280,7 @@
                                         </div>
                                         <hr>
                                     </div>
-                                    <table class="table table-striped dataTable">
+                                    <table class="table table-striped datatable">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -381,7 +381,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Create</button>
