@@ -45,6 +45,8 @@ function set_active($route) {
 // ********** User Routes *********
 Route::group(['middleware'=>['web','isUser']],function(){
     Route::get('/dashboard',[UserController::class,'dashboard']);
+
+    Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });
 
 // ********** Super Admin Routes *********

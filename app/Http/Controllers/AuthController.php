@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use DB;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -56,6 +58,22 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $user = Auth::User();
+        Session::put('user', $user);
+        $user = Session::get('user');
+
+        $email = $request->email;
+
+        $dt = Carbon::now();
+        $todayDate = $dt->toDayDateTimeString();
+
+        $activityLog = [ 
+            'name' => $email,
+            'email' => $email,
+            'description' => 'Has Log In',
+            'date_time' => $todayDate,
+        ];
+
         $request->validate([
             'email' => 'string|required|email',
             'password' => 'string|required'
@@ -63,7 +81,7 @@ class AuthController extends Controller
 
         $userCredential = $request->only('email','password');
         if(Auth::attempt($userCredential)){
-
+            DB::table('activity_logs')->insert($activityLog);
             $route = $this->redirectDash();
             return redirect($route);
         }
@@ -100,6 +118,22 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = Auth::User();
+        Session::put('user', $user);
+        $user = Session::get('user');
+
+        $name = $user->name;
+        $email = $user->email;
+        $dt = Carbon::now();
+        $todayDate = $dt->toDayDateTimeString();
+
+        $activityLog = [ 
+            'name' => $name,
+            'email' => $email,
+            'description' => 'Log Out',
+            'date_time' => $todayDate,
+        ];
+        DB::table('activity_logs')->insert($activityLog);
         $request->session()->flush();
         Auth::logout();
         return redirect('/login');
