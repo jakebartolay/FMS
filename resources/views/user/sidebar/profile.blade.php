@@ -2,10 +2,8 @@
 <html lang="en">
 
 <head>
-
-    <title>Dashboard</title>
+    <title>Dasboard</title>
     @include('layout.header')
-
 </head>
 
 <body>
@@ -15,6 +13,7 @@
 
         @include('layout.logo')
         <i class="bi bi-list toggle-sidebar-btn"></i>
+
 
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -139,8 +138,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle p-5"
-                                    style="width: 10px;">
+                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Anna Nelson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -179,13 +177,75 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>Administration</span>
+                            <span>Investor</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/">
+                                <i class="bi bi-gear"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Deposit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Transper Fund</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>My Investment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Withdrawal</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Contract Support</span>
+                            </a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -212,35 +272,67 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link" href="/super-admin/dashboard">
-                    <i class="bi bi-grid"></i>
+                <a class="nav-link collapsed" href="/">
+                    <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <li class="nav-heading">Manage Users</li>
-
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/users">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Users List</span>
+                <a class="nav-link" href="/profile">
+                    <i class="bi bi-person-fill"></i>
+                    <span>My Profile</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/manage-role">
-                    <i class="bi bi-person-fill-lock"></i>
-                    <span>Manage Role</span>
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-credit-card-fill"></i>
+                    <span>wallet</span>
                 </a>
-            </li><!-- End F.A.Q Page Nav -->
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-send-fill"></i>
+                    <span>Transfer fund</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-folder-fill"></i>
+                    <span>My Investment</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-database-fill-down"></i>
+                    <span>Withdrawals</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-envelope-fill"></i>
+                    <span>Contact Support</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+            {{-- <li class="nav-heading">Example</li> --}}
 
         </ul>
+
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Dashboard</h1>
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -250,16 +342,60 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <div class="row justify-content-center align-center d-flex">
-                <div class="col-12">
+            <div class="row">
+                <!-- Left side columns -->
+                <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body pt-3">
-                            <h1>Welcome, {{ $user->name }}</h1>
+                        <div class="card-body">
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <p style="color:red;">{{ $error }}</p>
+                                @endforeach
+                            @endif
+
+                            @if (Session::has('success'))
+                                <p style="color:green;">{{ Session::get('success') }}</p>
+                            @endif
+                            <div class="card-title">
+                                My Profile
+                                <span> | Information</span>
+                            </div>
+                            <!-- Floating Labels Form -->
+                            <form class="row g-3" action="{{ route('update-profile') }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" name="firstname" class="form-control" id="firstname"
+                                            placeholder="First Name" value="{{ $user->firstname }}">
+                                        <label for="Firstname">Firstname</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" name="lastname" id="lastname"
+                                            placeholder="Lastname" value="{{ $user->lastname }}">
+                                        <label for="lastname">Lastname</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="Email"
+                                            placeholder="Your Email" name="email" value="{{ $user->email }}">
+                                        <label for="Email">Your Email</label>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success">Update</button>
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                </div>
+                            </form><!-- End floating Labels Form -->
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><!-- End Left side columns -->
         </section>
+
     </main><!-- End #main -->
 
     @include('layout.footer')
@@ -268,7 +404,6 @@
             class="bi bi-arrow-up-short"></i></a>
 
     @include('layout.javascript')
-
 </body>
 
 </html>
