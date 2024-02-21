@@ -191,6 +191,36 @@
                         </li>
 
                         <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/super-admin/users">
+                                <i class="bi bi-person"></i>
+                                <span>Manage Account</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        {{-- <li>
+              <a class="dropdown-item d-flex align-items-center" href="/super-admin/users-profile">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li> --}}
+                        {{-- <li>
+              <hr class="dropdown-divider">
+            </li> --}}
+
+                        {{-- <li>
+              <a class="dropdown-item d-flex align-items-center" href="/pages-faq">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li> --}}
+                        {{-- <li>
+              <hr class="dropdown-divider">
+            </li> --}}
+
+                        <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
@@ -211,7 +241,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link" href="/super-admin/dashboard">
+                <a class="nav-link collapsed" href="/super-admin/dashboard">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -220,7 +250,7 @@
             <li class="nav-heading">Manage Users</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/users">
+                <a class="nav-link" href="/super-admin/users">
                     <i class="bi bi-people-fill"></i>
                     <span>Users List</span>
                 </a>
@@ -234,31 +264,74 @@
             </li><!-- End F.A.Q Page Nav -->
 
         </ul>
+
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Dashboard</h1>
+            <h1>Users</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item active">List User</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section profile">
             <div class="row justify-content-center align-center d-flex">
-                <div class="col-12">
+                <div class="col-11">
+
                     <div class="card">
                         <div class="card-body pt-3">
-                            <h1>Welcome, {{ $user->name }}</h1>
+                            <div class="tab-content pt-2">
+
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        
+                                    @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <p style="color:red;">{{ $error }}</p>
+                                        @endforeach
+                                    @endif
+                                    @if (Session::has('success'))
+                                        <p style="color:green;">{{ Session::get('success') }}</p>
+                                    @endif
+                                    <h2 class="mb-4">List Users</h2>
+                                    <hr>
+
+                                    <table class="table">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                        </tr>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user->id }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>
+                                                    @if ($user->roles == null)
+                                                        User
+                                                    @else
+                                                        {{ $user->roles->name }}
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+
+                                </div><!-- End Bordered Tabs -->
+                            </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
         </section>
+
     </main><!-- End #main -->
 
     @include('layout.footer')

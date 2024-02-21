@@ -32,20 +32,11 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/performance-monitoring">
-                            <i class="bi bi-circle"></i><span>Performance & Monitoring</span>
+                        <a href="/admin/vendorlist">
+                            <i class="bi bi-circle"></i><span>Vendor List</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/negatiation-contract">
-                            <i class="bi bi-circle"></i><span>Negatiation of Contract</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin/invoicing-payment">
-                            <i class="bi bi-circle"></i><span>Invoicing and Payment</span>
-                        </a>
-                    </li>
                 </ul>
             </li><!-- End Components Nav -->
 

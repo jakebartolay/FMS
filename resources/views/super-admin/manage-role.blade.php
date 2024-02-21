@@ -4,7 +4,7 @@
 <head>
 
     <title>{{ $user->name }} | Dashboard</title>
-    @include('super-admin.layout.header')
+    @include('layout.header')
 
 </head>
 
@@ -13,7 +13,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
-        @include('super-admin.layout.logo')
+        @include('layout.logo')
 
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -247,69 +247,19 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/vendor-management">
-                            <i class="bi bi-circle"></i><span>Vendor Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
+            <li class="nav-heading">Manage Users</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/investment-management">
-                            <i class="bi bi-circle"></i><span>investment Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/payment">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Payments</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/document">
-                    <i class="bi bi-files"></i>
-                    <span>Workflow and Approval</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/report">
-                    <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                    <span>Reports</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-heading">Pages</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/pages-contact">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact</span>
+                <a class="nav-link collapsed" href="/super-admin/users">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Users List</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/pages-faq">
-                    <i class="bi bi-question-circle"></i>
-                    <span>F.A.Q</span>
+                <a class="nav-link" href="/super-admin/manage-role">
+                    <i class="bi bi-person-fill-lock"></i>
+                    <span>Manage Role</span>
                 </a>
             </li><!-- End F.A.Q Page Nav -->
 
@@ -330,21 +280,12 @@
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section profile" style="height: 70vh">
+        <section class="section profile">
             <div class="row justify-content-center align-center d-flex">
                 <div class="col-11">
 
                     <div class="card">
                         <div class="card-body pt-3">
-                            <!-- Bordered Tabs -->
-                            <ul class="nav nav-tabs nav-tabs-bordered">
-
-                                <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        data-bs-target="#profile-overview">Manage Role</button>
-                                </li>
-
-                            </ul>
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -357,8 +298,8 @@
                                     @if (Session::has('success'))
                                         <p style="color:green;">{{ Session::get('success') }}</p>
                                     @endif
-                                    <br>
                                     <h2 class="mb-4">Manage Role</h2>
+                                    <hr>
 
                                     <form action="{{ route('updateRole') }}" method="POST">
                                         @csrf
@@ -386,18 +327,16 @@
                                                     style="border: 1px solid;">
                                                     <option value="">Select Role</option>
                                                     @foreach ($roles as $role)
-                                                        <option value="{{ $role->id }}">{{ $role->name }}
-                                                        </option>
-                                                    @endforeach
-                                                    <option value="0">User</option>
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                                <option value="0">User</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <input type="submit" value="Update Role" class="btn btn-primary">
                                     </form>
+
                                 </div>
-
-
 
                             </div><!-- End Bordered Tabs -->
 
@@ -410,12 +349,12 @@
 
     </main><!-- End #main -->
 
-    @include('super-admin.layout.footer')
+    @include('layout.footer')
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    @include('super-admin.layout.javascript')
+    @include('layout.javascript')
 
 </body>
 
