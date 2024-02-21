@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>{{ $user->name }} | Dashboard</title>
+    <title>Dashboard</title>
     @include('layout.header')
 
 </head>
@@ -14,6 +14,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         @include('layout.logo')
+        <i class="bi bi-list toggle-sidebar-btn"></i>
 
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -178,12 +179,12 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->name }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->name }}</h6>
+                            <h6>{{ $user->firstname }}</h6>
                             <span>Administration</span>
                         </li>
                         <li>
@@ -268,30 +269,44 @@
                                     @if (Session::has('success'))
                                         <p style="color:green;">{{ Session::get('success') }}</p>
                                     @endif
-                                    <h2 class="mb-4">List Users</h2>
-                                    <hr>
-
-                                    <table class="table">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                        </tr>
-                                        @foreach ($users as $user)
+                                    <div class="row justify-content-between">
+                                        <div class="col">
+                                            <h2 class="mb-4">List Users</h2>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#verticalycentered">Add
+                                                Admin</button>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <table class="table table-striped datatable">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $user->id }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>
-                                                    @if ($user->roles == null)
-                                                        User
-                                                    @else
-                                                        {{ $user->roles->name }}
-                                                    @endif
-                                                </td>
+                                                <th>ID</th>
+                                                <th>Fistname</th>
+                                                <th>Lastname</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
                                             </tr>
-                                        @endforeach
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $user)
+                                                <tr>
+                                                    <td>{{ $user->id }}</td>
+                                                    <td>{{ $user->firstname }}</td>
+                                                    <td>{{ $user->lastname }}</td>
+                                                    <td>{{ $user->email }}</td>
+                                                    <td>
+                                                        @if ($user->roles == null)
+                                                            User
+                                                        @else
+                                                            {{ $user->roles->name }}
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
                                     </table>
 
                                 </div><!-- End Bordered Tabs -->
@@ -301,6 +316,81 @@
                     </div>
                 </div>
         </section>
+
+        <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('createUsers') }}" method="POST">
+                            @csrf
+                            <div class="col-12">
+                                <label for="firstname" class="form-label">First Name</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="firstname"><i
+                                            class="bi bi-person-fill"></i></span>
+                                    <input type="text" name="firstname" class="form-control" id="firstname"
+                                        placeholder="Firstname" required>
+                                    <div class="invalid-feedback">Please enter your firstname.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="lastname" class="form-label"></label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="lastname"><i
+                                            class="bi bi-person-fill"></i></span>
+                                    <input type="text" name="lastname" class="form-control" id="firstname"
+                                        placeholder="Lastname" required>
+                                    <div class="invalid-feedback">Please enter your lastname.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="email" class="form-label"></label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="email"><i
+                                            class="bi bi-envelope-fill"></i></span>
+                                    <input type="email" name="email" class="form-control" id="email"
+                                        placeholder="example@gmail.com" required>
+                                    <div class="invalid-feedback">Please enter your email.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="password" class="form-label"></label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="password"><i
+                                            class="bi bi-lock-fill"></i></span>
+                                    <input type="password" name="password" class="form-control" id="password"
+                                        placeholder="Password" required>
+                                    <div class="invalid-feedback">Please enter your password.</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="role_id" class="form-label">Role</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-person-fill-gear"></i></span>
+                                    <select name="role" id="role" required class="form-control">
+                                        <option value="">Select Role</option>
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                        <option value="0">User</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main><!-- End #main -->
 

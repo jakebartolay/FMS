@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class vendorInfo extends Model
+class ativityLog extends Model
 {
-    protected $table = 'vendorinfo';
+    use HasFactory;
 }

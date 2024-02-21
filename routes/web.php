@@ -32,6 +32,9 @@ Route::post('/register',[AuthController::class,'register'])->name('register');
 Route::get('/login',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
+Route::get('/back-end',[AuthController::class,'loadBackEnd']);
+Route::post('/back-end',[AuthController::class,'backEnd'])->name('back-end');
+
 Route::get('/logout',[AuthController::class,'logout']);
 
 
@@ -43,8 +46,13 @@ function set_active($route) {
 }
 
 // ********** User Routes *********
-Route::group(['middleware'=>['web','isUser']],function(){
+Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/dashboard',[UserController::class,'dashboard']);
+
+    Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
+    Route::post('/profile',[SuperAdminController::class,'editProfile'])->name('/profile');
+    Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
+    Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });
 
 // ********** Super Admin Routes *********
@@ -52,6 +60,7 @@ Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],fu
     Route::get('/dashboard',[SuperAdminController::class,'dashboard']);
 
     Route::get('/users',[SuperAdminController::class,'users'])->name('superAdminUsers');
+    Route::post('/createUsers', [UserController::class, 'createUsers'])->name('createUsers');
     Route::get('/manage-role',[SuperAdminController::class,'manageRole'])->name('manageRole');
     Route::post('/update-role',[SuperAdminController::class,'updateRole'])->name('updateRole');
 

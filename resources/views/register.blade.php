@@ -17,7 +17,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                            @include('layout.logo')
+                            @include('layout.logo2')
                             <br>
 
                             <div class="card mb-3">
