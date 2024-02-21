@@ -248,7 +248,7 @@
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section profile">
+        <section class="section dashboard">
             <div class="row justify-content-center align-center d-flex">
                 <div class="col-12">
                     <div class="card">
