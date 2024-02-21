@@ -232,7 +232,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/manager/dashboard">
                     <i class="bi bi-grid"></i>
-                    <span>Home</span>
+                    <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
