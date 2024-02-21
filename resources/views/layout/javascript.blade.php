@@ -23,9 +23,6 @@
           layout: {
               topStart: {
                   buttons: [{
-                          extend: 'copy',
-                          extend: 'csv',
-                          extend: 'pdf',
                           extend: 'print',
                           exportOptions: {
                               columns: ':visible'

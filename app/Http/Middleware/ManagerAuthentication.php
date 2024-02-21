@@ -16,7 +16,7 @@ class ManagerAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user() && auth()->user()->role == 4){
+        if(auth()->user() && auth()->user()->role == 3){
             return $next($request);
         }
 

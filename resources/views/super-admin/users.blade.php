@@ -247,55 +247,21 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/super-admin/vendor-management">
-                            <i class="bi bi-circle"></i><span>Vendor Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
+            <li class="nav-heading">Manage Users</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link" href="/super-admin/users">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Users List</span>
                 </a>
-                <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/super-admin/investment-management">
-                            <i class="bi bi-circle"></i><span>investment Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
+            </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/payment">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Payments</span>
+                <a class="nav-link collapsed" href="/super-admin/manage-role">
+                    <i class="bi bi-person-fill-lock"></i>
+                    <span>Manage Role</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/document">
-                    <i class="bi bi-files"></i>
-                    <span>Workflow and Approval</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/report">
-                    <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                    <span>Reports</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
+            </li><!-- End F.A.Q Page Nav -->
 
         </ul>
 
@@ -304,12 +270,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Manage</h1>
+            <h1>Users</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item">Users</li>
-                    <li class="breadcrumb-item active">Manage Role</li>
+                    <li class="breadcrumb-item active">List User</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -320,19 +286,6 @@
 
                     <div class="card">
                         <div class="card-body pt-3">
-                            <!-- Bordered Tabs -->
-                            <ul class="nav nav-tabs nav-tabs-bordered">
-
-                                <li class="nav-item">
-                                    <button class="nav-link active" data-bs-toggle="tab"
-                                        data-bs-target="#profile-overview">List of User</button>
-                                </li>
-                                <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab"
-                                        data-bs-target="#manage-role">Manage Role</button>
-                                </li>
-
-                            </ul>
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -346,6 +299,7 @@
                                         <p style="color:green;">{{ Session::get('success') }}</p>
                                     @endif
                                     <h2 class="mb-4">List Users</h2>
+                                    <hr>
 
                                     <table class="table">
                                         <tr>
@@ -371,47 +325,6 @@
                                     </table>
 
                                 </div><!-- End Bordered Tabs -->
-
-                                <div class="tab-pane fade show profile-overview" id="manage-role">
-                                    <h2 class="mb-4">Manage Role</h2>
-
-                                    <form action="{{ route('updateRole') }}" method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label for="" class="text-muted">Select User</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="user_id" required class="form-control"
-                                                    style="border: 1px solid;">
-                                                    <option value="">Select User</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->role }}">{{ $user->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-2">
-                                                <label for="" class="text-muted">Select Role</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="role_id" required class="form-control"
-                                                    style="border: 1px solid;">
-                                                    <option value="">Select Role</option>
-                                                    @foreach ($roles as $role)
-                                                        <option value="{{ $role->id }}">{{ $role->role }} -
-                                                            {{ $role->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <input type="submit" value="Update Role" class="btn btn-primary">
-                                    </form>
-                                </div>
-
                             </div>
                         </div>
 

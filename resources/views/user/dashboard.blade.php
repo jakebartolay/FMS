@@ -182,7 +182,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                       <li class="dropdown-header">
                         <h6>{{ $user-> name }}</h6>
-                        <span>Administration</span>
+                        <!-- <span>Administration</span> -->
                       </li>
                       <li>
                         <hr class="dropdown-divider">
@@ -232,66 +232,36 @@
             <li class="nav-item">
                 <a class="nav-link" href="/manager/dashboard">
                     <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
+                    <span>Home</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-person-fill-gear"></i><span>Vendor</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/admin/vendor-management">
-                            <i class="bi bi-circle"></i><span>Vendor Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-cash-coin"></i><span>Investment</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="/admin/investment-management">
-                            <i class="bi bi-circle"></i><span>investment Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/payment">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Payments</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/document">
-                    <i class="bi bi-files"></i>
-                    <span>Workflow and Approval</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/report">
-                    <i class="bi bi-file-earmark-bar-graph-fill"></i>
-                    <span>Reports</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-heading">Pages</li>
+            <li class="nav-heading">Example</li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/admin/pages-contact">
                     <i class="bi bi-envelope"></i>
-                    <span>Contact</span>
+                    <span>Example</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            
+            <li class="nav-heading">Example</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-envelope"></i>
+                    <span>Example</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            
+            <li class="nav-heading">Example</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-envelope"></i>
+                    <span>Example</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
