@@ -76,9 +76,9 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
     Route::get('/vendor-selection',[AdminController::class,'VendorSelection'])->name('adminVendorSelection');
-    Route::get('/negatiation-contract',[AdminController::class,'NegatiationContract'])->name('adminNegatiationContract');
-    Route::get('/vendor-approval',[AdminController::class,'VendorApproval'])->name('adminVendorApproval');
-    Route::get('/performance-monitoring',[AdminController::class,'PerformanceMonitoring'])->name('adminPerformanceMonitoring');
+    Route::get('/vendorUpdateUser',[AdminController::class,'vendorUpdate'])->name('adminvendorUpdate');
+    Route::get('/vendorlist',[AdminController::class,'vendorList'])->name('adminvendorList');
+    Route::get('/addvendor',[AdminController::class,'addVendor'])->name('adminaddVendor');
     Route::get('/invoicing-payment',[AdminController::class,'InvoicingPayment'])->name('adminInvoicingPayment');
     Route::get('/pages-contact',[AdminController::class,'contact'])->name('adminContact');
     Route::get('/pages-faq',[AdminController::class,'faq'])->name('adminFaq');

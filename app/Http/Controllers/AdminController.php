@@ -22,45 +22,25 @@ class AdminController extends Controller
         return view('admin.user_profile', compact('user'));
     }
 
-    public function NegatiationContract()
+    public function vendorList()
     {
-        $dataCount = vendorInfo::count('*');
-        $revenue = vendorInfo::sum('spend');
-        $approve = vendorInfo::where('status', 'Approve')->count();
-        $decline = vendorInfo::where('status', 'Decline')->count();
-        $waiting = vendorInfo::where('status', 'Waiting')->count();
-
         $data = vendorInfo::all();
         $user = auth()->user();
-        return view('admin.sidebar.negatiationcontract', compact('user', 'data', 'dataCount', 'revenue', 'approve', 'decline','waiting'));
+        return view('admin.sidebar.vendorlist', compact('user', 'data'));
     }
 
 
-    public function PerformanceMonitoring()
+    public function addVendor()
     {
-        $dataCount = vendorInfo::count();
-        $approve = vendorInfo::where('status', 'Approve')->count();
-        $decline = vendorInfo::where('status', 'Decline')->count();
-        $waiting = vendorInfo::where('status', 'Waiting')->count();
-        
-        $reports = vendorInfo::selectRaw('YEAR(starting_date) as year, MONTH(starting_date) as month, 
-        COUNT(DISTINCT CASE WHEN status = "Approve" THEN vendor_id END) as total_approve,
-        COUNT(DISTINCT CASE WHEN status = "Decline" THEN vendor_id END) as total_decline,
-        COUNT(DISTINCT CASE WHEN status = "Waiting" THEN vendor_id END) as total_waiting,
-        COUNT(DISTINCT vendor_id) as customer_count')
-            ->groupBy('month', 'year')
-            ->get();
-        
-        $user = auth()->user();
         $data = vendorInfo::all();
-        
-        return view('admin.sidebar.performancemonitoring', compact('user', 'reports', 'data', 'dataCount', 'approve', 'decline', 'waiting'));             
+        $user = auth()->user();
+        return view('admin.sidebar.addvendor', compact('user','data'));             
     }
 
-    public function InvoicingPayment()
+    public function vendorUpdate()
     {
         $user = auth()->user();
-        return view('admin.sidebar.invoicingpayment', compact('user'));
+        return view('admin.sidebar.vendorupdate', compact('user'));
     }
 
     public function contact()

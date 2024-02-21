@@ -12,69 +12,37 @@ class SuperAdminController extends Controller
     //
     public function dashboard()
     {
+        $users = User::where('role','!=',1)->get();
+        $roles = Role::all();
+        
+        
         $user = auth()->user();
-        return view('super-admin.dashboard', compact('user'));
+        return view('super-admin.dashboard', compact('users','roles', 'user'));
     }
 
     public function users()
     {
-        $user = auth()->user();
-
-        $users = User::where('role','!=',1)->get();
-        $roles = Role::all();
 
         $users = User::with('roles')->where('role','!=',1)->get();
 
-        return view('super-admin.user_profile', compact('users','roles', 'user'));
-    }
-
-    // public function manageRole()
-    // {
-    //     $user = auth()->user();
-    //     $users = User::where('role','!=',1)->get();
-    //     $roles = Role::all();
-    //     return view('super-admin.manage-role', compact(['users','roles','user']));
-    // }
-
-    public function updateRole(Request $request)
-    {
-        User::where('id', $request->user_id)->update([
-            'role' => $request->role_id
-        ]);
-        return redirect()->back()->with('success','Role has been change successfull.');
-    }
-
-    public function vendormanagement()
-    {
-        $data = vendorInfo::all();
         $user = auth()->user();
-
-        return view('super-admin.sidebar.vendormanagement', compact(['user','data']));
-        
+        return view('super-admin.users', compact('users','user'));
     }
 
-    public function investment()
+    public function manageRole()
     {
+        $users = User::where('role','!=',1)->get();
+        $roles = Role::all();
+
         $user = auth()->user();
-        return view('super-admin.sidebar.investmentmanagement', compact('user'));
+        return view('super-admin.manage-role', compact(['users','roles','user']));
     }
 
-    public function payment()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.payment', compact('user'));
-    }
-
-
-    public function document()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.document', compact('user'));
-    }
-
-    public function report()
-    {
-        $user = auth()->user();
-        return view('super-admin.sidebar.report', compact('user'));
-    }
+public function updateRole(Request $request)
+{
+    User::where('id', $request->user_id)->update([
+        'role' => $request->role_id
+    ]);
+    return redirect()->back()->with('success','Role has been changed successfully.');
+}
 }
