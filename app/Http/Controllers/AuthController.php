@@ -47,6 +47,49 @@ class AuthController extends Controller
         return back()->with('success','Your Registration has been successfull.');
     }
 
+    public function loadBackEnd()
+    {
+        if(Auth::user()){
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        return view('backendlogin');
+    }
+
+    public function backEnd(Request $request)
+    {
+        $user = Auth::User();
+        Session::put('user', $user);
+        $user = Session::get('user');
+
+        $email = $request->email;
+
+        $dt = Carbon::now();
+        $todayDate = $dt->toDayDateTimeString();
+
+        $activityLog = [ 
+            'name' => $email,
+            'email' => $email,
+            'description' => 'Has Log In',
+            'date_time' => $todayDate,
+        ];
+
+        $request->validate([
+            'email' => 'string|required|email',
+            'password' => 'string|required'
+        ]);
+
+        $userCredential = $request->only('email','password');
+        if(Auth::attempt($userCredential)){
+            DB::table('activity_logs')->insert($activityLog);
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        else{
+            return back()->with('error','Username & Password is incorrect');
+        }
+    }
+
     public function loadLogin()
     {
         if(Auth::user()){

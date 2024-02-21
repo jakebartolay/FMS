@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Users\UpdateProfileRequest;
-
 use Illuminate\Http\Request;
 use DB;
 

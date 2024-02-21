@@ -358,6 +358,7 @@
                             @endif
                             <div class="card-title">
                                 My Profile
+                                <span> | Information</span>
                             </div>
                             <!-- Floating Labels Form -->
                             <form class="row g-3" action="{{ route('update-profile') }}" method="POST">
