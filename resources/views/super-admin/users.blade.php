@@ -191,36 +191,6 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/super-admin/users">
-                                <i class="bi bi-person"></i>
-                                <span>Manage Account</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        {{-- <li>
-              <a class="dropdown-item d-flex align-items-center" href="/super-admin/users-profile">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li> --}}
-                        {{-- <li>
-              <hr class="dropdown-divider">
-            </li> --}}
-
-                        {{-- <li>
-              <a class="dropdown-item d-flex align-items-center" href="/pages-faq">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li> --}}
-                        {{-- <li>
-              <hr class="dropdown-divider">
-            </li> --}}
-
-                        <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
@@ -289,7 +259,7 @@
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                        
+
                                     @if ($errors->any())
                                         @foreach ($errors->all() as $error)
                                             <p style="color:red;">{{ $error }}</p>
