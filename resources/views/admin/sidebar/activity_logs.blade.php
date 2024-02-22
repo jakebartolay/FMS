@@ -177,13 +177,13 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>{{ $roleName }}</span>
+                            <span>Investor</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -318,7 +318,16 @@
                     <i class="bi bi-envelope-fill"></i>
                     <span>Contact Support</span>
                 </a>
-            </li><!-- End Contact Page Nav -->
+            </li>
+            <li class="nav-heading">User Logs</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/activity">
+                    <i class="bi bi-credit-card-2-front-fill"></i>
+                    <span>Log Users</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+            <!-- End Contact Page Nav -->
             {{-- <li class="nav-heading">Example</li> --}}
 
         </ul>

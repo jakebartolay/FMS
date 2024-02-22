@@ -60,14 +60,14 @@
                 </ul>
             </li><!-- End Components Nav -->
 
-            {{-- <li class="nav-heading">Document</li>
+            <li class="nav-heading">User Logs</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/payment">
+                <a class="nav-link collapsed" href="/admin/activity">
                     <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Request Contract</span>
+                    <span>Log Users</span>
                 </a>
-            </li><!-- End Dashboard Nav --> --}}
+            </li><!-- End Dashboard Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->

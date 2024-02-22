@@ -7,6 +7,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
@@ -73,23 +74,25 @@ Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],fu
     
 });
 
-// ********** Manager Routes *********
-Route::group(['prefix' => 'manager','middleware'=>['web','isManager']],function(){
-    Route::get('/dashboard',[ManagerController::class,'dashboard']);
-});
-
 // ********** Admin Routes *********
 Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/dashboard',[AdminController::class,'dashboard']);
 
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
-    Route::get('/vendor-selection',[AdminController::class,'VendorSelection'])->name('adminVendorSelection');
-    Route::get('/vendorUpdateUser',[AdminController::class,'vendorUpdate'])->name('adminvendorUpdate');
-    Route::get('/vendorlist',[AdminController::class,'vendorList'])->name('adminvendorList');
-    Route::get('/addvendor',[AdminController::class,'addVendor'])->name('adminaddVendor');
-    Route::get('/invoicing-payment',[AdminController::class,'InvoicingPayment'])->name('adminInvoicingPayment');
-    Route::get('/pages-contact',[AdminController::class,'contact'])->name('adminContact');
-    Route::get('/pages-faq',[AdminController::class,'faq'])->name('adminFaq');
+    Route::get('/activity',[AdminController::class,'Activity'])->name('/activity');
 });
+
+// ********** Manager Routes *********
+Route::group(['prefix' => 'manager','middleware'=>['web','isManager']],function(){
+    Route::get('/dashboard',[ManagerController::class,'dashboard']);
+});
+
+
+// ********** Employee Routes *********
+Route::group(['prefix' => 'employee','middleware'=>['web','isEmployee']],function(){
+    Route::get('/dashboard',[EmployeeController::class,'dashboard']);
+});
+
+
 
