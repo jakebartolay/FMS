@@ -349,7 +349,7 @@
             </div>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
+        <section class="section profile dashboard">
             <div class="row">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
@@ -384,7 +384,7 @@
                                     <div class="row g-5 d-flex justify-content-between">
                                         <div class="col-6">
                                             <h6 class="text-success fw-bold">WALLET</h6>
-                                            <span class="text-primary">$0.00</span>
+                                            <span class="text-primary">${{ $formattedBalance }}</span>
                                             <hr>
                                         </div>
                                         <div class="col-6">
@@ -398,7 +398,7 @@
                         </div><!-- Balance Activity -->
 
                         <!-- Reports -->
-                        <div class="col-7">
+                        <div class="col-lg-7 col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Investment Statistics</h5>
@@ -447,7 +447,7 @@
                         </div><!-- End Reports -->
 
                         <!-- Right side columns -->
-                        <div class="col-5">
+                        <div class="col-lg-5 col-12">
 
                             <!-- Website Traffic -->
                             <div class="card">
@@ -509,16 +509,20 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Available Packages</h5>
-                                    <a href="">
-                                        <div class="alert alert-primary d-flex align-items-center shadow-lg"
-                                            role="alert">
-                                            <i class="bi bi-exclamation-circle-fill"> </i>
-                                            <div>
-                                                <span> Please, click here to update your profile before you can
-                                                    invest.</span>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    <div class="row">
+                                        <div class="col-xxl-6 col-md-6 col-12">
+                                            <a href="">
+                                                <div class="alert alert-primary d-flex align-items-center shadow-lg"
+                                                    role="alert">
+                                                    <i class="bi bi-exclamation-circle-fill me-3"> </i>
+                                                    <div>
+                                                        <span> Please, click here to update your profile before you can
+                                                            invest.</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div><!-- End Investment Card -->
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- End Investment Card -->
@@ -548,13 +552,13 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($activityLog as $key => $data)
-                                                <tr>
-                                                    <td>{{ ++$key }}</td>
-                                                    <td>{{ $data->name }}</td>
-                                                    <td>{{ $data->email }}</td>
-                                                    <td>{{ $data->description }}</td>
-                                                    <td>{{ $data->date_time }}</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td>{{ ++$key }}</td>
+                                                        <td>{{ $data->name }}</td>
+                                                        <td>{{ $data->email }}</td>
+                                                        <td>{{ $data->description }}</td>
+                                                        <td>{{ $data->date_time }}</td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>

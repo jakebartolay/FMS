@@ -300,21 +300,21 @@
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/investment">
                     <i class="bi bi-folder-fill"></i>
                     <span>My Investment</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/withdrawal">
                     <i class="bi bi-database-fill-down"></i>
                     <span>Withdrawals</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/contactsupport">
                     <i class="bi bi-envelope-fill"></i>
                     <span>Contact Support</span>
                 </a>
@@ -349,7 +349,7 @@
                         <div class="card-body">
                             <div class="card-title">
                                 <h1>Transfer Fund</h1>
-                                <h1 class="text-primary">$0</h1>
+                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
                                 <div class="btn btn-outline-primary">
                                     Send Cash
                                 </div>
