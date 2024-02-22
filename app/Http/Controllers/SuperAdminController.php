@@ -9,18 +9,21 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\vendorInfo;
+use DB;
 
 class SuperAdminController extends Controller
 {
     //
     public function dashboard()
     {
-        $users = User::where('role','!=',1)->get();
+        $users = User::where('role', '!=', 1)->get();
         $roles = Role::all();
         
-        
         $user = auth()->user();
-        return view('super-admin.dashboard', compact('users','roles', 'user'));
+        
+        $activityLog = DB::table('activity_logs')->get();
+        
+        return view('super-admin.dashboard', compact('users', 'roles', 'user', 'activityLog'));
     }
 
     public function users(Request $request)

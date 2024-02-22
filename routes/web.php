@@ -50,9 +50,13 @@ function set_active($route) {
 Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/dashboard',[UserController::class,'dashboard']);
 
+    //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
     Route::post('/profile',[SuperAdminController::class,'editProfile'])->name('/profile');
     Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
+    Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
+    Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
+
     Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });
 
@@ -81,11 +85,7 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
     Route::get('/activity',[AdminController::class,'Activity'])->name('/activity');
-});
-
-// ********** Manager Routes *********
-Route::group(['prefix' => 'manager','middleware'=>['web','isManager']],function(){
-    Route::get('/dashboard',[ManagerController::class,'dashboard']);
+    Route::get('/vendorlist',[AdminController::class,'vendorList'])->name('/vendorlist');
 });
 
 

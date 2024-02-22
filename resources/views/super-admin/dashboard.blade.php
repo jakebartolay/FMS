@@ -254,10 +254,43 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body pt-3">
-                            <h1>Welcome, {{ $user->name }}</h1>
+                            <h1>Welcome, {{ $user->firstname }}</h1>
                         </div>
                     </div>
                 </div>
+                <!-- Investment Card -->
+                <div class="col-xxl-12 col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Log History</h5>
+                            <span class="break"></span>
+                            <div class="text-center">
+                                <table class="table table-striped datatable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Description</th>
+                                            <th>Date Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($activityLog as $key => $data)
+                                            <tr>
+                                                <td>{{ ++$key }}</td>
+                                                <td>{{ $data->name }}</td>
+                                                <td>{{ $data->email }}</td>
+                                                <td>{{ $data->description }}</td>
+                                                <td>{{ $data->date_time }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Investment Card -->
             </div>
         </section>
     </main><!-- End #main -->

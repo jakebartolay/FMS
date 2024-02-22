@@ -53,6 +53,16 @@ class UserController extends Controller
         return view('user.sidebar.profile', compact('user'));
     }
 
+    public function Transaction(){
+        $user = auth()->user();
+        return view('user.sidebar.transaction', compact('user'));
+    }
+
+    public function Wallet(){
+        $user = auth()->user();
+        return view('user.sidebar.wallet', compact('user'));
+    }
+
     public function updateProfile(Request $request)
     {
         // Retrieve the authenticated user
@@ -89,4 +99,5 @@ class UserController extends Controller
 
         return back()->with('success','Created Account has been successfull.');
     }
+
 }

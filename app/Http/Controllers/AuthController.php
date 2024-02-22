@@ -149,9 +149,9 @@ class AuthController extends Controller
         else if(Auth::user() && Auth::user()->role == 2){
             $redirect = '/admin/dashboard';
         }
-        else if(Auth::user() && Auth::user()->role == 3){
-            $redirect = '/manager/dashboard';
-        }
+        // else if(Auth::user() && Auth::user()->role == 3){
+        //     $redirect = '/manager/dashboard';
+        // }
         else if(Auth::user() && Auth::user()->role == 4){
             $redirect = '/employee/dashboard';
         }
@@ -164,24 +164,31 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $user = Auth::User();
-        Session::put('user', $user);
-        $user = Session::get('user');
-
-        $name = $user->name;
-        $email = $user->email;
-        $dt = Carbon::now();
-        $todayDate = $dt->toDayDateTimeString();
-
-        $activityLog = [ 
-            'name' => $name,
-            'email' => $email,
-            'description' => 'Log Out',
-            'date_time' => $todayDate,
-        ];
-        DB::table('activity_logs')->insert($activityLog);
-        $request->session()->flush();
-        Auth::logout();
-        return redirect('/login');
+        if(Auth::check()) {
+            $user = Auth::user();
+    
+            // Log the logout activity
+            $name = $user->name;
+            $email = $user->email;
+            $dt = Carbon::now();
+            $todayDate = $dt->toDayDateTimeString();
+    
+            $activityLog = [
+                'name' => $name,
+                'email' => $email,
+                'description' => 'Log Out',
+                'date_time' => $todayDate,
+            ];
+    
+            DB::table('activity_logs')->insert($activityLog);
+    
+            // Clear the session and logout
+            $request->session()->flush();
+            Auth::logout();
+    
+            return redirect('/login');
+        }
+    
+        return redirect('/login'); // If the user is not logged in, redirect to login page
     }
 }
