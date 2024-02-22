@@ -201,7 +201,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/wallet">
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
                                 <i class="bi bi-question-circle"></i>
                                 <span>Deposit</span>
                             </a>
@@ -286,14 +286,14 @@
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="/wallet">
+                <a class="nav-link collapsed" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
                     <span>Wallet</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/transaction">
+                <a class="nav-link" href="/transaction">
                     <i class="bi bi-send-fill"></i>
                     <span>Transfer fund</span>
                 </a>
@@ -336,7 +336,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Balance</li>
+                    <li class="breadcrumb-item active">Investment</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -348,11 +348,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h1>My Balance</h1>
-                                <h1 class="text-primary">$0</h1>
-                                <div class="btn btn-outline-primary">
-                                    Deposit
-                                </div>
+                                <h1>My Investment</h1>
                             </div>
                         </div>
                     </div>

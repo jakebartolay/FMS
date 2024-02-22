@@ -286,14 +286,14 @@
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
-                    <span>wallet</span>
+                    <span>Wallet</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/transaction">
                     <i class="bi bi-send-fill"></i>
                     <span>Transfer fund</span>
                 </a>

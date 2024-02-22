@@ -56,6 +56,9 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
     Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
+    Route::get('/investment',[UserController::class,'Investment'])->name('/investment');
+    Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('/withdrawals');
+    Route::get('/contactsupport',[UserController::class,'ContactSupport'])->name('/contactsupport');
 
     Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });

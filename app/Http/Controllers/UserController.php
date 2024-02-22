@@ -63,6 +63,23 @@ class UserController extends Controller
         return view('user.sidebar.wallet', compact('user'));
     }
 
+    public function Investment(){
+        $user = auth()->user();
+        return view('user.sidebar.investment', compact('user'));
+    }
+
+    public function Withdrawals(){
+        $user = auth()->user();
+        return view('user.sidebar.withdrawal', compact('user'));
+    }
+
+    public function ContactSupport(){
+        $user = auth()->user();
+        return view('user.sidebar.contactsupport', compact('user'));
+    }
+
+
+
     public function updateProfile(Request $request)
     {
         // Retrieve the authenticated user
