@@ -543,7 +543,6 @@
                                         <table class="table table-striped datatable">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Description</th>
@@ -551,15 +550,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($activityLog as $key => $data)
+                                                {{-- @foreach ($activityLog as $data)
                                                     <tr>
-                                                        <td>{{ ++$key }}</td>
                                                         <td>{{ $data->name }}</td>
                                                         <td>{{ $data->email }}</td>
                                                         <td>{{ $data->description }}</td>
                                                         <td>{{ $data->date_time }}</td>
                                                     </tr>
-                                                @endforeach
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>

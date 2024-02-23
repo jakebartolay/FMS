@@ -24,7 +24,8 @@
 
                                 <div class="card-body">
 
-                                    @if ($errors->any())
+                                    <div class="pt-4 pb-2">
+                                        @if ($errors->any())
                                         @foreach ($errors->all() as $error)
                                             <p style="color:red;">{{ $error }}</p>
                                         @endforeach
@@ -33,19 +34,24 @@
                                     @if (Session::has('success'))
                                         <p style="color:green;">{{ Session::get('success') }}</p>
                                     @endif
-
-                                    <div class="pt-4 pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                         <p class="text-center small">Enter your personal details to create account</p>
                                     </div>
 
                                     <form class="row g-3 needs-validation" novalidate action="{{ route('register') }}" method="POST">
                                         @csrf
-                                        <div class="col-12">
-                                            <label for="yourName" class="form-label">Your Name</label>
-                                            <input type="text" name="name" class="form-control" id="yourName"
-                                                required placeholder="Enter Name">
-                                            <div class="invalid-feedback">Please, enter your name!</div>
+                                        <div class="col-6">
+                                            <label for="firstname" class="form-label">First Name</label>
+                                            <input type="text" name="firstname" class="form-control" id="firstname"
+                                                required placeholder="First Name">
+                                            <div class="invalid-feedback">Please, enter your Firstname!</div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <label for="lastname" class="form-label">Last Name</label>
+                                            <input type="text" name="lastname" class="form-control" id="lastname"
+                                                required placeholder="Last Name">
+                                            <div class="invalid-feedback">Please, enter your Lastname!</div>
                                         </div>
 
 
