@@ -501,7 +501,7 @@
 
                     </div><!-- End Right side columns -->
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 col-md-12">
                     <div class="row">
 
                         <!-- Investment Card -->
@@ -510,7 +510,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Available Packages</h5>
                                     <div class="row">
-                                        <div class="col-xxl-6 col-md-6 col-12">
+                                        <div class="col-xxl-6 col-md-8 col-12">
                                             <a href="">
                                                 <div class="alert alert-primary d-flex align-items-center shadow-lg"
                                                     role="alert">
@@ -539,32 +539,27 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Log History</h5>
                                     <span class="break"></span>
-                                    <div class="text-center">
+                                    <div class="container-fluid">
                                         <table class="table table-striped datatable">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Description</th>
-                                                    <th>Date Time</th>
+                                                    <th>Actions</th>
+                                                    <th>Date</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($activityLog as $data)
+                                                @foreach ($activityLog as $data)
                                                     <tr>
-                                                        <td>{{ $data->name }}</td>
-                                                        <td>{{ $data->email }}</td>
                                                         <td>{{ $data->description }}</td>
                                                         <td>{{ $data->date_time }}</td>
                                                     </tr>
-                                                @endforeach --}}
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- End Investment Card -->
-
                     </div><!-- End Right side columns -->
                 </div>
             </div><!-- End Left side columns -->

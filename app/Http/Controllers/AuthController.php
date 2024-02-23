@@ -76,7 +76,7 @@ class AuthController extends Controller
         $activityLog = [ 
             'name' => $email,
             'email' => $email,
-            'description' => 'Has Log In',
+            'description' => 'User logged in to account',
             'date_time' => $todayDate,
         ];
 
@@ -181,7 +181,7 @@ class AuthController extends Controller
             $activityLog = [
                 'name' => $email,
                 'email' => $email,
-                'description' => 'Log Out',
+                'description' => 'User logout',
                 'date_time' => $todayDate,
             ];
     

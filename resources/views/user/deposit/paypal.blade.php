@@ -183,7 +183,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>Investor</span>
+                            <span>{{ $roleName }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -211,7 +211,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                            <a class="dropdown-item d-flex align-items-center" href="/transaction">
                                 <i class="bi bi-question-circle"></i>
                                 <span>Transper Fund</span>
                             </a>
@@ -279,7 +279,7 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="/profile">
+                <a class="nav-link collapsed" href="/profile">
                     <i class="bi bi-person-fill"></i>
                     <span>My Profile</span>
                 </a>
@@ -288,7 +288,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
-                    <span>Wallet</span>
+                    <span>Wallet Deposit</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
@@ -302,7 +302,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/investment">
                     <i class="bi bi-folder-fill"></i>
-                    <span>My Investment</span>
+                    <span>My Investments</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
@@ -333,67 +333,58 @@
                     <h1>Dashboard</h1>
                 </div>
             </div>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Paypal Payment</li>
+                        </ol>
+                    </nav>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="btn btn-outline-secondary rounded-pill btn-sm me-2">Investment</span>
+                        <span class="btn btn-primary rounded-pill btn-sm">Deposit</span>
+                    </div>
+                </div>
+            </div>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
+        <section class="section profile dashboard">
             <div class="row">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            @if ($errors->any())
-                                @foreach ($errors->all() as $error)
-                                    <p style="color:red;">{{ $error }}</p>
-                                @endforeach
-                            @endif
+                    <div class="row">
 
-                            @if (Session::has('success'))
-                                <p style="color:green;">{{ Session::get('success') }}</p>
-                            @endif
-                            <div class="card-title">
-                                My Profile
-                                <span> | Information</span>
+                        <!-- Investment Card -->
+                        <div class="col-xxl-6 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Deposit Using Paypal</h6>
+                                    <hr>
+                                    <div class="row d-flex align-items-center justify-content-center ">
+                                        <div class="col-8">
+                                            <span class="fw-bold">Enter Amount</span>
+                                            <div class="input-group has-validation my-3">
+                                                <span class="input-group-text fw-bold" id="inputGroupPrepend">$</span>
+                                                <input type="number" name="number" class="form-control"
+                                                    id="number" placeholder="$0.00" required>
+                                                <div class="invalid-feedback">Please enter amount!.</div>
+                                            </div>
+                                            <a href="#" class="btn btn-primary btn-sm">Pay Now</a>
+                                        </div>
+                                        <div class="col-4">
+                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px" alt="paypal" srcset="">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Floating Labels Form -->
-                            <form class="row g-3" action="{{ route('update-profile') }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" name="firstname" class="form-control" id="firstname"
-                                            placeholder="First Name" value="{{ $user->firstname }}">
-                                        <label for="Firstname">Firstname</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" name="lastname" id="lastname"
-                                            placeholder="Lastname" value="{{ $user->lastname }}">
-                                        <label for="lastname">Lastname</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="Email"
-                                            placeholder="Your Email" name="email" value="{{ $user->email }}">
-                                        <label for="Email">Your Email</label>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-success">Update</button>
-                                    <button type="reset" class="btn btn-secondary">Reset</button>
-                                </div>
-                            </form><!-- End floating Labels Form -->
-                        </div>
-                    </div>
+                        </div><!-- End Investment Card -->
+
+                    </div><!-- End Right side columns -->
                 </div>
+
             </div><!-- End Left side columns -->
+            </div>
         </section>
 
     </main><!-- End #main -->

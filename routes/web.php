@@ -59,6 +59,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/investment',[UserController::class,'Investment'])->name('/investment');
     Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('/withdrawals');
     Route::get('/contactsupport',[UserController::class,'ContactSupport'])->name('/contactsupport');
+    Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');
 
     Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });

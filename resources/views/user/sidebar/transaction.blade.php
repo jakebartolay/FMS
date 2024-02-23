@@ -307,7 +307,7 @@
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/withdrawal">
+                <a class="nav-link collapsed" href="/withdrawals">
                     <i class="bi bi-database-fill-down"></i>
                     <span>Withdrawals</span>
                 </a>

@@ -329,7 +329,7 @@
                         <form action="{{ route('createUsers') }}" method="POST">
                             @csrf
                             <div class="col-12">
-                                <label for="firstname" class="form-label">First Name</label>
+                                <label for="firstname" class="form-label"></label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text" id="firstname"><i
                                             class="bi bi-person-fill"></i></span>
@@ -369,7 +369,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <label for="role_id" class="form-label">Role</label>
+                                <label for="role_id" class="form-label"></label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-person-fill-gear"></i></span>
                                     <select name="role" id="role" required class="form-control">

@@ -183,7 +183,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>Investor</span>
+                            <span>{{ $roleName }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -201,7 +201,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/wallet">
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
                                 <i class="bi bi-question-circle"></i>
                                 <span>Deposit</span>
                             </a>
@@ -288,7 +288,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
-                    <span>Wallet</span>
+                    <span>Wallet Deposit</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
@@ -302,7 +302,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/investment">
                     <i class="bi bi-folder-fill"></i>
-                    <span>My Investment</span>
+                    <span>My Investments</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
@@ -333,31 +333,203 @@
                     <h1>Dashboard</h1>
                 </div>
             </div>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Balance</li>
-                </ol>
-            </nav>
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <nav>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">Wallet Deposit</li>
+                        </ol>
+                    </nav>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="btn btn-outline-secondary rounded-pill btn-sm me-2">Investment</span>
+                        <span class="btn btn-primary rounded-pill btn-sm">Deposit</span>
+                    </div>
+                </div>
+            </div>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
+        <section class="section profile dashboard">
             <div class="row">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <h1>My Balance</h1>
-                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
-                                <div class="btn btn-outline-primary">
-                                    Deposit
+                    <div class="row">
+
+                        <!-- Investment Card -->
+                        <div class="col-xxl-6 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Overall statistics</h5>
+                                    <div class="row d-flex align-items-center justify-content-center text-center">
+                                        <div class="col-6">
+                                            <h6 class="text-primary fw-bold">0</h6>
+                                            <span class="text-secondary">Investment</span>
+                                            <hr>
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class="text-primary fw-bold">0</h6>
+                                            <span class="text-secondary">Withdrawal</span>
+                                            <hr>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div><!-- End Investment Card -->
+
+                        <!-- Balance Activity -->
+                        <div class="col-xxl-6 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Balances</h5>
+                                    <div class="row g-5 d-flex justify-content-between">
+                                        <div class="col-6">
+                                            <h6 class="text-success fw-bold">WALLET</h6>
+                                            <span class="text-primary">${{ $formattedBalance }}</span>
+                                            <hr>
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class="text-success fw-bold">EARNING</h6>
+                                            <span class="text-primary">$0.00</span>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Balance Activity -->
+
+                        <!-- Right side columns -->
+                        <div class="col-lg-12 col-12">
+                            <!-- Website Traffic -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Deposit into your wallet</h5>
+                                    <div class="row g-4">
+ 
+                                            <div class="col-xxl-3 col-md-6 col-12">
+                                                <div class="card border p-5">
+                                                    <div class="card-body text-center">
+                                                        <img src="assets/logo/paypal.jpg" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset="">
+                                                        <div class="my-3">
+                                                            <span class="fs-6 text-muted py-5">Pay using Paypal payment
+                                                                gateway</span>
+                                                        </div>
+                                                        <a href="/paywithpaypal" class="btn btn-primary">Pay with Paypal</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+                               
+                                            <div class="col-xxl-3 col-md-6 col-12">
+                                                <div class="card border p-5">
+                                                    <div class="card-body text-center">
+                                                        <img src="assets/logo/gcash.jpg" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset="">
+                                                        <div class="my-3">
+                                                            <span class="fs-6 text-muted py-5">Pay using Gcash payment
+                                                                gateway</span>
+                                                        </div>
+                                                        <a href="#" class="btn btn-primary">Pay with Gcash</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xxl-3 col-md-6  col-12">
+                                                <div class="card border p-5">
+                                                    <div class="card-body text-center">
+                                                        <img src="assets/logo/maya.jpg" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset="">
+                                                        <div class="my-3">
+                                                            <span class="fs-6 text-muted py-5">Pay with Paymaya payment gateway</span>
+                                                        </div>
+                                                        <a href="#" class="btn btn-primary">Pay with Paymaya</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                     
+                                            <div class="col-xxl-3 col-md-6 col-12">
+                                                <div class="card border p-5">
+                                                    <div class="card-body text-center">
+                                                        <img src="assets/logo/hellomoney.png" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset=""">
+                                                        <div class="my-3">
+                                                            <span class="fs-6 text-muted py-5">Invest using Hello Money</span>
+                                                        </div>
+                                                        <a href="#" class="btn btn-primary">Pay with HM</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Website Traffic -->
+
+                    </div><!-- End Right side columns -->
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+
+                        <!-- Investment Card -->
+                        <div class="col-xxl-12 col-md-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Available Packages</h5>
+                                    <div class="row">
+                                        <div class="col-xxl-6 col-md-6 col-12">
+                                            <a href="">
+                                                <div class="alert alert-primary d-flex align-items-center shadow-lg"
+                                                    role="alert">
+                                                    <i class="bi bi-exclamation-circle-fill me-3"> </i>
+                                                    <div>
+                                                        <span> Please, click here to update your profile before you can
+                                                            invest.</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div><!-- End Investment Card -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Investment Card -->
+
+                    </div><!-- End Right side columns -->
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="row">
+
+                        <!-- Investment Card -->
+                        <div class="col-xxl-12 col-md-12 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Deposit History</h5>
+                                    <span class="break"></span>
+                                    <div class="container text-center">
+                                        <table class="table table-responsive datatable" style="width: 100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Account</th>
+                                                    <th>Acc Name</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Url</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{-- @foreach ($activityLog as $data)
+                                                    <tr>
+                                                        <td>{{ $data->description }}</td>
+                                                        <td>{{ $data->date_time }}</td>
+                                                    </tr>
+                                                @endforeach --}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Investment Card -->
+                    </div><!-- End Right side columns -->
                 </div>
             </div><!-- End Left side columns -->
+            </div>
         </section>
 
     </main><!-- End #main -->
