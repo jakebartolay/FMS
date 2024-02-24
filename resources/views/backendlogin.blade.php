@@ -19,7 +19,7 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                                 @include('layout.logo2')
                             <br>
-                            <div class="card mb-3">
+                            <div class="card mb-3 shadow-lg">
 
                                 <div class="card-body">
 
