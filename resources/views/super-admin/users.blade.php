@@ -260,15 +260,6 @@
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-
-                                    @if ($errors->any())
-                                        @foreach ($errors->all() as $error)
-                                            <p style="color:red;">{{ $error }}</p>
-                                        @endforeach
-                                    @endif
-                                    @if (Session::has('success'))
-                                        <p style="color:green;">{{ Session::get('success') }}</p>
-                                    @endif
                                     <div class="row justify-content-between">
                                         <div class="col">
                                             <h2 class="mb-4">List Users</h2>

@@ -227,40 +227,38 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        return redirect()->back()->with('success', 'Information has been updated successfully.');
+        return back()->with('success', 'Information has been updated successfully.');
     }
 
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'password' => 'required|min:3|max:100',
-            'newpassword' => 'required|min:6|max:100',
-            'renewpassword' => 'required|same:newPassword',
-            // Other validation rules for password and role if necessary
+            'current_password' => 'required|min:6|max:100',
+            'new_password' => 'required|min:6|max:100',
+            'new_password_confirmation' => 'required|same:new_password',
         ]);
-       
-        $user = auth()->user();
-
-        if(hash::check($request->password,$user->password)){
-            $user->update([
-
-                'password'=>bcrypt($request->newPassword)
+        
+        $current_user = auth()->user();
+        
+        if (Hash::check($request->current_password, $current_user->password)) {
+            $current_user->update([
+                'password' => bcrypt($request->new_password)
             ]);
             return redirect()->back()->with('success', 'Password successfully updated.');
-
-        }else{
-            return redirect()->back()->with('error', 'Old password does not matched.');
-        }
+        } else {
+            return redirect()->back()->with('error', 'Current password is incorrect.');
+        }        
     }
 
 
     public function createUsers(Request $request)
     {
+        $user = auth()->user();
         $request->validate([
-            'firstname' => 'required|string|min:2',
-            'lastname' => 'required|string|min:2',
+            'firstname' => 'required|string|min:15',
+            'lastname' => 'required|string|min:15',
             'email' => 'required|string|email|max:100|unique:users,email,'.$user->id,
-            'password' =>'required|string|min:3',
+            'password' =>'required|string|min:15',
             'role' =>'required'
         ]);
 

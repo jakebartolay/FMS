@@ -50,7 +50,7 @@ class SuperAdminController extends Controller
         User::where('id', $request->user_id)->update([
             'role' => $request->role_id
         ]);
-        return redirect()->back()->with('success','Role has been changed successfully.');
+        return back()->with('message','Role has been changed successfully.');
     }
 
     public function updateProfile(Request $request)

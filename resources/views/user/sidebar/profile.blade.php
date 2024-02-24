@@ -224,7 +224,7 @@
         </div><!-- End Page Title -->
         <section class="section profile">
       <div class="row">
-        <div class="col-xl-4">
+        <div class="col-xl-5">
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
@@ -243,13 +243,17 @@
 
         </div>
 
-        <div class="col-xl-8">
+        <div class="col-xl-7">
 
           <div class="card">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
-
+              @if ($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <p style="color:red;">{{ $error }}</p>
+                                        @endforeach
+                                    @endif
                 <li class="nav-item">
                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                 </li>
@@ -270,15 +274,6 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                @if ($errors->any())
-                                @foreach ($errors->all() as $error)
-                                    <span style="color:red;">{{ $error }}</span>
-                                @endforeach
-                            @endif
-
-                            @if (Session::has('success'))
-                                <span style="color:green;">{{ Session::get('success') }}</span>
-                            @endif
                   <h5 class="card-title">Profile Details</h5>
 
                   <div class="row">
@@ -309,7 +304,6 @@
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-
                   <!-- Profile Edit Form -->
                   <form class="row g-3 needs-validation" action="{{ route('update-profile') }}" method="POST" novalidate>
                                 @csrf
@@ -318,7 +312,7 @@
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
                         <img src="assets/img/superadmin.jpg" alt="Profile">
-                        <div class="pt-2">
+                        <div class="pt-2 mx-4">
                           <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                         </div>
@@ -326,9 +320,9 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Firstname</label>
+                      <label for="valid12" class="col-md-4 col-lg-3 col-form-label">Firstname</label>
                       <div class="col-md-8 col-lg-9 position-relative">
-                        <input name="firstname" type="text" class="form-control" id="validationDefault01" value="{{$user->firstname}}" required>
+                        <input name="firstname" type="text" class="form-control" id="valid12" value="{{$user->firstname}}" required>
                         <div class="invalid-feedback">
                             Please Enter Firstname
                         </div>
@@ -336,9 +330,9 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                      <label for="valid13" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
                       <div class="col-md-8 col-lg-9 position-relative">
-                        <input name="lastname" type="text" class="form-control" id="validationDefault01" value="{{$user->lastname}}" required>
+                        <input name="lastname" type="text" class="form-control" id="valid13" value="{{$user->lastname}}" required>
                         <div class="invalid-feedback">
                             Please Enter Lastname
                         </div>
@@ -346,9 +340,9 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <label for="valid14" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9 position-relative">
-                        <input name="email" type="email" class="form-control" id="validationDefault01" value="{{$user->email}}"required>
+                        <input name="email" type="email" class="form-control" id="valid14" value="{{$user->email}}"required>
                         <div class="invalid-feedback">
                             Please Enter Email
                         </div>
@@ -412,7 +406,6 @@
                 </div>
 
                 <div class="tab-pane fade pt-3" id="profile-settings">
-
                   <!-- Settings Form -->
                   <form>
 
@@ -453,14 +446,15 @@
 
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-change-password">
+                <div class="tab-pane fade" id="profile-change-password">
+                    <h5 class="card-title">Password</h5>
                   <!-- Change Password Form -->
-                  <form class="needs-validation" action="{{route('update-password')}}" method="post" novalidate>
+                  <form class="needs-validation" action="{{ route('update-password') }}" method="POST" novalidate>
                     @csrf
                     <div class="row mb-3">
-                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <label for="valid1" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="validationDefault01" required>
+                        <input name="current_password" type="password" class="form-control" id="valid1" required>
                         <div class="invalid-feedback">
                             Please Enter your old password.
                         </div>
@@ -468,9 +462,9 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <label for="valid2" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="validationDefault01" required>
+                        <input name="new_password" type="password" class="form-control" id="valid2" required>
                         <div class="invalid-feedback">
                             Please enter new password.
                         </div>
@@ -478,9 +472,9 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <label for="valid3" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="validationDefault01" required>
+                        <input name="new_password_confirmation" type="password" class="form-control" id="valid3" required>
                         <div class="invalid-feedback">
                             Please re-enter new password.
                         </div>
@@ -488,7 +482,7 @@
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                      <button type="submit" class="btn btn-primary">Update Password</button>
                     </div>
                   </form><!-- End Change Password Form -->
 
@@ -504,6 +498,7 @@
     </section>
 
     </main><!-- End #main -->
+
 
     @include('layout.footer')
 

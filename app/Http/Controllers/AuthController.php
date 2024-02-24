@@ -38,7 +38,7 @@ class AuthController extends Controller
             'firstname' => 'string|required|min:2',
             'lastname' => 'string|required|min:2',
             'email' => 'string|email|required|max:100|unique:users',
-            'password' => 'string|required|confirmed|min:3'
+            'password' => 'string|required|confirmed|min:10' // Minimum length set to 10 characters
         ]);
 
         // Create a new user instance
@@ -158,9 +158,9 @@ class AuthController extends Controller
         // else if(Auth::user() && Auth::user()->role == 3){
         //     $redirect = '/manager/dashboard';
         // }
-        else if(Auth::user() && Auth::user()->role == 4){
-            $redirect = '/employee/dashboard';
-        }
+        // else if(Auth::user() && Auth::user()->role == 4){
+        //     $redirect = '/employee/dashboard';
+        // }
         else{
             $redirect = '/dashboard';
         }
