@@ -25,13 +25,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AuthController::class,'loadDashboardIndex']);
 
 Route::get('/register',[AuthController::class,'loadRegister']);
 Route::post('/register',[AuthController::class,'register'])->name('register');
-
-Route::get('/login',[AuthController::class,'loadLogin']);
+Route::get('/login',function(){
+    return redirect('/');
+});
+Route::get('/',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
+
 
 Route::get('/back-end',[AuthController::class,'loadBackEnd']);
 Route::post('/back-end',[AuthController::class,'backEnd'])->name('back-end');

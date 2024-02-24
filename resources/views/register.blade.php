@@ -15,7 +15,7 @@
                 class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-6 col-md-12 d-flex flex-column align-items-center justify-content-center">
 
                             @include('layout.logo2')
                             <br>
@@ -74,19 +74,12 @@
                                             <div class="invalid-feedback">Please Re-enter Password!</div>
                                         </div>
 
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <input class="form-check-input" name="terms" type="checkbox"
-                                                    value="" id="acceptTerms" required>
-                                                <label class="form-check-label" for="acceptTerms">I agree and accept the
-                                                    <a href="#">terms and conditions</a></label>
-                                                <div class="invalid-feedback">You must agree before submitting.</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
+                                        <div class="row pt-3 justify-content-center align-items-center">
+                                        <div class="col-6 ">
                                             <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                                        </div>                                       
                                         </div>
-                                        <div class="col-12">
+                                        <div class="text-center col-12">
                                             <p class="small mb-0">Already have an account? <a href="/login">Log in</a>
                                             </p>
                                         </div>
