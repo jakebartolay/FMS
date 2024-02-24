@@ -311,7 +311,7 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form class="row g-3" action="{{ route('update-profile') }}" method="POST" novalidate>
+                  <form class="row g-3 needs-validation" action="{{ route('update-profile') }}" method="POST" novalidate>
                                 @csrf
                                 @method('PUT')
                     <div class="row mb-3">
@@ -327,22 +327,31 @@
 
                     <div class="row mb-3">
                       <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Firstname</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-8 col-lg-9 position-relative">
                         <input name="firstname" type="text" class="form-control" id="validationDefault01" value="{{$user->firstname}}" required>
+                        <div class="invalid-feedback">
+                            Please Enter Firstname
+                        </div>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-8 col-lg-9 position-relative">
                         <input name="lastname" type="text" class="form-control" id="validationDefault01" value="{{$user->lastname}}" required>
+                        <div class="invalid-feedback">
+                            Please Enter Lastname
+                        </div>
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="{{$user->email}}"required>
+                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9 position-relative">
+                        <input name="email" type="email" class="form-control" id="validationDefault01" value="{{$user->email}}"required>
+                        <div class="invalid-feedback">
+                            Please Enter Email
+                        </div>
                       </div>
                     </div>
 
@@ -446,26 +455,35 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
-
+                  <form class="needs-validation" action="{{route('update-password')}}" method="post" novalidate>
+                    @csrf
                     <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
+                        <input name="password" type="password" class="form-control" id="validationDefault01" required>
+                        <div class="invalid-feedback">
+                            Please Enter your old password.
+                        </div>
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="newpassword" type="password" class="form-control" id="validationDefault01" required>
+                        <div class="invalid-feedback">
+                            Please enter new password.
+                        </div>
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <label for="validationDefault01" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="renewpassword" type="password" class="form-control" id="validationDefault01" required>
+                        <div class="invalid-feedback">
+                            Please re-enter new password.
+                        </div>
                       </div>
                     </div>
 

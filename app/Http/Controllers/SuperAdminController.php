@@ -59,4 +59,10 @@ class SuperAdminController extends Controller
         return (new UserController())->updateProfile($request);
     }
 
+    public function updatePassword(Request $request)
+    {
+        // Delegate the updateProfile request to UserController
+        return (new UserController())->updatePassword($request);
+    }
+
 }

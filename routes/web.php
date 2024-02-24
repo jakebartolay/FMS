@@ -51,10 +51,14 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/dashboard',[UserController::class,'dashboard']);
     Route::get('/error',[UserController::class,'Error']);
 
-    //// SIDEBAR //////
-    Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
+    //CHANGE INFORMATION AND PASSWORD
+
     Route::post('/profile',[SuperAdminController::class,'editProfile'])->name('/profile');
     Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
+    Route::post('/update-password',[SuperAdminController::class,'updatePassword'])->name('update-password');
+
+    //// SIDEBAR //////
+    Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
     Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
     Route::get('/investment',[UserController::class,'Investment'])->name('/investment');

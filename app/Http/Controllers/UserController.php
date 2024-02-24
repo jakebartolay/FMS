@@ -209,27 +209,58 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-        // Retrieve the authenticated user
+         // return dd($request->all());
         $user = auth()->user();
 
-        // Update the user's profile
-        $user->update([
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname, // corrected the syntax error
-            'email' => $request->email // corrected the syntax error
+        // Validate the request
+        $request->validate([
+            'firstname' => 'required|string|min:2',
+            'lastname' => 'required|string|min:2',
+            'email' => 'required|string|email|max:100|unique:users,email,'.$user->id,
+            // Other validation rules for password and role if necessary
         ]);
-        // return dd($request->all());
 
-        return redirect()->back()->with('success','Information Update has been changed successfully.');
+        // Update the authenticated user's profile
+        $user = auth()->user();
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Information has been updated successfully.');
     }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:3|max:100',
+            'newpassword' => 'required|min:6|max:100',
+            'renewpassword' => 'required|same:newPassword',
+            // Other validation rules for password and role if necessary
+        ]);
+       
+        $user = auth()->user();
+
+        if(hash::check($request->password,$user->password)){
+            $user->update([
+
+                'password'=>bcrypt($request->newPassword)
+            ]);
+            return redirect()->back()->with('success', 'Password successfully updated.');
+
+        }else{
+            return redirect()->back()->with('error', 'Old password does not matched.');
+        }
+    }
+
 
     public function createUsers(Request $request)
     {
         $request->validate([
-            'firstname' => 'string|required|min:2',
-            'lastname' => 'string|required|min:2',
-            'email' => 'string|email|required|max:100|unique:users',
-            'password' =>'string|required|min:3',
+            'firstname' => 'required|string|min:2',
+            'lastname' => 'required|string|min:2',
+            'email' => 'required|string|email|max:100|unique:users,email,'.$user->id,
+            'password' =>'required|string|min:3',
             'role' =>'required'
         ]);
 
