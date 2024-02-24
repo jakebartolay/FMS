@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\vendorInfo;
 use App\Models\Role;
 use App\Models\User;
-
+use App\Models\Account;
+use DB;
 
 class AdminController extends Controller
 {
@@ -27,13 +28,15 @@ class AdminController extends Controller
             $roleName = 'Unknown';
         }
 
-        return view('admin.dashboard', compact('user','roleName','account1','account2'));
+        $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
+
+        return view('admin.dashboard', compact('user','roleName','account1','account2','countBalance'));
     }
 
-    public function profile()
+    public function Activity()
     {
         $user = auth()->user();
-        return view('admin.user_profile', compact('user'));
+        return view('admin.sidebar.activity_logs', compact('user'));
     }
 
     public function vendorList()
@@ -49,23 +52,5 @@ class AdminController extends Controller
         $data = vendorInfo::all();
         $user = auth()->user();
         return view('admin.sidebar.addvendor', compact('user','data'));             
-    }
-
-    public function vendorUpdate()
-    {
-        $user = auth()->user();
-        return view('admin.sidebar.vendorupdate', compact('user'));
-    }
-
-    public function contact()
-    {
-        $user = auth()->user();
-        return view('admin.sidebar.contact_page', compact('user'));
-    }
-
-    public function faq()
-    {
-        $user = auth()->user();
-        return view('admin.sidebar.faq', compact('user'));
     }
 }

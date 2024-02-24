@@ -2,10 +2,8 @@
 <html lang="en">
 
 <head>
-
-    <title>Dashboard</title>
+    <title>Dasboard</title>
     @include('layout.header')
-
 </head>
 
 <body>
@@ -15,6 +13,7 @@
 
         @include('layout.logo')
         <i class="bi bi-list toggle-sidebar-btn"></i>
+
 
         <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -139,8 +138,7 @@
 
                         <li class="message-item">
                             <a href="#">
-                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle p-5"
-                                    style="width: 10px;">
+                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
                                 <div>
                                     <h4>Anna Nelson</h4>
                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -185,7 +183,69 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>Administration</span>
+                            <span>Employee</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/">
+                                <i class="bi bi-gear"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Deposit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Transper Fund</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>My Investment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Withdrawal</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Contract Support</span>
+                            </a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -212,27 +272,54 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/dashboard">
-                    <i class="bi bi-grid"></i>
+                <a class="nav-link" href="/">
+                    <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
-            <li class="nav-heading">Manage Users</li>
-
             <li class="nav-item">
-                <a class="nav-link" href="/super-admin/users">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Users List</span>
+                <a class="nav-link collapsed" href="/profile">
+                    <i class="bi bi-person-fill"></i>
+                    <span>My Profile</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/super-admin/manage-role">
-                    <i class="bi bi-person-fill-lock"></i>
-                    <span>Manage Role</span>
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-credit-card-fill"></i>
+                    <span>wallet</span>
                 </a>
-            </li><!-- End F.A.Q Page Nav -->
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-send-fill"></i>
+                    <span>Transfer fund</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-folder-fill"></i>
+                    <span>My Investment</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-database-fill-down"></i>
+                    <span>Withdrawals</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/admin/pages-contact">
+                    <i class="bi bi-envelope-fill"></i>
+                    <span>Contact Support</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+            {{-- <li class="nav-heading">Example</li> --}}
 
         </ul>
 
@@ -241,147 +328,36 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Users</h1>
+            <div class="d-flex justify-content-between">
+                <h1>Dashboard</h1>
+            </div>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item">Users</li>
-                    <li class="breadcrumb-item active">List User</li>
+                    <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section profile">
-            <div class="row justify-content-center align-center d-flex">
-                <div class="col-11">
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
 
-                    <div class="card">
-                        <div class="card-body pt-3">
-                            <div class="tab-content pt-2">
-
-                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                    <div class="row justify-content-between">
-                                        <div class="col">
-                                            <h2 class="mb-4">List Users</h2>
-                                        </div>
-                                        <div class="col-auto">
-                                            <button type="button" class="btn btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#verticalycentered">Add
-                                                Admin</button>
-                                        </div>
-                                        <hr>
-                                    </div>
-                                    <table class="table table-striped datatable">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Fistname</th>
-                                                <th>Lastname</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($users as $user)
-                                                <tr>
-                                                    <td>{{ $user->id }}</td>
-                                                    <td>{{ $user->firstname }}</td>
-                                                    <td>{{ $user->lastname }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    <td>
-                                                        @if ($user->roles == null)
-                                                            User
-                                                        @else
-                                                            {{ $user->roles->name }}
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-
-                                </div><!-- End Bordered Tabs -->
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-        </section>
-
-        <div class="modal fade" id="verticalycentered" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Add New User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('createUsers') }}" method="POST">
-                            @csrf
-                            <div class="col-12">
-                                <label for="firstname" class="form-label"></label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="firstname"><i
-                                            class="bi bi-person-fill"></i></span>
-                                    <input type="text" name="firstname" class="form-control" id="firstname"
-                                        placeholder="Firstname" required>
-                                    <div class="invalid-feedback">Please enter your firstname.</div>
+                        <!-- Investment Card -->
+                        <div class="col-xxl-6 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Employee, {{ $user->firstname }}</h5>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <label for="lastname" class="form-label"></label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="lastname"><i
-                                            class="bi bi-person-fill"></i></span>
-                                    <input type="text" name="lastname" class="form-control" id="firstname"
-                                        placeholder="Lastname" required>
-                                    <div class="invalid-feedback">Please enter your lastname.</div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="email" class="form-label"></label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="email"><i
-                                            class="bi bi-envelope-fill"></i></span>
-                                    <input type="email" name="email" class="form-control" id="email"
-                                        placeholder="example@gmail.com" required>
-                                    <div class="invalid-feedback">Please enter your email.</div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="password" class="form-label"></label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="password"><i
-                                            class="bi bi-lock-fill"></i></span>
-                                    <input type="password" name="password" class="form-control" id="password"
-                                        placeholder="Password" required>
-                                    <div class="invalid-feedback">Please enter your password.</div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="role_id" class="form-label"></label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-person-fill-gear"></i></span>
-                                    <select name="role" id="role" required class="form-control">
-                                        <option value="">Select Role</option>
-                                        @foreach ($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                        @endforeach
-                                        <option value="0">User</option>
-                                    </select>
-                                </div>
-                            </div>
+                        </div><!-- End Investment Card -->
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Create</button>
-                            </div>
-                        </form>
-                    </div>
+                    </div><!-- End Right side columns -->
                 </div>
             </div>
-        </div>
+            </div>
+        </section>
 
     </main><!-- End #main -->
 
@@ -391,7 +367,6 @@
             class="bi bi-arrow-up-short"></i></a>
 
     @include('layout.javascript')
-
 </body>
 
 </html>

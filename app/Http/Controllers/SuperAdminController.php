@@ -9,18 +9,21 @@ use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\vendorInfo;
+use DB;
 
 class SuperAdminController extends Controller
 {
     //
     public function dashboard()
     {
-        $users = User::where('role','!=',1)->get();
+        $users = User::where('role', '!=', 1)->get();
         $roles = Role::all();
         
-        
         $user = auth()->user();
-        return view('super-admin.dashboard', compact('users','roles', 'user'));
+        
+        $activityLog = DB::table('activity_logs')->get();
+        
+        return view('super-admin.dashboard', compact('users', 'roles', 'user', 'activityLog'));
     }
 
     public function users(Request $request)
@@ -47,13 +50,19 @@ class SuperAdminController extends Controller
         User::where('id', $request->user_id)->update([
             'role' => $request->role_id
         ]);
-        return redirect()->back()->with('success','Role has been changed successfully.');
+        return back()->with('message','Role has been changed successfully.');
     }
 
     public function updateProfile(Request $request)
     {
         // Delegate the updateProfile request to UserController
         return (new UserController())->updateProfile($request);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // Delegate the updateProfile request to UserController
+        return (new UserController())->updatePassword($request);
     }
 
 }

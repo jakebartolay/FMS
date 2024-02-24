@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Contact Support</title>
+    @include('layout.header')
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        @include('layout.logo')
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+
+
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">0</span>
+                    </a><!-- End Notification Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            You have 0 new notifications
+                            <!-- <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a> -->
+                        </li>
+                        <!-- <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="dropdown-footer">
+                            <a href="#">Show all notifications</a>
+                        </li> -->
+
+                    </ul><!-- End Notification Dropdown Items -->
+
+                </li><!-- End Notification Nav -->
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>{{ $user->firstname }}</h6>
+                            <span>{{ $roleName }}</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/profile">
+                                <i class="bi bi-person-fill"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li><!-- End Contact Page Nav -->
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/">
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/wallet">
+                    <i class="bi bi-credit-card-fill"></i>
+                    <span>Wallet Deposit</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/transaction">
+                    <i class="bi bi-send-fill"></i>
+                    <span>Transfer fund</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/investment">
+                    <i class="bi bi-folder-fill"></i>
+                    <span>My Investment</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/withdrawals">
+                    <i class="bi bi-database-fill-down"></i>
+                    <span>Withdrawals</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="/contactsupport">
+                    <i class="bi bi-envelope-fill"></i>
+                    <span>Contact Support</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <div class="row">
+                <div class="d-flex justify-content-between">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Contact Support</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section contact">
+
+<div class="row gy-4">
+
+  <div class="col-xl-6">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-geo-alt"></i>
+          <h3>Address</h3>
+          <p>A108 Adam Street,<br>New York, NY 535022</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-telephone"></i>
+          <h3>Call Us</h3>
+          <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-envelope"></i>
+          <h3>Email Us</h3>
+          <p>info@example.com<br>contact@example.com</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-clock"></i>
+          <h3>Open Hours</h3>
+          <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-xl-6">
+    <div class="card p-4">
+      <form action="forms/contact.php" method="post" class="php-email-form">
+        <div class="row gy-4">
+
+          <div class="col-md-6">
+            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+          </div>
+
+          <div class="col-md-6 ">
+            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+          </div>
+
+          <div class="col-md-12">
+            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+          </div>
+
+          <div class="col-md-12">
+            <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your message has been sent. Thank you!</div>
+
+            <button type="submit">Send Message</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+    </main><!-- End #main -->
+
+    @include('layout.footer')
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    @include('layout.javascript')
+</body>
+
+</html>

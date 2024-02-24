@@ -35,221 +35,47 @@
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
+                        <span class="badge bg-primary badge-number">0</span>
                     </a><!-- End Notification Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            You have 4 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                            You have 0 new notifications
+                            <!-- <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a> -->
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-exclamation-circle text-warning"></i>
-                            <div>
-                                <h4>Lorem Ipsum</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>30 min. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-x-circle text-danger"></i>
-                            <div>
-                                <h4>Atque rerum nesciunt</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>1 hr. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-check-circle text-success"></i>
-                            <div>
-                                <h4>Sit rerum fuga</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>2 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
+                        <!-- <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li class="dropdown-footer">
                             <a href="#">Show all notifications</a>
-                        </li>
+                        </li> -->
 
                     </ul><!-- End Notification Dropdown Items -->
 
                 </li><!-- End Notification Nav -->
 
-                <li class="nav-item dropdown">
-
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number">3</span>
-                    </a><!-- End Messages Icon -->
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                        <li class="dropdown-header">
-                            You have 3 new messages
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Maria Hudson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>4 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Anna Nelson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>6 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>David Muldon</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>8 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="dropdown-footer">
-                            <a href="#">Show all messages</a>
-                        </li>
-
-                    </ul><!-- End Messages Dropdown Items -->
-
-                </li><!-- End Messages Nav -->
-
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>Investor</span>
+                            <span>{{ $roleName }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/">
-                                <i class="bi bi-gear"></i>
-                                <span>Dashboard</span>
+                            <a class="dropdown-item d-flex align-items-center" href="/profile">
+                                <i class="bi bi-person-fill"></i>
+                                <span>My Profile</span>
                             </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Deposit</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Transper Fund</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
-                                <span>My Investment</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Withdrawal</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Contract Support</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        </li><!-- End Contact Page Nav -->
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
@@ -279,42 +105,35 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/profile">
-                    <i class="bi bi-person-fill"></i>
-                    <span>My Profile</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
-                    <span>wallet</span>
+                    <span>Wallet Deposit</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/transaction">
                     <i class="bi bi-send-fill"></i>
                     <span>Transfer fund</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/investment">
                     <i class="bi bi-folder-fill"></i>
                     <span>My Investment</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/withdrawals">
                     <i class="bi bi-database-fill-down"></i>
                     <span>Withdrawals</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/pages-contact">
+                <a class="nav-link collapsed" href="/contactsupport">
                     <i class="bi bi-envelope-fill"></i>
                     <span>Contact Support</span>
                 </a>
@@ -342,14 +161,14 @@
                         </ol>
                     </nav>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="btn btn-outline-secondary rounded-pill btn-sm me-2">Investment</span>
-                        <span class="btn btn-primary rounded-pill btn-sm">Deposit</span>
+                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/error">Investment</a>
+                        <a class="btn btn-primary rounded-pill btn-sm" href="/wallet">Deposit</a>
                     </div>
                 </div>
             </div>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
+        <section class="section profile dashboard">
             <div class="row">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
@@ -384,7 +203,7 @@
                                     <div class="row g-5 d-flex justify-content-between">
                                         <div class="col-6">
                                             <h6 class="text-success fw-bold">WALLET</h6>
-                                            <span class="text-primary">$0.00</span>
+                                            <span class="text-primary">${{ $formattedBalance }}</span>
                                             <hr>
                                         </div>
                                         <div class="col-6">
@@ -398,7 +217,7 @@
                         </div><!-- Balance Activity -->
 
                         <!-- Reports -->
-                        <div class="col-7">
+                        <div class="col-lg-7 col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Investment Statistics</h5>
@@ -407,38 +226,40 @@
                                     <div id="lineChart"></div>
 
                                     <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#lineChart"), {
-                                                series: [{
-                                                    name: "Desktops",
-                                                    // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'line',
-                                                    zoom: {
-                                                        enabled: false
-                                                    }
-                                                },
-                                                dataLabels: {
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                        new ApexCharts(document.querySelector("#lineChart"), {
+                                            series: [{
+                                                name: "Desktops",
+                                                // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                                            }],
+                                            chart: {
+                                                height: 350,
+                                                type: 'line',
+                                                zoom: {
                                                     enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'straight'
-                                                },
-                                                grid: {
-                                                    row: {
-                                                        colors: ['#f3f3f3',
-                                                            'transparent'
-                                                        ], // takes an array which will be repeated on columns
-                                                        opacity: 0.5
-                                                    },
-                                                },
-                                                xaxis: {
-                                                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
                                                 }
-                                            }).render();
-                                        });
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                curve: 'straight'
+                                            },
+                                            grid: {
+                                                row: {
+                                                    colors: ['#f3f3f3',
+                                                        'transparent'
+                                                    ], // takes an array which will be repeated on columns
+                                                    opacity: 0.5
+                                                },
+                                            },
+                                            xaxis: {
+                                                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                                    'Jul', 'Aug', 'Sep'
+                                                ],
+                                            }
+                                        }).render();
+                                    });
                                     </script>
                                     <!-- End Line Chart -->
 
@@ -447,7 +268,7 @@
                         </div><!-- End Reports -->
 
                         <!-- Right side columns -->
-                        <div class="col-5">
+                        <div class="col-lg-5 col-12">
 
                             <!-- Website Traffic -->
                             <div class="card">
@@ -458,38 +279,40 @@
                                     <div id="lineChart2"></div>
 
                                     <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#lineChart2"), {
-                                                series: [{
-                                                    name: "Desktops",
-                                                    // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'line',
-                                                    zoom: {
-                                                        enabled: false
-                                                    }
-                                                },
-                                                dataLabels: {
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                        new ApexCharts(document.querySelector("#lineChart2"), {
+                                            series: [{
+                                                name: "Desktops",
+                                                // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                                            }],
+                                            chart: {
+                                                height: 350,
+                                                type: 'line',
+                                                zoom: {
                                                     enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'straight'
-                                                },
-                                                grid: {
-                                                    row: {
-                                                        colors: ['#f3f3f3',
-                                                            'transparent'
-                                                        ], // takes an array which will be repeated on columns
-                                                        opacity: 0.5
-                                                    },
-                                                },
-                                                xaxis: {
-                                                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
                                                 }
-                                            }).render();
-                                        });
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                curve: 'straight'
+                                            },
+                                            grid: {
+                                                row: {
+                                                    colors: ['#f3f3f3',
+                                                        'transparent'
+                                                    ], // takes an array which will be repeated on columns
+                                                    opacity: 0.5
+                                                },
+                                            },
+                                            xaxis: {
+                                                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                                    'Jul', 'Aug', 'Sep'
+                                                ],
+                                            }
+                                        }).render();
+                                    });
                                     </script>
                                     <!-- End Line Chart -->
 
@@ -501,70 +324,106 @@
 
                     </div><!-- End Right side columns -->
                 </div>
-                <div class="col-lg-12">
-                    <div class="row">
+                <!-- Right side columns -->
+                <div class="col-lg-12 col-12">
+                    <!-- Website Traffic -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Deposit into your wallet</h5>
+                            <div class="row g-4">
 
-                        <!-- Investment Card -->
-                        <div class="col-xxl-12 col-md-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Available Packages</h5>
-                                    <a href="">
-                                        <div class="alert alert-primary d-flex align-items-center shadow-lg"
-                                            role="alert">
-                                            <i class="bi bi-exclamation-circle-fill"> </i>
-                                            <div>
-                                                <span> Please, click here to update your profile before you can
-                                                    invest.</span>
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/coca-cola-logo.png"
+                                                class="border border-circle rounded-circle" alt="logo payment"
+                                                width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">Coca Cola</span>
                                             </div>
+                                            <a href="/paywithpaypal" class="btn btn-primary">Invest</a>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div><!-- End Investment Card -->
 
-                    </div><!-- End Right side columns -->
-                </div>
 
-                <div class="col-lg-12">
-                    <div class="row">
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/mcdonalds-logo.png" class="border border-circle rounded-circle"
+                                                alt="logo payment" width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">McDonals</span>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">Invest</a>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <!-- Investment Card -->
-                        <div class="col-xxl-12 col-md-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Log History</h5>
-                                    <span class="break"></span>
-                                    <div class="text-center">
-                                        <table class="table table-striped datatable">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Description</th>
-                                                    <th>Date Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($activityLog as $key => $data)
-                                                <tr>
-                                                    <td>{{ ++$key }}</td>
-                                                    <td>{{ $data->name }}</td>
-                                                    <td>{{ $data->email }}</td>
-                                                    <td>{{ $data->description }}</td>
-                                                    <td>{{ $data->date_time }}</td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                <div class="col-xxl-3 col-md-6  col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/samsung-logo.png" class="border border-circle rounded-circle"
+                                                alt="logo payment" width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">Samsung</span>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">Invest</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/toyota-logo.png"
+                                                class="border border-circle rounded-circle" alt="logo payment"
+                                                width="100px" height="100px" srcset="">
+                                                        <div class=" my-3">
+                                            <span class="fs-6 text-muted py-5">Toyota</span>
+                                        </div>
+                                        <a href="#" class="btn btn-primary">Invest</a>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Investment Card -->
-
-                    </div><!-- End Right side columns -->
+                        </div>
+                    </div>
                 </div>
+            </div><!-- End Website Traffic -->
+            <div class="col-lg-12">
+                <div class="row">
+
+                    <!-- Investment Card -->
+                    <div class="col-xxl-12 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Log History</h5>
+                                <span class="break"></span>
+                                <div class="container-fluid">
+                                    <table class="table table-striped datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Actions</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- @foreach ($activityLog as $data)
+                                                <tr>
+                                                    <td>{{ $data->id }}</td>
+                                                    <td>{{ $data->description }}</td>
+                                                    <td>{{ $data->date_time }}</td>
+                                                </tr>
+                                                @endforeach -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Investment Card -->
+                </div><!-- End Right side columns -->
+            </div>
             </div><!-- End Left side columns -->
             </div>
         </section>

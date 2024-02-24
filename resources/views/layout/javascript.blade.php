@@ -18,6 +18,45 @@
   <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js" type="text/javascript"></script>
   <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.colVis.min.js" type="text/javascript"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  @if(Session::has('success'))
+    <script>
+        toastr.options = {
+            "progressBar" : true,
+            "closeButton" : true,
+        }
+
+        toastr.success("{{ Session::get('success') }}",'Success!',{timeout:12000});
+
+        // toastr.info("{{ Session::get('message') }}");
+        // toastr.warning("{{ Session::get('message') }}");
+        // toastr.error("{{ Session::get('message') }}");
+    </script>
+    @endif 
+
+    @if(Session::has('error'))
+    <script>
+        toastr.options = {
+            "progressBar" : true,
+            "closeButton" : true,
+        }
+        toastr.error("{{ Session::get('error') }}",'Danger!',{timeout:12000});
+        
+    </script>
+    @endif
+    <!-- 12345678910 -->
+    <!-- @if(Session::has('warning'))
+    <script>
+        toastr.options = {
+            "progressBar" : true,
+            "closeButton" : true,
+        }
+        toastr.warning("{{ Session::get('warning') }}",'Warning!',{timeout:12000});
+        
+    </script>
+    @endif -->
+
   <script>
       new DataTable('#example', {
           layout: {

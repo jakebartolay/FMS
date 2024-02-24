@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -32,19 +33,24 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        // Validate the request data for user creation
         $request->validate([
-            'name' => 'string|required|min:2',
+            'firstname' => 'string|required|min:2',
+            'lastname' => 'string|required|min:2',
             'email' => 'string|email|required|max:100|unique:users',
-            'password' =>'string|required|confirmed|min:6'
+            'password' => 'string|required|confirmed|min:10' // Minimum length set to 10 characters
         ]);
 
-        $user = new User;
-        $user->name = $request->name;
+        // Create a new user instance
+        $user = new User();
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return back()->with('success','Your Registration has been successfull.');
+        // Redirect back with success message
+        return back()->with('success', 'User and account created successfully.');
     }
 
     public function loadBackEnd()
@@ -70,7 +76,7 @@ class AuthController extends Controller
         $activityLog = [ 
             'name' => $email,
             'email' => $email,
-            'description' => 'Has Log In',
+            'description' => 'User logged in to account',
             'date_time' => $todayDate,
         ];
 
@@ -152,6 +158,9 @@ class AuthController extends Controller
         // else if(Auth::user() && Auth::user()->role == 3){
         //     $redirect = '/manager/dashboard';
         // }
+        // else if(Auth::user() && Auth::user()->role == 4){
+        //     $redirect = '/employee/dashboard';
+        // }
         else{
             $redirect = '/dashboard';
         }
@@ -161,24 +170,30 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $user = Auth::User();
-        Session::put('user', $user);
-        $user = Session::get('user');
-
-        $name = $user->name;
-        $email = $user->email;
-        $dt = Carbon::now();
-        $todayDate = $dt->toDayDateTimeString();
-
-        $activityLog = [ 
-            'name' => $name,
-            'email' => $email,
-            'description' => 'Log Out',
-            'date_time' => $todayDate,
-        ];
-        DB::table('activity_logs')->insert($activityLog);
-        $request->session()->flush();
-        Auth::logout();
-        return redirect('/login');
+        if(Auth::check()) {
+            $user = Auth::user();
+    
+            // Log the logout activity
+            $email = $user->email;
+            $dt = Carbon::now();
+            $todayDate = $dt->toDayDateTimeString();
+    
+            $activityLog = [
+                'name' => $email,
+                'email' => $email,
+                'description' => 'User logout',
+                'date_time' => $todayDate,
+            ];
+    
+            DB::table('activity_logs')->insert($activityLog);
+    
+            // Clear the session and logout
+            $request->session()->flush();
+            Auth::logout();
+    
+            return redirect('/login');
+        }
+    
+        return redirect('/login'); // If the user is not logged in, redirect to login page
     }
 }
