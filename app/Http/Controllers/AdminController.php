@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\vendorInfo;
 use App\Models\Role;
 use App\Models\User;
-
+use App\Models\Account;
+use DB;
 
 class AdminController extends Controller
 {
@@ -27,7 +28,9 @@ class AdminController extends Controller
             $roleName = 'Unknown';
         }
 
-        return view('admin.dashboard', compact('user','roleName','account1','account2'));
+        $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
+
+        return view('admin.dashboard', compact('user','roleName','account1','account2','countBalance'));
     }
 
     public function Activity()
