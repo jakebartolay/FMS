@@ -56,7 +56,8 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -161,7 +162,7 @@
                         </ol>
                     </nav>
                     <div class="d-flex justify-content-between align-items-center">
-                    <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/error">Investment</a>
+                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/error">Investment</a>
                         <a class="btn btn-primary rounded-pill btn-sm" href="/wallet">Deposit</a>
                     </div>
                 </div>
@@ -222,59 +223,85 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Deposit into your wallet</h5>
-                                    <div class="row g-4">
- 
+                                    <div class="row gy-4">
+
+                                        <div class="col-xl-12 col-md-12">
+                                            <div class="row">
+
                                             <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border p-5">
+                                                <div class="card border py-2">
                                                     <div class="card-body text-center">
-                                                        <img src="assets/logo/paypal.jpg" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset="">
+                                                        <img src="assets/logo/paypal.jpg"
+                                                            class="border border-circle rounded-circle"
+                                                            alt="logo payment" width="100px" height="100px"
+                                                            srcset="">
                                                         <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay using Paypal payment
+                                                            <span class="fs-6 text-muted py-5">Pay using Paypal
+                                                                payment
                                                                 gateway</span>
                                                         </div>
-                                                        <a href="/paywithpaypal" class="btn btn-primary">Pay with Paypal</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                       
-                               
-                                            <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border p-5">
-                                                    <div class="card-body text-center">
-                                                        <img src="assets/logo/gcash.jpg" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset="">
-                                                        <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay using Gcash payment
-                                                                gateway</span>
-                                                        </div>
-                                                        <a href="#" class="btn btn-primary">Pay with Gcash</a>
+                                                        <a href="/paywithpaypal" class="btn btn-primary">Pay with
+                                                            Paypal</a>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xxl-3 col-md-6  col-12">
-                                                <div class="card border p-5">
+                                            <div class="col-xxl-3 col-md-6 col-12">
+                                                <div class="card border py-2">
                                                     <div class="card-body text-center">
-                                                        <img src="assets/logo/maya.jpg" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset="">
+                                                        <img src="assets/logo/gcash.jpg"
+                                                            class="border border-circle rounded-circle"
+                                                            alt="logo payment" width="100px" height="100px"
+                                                            srcset="">
                                                         <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay with Paymaya payment gateway</span>
+                                                            <span class="fs-6 text-muted py-5">Pay using Gcash
+                                                                payment
+                                                                gateway</span>
                                                         </div>
-                                                        <a href="#" class="btn btn-primary">Pay with Paymaya</a>
+                                                        <a href="#" class="btn btn-primary">Pay with
+                                                            Gcash</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                     
+
                                             <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border p-5">
+                                                <div class="card border py-2">
                                                     <div class="card-body text-center">
-                                                        <img src="assets/logo/hellomoney.png" class="border border-circle rounded-circle" alt="logo payment" width="100px" height="100px" srcset=""">
+                                                        <img src="assets/logo/maya.jpg"
+                                                            class="border border-circle rounded-circle"
+                                                            alt="logo payment" width="100px" height="100px"
+                                                            srcset="">
                                                         <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Invest using Hello Money payment
+                                                            <span class="fs-6 text-muted py-5">Pay with Paymaya
+                                                                payment
+                                                                gateway</span>
+                                                        </div>
+                                                        <a href="#" class="btn btn-primary">Pay with
+                                                            Paymaya</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xxl-3 col-md-6 col-12">
+                                                <div class="card border py-2">
+                                                    <div class="card-body text-center">
+                                                        <img src="assets/logo/hellomoney.png"
+                                                            class="border border-circle rounded-circle"
+                                                            alt="logo payment" width="100px" height="100px"
+                                                            srcset=""">
+                                                        <div class="my-3">
+                                                            <span class="fs-6 text-muted py-5">Pay with Hello Money
+                                                                payment
                                                                 gateway</span>
                                                         </div>
                                                         <a href="#" class="btn btn-primary">Pay with HM</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +309,7 @@
 
                     </div><!-- End Right side columns -->
                 </div>
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <div class="row">
 
                         <!-- Investment Card -->
@@ -291,7 +318,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Available Packages</h5>
                                     <div class="row">
-                                        <div class="col-xxl-12 col-md-6 col-12">
+                                        <div class="col-xxl-12 col-md-12 col-12">
                                             <a href="">
                                                 <div class="alert alert-primary d-flex align-items-center shadow-lg"
                                                     role="alert">
@@ -309,7 +336,7 @@
                         </div><!-- End Investment Card -->
 
                     </div><!-- End Right side columns -->
-                </div>
+                </div> --}}
 
                 <div class="col-lg-12">
                     <div class="row">
