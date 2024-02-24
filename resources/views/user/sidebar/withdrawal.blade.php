@@ -230,8 +230,8 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h1>Transfer Fund</h1>
-                                <h1 class="text-primary">$0</h1>
+                                <h1>Withdrawal</h1>
+                                <h1 class="text-primary">{{$formattedBalance}}</h1>
                                 <div class="btn btn-outline-primary">
                                     Send Cash
                                 </div>

@@ -425,6 +425,8 @@
                                         <table class="table table-striped datatable">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
+                                                    <th>Email</th>
                                                     <th>Actions</th>
                                                     <th>Date</th>
                                                 </tr>
@@ -432,6 +434,8 @@
                                             <tbody>
                                                 @foreach ($activityLog as $data)
                                                     <tr>
+                                                        <td>{{ $data->id }}</td>
+                                                        <td>{{ $data->email }}</td>
                                                         <td>{{ $data->description }}</td>
                                                         <td>{{ $data->date_time }}</td>
                                                     </tr>

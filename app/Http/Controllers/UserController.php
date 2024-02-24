@@ -27,10 +27,10 @@ class UserController extends Controller
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $userId = $user->user_id; // Assuming the user_id is stored in the `user_id` attribute of the user model
+        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
         
         $account = DB::table('accounts')
-        ->join('users', 'users.user_id', '=', 'accounts.user_id')
+        ->join('users', 'users.id', '=', 'accounts.user_id')
         ->where('accounts.user_id', $userId)
         ->value('accounts.balance');
 
@@ -100,12 +100,13 @@ class UserController extends Controller
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $userId = $user->user_id; // Assuming the user_id is stored in the `user_id` attribute of the user model
+        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
         
         $account = DB::table('accounts')
-        ->join('users', 'users.user_id', '=', 'accounts.user_id')
+        ->join('users', 'users.id', '=', 'accounts.user_id')
         ->where('accounts.user_id', $userId)
         ->value('accounts.balance');
+
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
@@ -126,16 +127,51 @@ class UserController extends Controller
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $userId = $user->user_id; // Assuming the user_id is stored in the `user_id` attribute of the user model
+        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
         
         $account = DB::table('accounts')
-        ->join('users', 'users.user_id', '=', 'accounts.user_id')
+        ->join('users', 'users.id', '=', 'accounts.user_id')
         ->where('accounts.user_id', $userId)
         ->value('accounts.balance');
+
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
         return view('user.sidebar.wallet', compact('user','formattedBalance','roleName'));
+    }
+
+    public function Deposit(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+        ]);
+        
+        $user = auth()->user();
+        $amount = $request->amount;
+        
+        try {
+            // Retrieve the user's account record
+            $account = $user->account;
+        
+            if ($account) {
+                // If account exists, update balance
+                $account->balance += $amount;
+            } else {
+                // If account doesn't exist, create a new one
+                $account = new Account();
+                $account->user_id = $user->id; // Use $user->id instead of $user->user_id
+                $account->balance = $amount;
+            }
+        
+            $account->save();
+        
+            // Log the transaction or generate a receipt if needed
+        
+            return back()->with('success', 'Amount deposited successfully.');
+        } catch (\Exception $e) {
+            // Handle the exception (e.g., log error, display error message)
+            return back()->with('error', 'An error occurred while processing the deposit.');
+        }
     }
 
     public function paywithPaypal(){
@@ -187,8 +223,18 @@ class UserController extends Controller
             // Handle the case where the role is not found
             $roleName = 'Client';
         }
-        $user = auth()->user();
-        return view('user.sidebar.withdrawal', compact('user','roleName'));
+
+        $user = auth()->user(); // Assuming you're fetching the authenticated user
+        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
+        
+        $account = DB::table('accounts')
+        ->join('users', 'users.id', '=', 'accounts.user_id')
+        ->where('accounts.user_id', $userId)
+        ->value('accounts.balance');
+
+
+        $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
+        return view('user.sidebar.withdrawal', compact('user','roleName','formattedBalance'));
     }
 
     public function ContactSupport(){

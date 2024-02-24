@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
-            $table->decimal('balance', 10, 2)->nullable();
+            $table->decimal('balance', 10, 2)->change();
             $table->timestamps();
         });
     }

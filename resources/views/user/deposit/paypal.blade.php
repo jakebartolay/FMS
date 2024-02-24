@@ -35,147 +35,28 @@
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
+                        <span class="badge bg-primary badge-number">0</span>
                     </a><!-- End Notification Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            You have 4 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                            You have 0 new notifications
+                            <!-- <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a> -->
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-exclamation-circle text-warning"></i>
-                            <div>
-                                <h4>Lorem Ipsum</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>30 min. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-x-circle text-danger"></i>
-                            <div>
-                                <h4>Atque rerum nesciunt</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>1 hr. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-check-circle text-success"></i>
-                            <div>
-                                <h4>Sit rerum fuga</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>2 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
+                        <!-- <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li class="dropdown-footer">
                             <a href="#">Show all notifications</a>
-                        </li>
+                        </li> -->
 
                     </ul><!-- End Notification Dropdown Items -->
 
                 </li><!-- End Notification Nav -->
 
-                <li class="nav-item dropdown">
-
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number">3</span>
-                    </a><!-- End Messages Icon -->
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                        <li class="dropdown-header">
-                            You have 3 new messages
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Maria Hudson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>4 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Anna Nelson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>6 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>David Muldon</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>8 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="dropdown-footer">
-                            <a href="#">Show all messages</a>
-                        </li>
-
-                    </ul><!-- End Messages Dropdown Items -->
-
-                </li><!-- End Messages Nav -->
-
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -333,27 +214,19 @@
                     <h1>Dashboard</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="d-flex justify-content-between">
-                    <nav>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active">Paypal Payment</li>
-                        </ol>
-                    </nav>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="btn btn-outline-secondary rounded-pill btn-sm me-2">Investment</span>
-                        <span class="btn btn-primary rounded-pill btn-sm">Deposit</span>
-                    </div>
-                </div>
-            </div>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Paypal Payment</li>
+                </ol>
+            </nav>
         </div><!-- End Page Title -->
 
         <section class="section profile dashboard">
             <div class="row">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
-                    <div class="row">
+                    <div class="row justify-content-center">
 
                         <!-- Investment Card -->
                         <div class="col-xxl-6 col-md-6 col-12">
@@ -363,17 +236,21 @@
                                     <hr>
                                     <div class="row d-flex align-items-center justify-content-center ">
                                         <div class="col-8">
-                                            <span class="fw-bold">Enter Amount</span>
-                                            <div class="input-group has-validation my-3">
-                                                <span class="input-group-text fw-bold" id="inputGroupPrepend">$</span>
-                                                <input type="number" name="number" class="form-control"
-                                                    id="number" placeholder="$0.00" required>
-                                                <div class="invalid-feedback">Please enter amount!.</div>
-                                            </div>
-                                            <a href="#" class="btn btn-primary btn-sm">Pay Now</a>
+                                            <form method="POST" action="{{ route('deposit') }}">
+                                                @csrf
+                                                <div>
+                                                    <label for="amount">Amount to Deposit</label>
+                                                    <input type="number" placeholder="0.00" name="amount" id="amount" min="0" step="0.01"
+                                                        required>
+                                                </div>
+                                                <div class="text-center pt-2">
+                                                    <button type="submit" class="btn btn-primary">Deposit</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-4">
-                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px" alt="paypal" srcset="">
+                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px" alt="paypal"
+                                                srcset="">
                                         </div>
                                     </div>
                                 </div>

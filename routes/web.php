@@ -57,6 +57,9 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
     Route::post('/update-password',[SuperAdminController::class,'updatePassword'])->name('update-password');
 
+    ///TRANSACTION
+    Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
+
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
