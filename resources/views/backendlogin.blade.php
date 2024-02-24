@@ -59,10 +59,6 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center align-self-center">
-                                <span class=""><a href="/" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i>Back to Home Page</a></span>
-                            </div>
-
                         </div>
                     </div>
                 </div>

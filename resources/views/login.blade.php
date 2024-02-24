@@ -24,7 +24,7 @@
                                 <div class="card-body">
 
                                     <div class=" pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">User Login</h5>
                                     </div>
                                     <form class="row g-3 needs-validation" action="{{ route('login') }}" novalidate method="POST">
                                         @csrf
@@ -52,21 +52,21 @@
                                                 <label class="form-check-label" for="rememberMe">Remember me</label>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="row justify-content-center align-items-center pt-3">
+
+                                        <div class="col-6">
                                             <button class="btn btn-primary w-100" type="submit"
                                                 src="/admin/dashboard">Login</button>
                                         </div>
-                                        <div class="col-12">
+                                                                             
+                                    </div>
+                                        <div class="col-12 text-center">
                                             <p class="small mb-0">Don't have account? <a href="/register">Create an
                                                     account</a></p>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-center align-self-center">
-                                <span class=""><a href="/" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i>Back to Home Page</a></span>
-                            </div>
-
                         </div>
                     </div>
                 </div>
