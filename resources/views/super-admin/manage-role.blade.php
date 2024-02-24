@@ -253,32 +253,21 @@
 
         <section class="section profile">
             <div class="row justify-content-center align-center d-flex">
-                <div class="col-11">
+                <div class="col-6">
 
                     <div class="card">
                         <div class="card-body pt-3">
                             <div class="tab-content pt-2">
-
+                            <h2>List Users</h2>
+                            <hr>
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                    @if ($errors->any())
-                                        @foreach ($errors->all() as $error)
-                                            <p style="color:red;">{{ $error }}</p>
-                                        @endforeach
-                                    @endif
-
-                                    @if (Session::has('success'))
-                                        <p style="color:green;">{{ Session::get('success') }}</p>
-                                    @endif
-                                    <h2 class="mb-4">Manage Role</h2>
-                                    <hr>
-
                                     <form action="{{ route('updateRole') }}" method="POST">
                                         @csrf
-                                        <div class="row">
-                                            <div class="col-md-2">
+                                        <div class="row mt-3">
+                                            <div class="col-md-3">
                                                 <label for="" class="text-muted">Select User</label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <select name="user_id" required class="form-control"
                                                     style="border: 1px solid;">
                                                     <option value="">Select User</option>
@@ -290,10 +279,10 @@
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="" class="text-muted">Select Role</label>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <select name="role_id" required class="form-control"
                                                     style="border: 1px solid;">
                                                     <option value="">Select Role</option>
@@ -304,7 +293,9 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="text-center">
                                         <input type="submit" value="Update Role" class="btn btn-primary">
+                                        </div>
                                     </form>
 
                                 </div>
