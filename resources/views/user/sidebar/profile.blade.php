@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Dasboard</title>
+    <title>My Profile</title>
     @include('layout.header')
 </head>
 
@@ -56,8 +56,7 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -72,66 +71,11 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/">
-                            <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                            <a class="dropdown-item d-flex align-items-center" href="/profile">
+                                <i class="bi bi-person-fill"></i>
+                                <span>My Profile</span>
                             </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/wallet">
-                            <i class="bi bi-credit-card-fill"></i>
-                                <span>Deposit</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/transaction">
-                            <i class="bi bi-send-fill"></i>
-                                <span>Transper Fund</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/investment">
-                            <i class="bi bi-folder-fill"></i>
-                                <span>My Investment</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/withdrawals">
-                            <i class="bi bi-database-fill-down"></i>
-                                <span>Withdrawal</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/contactsupport">
-                            <i class="bi bi-envelope-fill"></i>
-                                <span>Contract Support</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        </li><!-- End Contact Page Nav -->
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
@@ -159,13 +103,6 @@
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">
-                    <i class="bi bi-person-fill"></i>
-                    <span>My Profile</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/wallet">

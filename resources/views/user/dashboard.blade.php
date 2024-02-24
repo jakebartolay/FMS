@@ -56,8 +56,7 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -72,66 +71,11 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/">
-                            <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                            <a class="dropdown-item d-flex align-items-center" href="/profile">
+                                <i class="bi bi-person-fill"></i>
+                                <span>My Profile</span>
                             </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/wallet">
-                            <i class="bi bi-credit-card-fill"></i>
-                                <span>Deposit</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/transaction">
-                            <i class="bi bi-send-fill"></i>
-                                <span>Transper Fund</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/investment">
-                            <i class="bi bi-folder-fill"></i>
-                                <span>My Investment</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/withdrawals">
-                            <i class="bi bi-database-fill-down"></i>
-                                <span>Withdrawal</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/contactsupport">
-                            <i class="bi bi-envelope-fill"></i>
-                                <span>Contract Support</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        </li><!-- End Contact Page Nav -->
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
@@ -159,13 +103,6 @@
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/profile">
-                    <i class="bi bi-person-fill"></i>
-                    <span>My Profile</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/wallet">
@@ -289,38 +226,40 @@
                                     <div id="lineChart"></div>
 
                                     <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#lineChart"), {
-                                                series: [{
-                                                    name: "Desktops",
-                                                    // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'line',
-                                                    zoom: {
-                                                        enabled: false
-                                                    }
-                                                },
-                                                dataLabels: {
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                        new ApexCharts(document.querySelector("#lineChart"), {
+                                            series: [{
+                                                name: "Desktops",
+                                                // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                                            }],
+                                            chart: {
+                                                height: 350,
+                                                type: 'line',
+                                                zoom: {
                                                     enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'straight'
-                                                },
-                                                grid: {
-                                                    row: {
-                                                        colors: ['#f3f3f3',
-                                                            'transparent'
-                                                        ], // takes an array which will be repeated on columns
-                                                        opacity: 0.5
-                                                    },
-                                                },
-                                                xaxis: {
-                                                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
                                                 }
-                                            }).render();
-                                        });
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                curve: 'straight'
+                                            },
+                                            grid: {
+                                                row: {
+                                                    colors: ['#f3f3f3',
+                                                        'transparent'
+                                                    ], // takes an array which will be repeated on columns
+                                                    opacity: 0.5
+                                                },
+                                            },
+                                            xaxis: {
+                                                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                                    'Jul', 'Aug', 'Sep'
+                                                ],
+                                            }
+                                        }).render();
+                                    });
                                     </script>
                                     <!-- End Line Chart -->
 
@@ -340,38 +279,40 @@
                                     <div id="lineChart2"></div>
 
                                     <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#lineChart2"), {
-                                                series: [{
-                                                    name: "Desktops",
-                                                    // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'line',
-                                                    zoom: {
-                                                        enabled: false
-                                                    }
-                                                },
-                                                dataLabels: {
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                        new ApexCharts(document.querySelector("#lineChart2"), {
+                                            series: [{
+                                                name: "Desktops",
+                                                // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                                            }],
+                                            chart: {
+                                                height: 350,
+                                                type: 'line',
+                                                zoom: {
                                                     enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'straight'
-                                                },
-                                                grid: {
-                                                    row: {
-                                                        colors: ['#f3f3f3',
-                                                            'transparent'
-                                                        ], // takes an array which will be repeated on columns
-                                                        opacity: 0.5
-                                                    },
-                                                },
-                                                xaxis: {
-                                                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
                                                 }
-                                            }).render();
-                                        });
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                curve: 'straight'
+                                            },
+                                            grid: {
+                                                row: {
+                                                    colors: ['#f3f3f3',
+                                                        'transparent'
+                                                    ], // takes an array which will be repeated on columns
+                                                    opacity: 0.5
+                                                },
+                                            },
+                                            xaxis: {
+                                                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                                    'Jul', 'Aug', 'Sep'
+                                                ],
+                                            }
+                                        }).render();
+                                    });
                                     </script>
                                     <!-- End Line Chart -->
 
@@ -383,71 +324,106 @@
 
                     </div><!-- End Right side columns -->
                 </div>
-                <div class="col-lg-12 col-md-12">
-                    <div class="row">
+                <!-- Right side columns -->
+                <div class="col-lg-12 col-12">
+                    <!-- Website Traffic -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Deposit into your wallet</h5>
+                            <div class="row g-4">
 
-                        <!-- Investment Card -->
-                        <div class="col-xxl-12 col-md-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Available Packages</h5>
-                                    <div class="row">
-                                        <div class="col-xxl-12 col-md-8 col-12">
-                                            <a href="">
-                                                <div class="alert alert-primary d-flex align-items-center shadow-lg"
-                                                    role="alert">
-                                                    <i class="bi bi-exclamation-circle-fill me-3"> </i>
-                                                    <div>
-                                                        <span href="/profile"> Please, click here to update your profile before you can
-                                                            invest.</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div><!-- End Investment Card -->
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/coca-cola-logo.png"
+                                                class="border border-circle rounded-circle" alt="logo payment"
+                                                width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">Coca Cola</span>
+                                            </div>
+                                            <a href="/paywithpaypal" class="btn btn-primary">Invest</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/mcdonalds-logo.png" class="border border-circle rounded-circle"
+                                                alt="logo payment" width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">McDonals</span>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">Invest</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xxl-3 col-md-6  col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/samsung-logo.png" class="border border-circle rounded-circle"
+                                                alt="logo payment" width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">Samsung</span>
+                                            </div>
+                                            <a href="#" class="btn btn-primary">Invest</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="assets/img/companylogo/toyota-logo.png"
+                                                class="border border-circle rounded-circle" alt="logo payment"
+                                                width="100px" height="100px" srcset="">
+                                                        <div class=" my-3">
+                                            <span class="fs-6 text-muted py-5">Toyota</span>
+                                        </div>
+                                        <a href="#" class="btn btn-primary">Invest</a>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Investment Card -->
-
-                    </div><!-- End Right side columns -->
+                        </div>
+                    </div>
                 </div>
+            </div><!-- End Website Traffic -->
+            <div class="col-lg-12">
+                <div class="row">
 
-                <div class="col-lg-12">
-                    <div class="row">
-
-                        <!-- Investment Card -->
-                        <div class="col-xxl-12 col-md-12 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Log History</h5>
-                                    <span class="break"></span>
-                                    <div class="container-fluid">
-                                        <table class="table table-striped datatable">
-                                            <thead>
+                    <!-- Investment Card -->
+                    <div class="col-xxl-12 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Log History</h5>
+                                <span class="break"></span>
+                                <div class="container-fluid">
+                                    <table class="table table-striped datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Actions</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- @foreach ($activityLog as $data)
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Email</th>
-                                                    <th>Actions</th>
-                                                    <th>Date</th>
+                                                    <td>{{ $data->id }}</td>
+                                                    <td>{{ $data->description }}</td>
+                                                    <td>{{ $data->date_time }}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($activityLog as $data)
-                                                    <tr>
-                                                        <td>{{ $data->id }}</td>
-                                                        <td>{{ $data->email }}</td>
-                                                        <td>{{ $data->description }}</td>
-                                                        <td>{{ $data->date_time }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                @endforeach -->
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div><!-- End Investment Card -->
-                    </div><!-- End Right side columns -->
-                </div>
+                        </div>
+                    </div><!-- End Investment Card -->
+                </div><!-- End Right side columns -->
+            </div>
             </div><!-- End Left side columns -->
             </div>
         </section>

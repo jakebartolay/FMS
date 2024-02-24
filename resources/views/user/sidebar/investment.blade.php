@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Dasboard</title>
+    <title>Investment</title>
     @include('layout.header')
 </head>
 
@@ -56,8 +56,7 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -72,66 +71,11 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/">
-                            <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                            <a class="dropdown-item d-flex align-items-center" href="/profile">
+                                <i class="bi bi-person-fill"></i>
+                                <span>My Profile</span>
                             </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/wallet">
-                            <i class="bi bi-credit-card-fill"></i>
-                                <span>Deposit</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/transaction">
-                            <i class="bi bi-send-fill"></i>
-                                <span>Transper Fund</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/investment">
-                            <i class="bi bi-folder-fill"></i>
-                                <span>My Investment</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/withdrawals">
-                            <i class="bi bi-database-fill-down"></i>
-                                <span>Withdrawal</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/contactsupport">
-                            <i class="bi bi-envelope-fill"></i>
-                                <span>Contract Support</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                        </li><!-- End Contact Page Nav -->
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
@@ -159,13 +103,6 @@
                     <span>Dashboard</span>
                 </a>
             </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/profile">
-                    <i class="bi bi-person-fill"></i>
-                    <span>My Profile</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/wallet">
@@ -225,16 +162,32 @@
 
         <section class="section dashboard">
             <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-12">
+                <!-- Right side columns -->
+                <div class="col-lg-12 col-12">
+                    <!-- Website Traffic -->
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title">
-                                <h1>My Investment</h1>
+                            <h5 class="card-title">My Investment</h5>
+                            <div class="row g-4">
+
+                                <div class="col-xxl-3 col-md-6 col-12">
+                                    <div class="card border p-5">
+                                        <div class="card-body text-center">
+                                            <img src="$"
+                                                class="border border-circle rounded-circle" alt="logo payment"
+                                                width="100px" height="100px" srcset="">
+                                            <div class="my-3">
+                                                <span class="fs-6 text-muted py-5">First Investment</span>
+                                            </div>
+                                            <a href="/paywithpaypal" class="btn btn-primary">TEST</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div><!-- End Website Traffic -->
             </div><!-- End Left side columns -->
         </section>
 
