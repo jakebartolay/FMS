@@ -35,8 +35,8 @@ Route::get('/',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
 
-Route::get('/back-end',[AuthController::class,'loadBackEnd']);
-Route::post('/back-end',[AuthController::class,'backEnd'])->name('back-end');
+Route::get('/admin/login',[AuthController::class,'loadBackEnd']);
+Route::post('/admin/login',[AuthController::class,'backEnd'])->name('admin/login');
 
 Route::get('/logout',[AuthController::class,'logout']);
 

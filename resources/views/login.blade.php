@@ -20,7 +20,11 @@
                                 @include('layout.logo2')
                             <br>
                             <div class="card mb-3">
-
+                                @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <p style="color:red;">{{ $error }}</p>
+                                @endforeach
+                                @endif
                                 <div class="card-body shadow-lg">
 
                                     <div class=" pb-2">
