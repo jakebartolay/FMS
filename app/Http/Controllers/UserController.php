@@ -23,7 +23,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Investor';
+            $roleName = 'Client';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -38,6 +38,10 @@ class UserController extends Controller
     
         $activityLog = DB::table('activity_logs')->get();
         return view('user.dashboard', compact('user','activityLog','roleName','formattedBalance'));
+    }
+
+    public function Error(){
+        return view('layout.error');
     }
     // Activity Log
     public function activityLoginLogout()
@@ -55,16 +59,46 @@ class UserController extends Controller
     public function Profile()
     {
         $user = auth()->user();
-        return view('user.sidebar.profile', compact('user'));
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+
+        $user = auth()->user();
+        return view('user.sidebar.profile', compact('user','roleName'));
     }
 
     public function editProfile()
     {
         $user = auth()->user();
-        return view('user.sidebar.profile', compact('user'));
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+        $user = auth()->user();
+        return view('user.sidebar.profile', compact('user','roleName'));
     }
 
     public function Transaction(){
+
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->user_id; // Assuming the user_id is stored in the `user_id` attribute of the user model
         
@@ -76,7 +110,7 @@ class UserController extends Controller
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
         $user = auth()->user();
-        return view('user.sidebar.transaction', compact('user', 'formattedBalance'));
+        return view('user.sidebar.transaction', compact('user','roleName', 'formattedBalance'));
     }
 
     public function Wallet(){
@@ -88,7 +122,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Investor';
+            $roleName = 'Client';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -112,7 +146,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Investor';
+            $roleName = 'Client';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -130,17 +164,45 @@ class UserController extends Controller
 
     public function Investment(){
         $user = auth()->user();
-        return view('user.sidebar.investment', compact('user'));
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+
+        $user = auth()->user();
+        return view('user.sidebar.investment', compact('user','roleName'));
     }
 
     public function Withdrawals(){
         $user = auth()->user();
-        return view('user.sidebar.withdrawal', compact('user'));
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+        $user = auth()->user();
+        return view('user.sidebar.withdrawal', compact('user','roleName'));
     }
 
     public function ContactSupport(){
         $user = auth()->user();
-        return view('user.sidebar.contactsupport', compact('user'));
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+        $user = auth()->user();
+        return view('user.sidebar.contactsupport', compact('user','roleName'));
     }
 
 

@@ -49,6 +49,7 @@ function set_active($route) {
 // ********** User Routes *********
 Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/dashboard',[UserController::class,'dashboard']);
+    Route::get('/error',[UserController::class,'Error']);
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');

@@ -35,142 +35,24 @@
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
+                        <span class="badge bg-primary badge-number">0</span>
                     </a><!-- End Notification Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            You have 4 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                            You have 0 new notifications
+                            <!-- <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a> -->
                         </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-exclamation-circle text-warning"></i>
-                            <div>
-                                <h4>Lorem Ipsum</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>30 min. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-x-circle text-danger"></i>
-                            <div>
-                                <h4>Atque rerum nesciunt</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>1 hr. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-check-circle text-success"></i>
-                            <div>
-                                <h4>Sit rerum fuga</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>2 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
+                        <!-- <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li class="dropdown-footer">
                             <a href="#">Show all notifications</a>
-                        </li>
+                        </li> -->
 
                     </ul><!-- End Notification Dropdown Items -->
 
                 </li><!-- End Notification Nav -->
-
-                <li class="nav-item dropdown">
-
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number">3</span>
-                    </a><!-- End Messages Icon -->
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                        <li class="dropdown-header">
-                            You have 3 new messages
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Maria Hudson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>4 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>Anna Nelson</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>6 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="message-item">
-                            <a href="#">
-                                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                                <div>
-                                    <h4>David Muldon</h4>
-                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                    <p>8 hrs. ago</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="dropdown-footer">
-                            <a href="#">Show all messages</a>
-                        </li>
-
-                    </ul><!-- End Messages Dropdown Items -->
-
-                </li><!-- End Messages Nav -->
 
                 <li class="nav-item dropdown pe-3">
 
@@ -183,7 +65,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ $user->firstname }}</h6>
-                            <span>Investor</span>
+                            <span>{{ $roleName }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -191,7 +73,7 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/">
-                                <i class="bi bi-gear"></i>
+                            <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -201,8 +83,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
+                            <a class="dropdown-item d-flex align-items-center" href="/wallet">
+                            <i class="bi bi-credit-card-fill"></i>
                                 <span>Deposit</span>
                             </a>
                         </li>
@@ -212,7 +94,7 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/transaction">
-                                <i class="bi bi-question-circle"></i>
+                            <i class="bi bi-send-fill"></i>
                                 <span>Transper Fund</span>
                             </a>
                         </li>
@@ -221,8 +103,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
+                            <a class="dropdown-item d-flex align-items-center" href="/investment">
+                            <i class="bi bi-folder-fill"></i>
                                 <span>My Investment</span>
                             </a>
                         </li>
@@ -231,8 +113,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
+                            <a class="dropdown-item d-flex align-items-center" href="/withdrawals">
+                            <i class="bi bi-database-fill-down"></i>
                                 <span>Withdrawal</span>
                             </a>
                         </li>
@@ -242,8 +124,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
-                                <i class="bi bi-question-circle"></i>
+                            <a class="dropdown-item d-flex align-items-center" href="/contactsupport">
+                            <i class="bi bi-envelope-fill"></i>
                                 <span>Contract Support</span>
                             </a>
                         </li>
@@ -288,7 +170,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
-                    <span>Wallet</span>
+                    <span>Wallet Deposit</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
@@ -319,7 +201,6 @@
                     <span>Contact Support</span>
                 </a>
             </li><!-- End Contact Page Nav -->
-            {{-- <li class="nav-heading">Example</li> --}}
 
         </ul>
 
@@ -336,25 +217,88 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Transaction</li>
+                    <li class="breadcrumb-item active">Contact Support</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
-            <div class="row">
-                <!-- Left side columns -->
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <h1>Contact Support</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Left side columns -->
-        </section>
+        <section class="section contact">
+
+<div class="row gy-4">
+
+  <div class="col-xl-6">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-geo-alt"></i>
+          <h3>Address</h3>
+          <p>A108 Adam Street,<br>New York, NY 535022</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-telephone"></i>
+          <h3>Call Us</h3>
+          <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-envelope"></i>
+          <h3>Email Us</h3>
+          <p>info@example.com<br>contact@example.com</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="info-box card">
+          <i class="bi bi-clock"></i>
+          <h3>Open Hours</h3>
+          <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-xl-6">
+    <div class="card p-4">
+      <form action="forms/contact.php" method="post" class="php-email-form">
+        <div class="row gy-4">
+
+          <div class="col-md-6">
+            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+          </div>
+
+          <div class="col-md-6 ">
+            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+          </div>
+
+          <div class="col-md-12">
+            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+          </div>
+
+          <div class="col-md-12">
+            <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your message has been sent. Thank you!</div>
+
+            <button type="submit">Send Message</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
 
     </main><!-- End #main -->
 
