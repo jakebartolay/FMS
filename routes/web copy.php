@@ -62,13 +62,14 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
 
     ///TRANSACTION
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::post('/investments', [UserController::class, 'store'])->name('investment.store');
+    Route::get('/investments', [UserController::class, 'index'])->name('investment');
+    Route::post('/investments', [UserController::class, 'store'])->name('investments.store');
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
     Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
-    Route::get('/investment',[UserController::class,'Investment'])->name('investment');
+    Route::get('/investment',[UserController::class,'Investment'])->name('/investment');
     Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('/withdrawals');
     Route::get('/contactsupport',[UserController::class,'ContactSupport'])->name('/contactsupport');
     Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');

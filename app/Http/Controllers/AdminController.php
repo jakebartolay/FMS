@@ -31,7 +31,7 @@ class AdminController extends Controller
 
         $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        return view('admin.dashboard', compact('user','roleName','account1','account2','countBalance'));
+        return view('admin.dashboard', compact('user', 'roleName', 'account1', 'account2', 'countBalance'));
     }
 
     public function Activity()
@@ -50,33 +50,33 @@ class AdminController extends Controller
     public function index()
     {
         $user = auth()->user();
-        
+
         $investments = Investment::where('user_id', auth()->id())->get();
-        return view('admin.investments.index', compact('investments','user'));
+        return view('admin.investments.index', compact('investments', 'user'));
     }
 
     public function create()
     {
         $user = auth()->user();
-        return view('admin.investments.create',compact('user'));
+        return view('admin.investments.create', compact('user'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|min:0|max:10000000',
             'investment_date' => 'required|date',
         ]);
 
         auth()->user()->investments()->create($request->all());
 
-        return redirect()->route('investments.index');
+        return redirect()->route('investments.index')->with('success', 'Investment created successfully.');
     }
 
     public function addVendor()
     {
         $data = vendorInfo::all();
         $user = auth()->user();
-        return view('admin.sidebar.addvendor', compact('user','data'));             
+        return view('admin.sidebar.addvendor', compact('user', 'data'));
     }
 }

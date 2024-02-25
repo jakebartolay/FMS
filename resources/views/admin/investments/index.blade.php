@@ -294,7 +294,7 @@
                                 <div class="card-body">
                                     <div class="card-title">My Investments</div>
                                     @if ($investments->count() > 0)
-                                        <table class="table">
+                                        <table class="table text-center">
                                             <thead>
                                                 <tr>
                                                     <th>Amount</th>
@@ -304,8 +304,8 @@
                                             <tbody>
                                                 @foreach ($investments as $investment)
                                                     <tr>
-                                                        {{-- <td>{{ $investment->amount }}</td>
-                                                        <td>{{ $investment->investment_date }}</td> --}}
+                                                        <td>{{ $investment->amount }}</td>
+                                                        <td>{{ $investment->investment_date }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

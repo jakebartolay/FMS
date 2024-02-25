@@ -169,7 +169,19 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="card-title">My Investments</div>
+                                    <div class="card-title">
+                                        <div class="row justify-content-between">
+                                            <div class="col">
+                                                <h2 class="mb-4">My Investments</h2>
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#verticalycentered">Create Investment</button>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+
                                     @if ($investments->count() > 0)
                                         <table class="table">
                                             <thead>
@@ -198,6 +210,44 @@
             </div><!-- End Website Traffic -->
             </div><!-- End Left side columns -->
         </section>
+
+        <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Investment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('investment.store') }}">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="amount">Amount:</label>
+                                <input id="amount" type="number" placeholder="0.00" min="0" max="10000000" class="form-control" value="{{ old('amount') }}" required>
+                                @error('amount')
+                                <span class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                            </div>
+                        
+                            <div class="form-group mb-3">
+                                <label for="investment_date">Investment Date:</label>
+                                <input type="date" name="investment_date" id="investment_date" class="form-control" value="{{ old('investment_date') }}" required>
+                                @error('investment_date')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+                        
+                            <button type="submit" class="btn btn-primary">Create Investment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main><!-- End #main -->
 

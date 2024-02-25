@@ -301,11 +301,11 @@
                                             <label for="amount" class="col-md-4 col-form-label text-md-right">Amount</label>
                         
                                             <div class="col-xl-6 col-md-6 mb-4">
-                                                <input id="amount" type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required autofocus>
+                                                <input id="amount" type="number" placeholder="0.00" min="0" max="10000000" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required autofocus>
                         
                                                 @error('amount')
                                                     <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
+                                                        {{ $message }}
                                                     </span>
                                                 @enderror
                                             </div>
