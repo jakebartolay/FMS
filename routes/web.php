@@ -38,6 +38,7 @@ Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::get('/admin/login',[AuthController::class,'loadBackEnd']);
 Route::post('/admin/login',[AuthController::class,'backEnd'])->name('admin/login');
 
+Route::get('/admin/logout',[AuthController::class,'admin/logout']);
 Route::get('/logout',[AuthController::class,'logout']);
 
 
@@ -95,6 +96,10 @@ Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],fu
 // ********** Admin Routes *********
 Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/dashboard',[AdminController::class,'dashboard']);
+
+    Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
+    Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
+    Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
 
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Investment;
 use DB;
 
 class UserController extends Controller
@@ -208,9 +209,10 @@ class UserController extends Controller
             // Handle the case where the role is not found
             $roleName = 'Client';
         }
+        $investments = Investment::where('user_id', auth()->id())->get();
 
         $user = auth()->user();
-        return view('user.sidebar.investment', compact('user','roleName'));
+        return view('user.sidebar.investment', compact('user','roleName','investments'));
     }
 
     public function Withdrawals(){

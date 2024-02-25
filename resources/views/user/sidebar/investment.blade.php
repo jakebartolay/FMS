@@ -56,7 +56,8 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -164,24 +165,31 @@
             <div class="row">
                 <!-- Right side columns -->
                 <div class="col-lg-12 col-12">
-                    <!-- Website Traffic -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">My Investment</h5>
-                            <div class="row g-4">
-
-                                <div class="col-xxl-3 col-md-6 col-12">
-                                    <div class="card border p-5">
-                                        <div class="card-body text-center">
-                                            <img src="$"
-                                                class="border border-circle rounded-circle" alt="logo payment"
-                                                width="100px" height="100px" srcset="">
-                                            <div class="my-3">
-                                                <span class="fs-6 text-muted py-5">First Investment</span>
-                                            </div>
-                                            <a href="/paywithpaypal" class="btn btn-primary">TEST</a>
-                                        </div>
-                                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title">My Investments</div>
+                                    @if ($investments->count() > 0)
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Amount</th>
+                                                    <th>Investment Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($investments as $investment)
+                                                    <tr>
+                                                        <td>{{ $investment->amount }}</td>
+                                                        <td>{{ $investment->investment_date }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <p>No investments found.</p>
+                                    @endif
                                 </div>
                             </div>
                         </div>

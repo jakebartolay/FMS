@@ -7,6 +7,7 @@ use App\Models\vendorInfo;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Investment;
 use DB;
 
 class AdminController extends Controller
@@ -46,6 +47,31 @@ class AdminController extends Controller
         return view('admin.sidebar.vendorlist', compact('user', 'data'));
     }
 
+    public function index()
+    {
+        $user = auth()->user();
+        
+        $investments = Investment::where('user_id', auth()->id())->get();
+        return view('admin.investments.index', compact('investments','user'));
+    }
+
+    public function create()
+    {
+        $user = auth()->user();
+        return view('admin.investments.create',compact('user'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric',
+            'investment_date' => 'required|date',
+        ]);
+
+        auth()->user()->investments()->create($request->all());
+
+        return redirect()->route('investments.index');
+    }
 
     public function addVendor()
     {

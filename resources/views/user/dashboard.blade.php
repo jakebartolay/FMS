@@ -345,7 +345,7 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">Coca Cola</span>
                                                     </div>
-                                                    <a href="/paywithpaypal" class="btn btn-primary">Invest</a>
+                                                    <a href="#" class="btn btn-primary">Invest</a>
                                                 </div>
                                             </div>
                                         </div>

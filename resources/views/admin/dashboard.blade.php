@@ -242,8 +242,13 @@
                 </a>
                 <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/investment-management">
-                            <i class="bi bi-circle"></i><span>investment Portal</span>
+                        <a href="/admin/investments">
+                            <i class="bi bi-circle"></i><span>Investment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/create">
+                            <i class="bi bi-circle"></i><span>Investment Create</span>
                         </a>
                     </li>
                     <li>
