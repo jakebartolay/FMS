@@ -34,6 +34,10 @@ Route::get('/login',function(){
 Route::get('/',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
+Route::get('/',[AuthController::class,'loadForgotPassword']);
+Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
+
+
 
 Route::get('/admin/login',[AuthController::class,'loadBackEnd']);
 Route::post('/admin/login',[AuthController::class,'backEnd'])->name('admin/login');

@@ -83,8 +83,25 @@ class AuthController extends Controller
             return back()->with('error', 'Username & Password is incorrect');
         }
     }
-    
-    
+
+    public function loadForgotPassword()
+    {
+        if(Auth::user()){
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        return view('forgot-password');
+    }
+
+    public function forgotpassword()
+    {
+        if(Auth::user()){
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        return view('forgot-password');
+    }
+
 
     public function loadLogin()
     {

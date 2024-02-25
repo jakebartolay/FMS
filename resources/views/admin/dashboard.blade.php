@@ -334,7 +334,7 @@
                                             <i class="bi bi-person-fill-dash"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>0</h6>
+                                            <h6>{{ $account3 }}</h6>
                                             {{-- <span class="text-danger small pt-1 fw-bold">12%</span> <span
                                                 class="text-muted small pt-2 ps-1">decrease</span> --}}
 
@@ -390,7 +390,7 @@
                                             <i class="bi bi-person-lines-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>$0.00</h6>
+                                            <h6>{{ number_format($investment, 2, '.', ',') }}</h6>
                                             {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                                         class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>

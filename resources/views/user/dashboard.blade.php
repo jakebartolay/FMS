@@ -162,7 +162,7 @@
                         </ol>
                     </nav>
                     <div class="d-flex justify-content-between align-items-center">
-                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/error">Investment</a>
+                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/investment">Investment</a>
                         <a class="btn btn-primary rounded-pill btn-sm" href="/wallet">Deposit</a>
                     </div>
                 </div>

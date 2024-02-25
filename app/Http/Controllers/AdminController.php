@@ -17,6 +17,7 @@ class AdminController extends Controller
     {
         $account1 = vendorInfo::count();
         $account2 = User::where('role', '=', 0)->count();
+        $account3 = vendorInfo::where('vendor_id', '=', 'Approve')->count();
 
         $user = auth()->user();
 
@@ -29,9 +30,11 @@ class AdminController extends Controller
             $roleName = 'Unknown';
         }
 
+        $investment = DB::table('investments')->sum(DB::raw('CAST(amount AS DECIMAL(10, 2))'));
+
         $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        return view('admin.dashboard', compact('user', 'roleName', 'account1', 'account2', 'countBalance'));
+        return view('admin.dashboard', compact('user', 'roleName', 'account1', 'account2', 'countBalance','investment','account3'));
     }
 
     public function Activity()
