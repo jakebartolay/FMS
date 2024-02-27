@@ -182,7 +182,7 @@
                                     <h5 class="card-title">Overall statistics</h5>
                                     <div class="row d-flex align-items-center justify-content-center text-center">
                                         <div class="col-6">
-                                            <h6 class="text-primary fw-bold">0</h6>
+                                            <h6 class="text-primary fw-bold">{{ $invest }}</h6>
                                             <span class="text-secondary">Investment</span>
                                             <hr>
                                         </div>

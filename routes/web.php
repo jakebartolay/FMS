@@ -66,7 +66,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
 
     ///TRANSACTION
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::post('/investments', [UserController::class, 'store'])->name('investment.store');
+    Route::post('/invest', [UserController::class, 'store'])->name('investment.invest');
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
@@ -105,6 +105,13 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
     Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
     Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
+    Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
+
+    ////// APPROVE
+    Route::post('/deposit-requests/{id}/approve', [AdminController::class, 'approve'])->name('deposit_requests.approve');
+    Route::delete('/deposit/{id}', [AdminController::class, 'destroy'])->name('delete_route');
+
+
 
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');

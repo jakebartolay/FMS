@@ -10,9 +10,11 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\Investment;
+use App\Models\DepositRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -32,6 +34,8 @@ class UserController extends Controller
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
+        $invest = Investment::where('user_id', '=', auth()->id())->count();
+
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
             ->where('accounts.user_id', $id)
@@ -40,7 +44,7 @@ class UserController extends Controller
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
         $activityLog = DB::table('activity_logs')->get();
-        return view('user.dashboard', compact('user', 'activityLog', 'roleName', 'formattedBalance'));
+        return view('user.dashboard', compact('user', 'activityLog', 'roleName', 'formattedBalance','invest'));
     }
 
     public function Error()
@@ -143,41 +147,38 @@ class UserController extends Controller
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
-        return view('user.sidebar.wallet', compact('user', 'formattedBalance', 'roleName'));
+        $userId = auth()->id();
+
+        // Retrieve the accounts associated with the specific user
+        $accounts = Account::join('investment_statuses', 'investment_statuses.id', '=', 'accounts.status_id')
+            ->join('users', 'users.id', '=', 'accounts.user_id')
+            ->where('accounts.user_id', $userId) // Filter by user ID
+            ->select('accounts.*', 'investment_statuses.name as status_name', 'users.firstname as user_name')
+            ->get();
+        
+
+        return view('user.sidebar.wallet', compact('user', 'accounts', 'formattedBalance', 'roleName'));
     }
 
     public function Deposit(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:0|max:1000000',
         ]);
-
+    
         $user = auth()->user();
         $amount = $request->amount;
 
-        try {
-            // Retrieve the user's account record
-            $account = $user->account;
-
-            if ($account) {
-                // If account exists, update balance
-                $account->balance += $amount;
-            } else {
-                // If account doesn't exist, create a new one
-                $account = new Account();
-                $account->user_id = $user->id; // Use $user->id instead of $user->user_id
-                $account->balance = $amount;
-            }
-
-            $account->save();
-
-            // Log the transaction or generate a receipt if needed
-
-            return back()->with('success', 'Amount deposited successfully.');
-        } catch (\Exception $e) {
-            // Handle the exception (e.g., log error, display error message)
-            return back()->with('error', 'An error occurred while processing the deposit.');
-        }
+            // Create a new deposit request
+            $depositRequest = new depositrequest();
+            $depositRequest->user_id = $user->id;
+            $depositRequest->amount = $amount;
+            $depositRequest->status = '3'; // Initial status is pending
+            $depositRequest->save();
+    
+            // Log the deposit request or notify admin for approval
+    
+            return back()->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
     }
 
     public function paywithPaypal()
@@ -218,51 +219,38 @@ class UserController extends Controller
             $roleName = 'Client';
         }
 
-        $investments = Investment::where('user_id', auth()->id())->get();
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+        $investments = DB::table('investments')
+        ->join('investment_statuses', 'investment_statuses.id', '=', 'investments.status')
+        ->where('investments.user_id', $id)
+        ->select('investments.*', 'investment_statuses.name as status_name')
+        ->get();
+
         return view('user.sidebar.investment', compact('investments', 'user', 'roleName'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'amount' => 'required|numeric|min:0|max:10000000',
-            'investment_date' => 'required|date',
-        ]);
+        try {
+            // Validate the request data
+            $request->validate([
+                'amount' => 'required|numeric|min:0|max:10000000',
+                'investment_date' => 'required|date',
+            ]);
         
-        $investmentAmount = $request->input('amount');
-        $userId = auth()->id();
-        $userAccount = Account::where('user_id', $userId)->first();
+            // Create the investment
+            $investment = auth()->user()->investments()->create($request->all());
         
-        if ($userAccount) {
-            $currentBalance = $userAccount->balance;
-            if ($currentBalance >= $investmentAmount) {
-                $newBalance = $currentBalance - $investmentAmount;
-                DB::table('accounts')
-                    ->where('user_id', $userId)
-                    ->update(['balance' => $newBalance]);
+            // Redirect to the investment route with success message
+            return redirect()->route('investment')->with('success', 'Investment created successfully.');
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error creating investment: ' . $e->getMessage());
         
-                $investment = auth()->user()->investments()->create($request->all());
-        
-                // Additional actions after investment creation
-                // For example, sending a notification, logging the action, etc.
-                // You can add any other functionality here.
-        
-                // Example: Logging the investment creation
-                Log::info('New investment created: ' . $investment->id);
-        
-                // Example: Sending a notification to the user
-                $user = auth()->user();
-                $user->notify(new InvestmentCreated($investment));
-        
-                return redirect()->route('investments.index')->with('success', 'Investment created successfully.');
-            } else {
-                return redirect()->back()->with('error', 'Insufficient balance.');
-            }
-        } else {
-            return redirect()->back()->with('error', 'User account not found.');
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to create investment. Please try again.');
         }
         
-               
     }
 
 

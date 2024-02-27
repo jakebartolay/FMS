@@ -176,25 +176,65 @@
                                             </div>
                                             <div class="col-auto">
                                                 <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#verticalycentered">Create Investment</button>
+                                                    data-bs-toggle="modal" data-bs-target="#verticalycentered">Create
+                                                    Investment</button>
                                             </div>
                                             <hr>
                                         </div>
                                     </div>
-
                                     @if ($investments->count() > 0)
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-responsive">
+                                            <thead class="table-primary">
                                                 <tr>
+                                                    <th>Acc No.</th>
                                                     <th>Amount</th>
                                                     <th>Investment Date</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($investments as $investment)
+                                                @foreach ($investments as $row)
                                                     <tr>
-                                                        <td>{{ $investment->amount }}</td>
-                                                        <td>{{ $investment->investment_date }}</td>
+                                                        <th scope="row">{{ $row->id }}</th>
+                                                        <td>{{ number_format($row->amount, 2) }}</td>
+                                                        <td>{{ $row->investment_date }}</td>
+                                                        <td>
+                                                            @if ($row->status_name == 'Active')
+                                                                <span
+                                                                    class="badge bg-success">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Inactive')
+                                                                <span
+                                                                    class="badge bg-danger">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Pending')
+                                                                <span
+                                                                    class="badge bg-warning text-dark">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Completed')
+                                                                <span
+                                                                    class="badge bg-primary">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Cancelled')
+                                                                <span
+                                                                    class="badge bg-secondary">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Suspended')
+                                                                <span
+                                                                    class="badge bg-info">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Failed')
+                                                                <span
+                                                                    class="badge bg-dark">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Refunded')
+                                                                <span
+                                                                    class="badge bg-light text-dark">{{ $row->status_name }}</span>
+                                                            @endif
+
+                                                        </td>
+                                                        <td>
+                                                            <li class="list-inline-item">
+                                                                <button class="btn btn-danger btn-sm rounded"
+                                                                    type="button" data-toggle="tooltip"
+                                                                    data-placement="top" title="Delete"><i
+                                                                        class="bi bi-x-lg"></i></button>
+                                                            </li>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -202,6 +242,7 @@
                                     @else
                                         <p>No investments found.</p>
                                     @endif
+
                                 </div>
                             </div>
                         </div>
@@ -220,28 +261,30 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('investment.store') }}">
+                        <form method="POST" action="{{ route('investment.invest') }}">
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="amount">Amount:</label>
-                                <input id="amount" type="number" placeholder="0.00" min="0" max="10000000" class="form-control" value="{{ old('amount') }}" required>
+                                <input id="amount" type="number" placeholder="0.00" min="0"
+                                    max="10000000" class="form-control" value="{{ old('amount') }}" required>
                                 @error('amount')
-                                <span class="invalid-feedback" role="alert">
-                                    {{ $message }}
-                                </span>
-                            @enderror
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
                             </div>
-                        
+
                             <div class="form-group mb-3">
                                 <label for="investment_date">Investment Date:</label>
-                                <input type="date" name="investment_date" id="investment_date" class="form-control" value="{{ old('investment_date') }}" required>
+                                <input type="date" name="investment_date" id="investment_date"
+                                    class="form-control" value="{{ old('investment_date') }}" required>
                                 @error('investment_date')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                        
+
                             <button type="submit" class="btn btn-primary">Create Investment</button>
                         </form>
                     </div>

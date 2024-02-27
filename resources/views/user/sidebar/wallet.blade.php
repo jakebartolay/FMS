@@ -351,22 +351,49 @@
                                         <table class="table datatable" style="width: 100%">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
+                                                    {{-- <th>Method</th> --}}
                                                     <th>Amount</th>
-                                                    <th>Method</th>
-                                                    <th>Account</th>
-                                                    <th>Acc Name</th>
-                                                    <th>Date</th>
                                                     <th>Status</th>
-                                                    <th>Url</th>
+                                                    <th>Date</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($activityLog as $data)
+                                                @foreach ($accounts as $row)
                                                     <tr>
-                                                        <td>{{ $data->description }}</td>
-                                                        <td>{{ $data->date_time }}</td>
+                                                        <td>{{ $row->user_id }}</td>
+                                                        <td>{{ $balance = $row->balance}}</td>
+                                                        <td>
+                                                            @if ($row->status_name == 'Active')
+                                                            <span
+                                                                class="badge bg-success">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Inactive')
+                                                            <span
+                                                                class="badge bg-danger">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Pending')
+                                                            <span
+                                                                class="badge bg-warning text-dark">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Completed')
+                                                            <span
+                                                                class="badge bg-primary">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Cancelled')
+                                                            <span
+                                                                class="badge bg-secondary">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Suspended')
+                                                            <span
+                                                                class="badge bg-info">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Failed')
+                                                            <span
+                                                                class="badge bg-dark">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Refunded')
+                                                            <span
+                                                                class="badge bg-light text-dark">{{ $row->status_name }}</span>
+                                                        @endif
+
+                                                        </td>
+                                                        <td>{{ $row->created_at }}</td>
                                                     </tr>
-                                                @endforeach --}}
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

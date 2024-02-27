@@ -41,7 +41,7 @@
             "progressBar" : true,
             "closeButton" : true,
         }
-        toastr.error("{{ Session::get('error') }}",'Danger!',{timeout:12000});
+        toastr.error("{{ Session::get('error') }}",'Failed!',{timeout:12000});
         
     </script>
     @endif

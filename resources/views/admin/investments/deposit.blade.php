@@ -235,8 +235,7 @@
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-cash-coin"></i><span>Investment Management</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -247,12 +246,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/investment" class="active">
+                        <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/deposit">
+                        <a href="/admin/deposit" class="active">
                             <i class="bi bi-circle"></i><span>Deposit</span>
                         </a>
                     </li>
@@ -278,7 +277,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Investment</li>
+                    <li class="breadcrumb-item active">Deposit</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -290,9 +289,9 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="card">
-                
+
                                 <div class="card-body">
-                                    <div class="card-title">Investment</div>
+                                    <div class="card-title">Deposit</div>
                                     <table class="table">
                                         <thead>
                                             <tr>
@@ -305,12 +304,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invest as $row)
+                                            @foreach ($depositrequest as $row)
                                                 <tr>
-                                                    <th scope="row">{{ $row->id }}</th>
-                                                    <td>{{ $row->user->firstname }} {{ $row->user->lastname }}</td>
+                                                    <th scope="row">{{ $row->user_id }}</th>
+                                                    <td>{{ $row->user_name }}</td> <!-- Use $row->firstname directly -->
                                                     <td>{{ number_format($row->amount, 2) }}</td>
-                                                    <td>{{ $row->investment_date }}</td>
+                                                    <td>{{ $row->created_at->toDateString() }}</td>
                                                     <td>
                                                         @if ($row->status_name == 'Active')
                                                             <span
@@ -337,12 +336,21 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                            <button type="button" class="btn btn-success btn-sm mr-2" title="Approve"><i class="bi bi-check2"></i></button>
-                                                            <button type="button" class="btn btn-primary btn-sm mr-3" title="Edit"><i class="bi bi-pencil-square"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="bi bi-trash3-fill"></i></button>                                             
+                                                        <button type="button" class="btn btn-success btn-sm mr-2"
+                                                            title="Approve" data-bs-toggle="modal"
+                                                            data-bs-target="#approve"><i
+                                                                class="bi bi-check2"></i></button>
+                                                        <button type="button" class="btn btn-primary btn-sm mr-3"
+                                                            title="Edit"><i
+                                                                class="bi bi-pencil-square"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            title="Delete" data-bs-toggle="modal"
+                                                            data-bs-target="#delete"><i
+                                                                class="bi bi-trash3-fill"></i></button>
                                                     </td>
                                                 </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
 
@@ -357,6 +365,77 @@
                 </div><!-- End Left side columns -->
             </div>
         </section>
+
+        <div class="modal fade" id="approve" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Approve</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($depositrequest as $deposit)
+                            <form id="approveForm{{ $deposit->id }}"
+                                action="{{ route('deposit_requests.approve', $deposit->id) }}" method="POST">
+                                @csrf
+                                @method('POST')
+                            </form>
+                        @endforeach
+                        <h1>Are you sure you want to approve this deposit request?</h1>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="approveDepositRequest('approveForm{{ $deposit->id }}')">Confirm</button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function approveDepositRequest(formId) {
+                            document.getElementById(formId).submit();
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="delete" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($depositrequest as $data)
+                            <form id="deleteForm{{ $data->id }}" action="{{ route('delete_route', $data->id) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        @endforeach
+                        <h1>Are you sure you want to delete this deposit request?</h1>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="deleteDepositRequest('deleteForm{{ $data->id }}')">Confirm</button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function deleteDepositRequest(formId) {
+                            document.getElementById(formId).submit();
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+
 
     </main><!-- End #main -->
 

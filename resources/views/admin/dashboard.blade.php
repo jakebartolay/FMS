@@ -252,8 +252,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/investment-management">
-                            <i class="bi bi-circle"></i><span>investment Management</span>
+                        <a href="/admin/deposit">
+                            <i class="bi bi-circle"></i><span>Deposit Management</span>
                         </a>
                     </li>
                 </ul>
