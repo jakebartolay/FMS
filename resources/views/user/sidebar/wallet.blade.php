@@ -31,7 +31,7 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -52,7 +52,7 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -356,7 +356,6 @@
                                                     <th>Amount</th>
                                                     <th>Date</th>
                                                     <th>Status</th>
-                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -402,12 +401,12 @@
                                                                         class="badge bg-danger text-white">{{ $row->status_name }}</span>
                                                                 @endif
                                                         </td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <button type="button" class="btn btn-warning btn-sm mr-3"
                                                                 title="Cancel" data-bs-toggle="modal"
                                                                 data-bs-target="#cancel"><i
                                                                     class="bi bi-pencil-square"></i></button>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             </tbody>

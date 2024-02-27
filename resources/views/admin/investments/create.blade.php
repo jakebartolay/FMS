@@ -241,11 +241,11 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav2" class="nav-content" data-bs-parent="#sidebar-nav">
-                    <li>
+                    {{-- <li>
                         <a href="/admin/create" class="active">
                             <i class="bi bi-circle"></i><span>Create Investment</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
@@ -259,14 +259,6 @@
                 </ul>
             </li><!-- End Components Nav -->
 
-            <li class="nav-heading">User Logs</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/activity">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Log Users</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->

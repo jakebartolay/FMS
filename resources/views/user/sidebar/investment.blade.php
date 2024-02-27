@@ -31,7 +31,7 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -52,7 +52,7 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -166,7 +166,7 @@
                 <!-- Right side columns -->
                 <div class="col-lg-12 col-12">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="card-title">
@@ -182,8 +182,7 @@
                                             <hr>
                                         </div>
                                     </div>
-                                    @if ($investments->count() > 0)
-                                        <table class="table table-responsive">
+                                        <table class="table table-responsive datatable">
                                             <thead class="table-primary">
                                                 <tr>
                                                     <th>Acc No.</th>
@@ -227,22 +226,18 @@
                                                             @endif
 
                                                         </td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <li class="list-inline-item">
                                                                 <button class="btn btn-danger btn-sm rounded"
                                                                     type="button" data-toggle="tooltip"
                                                                     data-placement="top" title="Delete"><i
                                                                         class="bi bi-x-lg"></i></button>
                                                             </li>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                    @else
-                                        <p>No investments found.</p>
-                                    @endif
-
                                 </div>
                             </div>
                         </div>
