@@ -34,10 +34,6 @@ Route::get('/login',function(){
 Route::get('/',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
-Route::get('/',[AuthController::class,'loadForgotPassword']);
-Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
-
-
 
 Route::get('/admin/login',[AuthController::class,'loadBackEnd']);
 Route::post('/admin/login',[AuthController::class,'backEnd'])->name('admin/login');
@@ -66,13 +62,14 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
 
     ///TRANSACTION
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::post('/invest', [UserController::class, 'store'])->name('investment.invest');
+    Route::get('/investments', [UserController::class, 'index'])->name('investment');
+    Route::post('/investments', [UserController::class, 'store'])->name('investments.store');
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
     Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
-    Route::get('/investment',[UserController::class,'Investment'])->name('investment');
+    Route::get('/investment',[UserController::class,'Investment'])->name('/investment');
     Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('/withdrawals');
     Route::get('/contactsupport',[UserController::class,'ContactSupport'])->name('/contactsupport');
     Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');
@@ -105,14 +102,6 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
     Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
     Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
-    Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
-
-    ////// APPROVE
-    Route::post('/deposit-requests/{id}/approve', [AdminController::class, 'approve'])->name('deposit_requests.approve');
-    Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('deposit_requests.delete');
-    Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
-
-
 
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');

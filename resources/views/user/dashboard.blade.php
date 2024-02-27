@@ -162,7 +162,7 @@
                         </ol>
                     </nav>
                     <div class="d-flex justify-content-between align-items-center">
-                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/error">Investment</a>
+                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/investment">Investment</a>
                         <a class="btn btn-primary rounded-pill btn-sm" href="/wallet">Deposit</a>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                                     <h5 class="card-title">Overall statistics</h5>
                                     <div class="row d-flex align-items-center justify-content-center text-center">
                                         <div class="col-6">
-                                            <h6 class="text-primary fw-bold">0</h6>
+                                            <h6 class="text-primary fw-bold">{{ $invest }}</h6>
                                             <span class="text-secondary">Investment</span>
                                             <hr>
                                         </div>
@@ -345,7 +345,7 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">Coca Cola</span>
                                                     </div>
-                                                    <a href="/paywithpaypal" class="btn btn-primary">Invest</a>
+                                                    <a href="#" class="btn btn-primary">Invest</a>
                                                 </div>
                                             </div>
                                         </div>

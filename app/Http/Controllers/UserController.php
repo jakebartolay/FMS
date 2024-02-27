@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
-use DB;
+use App\Models\Investment;
+use App\Models\DepositRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -27,20 +32,23 @@ class UserController extends Controller
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
-        
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+
+        $invest = Investment::where('user_id', '=', auth()->id())->count();
+
         $account = DB::table('accounts')
-        ->join('users', 'users.id', '=', 'accounts.user_id')
-        ->where('accounts.user_id', $userId)
-        ->value('accounts.balance');
+            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
+            ->where('accounts.user_id', $id)
+            ->value('accounts.balance');
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
-    
+
         $activityLog = DB::table('activity_logs')->get();
-        return view('user.dashboard', compact('user','activityLog','roleName','formattedBalance'));
+        return view('user.dashboard', compact('user', 'activityLog', 'roleName', 'formattedBalance','invest'));
     }
 
-    public function Error(){
+    public function Error()
+    {
         return view('layout.error');
     }
     // Activity Log
@@ -51,8 +59,8 @@ class UserController extends Controller
 
         // Fetch activity logs for the authenticated user
         $activityLog = DB::table('activity_logs')
-                        ->where('user_id', $userId)
-                        ->get();
+            ->where('user_id', $userId)
+            ->get();
 
         return view('dashboard', compact('activityLog'));
     }
@@ -69,7 +77,7 @@ class UserController extends Controller
         }
 
         $user = auth()->user();
-        return view('user.sidebar.profile', compact('user','roleName'));
+        return view('user.sidebar.profile', compact('user', 'roleName'));
     }
 
     public function editProfile()
@@ -84,10 +92,11 @@ class UserController extends Controller
             $roleName = 'Client';
         }
         $user = auth()->user();
-        return view('user.sidebar.profile', compact('user','roleName'));
+        return view('user.sidebar.profile', compact('user', 'roleName'));
     }
 
-    public function Transaction(){
+    public function Transaction()
+    {
 
         $user = auth()->user();
         $userRole = Role::find($user->role);
@@ -101,20 +110,21 @@ class UserController extends Controller
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
-        
+
         $account = DB::table('accounts')
-        ->join('users', 'users.id', '=', 'accounts.user_id')
-        ->where('accounts.user_id', $userId)
-        ->value('accounts.balance');
+            ->join('users', 'users.id', '=', 'accounts.user_id')
+            ->where('accounts.user_id', $userId)
+            ->value('accounts.balance');
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
         $user = auth()->user();
-        return view('user.sidebar.transaction', compact('user','roleName', 'formattedBalance'));
+        return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance'));
     }
 
-    public function Wallet(){
+    public function Wallet()
+    {
 
         $user = auth()->user();
         $userRole = Role::find($user->role);
@@ -128,53 +138,51 @@ class UserController extends Controller
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
-        
+
         $account = DB::table('accounts')
-        ->join('users', 'users.id', '=', 'accounts.user_id')
-        ->where('accounts.user_id', $userId)
-        ->value('accounts.balance');
+            ->join('users', 'users.id', '=', 'accounts.user_id')
+            ->where('accounts.user_id', $userId)
+            ->value('accounts.balance');
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
-        return view('user.sidebar.wallet', compact('user','formattedBalance','roleName'));
+        $userId = auth()->id();
+
+        // Retrieve the accounts associated with the specific user
+        $accounts = Account::join('investment_statuses', 'investment_statuses.id', '=', 'accounts.status_id')
+            ->join('users', 'users.id', '=', 'accounts.user_id')
+            ->where('accounts.user_id', $userId) // Filter by user ID
+            ->select('accounts.*', 'investment_statuses.name as status_name', 'users.firstname as user_name')
+            ->get();
+        
+
+        return view('user.sidebar.wallet', compact('user', 'accounts', 'formattedBalance', 'roleName'));
     }
 
     public function Deposit(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:0|max:1000000',
         ]);
-        
+    
         $user = auth()->user();
         $amount = $request->amount;
-        
-        try {
-            // Retrieve the user's account record
-            $account = $user->account;
-        
-            if ($account) {
-                // If account exists, update balance
-                $account->balance += $amount;
-            } else {
-                // If account doesn't exist, create a new one
-                $account = new Account();
-                $account->user_id = $user->id; // Use $user->id instead of $user->user_id
-                $account->balance = $amount;
-            }
-        
-            $account->save();
-        
-            // Log the transaction or generate a receipt if needed
-        
-            return back()->with('success', 'Amount deposited successfully.');
-        } catch (\Exception $e) {
-            // Handle the exception (e.g., log error, display error message)
-            return back()->with('error', 'An error occurred while processing the deposit.');
-        }
+
+            // Create a new deposit request
+            $depositRequest = new depositrequest();
+            $depositRequest->user_id = $user->id;
+            $depositRequest->amount = $amount;
+            $depositRequest->status = '3'; // Initial status is pending
+            $depositRequest->save();
+    
+            // Log the deposit request or notify admin for approval
+    
+            return back()->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
     }
 
-    public function paywithPaypal(){
+    public function paywithPaypal()
+    {
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -186,19 +194,21 @@ class UserController extends Controller
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $userId = $user->user_id; // Assuming the user_id is stored in the `user_id` attribute of the user model
-        
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+
         $account = DB::table('accounts')
-        ->join('users', 'users.user_id', '=', 'accounts.user_id')
-        ->where('accounts.user_id', $userId)
-        ->value('accounts.balance');
+            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
+            ->where('accounts.user_id', $id)
+            ->value('accounts.balance');
+
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
-        return view('user.deposit.paypal', compact('user','formattedBalance','roleName'));
+        return view('user.deposit.paypal', compact('user', 'formattedBalance', 'roleName'));
     }
 
-    public function Investment(){
+    public function Investment()
+    {
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -209,11 +219,43 @@ class UserController extends Controller
             $roleName = 'Client';
         }
 
-        $user = auth()->user();
-        return view('user.sidebar.investment', compact('user','roleName'));
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+        $investments = DB::table('investments')
+        ->join('investment_statuses', 'investment_statuses.id', '=', 'investments.status')
+        ->where('investments.user_id', $id)
+        ->select('investments.*', 'investment_statuses.name as status_name')
+        ->get();
+
+        return view('user.sidebar.investment', compact('investments', 'user', 'roleName'));
     }
 
-    public function Withdrawals(){
+    public function store(Request $request)
+    {
+        try {
+            // Validate the request data
+            $request->validate([
+                'amount' => 'required|numeric|min:0|max:10000000',
+                'investment_date' => 'required|date',
+            ]);
+        
+            // Create the investment
+            $investment = auth()->user()->investments()->create($request->all());
+        
+            // Redirect to the investment route with success message
+            return redirect()->route('investment')->with('success', 'Investment created successfully.');
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error creating investment: ' . $e->getMessage());
+        
+            // Redirect back with error message
+            return redirect()->back()->with('error', 'Failed to create investment. Please try again.');
+        }
+        
+    }
+
+
+    public function Withdrawals()
+    {
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -226,18 +268,19 @@ class UserController extends Controller
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
-        
+
         $account = DB::table('accounts')
-        ->join('users', 'users.id', '=', 'accounts.user_id')
-        ->where('accounts.user_id', $userId)
-        ->value('accounts.balance');
+            ->join('users', 'users.id', '=', 'accounts.user_id')
+            ->where('accounts.user_id', $userId)
+            ->value('accounts.balance');
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
-        return view('user.sidebar.withdrawal', compact('user','roleName','formattedBalance'));
+        return view('user.sidebar.withdrawal', compact('user', 'roleName', 'formattedBalance'));
     }
 
-    public function ContactSupport(){
+    public function ContactSupport()
+    {
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -248,21 +291,21 @@ class UserController extends Controller
             $roleName = 'Client';
         }
         $user = auth()->user();
-        return view('user.sidebar.contactsupport', compact('user','roleName'));
+        return view('user.sidebar.contactsupport', compact('user', 'roleName'));
     }
 
 
 
     public function updateProfile(Request $request)
     {
-         // return dd($request->all());
+        // return dd($request->all());
         $user = auth()->user();
 
         // Validate the request
         $request->validate([
             'firstname' => 'required|string|min:2',
             'lastname' => 'required|string|min:2',
-            'email' => 'required|string|email|max:100|unique:users,email,'.$user->id,
+            'email' => 'required|string|email|max:100|unique:users,email,' . $user->id,
             // Other validation rules for password and role if necessary
         ]);
 
@@ -283,9 +326,9 @@ class UserController extends Controller
             'new_password' => 'required|min:6|max:100',
             'new_password_confirmation' => 'required|same:new_password',
         ]);
-        
+
         $current_user = auth()->user();
-        
+
         if (Hash::check($request->current_password, $current_user->password)) {
             $current_user->update([
                 'password' => bcrypt($request->new_password)
@@ -293,7 +336,7 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Password successfully updated.');
         } else {
             return redirect()->back()->with('error', 'Current password is incorrect.');
-        }        
+        }
     }
 
 
@@ -303,9 +346,9 @@ class UserController extends Controller
         $request->validate([
             'firstname' => 'required|string|min:15',
             'lastname' => 'required|string|min:15',
-            'email' => 'required|string|email|max:100|unique:users,email,'.$user->id,
-            'password' =>'required|string|min:15',
-            'role' =>'required'
+            'email' => 'required|string|email|max:100|unique:users,email,' . $user->id,
+            'password' => 'required|string|min:15',
+            'role' => 'required'
         ]);
 
         $user = new User;
@@ -316,7 +359,6 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        return back()->with('success','Created Account has been successfull.');
+        return back()->with('success', 'Created Account has been successfull.');
     }
-
 }

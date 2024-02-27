@@ -56,7 +56,8 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -164,24 +165,84 @@
             <div class="row">
                 <!-- Right side columns -->
                 <div class="col-lg-12 col-12">
-                    <!-- Website Traffic -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">My Investment</h5>
-                            <div class="row g-4">
-
-                                <div class="col-xxl-3 col-md-6 col-12">
-                                    <div class="card border p-5">
-                                        <div class="card-body text-center">
-                                            <img src="$"
-                                                class="border border-circle rounded-circle" alt="logo payment"
-                                                width="100px" height="100px" srcset="">
-                                            <div class="my-3">
-                                                <span class="fs-6 text-muted py-5">First Investment</span>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <div class="row justify-content-between">
+                                            <div class="col">
+                                                <h2 class="mb-4">My Investments</h2>
                                             </div>
-                                            <a href="/paywithpaypal" class="btn btn-primary">TEST</a>
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#verticalycentered">Create
+                                                    Investment</button>
+                                            </div>
+                                            <hr>
                                         </div>
                                     </div>
+                                    @if ($investments->count() > 0)
+                                        <table class="table table-responsive">
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th>Acc No.</th>
+                                                    <th>Amount</th>
+                                                    <th>Investment Date</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($investments as $row)
+                                                    <tr>
+                                                        <th scope="row">{{ $row->id }}</th>
+                                                        <td>{{ number_format($row->amount, 2) }}</td>
+                                                        <td>{{ $row->investment_date }}</td>
+                                                        <td>
+                                                            @if ($row->status_name == 'Active')
+                                                                <span
+                                                                    class="badge bg-success">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Inactive')
+                                                                <span
+                                                                    class="badge bg-danger">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Pending')
+                                                                <span
+                                                                    class="badge bg-warning text-dark">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Completed')
+                                                                <span
+                                                                    class="badge bg-primary">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Cancelled')
+                                                                <span
+                                                                    class="badge bg-secondary">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Suspended')
+                                                                <span
+                                                                    class="badge bg-info">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Failed')
+                                                                <span
+                                                                    class="badge bg-dark">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Refunded')
+                                                                <span
+                                                                    class="badge bg-light text-dark">{{ $row->status_name }}</span>
+                                                            @endif
+
+                                                        </td>
+                                                        <td>
+                                                            <li class="list-inline-item">
+                                                                <button class="btn btn-danger btn-sm rounded"
+                                                                    type="button" data-toggle="tooltip"
+                                                                    data-placement="top" title="Delete"><i
+                                                                        class="bi bi-x-lg"></i></button>
+                                                            </li>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <p>No investments found.</p>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -190,6 +251,46 @@
             </div><!-- End Website Traffic -->
             </div><!-- End Left side columns -->
         </section>
+
+        <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Create Investment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('investment.invest') }}">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="amount">Amount:</label>
+                                <input id="amount" type="number" placeholder="0.00" min="0"
+                                    max="10000000" class="form-control" value="{{ old('amount') }}" required>
+                                @error('amount')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="investment_date">Investment Date:</label>
+                                <input type="date" name="investment_date" id="investment_date"
+                                    class="form-control" value="{{ old('investment_date') }}" required>
+                                @error('investment_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create Investment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main><!-- End #main -->
 

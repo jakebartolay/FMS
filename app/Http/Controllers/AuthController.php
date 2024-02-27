@@ -13,15 +13,6 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
-    public function loadDashboardIndex()
-    {
-        if(Auth::user()){
-            $route = $this->redirectDash();
-            return redirect($route);
-        }
-        return view('index');
-    }
-    
     public function loadRegister()
     {
         if(Auth::user()){
@@ -55,46 +46,62 @@ class AuthController extends Controller
 
     public function loadBackEnd()
     {
-        if(Auth::user()){
+        // If a user is already authenticated, redirect them to the appropriate dashboard
+        if (Auth::check()) {
             $route = $this->redirectDash();
             return redirect($route);
         }
+        
+        // Load the backend login view
         return view('backendlogin');
     }
-
+    
     public function backEnd(Request $request)
     {
-        $user = Auth::User();
-        Session::put('user', $user);
-        $user = Session::get('user');
-
-        $email = $request->email;
-
-        $dt = Carbon::now();
-        $todayDate = $dt->toDayDateTimeString();
-
-        $activityLog = [ 
-            'name' => $email,
-            'email' => $email,
-            'description' => 'User logged in to account',
-            'date_time' => $todayDate,
-        ];
-
         $request->validate([
             'email' => 'string|required|email',
             'password' => 'string|required'
         ]);
+    
+        $userCredential = $request->only('email', 'password');
+    
+        // Attempt to authenticate the user
+        if (Auth::attempt($userCredential)) {
+            // Check if the authenticated user has a role other than admin or superadmin
+            $user = Auth::user();
+            if ($user->role == 1 || $user->role == 2) {
+                // If the user is admin or superadmin, redirect them to the appropriate dashboard
+                $route = $this->redirectDash();
+                return redirect($route);
+            } else {
+                // If the user is neither admin nor superadmin, log them out and redirect to regular login
+                Auth::logout();
+                return redirect('/backendlogin')->with('error', 'Regular users cannot login here.');
+            }
+        } else {
+            // If authentication fails, redirect back with an error message
+            return back()->with('error', 'Username & Password is incorrect');
+        }
+    }
 
-        $userCredential = $request->only('email','password');
-        if(Auth::attempt($userCredential)){
-            DB::table('activity_logs')->insert($activityLog);
+    public function loadForgotPassword()
+    {
+        if(Auth::user()){
             $route = $this->redirectDash();
             return redirect($route);
         }
-        else{
-            return back()->with('error','Username & Password is incorrect');
-        }
+        return view('forgot-password');
     }
+
+    public function forgotpassword()
+    {
+        if(Auth::user()){
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        return view('forgot-password');
+    }
+
 
     public function loadLogin()
     {
@@ -107,9 +114,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $user = Auth::User();
-        Session::put('user', $user);
-        $user = Session::get('user');
 
         $email = $request->email;
 
@@ -127,14 +131,25 @@ class AuthController extends Controller
             'email' => 'string|required|email',
             'password' => 'string|required'
         ]);
-
+        
         $userCredential = $request->only('email','password');
-        if(Auth::attempt($userCredential)){
-            DB::table('activity_logs')->insert($activityLog);
-            $route = $this->redirectDash();
-            return redirect($route);
-        }
-        else{
+        
+        // Attempt to authenticate the user
+        if (Auth::attempt($userCredential)) {
+            // Check if the authenticated user has a role other than admin or superadmin
+            $user = Auth::user();
+            if ($user->role != 1 || $user->role != 2) {
+                // Redirect the user to the appropriate dashboard
+                DB::table('activity_logs')->insert($activityLog);
+                $route = $this->redirectDash();
+                return redirect($route);
+            } else {
+                // If the user is admin or superadmin, log them out
+                Auth::logout();
+                return back()->with('error','Admins and SuperAdmin cannot login here.');
+            }            
+        } else {
+            // If authentication fails, redirect back with an error message
             return back()->with('error','Username & Password is incorrect');
         }
     }
@@ -149,22 +164,26 @@ class AuthController extends Controller
     {
         $redirect = '';
 
-        if(Auth::user() && Auth::user()->role == 1){
-            $redirect = '/super-admin/dashboard';
+        if(Auth::check()) { // Check if the user is authenticated
+            if(Auth::user()->role == 1) { // Check if the user's role is super-admin
+                $redirect = '/super-admin/dashboard'; // Redirect to the super-admin dashboard
+            } elseif(Auth::user()->role == 2) { // Check if the user's role is admin
+                $redirect = '/admin/dashboard'; // Redirect to the admin dashboard
+            } 
+            // You can add more conditions for other roles here if needed
+            // elseif(Auth::user()->role == 3) { 
+            //     $redirect = '/manager/dashboard'; 
+            // }
+            // elseif(Auth::user()->role == 4) { 
+            //     $redirect = '/employee/dashboard'; 
+            // }
+            else {
+                $redirect = '/dashboard'; // Default dashboard route for users with other roles
+            }
+        } else {
+            $redirect = '/login'; // If the user is not authenticated, redirect to the login page
         }
-        else if(Auth::user() && Auth::user()->role == 2){
-            $redirect = '/admin/dashboard';
-        }
-        // else if(Auth::user() && Auth::user()->role == 3){
-        //     $redirect = '/manager/dashboard';
-        // }
-        // else if(Auth::user() && Auth::user()->role == 4){
-        //     $redirect = '/employee/dashboard';
-        // }
-        else{
-            $redirect = '/dashboard';
-        }
-
+        
         return $redirect;
     }
 
@@ -196,4 +215,5 @@ class AuthController extends Controller
     
         return redirect('/login'); // If the user is not logged in, redirect to login page
     }
+
 }
