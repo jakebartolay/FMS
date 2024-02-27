@@ -108,8 +108,7 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
     ////// APPROVE
-    Route::post('/deposit-requests/{id}/approve', [AdminController::class, 'approve'])->name('deposit_requests.approve');
-    Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('deposit_requests.delete');
+    Route::post('/approve/{id}/', [AdminController::class, 'approve'])->name('deposit_requests.approve');
     Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
 
 

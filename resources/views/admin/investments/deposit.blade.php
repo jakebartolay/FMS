@@ -30,7 +30,7 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -103,9 +103,9 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav --> --}}
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-chat-left-text"></i>
@@ -170,7 +170,7 @@
 
                     </ul><!-- End Messages Dropdown Items -->
 
-                </li><!-- End Messages Nav -->
+                </li><!-- End Messages Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -240,11 +240,11 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav2" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-                    <li>
+                    {{-- <li>
                         <a href="/admin/create">
                             <i class="bi bi-circle"></i><span>Create Investment</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
@@ -257,15 +257,6 @@
                     </li>
                 </ul>
             </li><!-- End Components Nav -->
-
-            <li class="nav-heading">User Logs</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/activity">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Log Users</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -287,12 +278,12 @@
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="col-md-12 col-12">
                             <div class="card">
 
                                 <div class="card-body">
                                     <div class="card-title">Deposit</div>
-                                    <table class="table">
+                                    <table class="table" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -333,9 +324,18 @@
                                                         @elseif($row->status_name == 'Refunded')
                                                             <span
                                                                 class="badge bg-light text-dark">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Approve')
+                                                            <span
+                                                                class="badge bg-primary">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Cancel')
+                                                            <span
+                                                                class="badge bg-warning text-black">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Delete')
+                                                            <span
+                                                                class="badge bg-danger text-white">{{ $row->status_name }}</span>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    <td class="d-flex">
                                                         <button type="button" class="btn btn-primary btn-sm mr-2"
                                                             title="Approve" data-bs-toggle="modal"
                                                             data-bs-target="#approve"><i
@@ -344,10 +344,6 @@
                                                             title="Cancel" data-bs-toggle="modal"
                                                             data-bs-target="#cancel"><i
                                                                 class="bi bi-pencil-square"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            title="Delete" data-bs-toggle="modal"
-                                                            data-bs-target="#delete"><i
-                                                                class="bi bi-trash3-fill"></i></button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -381,54 +377,18 @@
                                 action="{{ route('deposit_requests.approve', $deposit->id) }}" method="POST">
                                 @csrf
                                 @method('POST')
-                            </form>
-                            @endforeach
-                        <h1>Are you sure you want to approve this deposit request?</h1>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary"
-                                onclick="approveDepositRequest('approveForm{{ $deposit->id }}')">Confirm</button>
-                        </div>
- 
-                    </div>
 
+                            </form>
+                        @endforeach
+                    </div>
+                    <h1>Are you sure you want to approve this deposit request?</h1>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="approveDepositRequest('approveForm{{ $deposit->id }}')">Confirm</button>
+                    </div>
                     <script>
                         function approveDepositRequest(formId) {
-                            document.getElementById(formId).submit();
-                        }
-                    </script>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal fade" id="delete" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @foreach ($depositrequest as $data)
-                            <form id="deleteForm{{ $data->id }}" action="{{ route('deposit_requests.delete', ['id' => $data->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                            @endforeach
-                        <h1>Are you sure you want to delete this deposit request?</h1>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary"  onclick="deleteDepositRequest('deleteForm{{ $data->id }}')">Delete</button>
-                        </div>
-                    </div>
-
-
-                    <script>
-                        function deleteDepositRequest(formId) {
                             document.getElementById(formId).submit();
                         }
                     </script>
@@ -447,19 +407,19 @@
                     </div>
                     <div class="modal-body">
                         @foreach ($depositrequest as $data)
-                            <form id="cancelForm{{ $data->id }}" action="{{ route('deposit_requests.cancel', ['id' => $data->id]) }}"
-                                method="POST">
+                            <form id="cancelForm{{ $data->id }}"
+                                action="{{ route('deposit_requests.cancel', ['id' => $data->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                             </form>
-                            @endforeach
+                        @endforeach
                         <h1>Are you sure you want to Cancel this deposit request?</h1>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary"  onclick="cancelDepositRequest('cancelForm{{ $data->id }}')">Delete</button>
+                            <button type="submit" class="btn btn-primary"
+                                onclick="cancelDepositRequest('cancelForm{{ $data->id }}')">Confirm</button>
                         </div>
                     </div>
-
 
                     <script>
                         function cancelDepositRequest(formId) {

@@ -31,7 +31,7 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -52,7 +52,7 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -330,7 +330,7 @@
                     <!-- Website Traffic -->
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Deposit into your wallet</h5>
+                            <h5 class="card-title">Investment</h5>
                             <div class="row g-4">
 
                                 <div class="col-xl-12 col-md-12">
@@ -345,7 +345,7 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">Coca Cola</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Invest</a>
+                                                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cocola">Invest</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -400,7 +400,7 @@
                         </div>
                     </div>
                 </div><!-- End Website Traffic -->
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <div class="row">
 
                         <!-- Investment Card -->
@@ -420,12 +420,12 @@
                                             </thead>
                                             <tbody>
                                                 <!-- @foreach ($activityLog as $data)
-<tr>
+                                                    <tr>
                                                     <td>{{ $data->id }}</td>
                                                     <td>{{ $data->description }}</td>
                                                     <td>{{ $data->date_time }}</td>
                                                 </tr>
-@endforeach -->
+                                                @endforeach -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -433,11 +433,50 @@
                             </div>
                         </div><!-- End Investment Card -->
                     </div><!-- End Right side columns -->
-                </div>
+                </div> --}}
             </div><!-- End Left side columns -->
             </div>
         </section>
+        <div class="modal fade" id="cocola" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Coca Cola Investment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('investment.invest') }}">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="amount">Amount:</label>
+                                <input id="amount" type="number" placeholder="0.00" min="1000000" max="9999999" 
+                                class="form-control" value="{{ old('amount') }}" required 
+                                pattern="\d{7}" title="Please enter a 7-digit number" maxlength="7">
+                                @error('amount')
+                                    <span class="invalid-feedback" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
 
+                            <div class="form-group mb-3">
+                                <label for="investment_date">Investment Date:</label>
+                                <input type="date" name="investment_date" id="investment_date"
+                                    class="form-control" value="{{ old('investment_date') }}" required>
+                                @error('investment_date')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main><!-- End #main -->
 
     @include('layout.footer')
