@@ -420,12 +420,12 @@
                                             </thead>
                                             <tbody>
                                                 <!-- @foreach ($activityLog as $data)
-<tr>
+                                                    <tr>
                                                     <td>{{ $data->id }}</td>
                                                     <td>{{ $data->description }}</td>
                                                     <td>{{ $data->date_time }}</td>
                                                 </tr>
-@endforeach -->
+                                                @endforeach -->
                                             </tbody>
                                         </table>
                                     </div>

@@ -242,18 +242,18 @@
                 </a>
                 <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
+                        <a href="/admin/create">
+                            <i class="bi bi-circle"></i><span>Create Investment</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/create">
-                            <i class="bi bi-circle"></i><span>Investment Create</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/deposit">
-                            <i class="bi bi-circle"></i><span>Deposit Management</span>
+                            <i class="bi bi-circle"></i><span>Deposit</span>
                         </a>
                     </li>
                 </ul>

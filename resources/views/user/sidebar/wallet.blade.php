@@ -228,77 +228,77 @@
                                         <div class="col-xl-12 col-md-12">
                                             <div class="row">
 
-                                            <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border py-2">
-                                                    <div class="card-body text-center">
-                                                        <img src="assets/logo/paypal.jpg"
-                                                            class="border border-circle rounded-circle"
-                                                            alt="logo payment" width="100px" height="100px"
-                                                            srcset="">
-                                                        <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay using Paypal
-                                                                payment
-                                                                gateway</span>
+                                                <div class="col-xxl-3 col-md-6 col-12">
+                                                    <div class="card border py-2">
+                                                        <div class="card-body text-center">
+                                                            <img src="assets/logo/paypal.jpg"
+                                                                class="border border-circle rounded-circle"
+                                                                alt="logo payment" width="100px" height="100px"
+                                                                srcset="">
+                                                            <div class="my-3">
+                                                                <span class="fs-6 text-muted py-5">Pay using Paypal
+                                                                    payment
+                                                                    gateway</span>
+                                                            </div>
+                                                            <a href="/paywithpaypal" class="btn btn-primary">Pay with
+                                                                Paypal</a>
                                                         </div>
-                                                        <a href="/paywithpaypal" class="btn btn-primary">Pay with
-                                                            Paypal</a>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border py-2">
-                                                    <div class="card-body text-center">
-                                                        <img src="assets/logo/gcash.jpg"
-                                                            class="border border-circle rounded-circle"
-                                                            alt="logo payment" width="100px" height="100px"
-                                                            srcset="">
-                                                        <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay using Gcash
-                                                                payment
-                                                                gateway</span>
+                                                <div class="col-xxl-3 col-md-6 col-12">
+                                                    <div class="card border py-2">
+                                                        <div class="card-body text-center">
+                                                            <img src="assets/logo/gcash.jpg"
+                                                                class="border border-circle rounded-circle"
+                                                                alt="logo payment" width="100px" height="100px"
+                                                                srcset="">
+                                                            <div class="my-3">
+                                                                <span class="fs-6 text-muted py-5">Pay using Gcash
+                                                                    payment
+                                                                    gateway</span>
+                                                            </div>
+                                                            <a href="#" class="btn btn-primary">Pay with
+                                                                Gcash</a>
                                                         </div>
-                                                        <a href="#" class="btn btn-primary">Pay with
-                                                            Gcash</a>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border py-2">
-                                                    <div class="card-body text-center">
-                                                        <img src="assets/logo/maya.jpg"
-                                                            class="border border-circle rounded-circle"
-                                                            alt="logo payment" width="100px" height="100px"
-                                                            srcset="">
-                                                        <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay with Paymaya
-                                                                payment
-                                                                gateway</span>
+                                                <div class="col-xxl-3 col-md-6 col-12">
+                                                    <div class="card border py-2">
+                                                        <div class="card-body text-center">
+                                                            <img src="assets/logo/maya.jpg"
+                                                                class="border border-circle rounded-circle"
+                                                                alt="logo payment" width="100px" height="100px"
+                                                                srcset="">
+                                                            <div class="my-3">
+                                                                <span class="fs-6 text-muted py-5">Pay with Paymaya
+                                                                    payment
+                                                                    gateway</span>
+                                                            </div>
+                                                            <a href="#" class="btn btn-primary">Pay with
+                                                                Paymaya</a>
                                                         </div>
-                                                        <a href="#" class="btn btn-primary">Pay with
-                                                            Paymaya</a>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xxl-3 col-md-6 col-12">
-                                                <div class="card border py-2">
-                                                    <div class="card-body text-center">
-                                                        <img src="assets/logo/hellomoney.png"
-                                                            class="border border-circle rounded-circle"
-                                                            alt="logo payment" width="100px" height="100px"
-                                                            srcset=""">
-                                                        <div class="my-3">
-                                                            <span class="fs-6 text-muted py-5">Pay with Hello Money
-                                                                payment
-                                                                gateway</span>
+                                                <div class="col-xxl-3 col-md-6 col-12">
+                                                    <div class="card border py-2">
+                                                        <div class="card-body text-center">
+                                                            <img src="assets/logo/hellomoney.png"
+                                                                class="border border-circle rounded-circle"
+                                                                alt="logo payment" width="100px" height="100px"
+                                                                srcset="">
+                                                            <div class="my-3">
+                                                                <span class="fs-6 text-muted py-5">Pay with Hello Money
+                                                                    payment
+                                                                    gateway</span>
+                                                            </div>
+                                                            <a href="#" class="btn btn-primary">Pay with HM</a>
                                                         </div>
-                                                        <a href="#" class="btn btn-primary">Pay with HM</a>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            
+
                                             </div>
                                         </div>
 
@@ -345,53 +345,69 @@
                         <div class="col-xxl-12 col-md-12 col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Deposit History</h5>
+                                    <h5 class="card-title">Deposit Status</h5>
                                     <span class="break"></span>
-                                    <div class="container text-center">
+                                    <div class="container-fluid">
                                         <table class="table datatable" style="width: 100%">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    {{-- <th>Method</th> --}}
+                                                    <th>Acc Name</th>
                                                     <th>Amount</th>
-                                                    <th>Status</th>
                                                     <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($accounts as $row)
+                                                @foreach ($depositrequest as $row)
                                                     <tr>
-                                                        <td>{{ $row->user_id }}</td>
-                                                        <td>{{ $balance = $row->balance}}</td>
+                                                        <th scope="row">{{ $row->id }}</th>
+                                                        <td>{{ $row->firstname }} {{ $row->lastname }}</td>
+                                                        <td>{{ number_format($row->amount, 2) }}</td>
+                                                        <td>{{ $row->created_at->toDateString() }}</td>
                                                         <td>
                                                             @if ($row->status_name == 'Active')
-                                                            <span
-                                                                class="badge bg-success">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Inactive')
-                                                            <span
-                                                                class="badge bg-danger">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Pending')
-                                                            <span
-                                                                class="badge bg-warning text-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Completed')
-                                                            <span
-                                                                class="badge bg-primary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Cancelled')
-                                                            <span
-                                                                class="badge bg-secondary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Suspended')
-                                                            <span
-                                                                class="badge bg-info">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Failed')
-                                                            <span
-                                                                class="badge bg-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Refunded')
-                                                            <span
-                                                                class="badge bg-light text-dark">{{ $row->status_name }}</span>
-                                                        @endif
-
+                                                                <span
+                                                                    class="badge bg-success">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Inactive')
+                                                                <span
+                                                                    class="badge bg-danger">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Pending')
+                                                                <span
+                                                                    class="badge bg-warning text-dark">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Completed')
+                                                                <span
+                                                                    class="badge bg-primary">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Cancelled')
+                                                                <span
+                                                                    class="badge bg-secondary">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Suspended')
+                                                                <span
+                                                                    class="badge bg-info">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Failed')
+                                                                <span
+                                                                    class="badge bg-dark">{{ $row->status_name }}</span>
+                                                            @elseif($row->status_name == 'Refunded')
+                                                                <span
+                                                                    class="badge bg-light text-dark">{{ $row->status_name }}</span>
+                                                                    @elseif($row->status_name == 'Approve')
+                                                                    <span
+                                                                        class="badge bg-primary">{{ $row->status_name }}</span>
+                                                                @elseif($row->status_name == 'Cancel')
+                                                                    <span
+                                                                        class="badge bg-warning text-black">{{ $row->status_name }}</span>
+                                                                @elseif($row->status_name == 'Delete')
+                                                                    <span
+                                                                        class="badge bg-danger text-white">{{ $row->status_name }}</span>
+                                                                @endif
                                                         </td>
-                                                        <td>{{ $row->created_at }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-warning btn-sm mr-3"
+                                                                title="Cancel" data-bs-toggle="modal"
+                                                                data-bs-target="#cancel"><i
+                                                                    class="bi bi-pencil-square"></i></button>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

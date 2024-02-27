@@ -265,7 +265,7 @@
                             <h5 class="card-title">Log History</h5>
                             <span class="break"></span>
                             <div class="text-center">
-                                <table class="table table-striped nowrap" style="width:100%" id="datatable">
+                                <table class="table table-striped datatable" style="width:100%" id="datatable">
                                     <thead>
                                         <tr>
                                             <th>ID</th>

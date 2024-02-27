@@ -174,11 +174,11 @@
                                             <div class="col">
                                                 <h2 class="mb-4">My Investments</h2>
                                             </div>
-                                            <div class="col-auto">
+                                            {{-- <div class="col-auto">
                                                 <button type="button" class="btn btn-outline-primary"
                                                     data-bs-toggle="modal" data-bs-target="#verticalycentered">Create
                                                     Investment</button>
-                                            </div>
+                                            </div> --}}
                                             <hr>
                                         </div>
                                     </div>
@@ -252,7 +252,7 @@
             </div><!-- End Left side columns -->
         </section>
 
-        <div class="modal fade" id="verticalycentered" tabindex="-1">
+        {{-- <div class="modal fade" id="verticalycentered" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -290,7 +290,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </main><!-- End #main -->
 

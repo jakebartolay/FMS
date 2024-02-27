@@ -288,7 +288,7 @@
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="col-md-12 col-12">
                             <div class="card">
                 
                                 <div class="card-body">
