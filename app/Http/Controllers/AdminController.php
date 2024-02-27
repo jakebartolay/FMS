@@ -45,58 +45,27 @@ class AdminController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
                 
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
-        $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
+        $depositrequest = DepositRequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
         ->join('users', 'users.id', '=', 'depositrequest.user_id')
-        ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as user_name')
+        ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
         ->get();
 
-                
-        return view('admin.investments.deposit', compact('user', 'depositrequest'));
+        return view('admin.investments.deposit', compact('user', 'depositrequest' ));
         
     }
-
-    public function destroy(Request $request, $id)
+    public function delete($id)
     {
-        try {
-            // Find the record by ID
-            $record = depositrequest::findOrFail($id);
-            
-            // Delete the record
-            $record->delete();
-            
-            // Redirect with success message
-            return redirect()->back()->with('success', 'Record deleted successfully.');
-        } catch (\Exception $e) {
-            // Handle exceptions (e.g., record not found, database error)
-            return redirect()->back()->with('error', 'Failed to delete record.');
-        }
+        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been delete.');
     }
-    
 
-    public function approve(Request $request, $id)
+    public function cancel($id)
     {
-        try {
-            // Find the deposit request by ID
-            $depositRequest = DepositRequest::findOrFail($id);
-            
-            // Update the status to "approved"
-            $depositRequest->status = '1';
-            $depositRequest->save();
-            
-            // Retrieve the user's account associated with the deposit request
-            $userAccount = Account::where('user_id', $depositRequest->user_id)->firstOrFail();
-            
-            // Update the user's account balance
-            $userAccount->balance += $depositRequest->amount;
-            $userAccount->save();
-            
-            return redirect()->route('investments.deposit')
-                ->with('success', 'Deposit request approved successfully.');
-        } catch (\Exception $e) {
-            // Handle errors (e.g., deposit request not found)
-            return redirect()->back()
-                ->with('error', 'Failed to approve deposit request.');
-        }
+        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Cancel.');
+    }
+
+    public function approve($id)
+    {
+        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Approve.');
     }
     
     

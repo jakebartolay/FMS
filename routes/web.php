@@ -109,7 +109,8 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
     ////// APPROVE
     Route::post('/deposit-requests/{id}/approve', [AdminController::class, 'approve'])->name('deposit_requests.approve');
-    Route::delete('/deposit/{id}', [AdminController::class, 'destroy'])->name('delete_route');
+    Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('deposit_requests.delete');
+    Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
 
 
 
