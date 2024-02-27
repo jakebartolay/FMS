@@ -45,7 +45,7 @@ class AdminController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
                 
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
-        $depositrequest = DepositRequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
+        $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
         ->join('users', 'users.id', '=', 'depositrequest.user_id')
         ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
         ->get();
@@ -53,23 +53,65 @@ class AdminController extends Controller
         return view('admin.investments.deposit', compact('user', 'depositrequest' ));
         
     }
-    public function delete($id)
+
+    public function approve(Request $request, $id)
     {
-        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been delete.');
+        // Find the deposit request by its ID
+        $depositRequest = DepositRequest::findOrFail($id);
+        
+        // Check if the deposit request is not already approved
+        if ($depositRequest->status !== '9') { // Assuming '9' represents an approved status
+            // Update the status of the deposit request to approved
+            $depositRequest->status = '9'; // Assuming '9' represents an approved status
+            $depositRequest->save();
+            
+            // Retrieve the account associated with the deposit request
+            $account = Account::where('user_id', $depositRequest->user_id)->first();
+            
+            // If account doesn't exist, create a new one
+            if (!$account) {
+                $account = new Account();
+                $account->user_id = $depositRequest->user_id;
+                $account->balance = $depositRequest->amount; // Assuming amount is the deposited amount
+                $account->save();
+            } else {
+                // Update the account balance
+                $account->balance += $depositRequest->amount; // Assuming amount is the deposited amount
+                $account->save();
+            }
+            
+            return redirect()->route('investments.deposit')->with('success', 'Deposit request approved successfully.');
+        } else {
+            return redirect()->route('investments.deposit')->with('error', 'Deposit request has already been approved.');
+        }
     }
 
-    public function cancel($id)
+    public function cancel(Request $request, $id)
     {
-        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Cancel.');
-    }
-
-    public function approve($id)
-    {
-        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Approve.');
+    // Find the deposit request by its ID
+    $depositRequest = DepositRequest::findOrFail($id);
+    
+    // Update the status of the deposit request to cancelled
+    $depositRequest->status = 10; // Assuming '10' represents a cancelled status
+    $depositRequest->save();
+    
+    // Retrieve the account associated with the deposit request
+    $account = Account::where('user_id', $depositRequest->user_id)->first();
+    
+    if (!$account) {
+        // This should not happen ideally because if a deposit request exists, there should be an associated account
+        return redirect()->route('investments.deposit')->with('error', 'No account found for the user.');
     }
     
+    // Check if the account has enough balance to cancel the deposit request
+    if ($account->balance >= $depositRequest->amount) {
+        // Update the account balance by subtracting the deposited amount
+        $account->balance -= $depositRequest->amount; // Assuming amount is the deposited amount
+        $account->save();
+    }
     
-
+    return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Cancelled.');
+    }
 
     public function Activity()
     {

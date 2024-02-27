@@ -32,7 +32,7 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -105,8 +105,8 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
-
+                </li><!-- End Notification Nav --> --}}
+{{-- 
                 <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -172,7 +172,7 @@
 
                     </ul><!-- End Messages Dropdown Items -->
 
-                </li><!-- End Messages Nav -->
+                </li><!-- End Messages Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -265,7 +265,7 @@
                             <h5 class="card-title">Log History</h5>
                             <span class="break"></span>
                             <div class="text-center">
-                                <table class="table table-striped nowrap" style="width:100%" id="datatable">
+                                <table class="table table-striped datatable" style="width:100%" id="datatable">
                                     <thead>
                                         <tr>
                                             <th>ID</th>

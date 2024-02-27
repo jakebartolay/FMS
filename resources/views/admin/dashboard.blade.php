@@ -30,7 +30,7 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
@@ -103,9 +103,9 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav --> --}}
 
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-chat-left-text"></i>
@@ -170,7 +170,7 @@
 
                     </ul><!-- End Messages Dropdown Items -->
 
-                </li><!-- End Messages Nav -->
+                </li><!-- End Messages Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -241,32 +241,23 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    {{-- <li>
+                        <a href="/admin/create">
+                            <i class="bi bi-circle"></i><span>Create Investment</span>
+                        </a>
+                    </li> --}}
                     <li>
                         <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/create">
-                            <i class="bi bi-circle"></i><span>Investment Create</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="/admin/deposit">
-                            <i class="bi bi-circle"></i><span>Deposit Management</span>
+                            <i class="bi bi-circle"></i><span>Deposit</span>
                         </a>
                     </li>
                 </ul>
             </li><!-- End Components Nav -->
-
-            <li class="nav-heading">User Logs</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/admin/activity">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                    <span>Log Users</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
         </ul>
 
     </aside><!-- End Sidebar-->

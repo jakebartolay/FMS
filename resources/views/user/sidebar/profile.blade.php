@@ -30,7 +30,7 @@
                         <i class="bi bi-search"></i>
                     </a>
                 </li><!-- End Search Icon-->
-
+{{-- 
                 <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -52,7 +52,7 @@
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav -->
+                </li><!-- End Notification Nav --> --}}
 
                 <li class="nav-item dropdown pe-3">
 
@@ -223,7 +223,7 @@
                     <div class="col-lg-9 col-md-8">{{$user->email}}</div>
                   </div>
 
-                  <div class="row">
+                  {{-- <div class="row">
                     <div class="col-lg-3 col-md-4 label">Country</div>
                     <div class="col-lg-9 col-md-8">No Data Found</div>
                   </div>
@@ -236,7 +236,7 @@
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Phone</div>
                     <div class="col-lg-9 col-md-8">No Data Found</div>
-                  </div>
+                  </div> --}}
 
                 </div>
 
@@ -286,7 +286,7 @@
                       </div>
                     </div>
 
-                    <div class="row mb-3">
+                    {{-- <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="country" type="text" class="form-control" id="Country" value="No Data Found" required>
@@ -305,7 +305,7 @@
                       <div class="col-md-8 col-lg-9">
                         <input name="phone" type="text" class="form-control" id="Phone" value="No Data Found" required>
                       </div>
-                    </div>
+                    </div> --}}
 
                     <!-- <div class="row mb-3">
                       <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
