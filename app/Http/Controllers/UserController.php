@@ -235,7 +235,7 @@ class UserController extends Controller
         if ($userRole) {
             $roleName = $userRole->name;
         } else {
-            // Handle the case where the role is not found
+            // Handle the case where the role is not foun
             $roleName = 'Client';
         }
 
