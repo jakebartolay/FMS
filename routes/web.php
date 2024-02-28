@@ -66,7 +66,9 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
 
     ///TRANSACTION
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::post('/invest', [UserController::class, 'store'])->name('investment.invest');
+    Route::get('/invest', [UserController::class, 'invest'])->name('invest');
+    Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
+
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
@@ -110,6 +112,10 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     ////// APPROVE
     Route::post('/approve/{id}/', [AdminController::class, 'approve'])->name('deposit_requests.approve');
     Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
+    
+    ////// INVESTMENT APPROVE
+    Route::post('/Investmentapprove/{id}/', [AdminController::class, 'Investmentapprove'])->name('investment_requests.approve');
+    Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 
 
 

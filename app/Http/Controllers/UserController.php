@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
-use App\Models\Investment;
+use App\Models\Investments;
 use App\Models\DepositRequest;
+use App\Models\InvestmentRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     //
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $user = auth()->user();
         $userRole = Role::find($user->role);
@@ -31,10 +32,20 @@ class UserController extends Controller
             $roleName = 'Client';
         }
 
+        $investments = InvestmentRequest::where('user_id', auth()->id())
+            ->orderBy('created_at')
+            ->pluck('amount')
+            ->toArray();
+
+        // Pass the investment data to the chart configuration
+        $chartData = json_encode($investments);
+
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
-        $invest = Investment::where('user_id', '=', auth()->id())->count();
+        $invest = InvestmentRequest::where('user_id', auth()->id())
+        ->where('status', '<>', 10)
+        ->count();
 
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
@@ -44,7 +55,8 @@ class UserController extends Controller
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
         $activityLog = DB::table('activity_logs')->get();
-        return view('user.dashboard', compact('user', 'activityLog', 'roleName', 'formattedBalance','invest'));
+
+        return view('user.dashboard', compact('user', 'activityLog', 'roleName', 'formattedBalance', 'invest', 'chartData'));
     }
 
     public function Error()
@@ -139,6 +151,10 @@ class UserController extends Controller
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
 
+        $invest = InvestmentRequest::where('user_id', auth()->id())
+        ->where('status', '<>', 10)
+        ->count();
+
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id')
             ->where('accounts.user_id', $userId)
@@ -161,7 +177,7 @@ class UserController extends Controller
         ->get();
         
 
-        return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName'));
+        return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest'));
     }
 
     public function Deposit(Request $request)
@@ -223,40 +239,81 @@ class UserController extends Controller
             $roleName = 'Client';
         }
 
-        $id = $user->id; // Assuming the primary key of the users table is `id`
-        $investments = DB::table('investments')
-        ->join('investment_statuses', 'investment_statuses.id', '=', 'investments.status')
-        ->where('investments.user_id', $id)
-        ->select('investments.*', 'investment_statuses.name as status_name')
-        ->get();
+        $user = auth()->user();
 
-        return view('user.sidebar.investment', compact('investments', 'user', 'roleName'));
+        $invest = InvestmentRequest::join('investment_statuses', 'investment_statuses.id', '=', 'InvestmentRequest.status')
+            ->join('users', 'users.id', '=', 'InvestmentRequest.user_id')
+            ->where('InvestmentRequest.user_id', $user->id)
+            ->select('InvestmentRequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
+            ->get();        
+
+        return view('user.sidebar.investment', compact('invest', 'user', 'roleName'));
     }
-
-    public function store(Request $request)
+    public function invest()
     {
-        try {
-            // Validate the request data
-            $request->validate([
-                'amount' => 'required|numeric|min:0|max:10000000',
-                'investment_date' => 'required|date',
-            ]);
-        
-            // Create the investment
-            $investment = auth()->user()->investments()->create($request->all());
-        
-            // Redirect to the investment route with success message
-            return redirect()->route('investment')->with('success', 'Investment created successfully.');
-        } catch (\Exception $e) {
-            // Log the error
-            Log::error('Error creating investment: ' . $e->getMessage());
-        
-            // Redirect back with error message
-            return redirect()->back()->with('error', 'Failed to create investment. Please try again.');
-        }
-        
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        } 
+
+        return view('user.deposit.investments', compact('user', 'roleName'));
     }
 
+    public function InvestmentRequest(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'amount' => 'required|numeric|min:0|max:1000000',
+            'investment_date' => 'required|date'
+        ]);
+
+        // Retrieve the authenticated user
+        $user = auth()->user();
+
+        // Create a new Investment request
+        $investRequest = new InvestmentRequest();
+        $investRequest->user_id = $user->id;
+        $investRequest->amount = $request->amount;
+        $investRequest->status = '3'; // Initial status is pending
+        // Save the Investment request
+        $investRequest->save();
+
+        // Redirect back with a success message
+        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');
+
+        // Validate the form data
+        // try {
+        //     $user = auth()->user();
+
+        //     // Validate the request data
+        //     $request->validate([
+        //         'amount' => 'required|numeric|min:0|max:10000000',
+        //         'investment_date' => 'required|date',
+        //     ]);
+            
+        //     // Create a new deposit request
+        //     $investmentRequest = new investmentrequest();
+        //     $investmentRequest->user_id = $user->id;
+        //     $investmentRequest->amount = $request->amount; // Assign the amount from the request
+        //     $investmentRequest->status = '3'; // Initial status is pending
+        //     $investmentRequest->save();
+            
+        //     // Redirect to the investment route with success message
+        //     return redirect()->route('invest')->with('success', 'Investment created successfully.');
+        // } catch (\Exception $e) {
+        //     // Log the error
+        //     \Log::error('Error creating investment: ' . $e->getMessage());
+
+        //     // Redirect back with error message
+        //     return redirect()->back()->with('error', 'Failed to create investment. Please try again.');
+        // }
+
+    }
 
     public function Withdrawals()
     {
@@ -297,8 +354,6 @@ class UserController extends Controller
         $user = auth()->user();
         return view('user.sidebar.contactsupport', compact('user', 'roleName'));
     }
-
-
 
     public function updateProfile(Request $request)
     {
