@@ -235,16 +235,16 @@ class UserController extends Controller
         if ($userRole) {
             $roleName = $userRole->name;
         } else {
-            // Handle the case where the role is not foun
+            // Handle the case where the role is not found
             $roleName = 'Client';
         }
 
         $user = auth()->user();
 
-        $invest = InvestmentRequest::join('investment_statuses', 'investment_statuses.id', '=', 'InvestmentRequest.status')
-            ->join('users', 'users.id', '=', 'InvestmentRequest.user_id')
-            ->where('InvestmentRequest.user_id', $user->id)
-            ->select('InvestmentRequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
+        $invest = investmentrequest::join('investment_statuses', 'investment_statuses.id', '=', 'investmentrequest.status')
+            ->join('users', 'users.id', '=', 'investmentrequest.user_id')
+            ->where('investmentrequest.user_id', $user->id)
+            ->select('investmentrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();        
 
         return view('user.sidebar.investment', compact('invest', 'user', 'roleName'));
@@ -266,25 +266,35 @@ class UserController extends Controller
 
     public function InvestmentRequest(Request $request)
     {
-        // Validate the form data
         $request->validate([
             'amount' => 'required|numeric|min:0|max:1000000',
             'investment_date' => 'required|date'
         ]);
-
+        
         // Retrieve the authenticated user
         $user = auth()->user();
-
+        
+        // Check if the user has sufficient balance
+        $account = Account::where('user_id', $user->id)->first();
+        if (!$account || $account->balance < $request->amount) {
+            return back()->with('error', 'Insufficient balance. Please deposit funds first.');
+        }
+        
         // Create a new Investment request
-        $investRequest = new InvestmentRequest();
+        $investRequest = new investmentrequest();
         $investRequest->user_id = $user->id;
         $investRequest->amount = $request->amount;
         $investRequest->status = '3'; // Initial status is pending
+        
         // Save the Investment request
         $investRequest->save();
-
+        
+        // Update the user's account balance
+        $account->balance -= $request->amount;
+        $account->save();
+        
         // Redirect back with a success message
-        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');
+        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');        
 
         // Validate the form data
         // try {
