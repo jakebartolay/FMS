@@ -60,7 +60,7 @@
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">
-                            @if($user->firstname)
+                            @if ($user->firstname)
                                 {{ $user->firstname }}
                             @elseif($user->lastname)
                                 {{ $user->lastname }}
@@ -68,18 +68,20 @@
                                 {{ $user->email }}
                             @endif
                         </span>
-                        
+
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>                            @if($user->firstname)
-                                {{ $user->firstname }}
-                            @elseif($user->lastname)
-                                {{ $user->lastname }}
-                            @else
-                                {{ $user->email }}
-                            @endif</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -456,7 +458,7 @@
             </div>
         </section>
 
-        
+
     </main><!-- End #main -->
 
     @include('layout.footer')
