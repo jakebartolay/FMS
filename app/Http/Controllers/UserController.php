@@ -44,8 +44,9 @@ class UserController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
         $invest = InvestmentRequest::where('user_id', auth()->id())
-        ->where('status', '<>', 10)
+        ->whereNotIn('status', [3, 10])
         ->count();
+    
 
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
@@ -241,10 +242,10 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $invest = InvestmentRequest::join('investment_statuses', 'investment_statuses.id', '=', 'InvestmentRequest.status')
-            ->join('users', 'users.id', '=', 'InvestmentRequest.user_id')
-            ->where('InvestmentRequest.user_id', $user->id)
-            ->select('InvestmentRequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
+        $invest = investmentrequest::join('investment_statuses', 'investment_statuses.id', '=', 'investmentrequest.status')
+            ->join('users', 'users.id', '=', 'investmentrequest.user_id')
+            ->where('investmentrequest.user_id', $user->id)
+            ->select('investmentrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();        
 
         return view('user.sidebar.investment', compact('invest', 'user', 'roleName'));
@@ -266,25 +267,35 @@ class UserController extends Controller
 
     public function InvestmentRequest(Request $request)
     {
-        // Validate the form data
         $request->validate([
             'amount' => 'required|numeric|min:0|max:1000000',
             'investment_date' => 'required|date'
         ]);
-
+        
         // Retrieve the authenticated user
         $user = auth()->user();
-
+        
+        // Check if the user has sufficient balance
+        $account = Account::where('user_id', $user->id)->first();
+        if (!$account || $account->balance < $request->amount) {
+            return back()->with('error', 'Insufficient balance. Please deposit funds first.');
+        }
+        
         // Create a new Investment request
-        $investRequest = new InvestmentRequest();
+        $investRequest = new investmentrequest();
         $investRequest->user_id = $user->id;
         $investRequest->amount = $request->amount;
         $investRequest->status = '3'; // Initial status is pending
+        
         // Save the Investment request
         $investRequest->save();
-
+        
+        // Update the user's account balance
+        $account->balance -= $request->amount;
+        $account->save();
+        
         // Redirect back with a success message
-        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');
+        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');        
 
         // Validate the form data
         // try {
@@ -314,6 +325,33 @@ class UserController extends Controller
         // }
 
     }
+
+    public function Investmentcancel(Request $request, $id)
+    {
+      
+  // Find the investment request by its ID
+        $investmentRequest = InvestmentRequest::findOrFail($id);
+
+        // Update the status of the investment request to cancelled
+        $investmentRequest->status = 10; // Assuming '10' represents a cancelled status
+        $investmentRequest->save();
+
+        // Retrieve the associated investment record
+        $account = account::where('user_id', $investmentRequest->user_id)->first();
+
+        // Check if the associated investment record exists
+        if ($account) {
+            // Add the canceled amount back to the user's account balance
+            $account->amount += $investmentRequest->amount; // Assuming amount is the canceled amount
+            $account->save();
+        } else {
+            // This should not happen ideally because if an investment request exists, there should be an associated account
+            return redirect()->route('investment')->with('error', 'No account found for the user.');
+        }
+
+        return redirect()->route('investment')->with('success', 'Your investment has been cancelled and the amount has been returned to your account.');
+    }
+
 
     public function Withdrawals()
     {

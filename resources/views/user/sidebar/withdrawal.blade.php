@@ -170,7 +170,7 @@
                                 <h1>Withdrawal</h1>
                                 <h1 class="text-primary">{{$formattedBalance}}</h1>
                                 <div class="btn btn-outline-primary">
-                                    Send Cash
+                                    Withdraw
                                 </div>
                             </div>
                         </div>

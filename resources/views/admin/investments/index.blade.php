@@ -283,7 +283,7 @@
 
                                 <div class="card-body">
                                     <div class="card-title">Investment</div>
-                                    <table class="table">
+                                    <table class="table datatable">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -296,7 +296,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($InvestmentRequest as $row)
-                                                <tr>
+                                                <tr class="text-center">
                                                     <th scope="row">{{ $row->id }}</th>
                                                     <td>{{ $row->firstname }} {{ $row->lastname }}</td>
                                                     <td>{{ number_format($row->amount, 2) }}</td>
