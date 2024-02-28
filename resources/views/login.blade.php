@@ -76,8 +76,12 @@
 
                                         </div>
                                         <div class="col-12 text-center">
-                                            <p class="small mb-0">Don't have account? <a href="/register">Create an
+                                            <p class="small mb-0">Don't have ? <a href="/register">Create an
                                                     account</a></p>
+                                        </div>
+                                        <div class="text-center">
+                                            <img src="{{ url('assets/logo/google.png') }}" class="img-fluid" width="25px" height="25px" alt="Google Logo">
+                                            <a href="{{ url('auth/google') }}">Login using Google</a>
                                         </div>
                                     </form>
                                 </div>

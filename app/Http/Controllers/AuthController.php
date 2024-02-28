@@ -8,11 +8,78 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Socialite;
+use Exception;
 use DB;
 use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    public function googlepage()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googlecallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+        
+            $findUser = User::where('google_id', $user->id)->first();
+        
+            if ($findUser) {
+                Auth::login($findUser);
+        
+                return redirect()->intended('/dashboard');
+            } else {
+                $newUser = User::create([
+                    'firstname' => $user->firstname,
+                    'lastname' => $user->lastname,
+                    'email' => $user->email,
+                    'google_id' => $user->id,
+                    'password' => encrypt('12345dummy') // Corrected typo here
+                ]);
+
+                Auth::login($newUser);
+        
+                return redirect()->intended('/dashboard');
+            }
+
+            }
+             catch (Exception $e) {
+                dd($e->getMessage());
+        }
+        // try {
+        //     $user = socialite::driver('google')->user();
+    
+        //     // Check if the user already exists in your database
+        //     $existingUser = User::where('google_id', $user->id)->first();
+    
+        //     if ($existingUser) {
+        //         // Log in the existing user
+        //         Auth::login($existingUser);
+        //     } else {
+        //         // Create a new user in your database
+        //         $newUser = User::create([
+        //             'firstname' => $user->firstname,
+        //             'lastname' => $user->lastname,
+        //             'email' => $user->email,
+        //             'google_id' => $user->id,
+        //             'password' => encrypt('12345dummy'),
+        //             // You might need to set a random password here or handle passwordless authentication
+        //         ]);
+    
+        //         // Log in the new user
+        //         Auth::login($newUser);
+        //     }
+    
+        //     // Redirect the user to the dashboard or any other desired page
+        //     return redirect('/dashboard');
+        // } catch (Exception $e) {
+        //     // Handle any errors that occur during the authentication process
+        //     dd($e->getMessage());
+        // }
+    }
     public function loadRegister()
     {
         if(Auth::user()){
