@@ -162,7 +162,7 @@
                         </ol>
                     </nav>
                     <div class="d-flex justify-content-between align-items-center">
-                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/investment">Investment</a>
+                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="#invest">Investment</a>
                         <a class="btn btn-primary rounded-pill btn-sm" href="/wallet">Deposit</a>
                     </div>
                 </div>
@@ -230,8 +230,11 @@
                                         document.addEventListener("DOMContentLoaded", () => {
                                             new ApexCharts(document.querySelector("#lineChart"), {
                                                 series: [{
-                                                    name: "Desktops",
+                                                    // name: "Investment",
                                                     // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+
+                                                    name: "Investment",
+                                                    data: {!! $chartData !!}
                                                 }],
                                                 chart: {
                                                     height: 350,
@@ -326,7 +329,7 @@
                     </div><!-- End Right side columns -->
                 </div>
                 <!-- Right side columns -->
-                <div class="col-lg-12 col-12">
+                <div class="col-lg-12 col-12" id="invest">
                     <!-- Website Traffic -->
                     <div class="card">
                         <div class="card-body">
@@ -345,7 +348,7 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">Coca Cola</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cocola">Invest</a>
+                                                    <a href="/invest" class="btn btn-primary">Invest</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -437,46 +440,6 @@
             </div><!-- End Left side columns -->
             </div>
         </section>
-        <div class="modal fade" id="cocola" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Coca Cola Investment</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form method="POST" action="{{ route('investment.invest') }}">
-                            @csrf
-                            <div class="form-group mb-3">
-                                <label for="amount">Amount:</label>
-                                <input id="amount" type="number" placeholder="0.00" min="1000000" max="9999999" 
-                                class="form-control" value="{{ old('amount') }}" required 
-                                pattern="\d{7}" title="Please enter a 7-digit number" maxlength="7">
-                                @error('amount')
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="investment_date">Investment Date:</label>
-                                <input type="date" name="investment_date" id="investment_date"
-                                    class="form-control" value="{{ old('investment_date') }}" required>
-                                @error('investment_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Confirm</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main><!-- End #main -->
 
     @include('layout.footer')

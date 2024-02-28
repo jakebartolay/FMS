@@ -235,8 +235,7 @@
             </li><!-- End Components Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                    href="#">
+                <a class="nav-link" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-cash-coin"></i><span>Investment Management</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -281,7 +280,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-12 col-12">
                             <div class="card">
-                
+
                                 <div class="card-body">
                                     <div class="card-title">Investment</div>
                                     <table class="table">
@@ -296,19 +295,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invest as $row)
+                                            @foreach ($InvestmentRequest as $row)
                                                 <tr>
                                                     <th scope="row">{{ $row->id }}</th>
-                                                    <td>{{ $row->user->firstname }} {{ $row->user->lastname }}</td>
+                                                    <td>{{ $row->firstname }} {{ $row->lastname }}</td>
                                                     <td>{{ number_format($row->amount, 2) }}</td>
-                                                    <td>{{ $row->investment_date }}</td>
+                                                    <td>{{ $row->created_at->format('m-d-Y') }}</td>
                                                     <td>
                                                         @if ($row->status_name == 'Active')
                                                             <span
                                                                 class="badge bg-success">{{ $row->status_name }}</span>
                                                         @elseif($row->status_name == 'Inactive')
-                                                            <span
-                                                                class="badge bg-danger">{{ $row->status_name }}</span>
+                                                            <span class="badge bg-danger">{{ $row->status_name }}</span>
                                                         @elseif($row->status_name == 'Pending')
                                                             <span
                                                                 class="badge bg-warning text-dark">{{ $row->status_name }}</span>
@@ -325,12 +323,26 @@
                                                         @elseif($row->status_name == 'Refunded')
                                                             <span
                                                                 class="badge bg-light text-dark">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Approve')
+                                                            <span
+                                                                class="badge bg-primary">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Cancel')
+                                                            <span
+                                                                class="badge bg-warning text-black">{{ $row->status_name }}</span>
+                                                        @elseif($row->status_name == 'Delete')
+                                                            <span
+                                                                class="badge bg-danger text-white">{{ $row->status_name }}</span>
                                                         @endif
                                                     </td>
-                                                    <td>
-                                                            <button type="button" class="btn btn-success btn-sm mr-2" title="Approve"><i class="bi bi-check2"></i></button>
-                                                            <button type="button" class="btn btn-primary btn-sm mr-3" title="Edit"><i class="bi bi-pencil-square"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-sm" title="Delete"><i class="bi bi-trash3-fill"></i></button>                                             
+                                                    <td class="d-flex">
+                                                        <button type="button" class="btn btn-primary btn-sm mr-2"
+                                                            title="Approve" data-bs-toggle="modal"
+                                                            data-bs-target="#investmentapprove"><i
+                                                                class="bi bi-check2"></i></button>
+                                                        <button type="button" class="btn btn-warning btn-sm mr-3"
+                                                            title="Cancel" data-bs-toggle="modal"
+                                                            data-bs-target="#investmentcancel"><i
+                                                                class="bi bi-pencil-square"></i></button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -348,7 +360,74 @@
                 </div><!-- End Left side columns -->
             </div>
         </section>
+        <div class="modal fade" id="investmentapprove" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Approve</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($InvestmentRequest as $invest)
+                            <form id="approveInvestForm{{ $invest->id }}"
+                                action="{{ route('investment_requests.approve', $invest->id) }}" method="POST">
+                                @csrf
+                                @method('POST')
 
+                            </form>
+                        @endforeach
+                    </div>
+                    <h1>Are you sure you want to approve this Investment request?</h1>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="approveInvestRequest('approveInvestForm{{ $invest->id }}')">Confirm</button>
+                    </div>
+                    <script>
+                        function approveInvestRequest(formId) {
+                            document.getElementById(formId).submit();
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="investmentcancel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($InvestmentRequest as $data)
+                            <form id="cancelInvestForm{{ $data->id }}"
+                                action="{{ route('investment_requests.cancel', ['id' => $data->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        @endforeach
+                        <h1>Are you sure you want to Cancel this Investment request?</h1>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                onclick="cancelInvestRequest('cancelInvestForm{{ $data->id }}')">Confirm</button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function cancelInvestRequest(formId) {
+                            document.getElementById(formId).submit();
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
     </main><!-- End #main -->
 
     @include('layout.footer')

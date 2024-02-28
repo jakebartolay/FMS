@@ -300,7 +300,7 @@
                                                     <th scope="row">{{ $row->id }}</th>
                                                     <td>{{ $row->firstname }} {{ $row->lastname }}</td>
                                                     <td>{{ number_format($row->amount, 2) }}</td>
-                                                    <td>{{ $row->created_at->toDateString() }}</td>
+                                                    <td>{{ $row->created_at->format('m-d-Y') }}</td>
                                                     <td>
                                                         @if ($row->status_name == 'Active')
                                                             <span

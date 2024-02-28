@@ -62,7 +62,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
 
     ///TRANSACTION
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::get('/investments', [UserController::class, 'index'])->name('investment');
+    Route::get('/invest', [UserController::class, 'index'])->name('investment');
     Route::post('/investments', [UserController::class, 'store'])->name('investments.store');
 
     //// SIDEBAR //////
