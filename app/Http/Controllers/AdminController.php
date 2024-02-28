@@ -181,29 +181,57 @@ class AdminController extends Controller
 
     public function Investmentcancel(Request $request, $id)
     {
-        // Find the deposit request by its ID
-        $InvestmentRequest = InvestmentRequest::findOrFail($id);
+            // Find the investment request by its ID
+    $investmentRequest = InvestmentRequest::findOrFail($id);
+
+    // Update the status of the investment request to cancelled
+    $investmentRequest->status = 10; // Assuming '10' represents a cancelled status
+    $investmentRequest->save();
+
+    // Retrieve the account associated with the investment request
+    $investment = investments::where('user_id', $investmentRequest->user_id)->first();
+
+    if (!$investment) {
+        // This should not happen ideally because if an investment request exists, there should be an associated account
+        return redirect()->route('investments.index')->with('error', 'No account found for the user.');
+    }
+
+    // Check if the account has enough balance to refund the investment amount
+    if ($investment->amount >= $investmentRequest->amount) {
+        // Refund the investment amount to the user's account
+        $investment->amount -= $investmentRequest->amount;
+        dd($investment);
+        $investment->save();
+    } else {
+        // In this case, the user doesn't have enough balance to refund the full amount
+        // You may want to handle this scenario differently, such as notifying the user or contacting support
+        return redirect()->route('investments.index')->with('error', 'Insufficient balance to cancel the investment.');
+    }
+
+    return redirect()->route('investments.index')->with('success', 'Your investment has been cancelled and the amount has been refunded to your account.');
+        // // Find the deposit request by its ID
+        // $InvestmentRequest = InvestmentRequest::findOrFail($id);
         
-        // Update the status of the deposit request to cancelled
-        $InvestmentRequest->status = 10; // Assuming '10' represents a cancelled status
-        $InvestmentRequest->save();
+        // // Update the status of the deposit request to cancelled
+        // $InvestmentRequest->status = 10; // Assuming '10' represents a cancelled status
+        // $InvestmentRequest->save();
         
-        // Retrieve the account associated with the deposit request
-        $investment = investments::where('user_id', $InvestmentRequest->user_id)->first();
+        // // Retrieve the account associated with the deposit request
+        // $investment = investments::where('user_id', $InvestmentRequest->user_id)->first();
         
-        if (!$investment) {
-            // This should not happen ideally because if a deposit request exists, there should be an associated account
-            return redirect()->route('investments.index')->with('error', 'No account found for the user.');
-        }
+        // if (!$investment) {
+        //     // This should not happen ideally because if a deposit request exists, there should be an associated account
+        //     return redirect()->route('investments.index')->with('error', 'No account found for the user.');
+        // }
         
-        // Check if the account has enough balance to cancel the deposit request
-        if ($investment->amount >= $InvestmentRequest->amount) {
-            // Update the account balance by subtracting the deposited amount
-            $investment->amount -= $InvestmentRequest->amount; // Assuming amount is the deposited amount
-            $investment->save();
-        }   
+        // // Check if the account has enough balance to cancel the deposit request
+        // if ($investment->amount >= $InvestmentRequest->amount) {
+        //     // Update the account balance by subtracting the deposited amount
+        //     $investment->amount -= $InvestmentRequest->amount; // Assuming amount is the deposited amount
+        //     $investment->save();
+        // }   
     
-        return redirect()->route('investments.index')->with('success', 'Your Investment has been Cancelled.');
+        // return redirect()->route('investments.index')->with('success', 'Your Investment has been Cancelled.');
     }
 
     public function Activity()

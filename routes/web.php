@@ -31,11 +31,25 @@ Route::post('/register',[AuthController::class,'register'])->name('register');
 Route::get('/login',function(){
     return redirect('/');
 });
+
+Route::get('/forgot-password',[AuthController::class,'loadForgotPassword']);
+Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
+Route::get('/login',function(){
+    return redirect('/');
+});
+
 Route::get('/',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
-Route::get('/',[AuthController::class,'loadForgotPassword']);
-Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
+//// GOGOGLE
+
+Route::get('/auth/google',[AuthController::class,'googlepage']);
+Route::get('/auth/google/callback',[AuthController::class,'googlecallback']);
+
+
+
+
+
 
 
 
@@ -68,6 +82,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
     Route::get('/invest', [UserController::class, 'invest'])->name('invest');
     Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
+    Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 
 
     //// SIDEBAR //////

@@ -190,11 +190,12 @@
                                                 <th>Amount</th>
                                                 <th>Investment Date</th>
                                                 <th>Status</th>
+                                                {{-- <th>Actions</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($invest as $row)
-                                                <tr>
+                                                <tr class="text-center">
                                                     <th scope="row">{{ $row->id }}</th>
                                                     <td>{{ $row->firstname }} {{ $row->lastname }}</td>
                                                     <td>{{ number_format($row->amount, 2) }}</td>
@@ -234,13 +235,11 @@
 
                                                     </td>
                                                     {{-- <td>
-                                                            <li class="list-inline-item">
-                                                                <button class="btn btn-danger btn-sm rounded"
-                                                                    type="button" data-toggle="tooltip"
-                                                                    data-placement="top" title="Delete"><i
-                                                                        class="bi bi-x-lg"></i></button>
-                                                            </li>
-                                                        </td> --}}
+                                                        <button type="button" class="btn btn-warning btn-sm mr-3"
+                                                            title="Cancel" data-bs-toggle="modal"
+                                                            data-bs-target="#investmentcancel"><i
+                                                                class="bi bi-pencil-square"></i></button>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -253,43 +252,38 @@
             </div><!-- End Website Traffic -->
             </div><!-- End Left side columns -->
         </section>
-
-        {{-- <div class="modal fade" id="verticalycentered" tabindex="-1">
+{{-- 
+        <div class="modal fade" id="investmentcancel" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Create Investment</h5>
+                        <h5 class="modal-title">Delete</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ route('investment.invest') }}">
+                        @foreach ($invest as $data)
+                        <form id="cancelInvestForm{{ $data->id }}"
+                            action="{{ route('investment_requests.cancel', ['id' => $data->id]) }}"
+                            method="POST">
                             @csrf
-                            <div class="form-group mb-3">
-                                <label for="amount">Amount:</label>
-                                <input id="amount" type="number" placeholder="0.00" min="0"
-                                    max="10000000" class="form-control" value="{{ old('amount') }}" required>
-                                @error('amount')
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label for="investment_date">Investment Date:</label>
-                                <input type="date" name="investment_date" id="investment_date"
-                                    class="form-control" value="{{ old('investment_date') }}" required>
-                                @error('investment_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Create Investment</button>
+                            @method('DELETE')
                         </form>
+                        @endforeach
+                        <h1>Are you sure you want to Cancel this Investment?</h1>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary"
+                                onclick="cancelInvestRequest('cancelInvestForm{{ $data->id }}')">Confirm</button>
+                        </div>
                     </div>
+
+                    <script>
+                        function cancelInvestRequest(formId) {
+                            document.getElementById(formId).submit();
+                        }
+                    </script>
+
                 </div>
             </div>
         </div> --}}

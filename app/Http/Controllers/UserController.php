@@ -44,8 +44,9 @@ class UserController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
         $invest = InvestmentRequest::where('user_id', auth()->id())
-        ->where('status', '<>', 10)
+        ->whereNotIn('status', [3, 10])
         ->count();
+    
 
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
@@ -324,6 +325,33 @@ class UserController extends Controller
         // }
 
     }
+
+    public function Investmentcancel(Request $request, $id)
+    {
+      
+  // Find the investment request by its ID
+        $investmentRequest = InvestmentRequest::findOrFail($id);
+
+        // Update the status of the investment request to cancelled
+        $investmentRequest->status = 10; // Assuming '10' represents a cancelled status
+        $investmentRequest->save();
+
+        // Retrieve the associated investment record
+        $account = account::where('user_id', $investmentRequest->user_id)->first();
+
+        // Check if the associated investment record exists
+        if ($account) {
+            // Add the canceled amount back to the user's account balance
+            $account->amount += $investmentRequest->amount; // Assuming amount is the canceled amount
+            $account->save();
+        } else {
+            // This should not happen ideally because if an investment request exists, there should be an associated account
+            return redirect()->route('investment')->with('error', 'No account found for the user.');
+        }
+
+        return redirect()->route('investment')->with('success', 'Your investment has been cancelled and the amount has been returned to your account.');
+    }
+
 
     public function Withdrawals()
     {

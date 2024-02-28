@@ -28,7 +28,7 @@
                                 <div class="card-body shadow-lg">
 
                                     <div class=" pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">User Login</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">Forgot Password</h5>
                                     </div>
                                     <form class="row g-3 needs-validation" action="{{ route('login') }}" novalidate
                                         method="POST">
@@ -43,41 +43,16 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control"
-                                                id="yourPassword" placeholder="password" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="remember"
-                                                            value="true" id="rememberMe">
-                                                        <label class="form-check-label" for="rememberMe">Remember
-                                                            me</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="text-end">
-                                                        <a href="/forgot-password">Forgot Password?</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row justify-content-center align-items-center pt-3">
 
                                             <div class="col-6">
                                                 <button class="btn btn-primary w-100" type="submit"
-                                                    src="/admin/dashboard">Login</button>
+                                                    src="/admin/dashboard">Confirm</button>
                                             </div>
 
                                         </div>
                                         <div class="col-12 text-center">
-                                            <p class="small mb-0">Don't have account? <a href="/register">Create an
-                                                    account</a></p>
+                                            <p class="small mb-0">Have account? <a href="/login">Login</a></p>
                                         </div>
                                     </form>
                                 </div>
