@@ -166,16 +166,19 @@ class UserController extends Controller
 
         $userId = auth()->id();
 
-        // Retrieve the accounts associated with the specific user
+        // Retrieve the currently authenticated user
         $user = auth()->user();
 
-        $id = $user->id; // Assuming the primary key of the users table is `id`
-                
+        // Assuming the primary key of the users table is `id`, you can retrieve the user's ID
+        $id = $user->id;
+
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
-        $depositrequest = DepositRequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
-        ->join('users', 'users.id', '=', 'depositrequest.user_id')
-        ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
-        ->get();
+        $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
+            ->join('users', 'users.id', '=', 'depositrequest.user_id')
+            ->where('users.id', $id) // Filter the deposit requests by the user's ID
+            ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
+            ->get();
+
         
 
         return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest'));
