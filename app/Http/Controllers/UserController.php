@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
@@ -134,6 +135,49 @@ class UserController extends Controller
 
         $user = auth()->user();
         return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance'));
+    }
+
+    public function transfer(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:accounts,id',
+            'amount' => 'required|numeric|min:0',
+        ]);        
+        
+        // Ensure the user is authenticated and has an associated account
+        $user = auth()->user();
+        if (!$user) {
+            return back()->with('error', 'User not authenticated.');
+        }
+        
+        // Check if the user has an associated account
+        $senderAccount = Account::where('user_id', $user->id)->find($request->id);
+        
+        // Ensure the sender's account exists and has a balance
+        if (!$senderAccount || $senderAccount->balance === null || $senderAccount->balance < $request->amount) {
+            dd($senderAccount);
+            return back()->with('error', 'Insufficient balance to transfer.');
+        }
+
+              
+        
+        // Get the recipient's account
+        $recipientAccount = Account::findOrFail($request->id);
+        
+        // Perform the balance transfer
+        $senderAccount->balance -= $request->amount;
+        $recipientAccount->balance += $request->amount;
+
+        // Debug: Inspect the sender's account after balance transfer
+        dd($senderAccount);
+
+        // Save changes to both accounts
+        $senderAccount->save();
+        $recipientAccount->save();
+
+        // Return response
+        return back()->with('success', 'Balance transferred successfully.');
+                
     }
 
     public function Wallet()

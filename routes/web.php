@@ -46,13 +46,6 @@ Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::get('/auth/google',[AuthController::class,'googlepage']);
 Route::get('/auth/google/callback',[AuthController::class,'googlecallback']);
 
-
-
-
-
-
-
-
 Route::get('/admin/login',[AuthController::class,'loadBackEnd']);
 Route::post('/admin/login',[AuthController::class,'backEnd'])->name('admin/login');
 
@@ -84,7 +77,8 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
     Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 
-
+    ///TRANSFER BALANCE
+    Route::post('/transfer-balance', [UserController::class, 'transfer'])->name('transfer.balance');
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
