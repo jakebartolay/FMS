@@ -59,12 +59,28 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -222,7 +238,7 @@
                                         <div class="col-lg-3 col-md-4 label ">Account Transfer ID</div>
                                         <div class="col-lg-9 col-md-8">
                                             {{-- @if ($account) --}}
-                                                {{ $account }}
+                                            {{ $account }}
                                             {{-- @else
                                                 N/A
                                             @endif --}}
@@ -284,7 +300,7 @@
                                                 class="col-md-4 col-lg-3 col-form-label">Firstname</label>
                                             <div class="col-md-8 col-lg-9 position-relative">
                                                 <input name="firstname" type="text" class="form-control"
-                                                    id="valid12" value="{{ $user->firstname }}" required>
+                                                    id="valid12" value="{{ $user->firstname }}" required oninput="capitalizeFirstLetter(this)">
                                                 <div class="invalid-feedback">
                                                     Please Enter Firstname
                                                 </div>
@@ -296,7 +312,7 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9 position-relative">
                                                 <input name="lastname" type="text" class="form-control"
-                                                    id="valid13" value="{{ $user->lastname }}" required>
+                                                    id="valid13" value="{{ $user->lastname }}" required oninput="capitalizeFirstLetter(this)">
                                                 <div class="invalid-feedback">
                                                     Please Enter Lastname
                                                 </div>
@@ -423,23 +439,22 @@
                                         method="POST" novalidate>
                                         @csrf
                                         <div class="row mb-3">
-                                            <label for="valid1" class="col-md-4 col-lg-3 col-form-label">Current
-                                                Password</label>
+                                            <label for="valid1" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="current_password" type="password" class="form-control"
-                                                    id="valid1" required>
+                                                id="valid1" @if($user->password !== '12345dummy') required @endif placeholder="Current password">
                                                 <div class="invalid-feedback">
-                                                    Please Enter your old password.
+                                                    Please Enter your current password.
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="valid2" class="col-md-4 col-lg-3 col-form-label">New
-                                                Password</label>
+                                                password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="new_password" type="password" class="form-control"
-                                                    id="valid2" required>
+                                                    id="valid2" required placeholder="New Password">
                                                 <div class="invalid-feedback">
                                                     Please enter new password.
                                                 </div>
@@ -451,7 +466,7 @@
                                                 New Password</label>
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="new_password_confirmation" type="password"
-                                                    class="form-control" id="valid3" required>
+                                                    class="form-control" id="valid3" required placeholder="Confirm new password">
                                                 <div class="invalid-feedback">
                                                     Please re-enter new password.
                                                 </div>

@@ -81,8 +81,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::middleware('profile.complete')->group(function () {
     ///INVEST
     Route::get('/invest', [UserController::class, 'invest']);
-    ///TRANSACTION
-    Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
+
     ///TRANSFER BALANCE
     Route::get('/transferview', [UserController::class, 'transferForm'])->name('transferview');
     Route::post('/transfer', [UserController::class, 'transfer'])->name('transfer');
@@ -97,7 +96,10 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     // Route::get('/invest', [UserController::class, 'invest'])->middleware('profile.complete');
     Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
     Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
+    
+    ///TRANSACTION
     Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('paywithpaypal');
+    Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
 });
 
 
@@ -157,9 +159,12 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
     ////// APPROVE
-    Route::post('/approve/{id}/', [AdminController::class, 'approve'])->name('deposit_requests.approve');
-    Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
-    
+
+    // Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
+    ///// NEW APPROVE
+    Route::get('/approve-deposit/{id}', [AdminController::class, 'approveDeposit'])->name('approve.deposit');
+    Route::post('/approve/{id}', [AdminController::class, 'approve'])->name('deposit_requests.approve');    
+
     ////// INVESTMENT APPROVE
     Route::post('/Investmentapprove/{id}/', [AdminController::class, 'Investmentapprove'])->name('investment_requests.approve');
     Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
@@ -170,12 +175,6 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
     Route::get('/activity',[AdminController::class,'Activity'])->name('/activity');
 
-});
-
-
-// ********** Employee Routes *********
-Route::group(['prefix' => 'employee','middleware'=>['web','isEmployee']],function(){
-    Route::get('/dashboard',[EmployeeController::class,'dashboard']);
 });
 
 

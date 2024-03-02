@@ -59,12 +59,28 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -205,7 +221,8 @@
                                                             <span
                                                                 class="badge bg-success">{{ $row->status_name }}</span>
                                                         @elseif($row->status_name == 'Inactive')
-                                                            <span class="badge bg-danger">{{ $row->status_name }}</span>
+                                                            <span
+                                                                class="badge bg-danger">{{ $row->status_name }}</span>
                                                         @elseif($row->status_name == 'Pending')
                                                             <span
                                                                 class="badge bg-warning text-dark">{{ $row->status_name }}</span>
@@ -252,7 +269,7 @@
             </div><!-- End Website Traffic -->
             </div><!-- End Left side columns -->
         </section>
-{{-- 
+        {{-- 
         <div class="modal fade" id="investmentcancel" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">

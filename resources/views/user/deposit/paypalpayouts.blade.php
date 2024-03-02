@@ -56,14 +56,31 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -240,7 +257,9 @@
                                                 @csrf
                                                 <div>
                                                     <label for="amount">Amount to Payout</label>
-                                                    <input id="amount" name="amount" placeholder="ex.10,000" type="text" class="form-control" required maxlength="12" oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
+                                                    <input id="amount" name="amount" placeholder="ex.10,000"
+                                                        type="text" class="form-control" required maxlength="12"
+                                                        oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
                                                 </div>
                                                 <div class="text-center pt-2">
                                                     <button type="submit" class="btn btn-primary">Payouts</button>
@@ -248,8 +267,8 @@
                                             </form>
                                         </div>
                                         <div class="col-4">
-                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px" alt="paypal"
-                                                srcset="">
+                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px"
+                                                alt="paypal" srcset="">
                                         </div>
                                     </div>
                                 </div>

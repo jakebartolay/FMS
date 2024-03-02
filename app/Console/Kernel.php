@@ -18,9 +18,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
             User::whereNull('id')->delete();
         })->everyMinute();
-        $schedule->call(function(){
-            users::whereNull('id')->delete();
-        })->everyMinute();
+        $schedule->command('accounts:id')->daily();
+
     }
 
     /**
@@ -31,5 +30,10 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
+        
     }
+    protected $commands = [
+        Commands\id::class,
+    ];
+    
 }

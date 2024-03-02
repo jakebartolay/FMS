@@ -56,14 +56,31 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -161,84 +178,87 @@
 
         <section class="section contact">
 
-<div class="row gy-4">
+            <div class="row gy-4">
 
-  <div class="col-xl-6 col-md-12">
+                <div class="col-xl-6 col-md-12">
 
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-6">
-        <div class="info-box card">
-          <i class="bi bi-geo-alt"></i>
-          <h3>Address</h3>
-          <p>A108 Adam Street,<br>New York, NY 535022</p>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-6">
-        <div class="info-box card">
-          <i class="bi bi-telephone"></i>
-          <h3>Call Us</h3>
-          <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-6">
-        <div class="info-box card">
-          <i class="bi bi-envelope"></i>
-          <h3>Email Us</h3>
-          <p>info@example.com<br>contact@example.com</p>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-6">
-        <div class="info-box card">
-          <i class="bi bi-clock"></i>
-          <h3>Open Hours</h3>
-          <p>Monday - Friday<br>9:00AM - 05:00PM</p>
-        </div>
-      </div>
-    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="info-box card">
+                                <i class="bi bi-geo-alt"></i>
+                                <h3>Address</h3>
+                                <p>A108 Adam Street,<br>New York, NY 535022</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="info-box card">
+                                <i class="bi bi-telephone"></i>
+                                <h3>Call Us</h3>
+                                <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="info-box card">
+                                <i class="bi bi-envelope"></i>
+                                <h3>Email Us</h3>
+                                <p>info@example.com<br>contact@example.com</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="info-box card">
+                                <i class="bi bi-clock"></i>
+                                <h3>Open Hours</h3>
+                                <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+                            </div>
+                        </div>
+                    </div>
 
-  </div>
+                </div>
 
-  <div class="col-xl-6">
-    <div class="card p-4">
-        <span class="fw-bolder mb-3">Contact Us</span>
-      <form action="/contactsend" method="POST">
-        @csrf
-        <div class="row gy-4">
+                <div class="col-xl-6">
+                    <div class="card p-4">
+                        <span class="fw-bolder mb-3">Contact Us</span>
+                        <form action="/contactsend" method="POST">
+                            @csrf
+                            <div class="row gy-4">
 
-          <div class="col-md-6">
-            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-          </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name"
+                                        required>
+                                </div>
 
-          <div class="col-md-6 ">
-            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-          </div>
+                                <div class="col-md-6 ">
+                                    <input type="email" class="form-control" name="email"
+                                        placeholder="Your Email" required>
+                                </div>
 
-          <div class="col-md-12">
-            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-          </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                        required>
+                                </div>
 
-          <div class="col-md-12">
-            <textarea class="form-control" name="text" rows="6" placeholder="Message" required></textarea>
-          </div>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="text" rows="6" placeholder="Message" required></textarea>
+                                </div>
 
-          <div class="col-md-12 text-center">
-            {{-- <div class="loading">Loading</div>
+                                <div class="col-md-12 text-center">
+                                    {{-- <div class="loading">Loading</div>
             <div class="error-message"></div>
             <div class="sent-message">Your message has been sent. Thank you!</div> --}}
 
-            <input type="submit" class="btn btn-outline-primary" value="Send Email">
-          </div>
+                                    <input type="submit" class="btn btn-outline-primary" value="Send Email">
+                                </div>
 
-        </div>
-      </form>
-      
-    </div>
+                            </div>
+                        </form>
 
-  </div>
+                    </div>
 
-</div>
+                </div>
 
-</section>
+            </div>
+
+        </section>
 
     </main><!-- End #main -->
 

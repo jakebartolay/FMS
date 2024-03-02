@@ -59,12 +59,28 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -174,21 +190,25 @@
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label for="id">Recipient Account ID:</label>
-                                    <input id="id" name="id" placeholder="ex.00" type="text" class="form-control" maxlength="2" oninput="this.value = this.value.slice(0, 2)" required>
+                                    <input id="id" name="id" placeholder="ex.00" type="text"
+                                        class="form-control" maxlength="2"
+                                        oninput="this.value = this.value.slice(0, 2)" required>
                                     @error('id')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="amount">Amount:</label>
-                                    <input id="amount" name="amount" placeholder="ex.10,000" type="text" class="form-control" required maxlength="12" oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
+                                    <input id="amount" name="amount" placeholder="ex.10,000" type="text"
+                                        class="form-control" required maxlength="12"
+                                        oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
                                     @error('amount')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <a class="btn btn-primary" href="{{ route('transaction') }}">cancel</a>
                                 <button type="submit" class="btn btn-primary">Send Cash</button>
-                            </form>                                
+                            </form>
                         </div>
                     </div>
                 </div>

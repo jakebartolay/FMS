@@ -222,7 +222,6 @@ class UserController extends Controller
 
         // Perform balance deduction from sender's account
         $senderAccount->balance -= $request->amount;
-        $senderAccount->save(); // Save the updated sender's account balance
 
         // Create a new transfer history record
         $transferHistory = new TransferHistory();
@@ -235,10 +234,14 @@ class UserController extends Controller
 
         // Perform balance addition to recipient's account
         $recipientAccount->balance += $request->amount;
-        $recipientAccount->save(); // Save the updated recipient's account balance
+
+        // Save changes to sender's and recipient's accounts
+        $senderAccount->save();
+        $recipientAccount->save();
 
         // Return response
         return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
+
     }
     
     public function Wallet()
@@ -324,22 +327,24 @@ class UserController extends Controller
     public function Deposit(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:0|max:1000000',
+            'amount' => 'required|numeric',
         ]);
-    
+        
         $user = auth()->user();
         $amount = $request->amount;
-
-            // Create a new deposit request
-            $depositRequest = new depositrequest();
-            $depositRequest->user_id = $user->id;
-            $depositRequest->amount = $amount;
-            $depositRequest->status = '3'; // Initial status is pending
-            $depositRequest->save();
-    
-            // Log the deposit request or notify admin for approval
-    
-            return back()->route('wallet')->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
+        
+        // Create a new deposit request
+        $depositRequest = new depositrequest();
+        $depositRequest->user_id = $user->id;
+        $depositRequest->amount = $amount;
+        $depositRequest->status = '3'; // Initial status is pending
+        // dd($depositRequest);
+        $depositRequest->save();
+        
+        // Log the deposit request or notify admin for approval
+        
+        // Redirect back to the wallet page with a success message
+        return redirect()->route('wallet')->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
     }
 
     public function paywithPaypal()
@@ -630,26 +635,54 @@ class UserController extends Controller
         return back()->with('success', 'Information has been updated successfully.');
     }
 
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => 'required|min:6|max:100',
-            'new_password' => 'required|min:6|max:100',
-            'new_password_confirmation' => 'required|same:new_password',
-        ]);
+        public function updatePassword(Request $request)
+{
+            // $request->validate([
+        //     'current_password' => 'required|min:6|max:100',
+        //     'new_password' => 'required|min:6|max:100',
+        //     'new_password_confirmation' => 'required|same:new_password',
+        // ]);
 
-        $current_user = auth()->user();
+        // $current_user = auth()->user();
 
-        if (Hash::check($request->current_password, $current_user->password)) {
-            $current_user->update([
-                'password' => bcrypt($request->new_password)
-            ]);
-            return redirect()->back()->with('success', 'Password successfully updated.');
-        } else {
-            return redirect()->back()->with('error', 'Current password is incorrect.');
-        }
+        // if (Hash::check($request->current_password, $current_user->password)) {
+        //     $current_user->update([
+        //         'password' => bcrypt($request->new_password)
+        //     ]);
+        //     return redirect()->back()->with('success', 'Password successfully updated.');
+        // } else {
+        //     return redirect()->back()->with('error', 'Current password is incorrect.');
+        // }
+
+    // Validate the form data
+    $request->validate([
+        'current_password' => 'required',
+        'new_password' => 'required|min:8|confirmed',
+    ]);
+
+    // Get the current user
+    $user = auth()->user();
+
+    // Check if the user's password was set automatically
+    if ($user->password === bcrypt('12345dummy')) {
+        // Password was set automatically, no need to verify current password
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Password updated successfully!');
     }
 
+    // Verify the current password
+    if (!Hash::check($request->current_password, $user->password)) {
+        return redirect()->back()->with('error', 'The current password is incorrect.');
+    }
+
+    // Update the password
+    $user->password = bcrypt($request->new_password);
+    $user->save();
+
+    return redirect()->back()->with('success', 'Password updated successfully!');
+}
 
     public function createUsers(Request $request)
     {

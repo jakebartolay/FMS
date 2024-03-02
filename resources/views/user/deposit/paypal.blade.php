@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Payout Paypal</title>
+    <title>Deposit Paypal</title>
     @include('layout.header')
 </head>
 
@@ -56,14 +56,31 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -236,20 +253,21 @@
                                     <hr>
                                     <div class="row d-flex align-items-center justify-content-center ">
                                         <div class="col-8">
-                                            {{-- <form method="POST" action="{{ route('deposit') }}"> --}}
-                                                @csrf
-                                                <div>
-                                                    <label for="amount">Amount to Deposit</label>
-                                                    <input id="amount" name="amount" placeholder="ex.10,000" type="text" class="form-control" required maxlength="12" oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
-                                                </div>
-                                                <div class="text-center pt-2">
-                                                    <button type="submit" class="btn btn-primary">Deposit</button>
-                                                </div>
+                                            <form method="POST" action="{{ route('deposit') }}">
+                                            @csrf
+                                            <div>
+                                                <label for="amount">Amount to Deposit</label>
+                                                <input id="amount" name="amount" placeholder="ex.10,000"
+                                                    type="text" class="form-control" required maxlength="6">
+                                            </div>
+                                            <div class="text-center pt-2">
+                                                <button type="submit" class="btn btn-primary">Deposit</button>
+                                            </div>
                                             </form>
                                         </div>
                                         <div class="col-4">
-                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px" alt="paypal"
-                                                srcset="">
+                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px"
+                                                alt="paypal" srcset="">
                                         </div>
                                     </div>
                                 </div>

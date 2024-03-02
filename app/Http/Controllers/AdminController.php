@@ -65,6 +65,16 @@ class AdminController extends Controller
         
     }
 
+    public function approveDeposit($id)
+    {
+        $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
+        ->join('users', 'users.id', '=', 'depositrequest.user_id')
+        ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
+        ->get();
+
+        return view('admin.investments.approve', compact('depositrequest','id'));
+    }
+
     public function approve(Request $request, $id)
     {
         // Find the deposit request by its ID
