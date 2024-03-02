@@ -10,7 +10,7 @@ use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
-
+use App\Mail\email;
 
 use Illuminate\Support\Facades\Route;
 
@@ -85,8 +85,11 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
     Route::get('/investment',[UserController::class,'Investment'])->name('investment');
     Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('/withdrawals');
-    Route::get('/contactsupport',[UserController::class,'ContactSupport'])->name('/contactsupport');
     Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');
+
+    //////CONTACT
+    Route::get('/contactsupport', [UserController::class, 'showContact']);
+    Route::post('/contactsend', [UserController::class, 'sendEmail']);    
 
     Route::get('/activity/login/logout',[UserController::class,'activityLoginLogout'])->name('/activity/login/logout');
 });
@@ -113,6 +116,15 @@ Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],fu
 Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/dashboard',[AdminController::class,'dashboard']);
 
+    ////// VENDOR
+    Route::get('/vendoradd',[AdminController::class,'vendorAdd'])->name('vendorAdd');
+    Route::post('/vendornew',[AdminController::class,'createVendor'])->name('create.vendor');
+    Route::get('/vendormanage',[AdminController::class,'vendorManage'])->name('vendorManage');
+    Route::get('/vendorlist',[AdminController::class,'vendorList'])->name('vendorList');
+    //////VIEW EDIT
+    Route::put('/vendoredit/{id}', [AdminController::class, 'vendorEdit'])->name('edit.vendor');
+    Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
+
     Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
     Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
     Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
@@ -131,7 +143,7 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     ////ADMIN SIDE BAR ROUTE////
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
     Route::get('/activity',[AdminController::class,'Activity'])->name('/activity');
-    Route::get('/vendorlist',[AdminController::class,'vendorList'])->name('/vendorlist');
+
 });
 
 

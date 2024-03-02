@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Dasboard</title>
+    <title>Investment</title>
     @include('layout.header')
 </head>
 
@@ -226,11 +226,20 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
+                        <a href="/admin/vendoradd">
+                            <i class="bi bi-circle"></i><span>Vendor Add</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/vendormanage">
+                            <i class="bi bi-circle"></i><span>Vendor Manage</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/vendorlist">
                             <i class="bi bi-circle"></i><span>Vendor List</span>
                         </a>
                     </li>
-                    <li>
                 </ul>
             </li><!-- End Components Nav -->
 
@@ -283,7 +292,7 @@
 
                                 <div class="card-body">
                                     <div class="card-title">Investment</div>
-                                    <table class="table datatable">
+                                    <table id="example" class="table display"  width="100%">
                                         <thead>
                                             <tr>
                                                 <th>#</th>

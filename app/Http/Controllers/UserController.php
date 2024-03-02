@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Email;
 use App\Models\Account;
 use App\Models\Investments;
 use App\Models\DepositRequest;
@@ -226,6 +228,38 @@ class UserController extends Controller
         
 
         return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest'));
+    }
+
+    public function showContact()
+    {
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+        return view('user.sidebar.contactsupport', compact('user','roleName'));
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'text' => $request->input('text')
+        ];
+        
+        Mail::send('user.sidebar.sendingmail', $data, function ($message) use ($request){
+            $message->from($request->input('email'), $request->input('name'));
+            $message->to('jakebartolay147@gmail.com');
+            $message->subject('Sent Throught Contact Us');
+        });
+        
+        return redirect()->back()->with('success', 'Email Successfully Send!');
     }
 
     public function Deposit(Request $request)

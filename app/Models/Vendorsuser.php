@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class vendorInfo extends Model
+class Vendorsuser extends Model
 {
-    protected $table = 'vendorinfo';
+    protected $table = 'users';
+
+    use HasFactory;
+
+    protected $connection = "vendor";
 }

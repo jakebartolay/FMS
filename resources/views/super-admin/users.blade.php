@@ -325,7 +325,7 @@
                                     <span class="input-group-text" id="firstname"><i
                                             class="bi bi-person-fill"></i></span>
                                     <input type="text" name="firstname" class="form-control" id="firstname"
-                                        placeholder="Firstname" required>
+                                        placeholder="Firstname" required oninput="capitalizeFirstLetter(this)">
                                     <div class="invalid-feedback">Please enter your firstname.</div>
                                 </div>
                             </div>
@@ -335,7 +335,7 @@
                                     <span class="input-group-text" id="lastname"><i
                                             class="bi bi-person-fill"></i></span>
                                     <input type="text" name="lastname" class="form-control" id="firstname"
-                                        placeholder="Lastname" required>
+                                        placeholder="Lastname" required oninput="capitalizeFirstLetter(this)">
                                     <div class="invalid-feedback">Please enter your lastname.</div>
                                 </div>
                             </div>

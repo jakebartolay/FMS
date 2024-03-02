@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\vendorInfo;
+use App\Models\Vendors;
+use App\Models\Vendorsuser;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
 use App\Models\Investments;
 use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
+use Illuminate\Support\Facades\Hash;
 use DB;
 
 class AdminController extends Controller
@@ -17,9 +19,16 @@ class AdminController extends Controller
     //
     public function dashboard()
     {
-        $account1 = vendorInfo::count();
+        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
+
+        $inactive = Vendorsuser::where('status', 'Inactive')->count();
+
+        $disable = Vendorsuser::where('status', 'disable')->count();
+        
+        
+
+        $account1 = $data->count();        
         $account2 = User::where('role', '=', 0)->count();
-        $account3 = vendorInfo::where('vendor_id', '=', 'Approve')->count();
 
         $user = auth()->user();
 
@@ -36,7 +45,7 @@ class AdminController extends Controller
 
         $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        return view('admin.dashboard', compact('user', 'roleName', 'account1', 'account2', 'countBalance','investment','account3'));
+        return view('admin.dashboard', compact('user', 'roleName', 'account1', 'account2', 'inactive','disable','countBalance','investment'));
     }
     
     public function Deposit()
@@ -262,9 +271,93 @@ class AdminController extends Controller
         return view('admin.sidebar.activity_logs', compact('user'));
     }
 
+    public function vendorAdd()
+    {
+
+        $user = auth()->user();
+
+        return view('admin.sidebar.vendoradd', compact('user'));
+        
+    }
+    public function createVendor(Request $request){
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'date' => 'required|date',
+            'role_name' => 'required|in:Vendor,Client',
+        ]);
+        
+        // Retrieve input values from the request
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $date = $request->input('date');
+        $role = $request->input('role_name');
+        
+        // Get the last inserted user id
+        $lastUserId = Vendorsuser::orderBy('id', 'desc')->pluck('id')->first();
+        
+        // Increment the last user id and pad it with leading zeros
+        $user_id = str_pad(++$lastUserId, 6, '0', STR_PAD_LEFT);
+        
+        // Define the default password
+        $defaultPassword = 'userpassword123';
+        
+        // Create a new Vendorsuser instance
+        $newVendor = new Vendorsuser();
+        
+        // Set the properties of the new Vendorsuser instance
+        $newVendor->user_id = $user_id; // Assign the generated user_id
+        $newVendor->name = $name;
+        $newVendor->email = $email;
+        $newVendor->date_of_birth = $date;
+        $newVendor->role_name = $role;
+        
+        // Hash the default password and assign it to the Vendorsuser instance
+        $newVendor->password = Hash::make($defaultPassword);
+        
+        // Save the new Vendorsuser instance to the database
+        $newVendor->save();
+        
+        // Redirect the user to a success page and provide the default password
+        return redirect()->route('vendorAdd')->with('success', 'New Vendor has been Created. Default Password: ' . $defaultPassword);
+        
+    }
+
+    public function vendorEdit(Request $request, $id){
+        // Retrieve the vendor user from the database
+        $vendorUser = Vendorsuser::findOrFail($id);
+        
+        // Retrieve client and vendor users while excluding admin and super admin users
+        $data = Vendorsuser::whereIn('role_name', ['Client', 'Vendor'])
+                           ->whereNotIn('role_name', ['Admin', 'Super Admin'])
+                           ->get();
+        
+        // Retrieve the authenticated user
+        $user = auth()->user();
+    
+        // Pass the vendor user data and the authenticated user data to the view for editing
+        return redirect()->back()->with('success','Vendor User Update');
+    }
+    
+    public function vendorManage(Request $request){
+        // Retrieve all users
+        $vendorUser = Vendorsuser::all();
+    
+        // Retrieve only client and vendor users while excluding admin and super admin users
+        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])
+                           ->whereNotIn('role_name', ['Admin', 'Super Admin'])
+                           ->get();
+    
+        // Retrieve the authenticated user
+        $user = auth()->user();
+    
+        return view('admin.sidebar.vendormanage', compact('user', 'data', 'vendorUser'));
+    }
+    
+
     public function vendorList()
     {
-        $data = vendorInfo::all();
+        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
         $user = auth()->user();
         return view('admin.sidebar.vendorlist', compact('user', 'data'));
     }
