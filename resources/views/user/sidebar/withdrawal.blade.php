@@ -168,10 +168,41 @@
                         <div class="card-body">
                             <div class="card-title">
                                 <h1>Withdrawal</h1>
-                                <h1 class="text-primary">{{$formattedBalance}}</h1>
-                                <div class="btn btn-outline-primary">
+                                <h1 class="text-primary">${{$formattedBalance}}</h1>
+                                <a class="btn btn-outline-primary" href="{{ route('payoutGateways') }}">
                                     Withdraw
-                                </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5>Withdrawal History</h5>
+                                <table class="table datatable">
+                                    <thead>
+                                        <th>ID</th>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Email</th>
+                                        <th>Date</th>
+                                        <th>File</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($payouts as $data)
+                                            <tr>
+                                                <td>{{ $data->id }}</td>
+                                                <td>{{ $data->firstname }}</td>
+                                                <td>{{ $data->lastname }}</td>
+                                                <td>{{ $data->email }}</td>
+                                                <td>{{ $data->amount }}</td>
+                                                <td>{{ $data->created_at }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

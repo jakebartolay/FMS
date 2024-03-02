@@ -310,17 +310,18 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $row)
-                                            <tr>
-                                                <td>{{ $row->id }}</td>
-                                                <td>{{ $row->name }}</td>
-                                                <td>{{ $row->email }}</td>
-                                                <td>{{ date('m-d-Y', strtotime($row->join_date)) }}</td>
-                                                <td>
-                                                    <a class="btn btn-primary" data-bs-toggle="modal" href="#update"
-                                                        role="button">Edit</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        <tr>
+                                            <td>{{ $row->id }}</td>
+                                            <td>{{ $row->name }}</td>
+                                            <td>{{ $row->email }}</td>
+                                            <td>{{ date('m-d-Y', strtotime($row->join_date)) }}</td>
+                                            <td>
+                                                @if ($row->role_name == 'Vendor' || $row->role_name == 'Client')
+                                                    <a class="btn btn-primary" href="{{ route('edit.vendor', ['id' => $row->id]) }}">Edit</a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -329,7 +330,7 @@
                 </div>
             </div>
         </section>
-        <div class="modal fade" id="update" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        {{-- <div class="modal fade" id="update" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -340,63 +341,70 @@
                     </div>
                     <div class="modal-body">
                         @foreach ($vendorUser as $data)
-                            <form method="POST" action="{{ route('edit.vendor', ['id' => $data->id]) }}">
-                                @csrf
-                                @method('PUT')
-                                <!-- Form fields for editing vendor user details -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="name" class="fw-bold">Name:</label>
+                        @if ($data->id == auth()->user()->id)
+                                <form method="POST" action="{{ route('edit.vendor', ['id' => $data->id]) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <!-- Form fields for editing vendor user details -->
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="name" class="fw-bold">Name:</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="text" id="name" name="name"
+                                                value="{{ $data->name }}">
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="text" id="name" name="name"
-                                            value="{{ $data->name }}">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="email" class="fw-bold">Email:</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="email" id="email" name="email"
+                                                value="{{ $data->email }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="email" class="fw-bold">Email:</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="join_date" class="fw-bold">Date:</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" name="date" id="date"
+                                                value="{{ $data->join_date }}">
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="email" id="email" name="email"
-                                            value="{{ $data->email }}">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="role" class="fw-bold">Role</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select name="role_name" id="role" required class="form-control"
+                                                style="border: 1px solid;">
+                                                <option value="">Select Role</option>
+                                                <option value="Vendor"
+                                                    {{ $data->role_name == 'Vendor' ? 'selected' : '' }}>Vendor
+                                                </option>
+                                                <option value="Client"
+                                                    {{ $data->role_name == 'Client' ? 'selected' : '' }}>Client
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="join_date" class="fw-bold">Date:</label>
+                                    <!-- Submit button inside the form -->
+                                    <div class="modal-footer">
+                                        <a href="{{ route('vendorManage') }}"
+                                            class="btn btn-outline-primary">Cancel</a>
+                                        <button type="submit" class="btn btn-outline-primary">Update</button>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="date" name="date" id="date"
-                                            value="{{ $data->join_date }}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="role" class="fw-bold">Role</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <select name="role_name" id="role" required class="form-control"
-                                            style="border: 1px solid;">
-                                            <option value="">Select Role</option>
-                                            <option value="Vendor"
-                                                {{ $data->role_name == 'Vendor' ? 'selected' : '' }}>Vendor</option>
-                                            <option value="Client"
-                                                {{ $data->role_name == 'Client' ? 'selected' : '' }}>Client</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Submit button inside the form -->
-                                <div class="modal-footer">
-                                    <a href="{{ route('vendorManage') }}" class="btn btn-outline-primary">Cancel</a>
-                                    <button type="submit" class="btn btn-outline-primary">Update</button>
-                                </div>
-                            </form>
+                                </form>
+                            @else
+                                <p>User ID: {{ auth()->user()->id }} | Vendor ID: {{ $data->id }}</p>
+                            @endif
                         @endforeach
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </main><!-- End #main -->
 

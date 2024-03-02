@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Transaction</title>
+    <title>Transfers</title>
     @include('layout.header')
 </head>
 
@@ -164,14 +164,31 @@
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
                                 <h1>Transfer Fund</h1>
-                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
-                                <a href="{{ route('transferview') }}" class="btn btn-outline-primary">Send Money</a>
                             </div>
+                            <form method="POST" action="{{ route('transfer') }}">
+                                @csrf
+                                <div class="form-group mb-3">
+                                    <label for="id">Recipient Account ID:</label>
+                                    <input id="id" name="id" type="number" class="form-control" required>
+                                    @error('id')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="amount">Amount:</label>
+                                    <input id="amount" name="amount" type="number" class="form-control" required>
+                                    @error('amount')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <a class="btn btn-primary" href="{{ route('transaction') }}">cancel</a>
+                                <button type="submit" class="btn btn-primary">Send Cash</button>
+                            </form>                                
                         </div>
                     </div>
                 </div>

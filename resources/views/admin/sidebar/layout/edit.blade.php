@@ -253,7 +253,8 @@
             <li class="nav-heading">Management</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse"
+                    href="#">
                     <i class="bi bi-person-fill-gear"></i><span>Vendor Management</span><i
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
@@ -333,58 +334,58 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Vendor Edit</h5>
-                                <form method="POST" action="{{ route('edit.vendor', ['id' => $vendorUser->id]) }}">
+                       
+                                <form method="POST" action="{{ route('update.vendor', ['id' => $vendor->id]) }}">
                                     @csrf
                                     @method('PUT')
-                                    <!-- Form fields for editing vendor user details -->
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="name" class="fw-bold">Name:</label>
+                                        <!-- Form fields for editing vendor user details -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="name" class="fw-bold">Name:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="text" id="name" name="name"
+                                                    value="{{ $vendor->name }}">
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="text" id="name" name="name"
-                                                value="{{ $vendorUser->name }}">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="email" class="fw-bold">Email:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="email" id="email" name="email"
+                                                    value="{{ $vendor->email }}">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="email" class="fw-bold">Email:</label>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="join_date" class="fw-bold">Date:</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="date" name="date" id="date" value="{{ date('Y-m-d', strtotime($vendor->join_date)) }}">
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <input type="email" id="email" name="email"
-                                                value="{{ $vendorUser->email }}">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="role" class="fw-bold">Role</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <select name="role_name" id="role" required class="form-control"
+                                                    style="border: 1px solid;">
+                                                    <option value="">Select Role</option>
+                                                    <option value="Vendor"
+                                                        {{ $vendor->role_name == 'Vendor' ? 'selected' : '' }}>Vendor
+                                                    </option>
+                                                    <option value="Client"
+                                                        {{ $vendor->role_name == 'Client' ? 'selected' : '' }}>Client
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="join_date" class="fw-bold">Date:</label>
-                                        </div>
-                                        <div class="col-auto">
-                                            <input type="date" name="date" id="date"
-                                                value="{{ $vendorUser->join_date }}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="role" class="fw-bold">Role</label>
-                                        </div>
-                                        <div class="col-auto">
-                                            <select name="role_name" id="role" required class="form-control"
-                                                style="border: 1px solid;">
-                                                <option value="">Select Role</option>
-                                                <option value="Vendor"
-                                                    {{ $vendorUser->role_name == 'Vendor' ? 'selected' : '' }}>Vendor
-                                                </option>
-                                                <option value="Client"
-                                                    {{ $vendorUser->role_name == 'Client' ? 'selected' : '' }}>Client
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- Other fields to edit -->
-                                    <a href="{{ route('vendorManage') }}" class="btn btn-outline-primary">Cancel</a>
-                                    <button type="submit" class="btn btn-outline-primary">Update</button>
-                                </form>
+                                        <!-- Other fields to edit -->
+                                        <button type="submit" class="btn btn-outline-primary">Update</button>
+                                    </form>
+                            
                             </div>
                         </div>
                     </div><!-- End List Vendor Sales -->
@@ -399,85 +400,89 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-      <!-- Vendor JS Files -->
-  <script src="/../assets/vendor/apexcharts/apexcharts.min.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/chart.js/chart.umd.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/echarts/echarts.min.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/quill/quill.min.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/simple-datatables/simple-datatables.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/tinymce/tinymce.min.js" type="text/javascript"></script>
-  <script src="/../assets/vendor/php-email-form/validate.js" type="text/javascript"></script>
+    <!-- Vendor JS Files -->
+    <script src="/../assets/vendor/apexcharts/apexcharts.min.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/chart.js/chart.umd.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/echarts/echarts.min.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/quill/quill.min.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/simple-datatables/simple-datatables.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script src="/../assets/vendor/php-email-form/validate.js" type="text/javascript"></script>
 
-  <!-- Template Main JS File -->
-  <script src="/../assets/js/main.js" type="text/javascript"></script>
-  {{-- <script src="../assets/js/index.js" type="text/javascript"></script> --}}
-  <script src="https://code.jquery.com/jquery-3.7.1.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js" type="text/javascript"></script>
-  <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.colVis.min.js" type="text/javascript"></script>
+    <!-- Template Main JS File -->
+    <script src="/../assets/js/main.js" type="text/javascript"></script>
+    {{-- <script src="../assets/js/index.js" type="text/javascript"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.print.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.colVis.min.js" type="text/javascript"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
 
-  @if(Session::has('success'))
-    <script>
-        toastr.options = {
-            "progressBar" : true,
-            "closeButton" : true,
-        }
+    @if (Session::has('success'))
+        <script>
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
 
-        toastr.success("{{ Session::get('success') }}",'Success!',{timeout:12000});
+            toastr.success("{{ Session::get('success') }}", 'Success!', {
+                timeout: 12000
+            });
 
-        // toastr.info("{{ Session::get('message') }}");
-        // toastr.warning("{{ Session::get('message') }}");
-        // toastr.error("{{ Session::get('message') }}");
-    </script>
-    @endif 
+            // toastr.info("{{ Session::get('message') }}");
+            // toastr.warning("{{ Session::get('message') }}");
+            // toastr.error("{{ Session::get('message') }}");
+        </script>
+    @endif
 
-    @if(Session::has('error'))
-    <script>
-        toastr.options = {
-            "progressBar" : true,
-            "closeButton" : true,
-        }
-        toastr.error("{{ Session::get('error') }}",'Failed!',{timeout:12000});
-        
-    </script>
+    @if (Session::has('error'))
+        <script>
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+            }
+            toastr.error("{{ Session::get('error') }}", 'Failed!', {
+                timeout: 12000
+            });
+        </script>
     @endif
     <!-- 12345678910 -->
-    <!-- @if(Session::has('warning'))
+    <!-- @if (Session::has('warning'))
+<script>
+    toastr.options = {
+        "progressBar": true,
+        "closeButton": true,
+    }
+    toastr.warning("{{ Session::get('warning') }}", 'Warning!', {
+        timeout: 12000
+    });
+</script>
+@endif -->
+
     <script>
-        toastr.options = {
-            "progressBar" : true,
-            "closeButton" : true,
-        }
-        toastr.warning("{{ Session::get('warning') }}",'Warning!',{timeout:12000});
-        
+        new DataTable('#example', {
+            layout: {
+                topStart: {
+                    buttons: [{
+                            extend: 'print',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        'colvis'
+                    ]
+                }
+            },
+        });
     </script>
-    @endif -->
-
-  <script>
-      new DataTable('#example', {
-          layout: {
-              topStart: {
-                  buttons: [{
-                          extend: 'print',
-                          exportOptions: {
-                              columns: ':visible'
-                          }
-                      },
-                      'colvis'
-                  ]
-              }
-          },
-      });
-  </script>
 
 
-    
+
 </body>
 
 </html>

@@ -34,6 +34,12 @@ Route::get('/login',function(){
 
 Route::get('/forgot-password',[AuthController::class,'loadForgotPassword']);
 Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
+// Route for displaying the password reset form
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Route for handling the password reset request
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+
 Route::get('/login',function(){
     return redirect('/');
 });
@@ -78,13 +84,23 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 
     ///TRANSFER BALANCE
-    Route::post('/transfer-balance', [UserController::class, 'transfer'])->name('transfer.balance');
+    Route::get('/transferview', [UserController::class, 'transferForm'])->name('transferview');
+    Route::post('/transfer', [UserController::class, 'transfer'])->name('transfer');
+
+    ///GATEWAYS
+    Route::get('/payoutgateways', [UserController::class, 'payoutGateways'])->name('payoutGateways');
+
+    //PAYOUT
+    Route::get('/payoutpaypal', [UserController::class, 'paypal'])->name('paypal');
+    Route::post('/process-payout', [UserController::class, 'processPayout'])->name('process.payout');
+    
+
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
-    Route::get('/wallet',[UserController::class,'Wallet'])->name('/wallet');
-    Route::get('/transaction',[UserController::class,'Transaction'])->name('/transaction');
+    Route::get('/wallet',[UserController::class,'Wallet'])->name('wallet');
+    Route::get('/transaction',[UserController::class,'Transaction'])->name('transaction');
     Route::get('/investment',[UserController::class,'Investment'])->name('investment');
-    Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('/withdrawals');
+    Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('withdrawals');
     Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');
 
     //////CONTACT
@@ -121,9 +137,12 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::post('/vendornew',[AdminController::class,'createVendor'])->name('create.vendor');
     Route::get('/vendormanage',[AdminController::class,'vendorManage'])->name('vendorManage');
     Route::get('/vendorlist',[AdminController::class,'vendorList'])->name('vendorList');
+
     //////VIEW EDIT
-    Route::put('/vendoredit/{id}', [AdminController::class, 'vendorEdit'])->name('edit.vendor');
-    Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
+    Route::get('/edit/{id}', [AdminController::class, 'viewVendor'])->name('edit.vendor');
+    Route::put('/update/{id}', [AdminController::class, 'updateVendor'])->name('update.vendor');    
+
+    // Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
 
     Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
     Route::get('/create', [AdminController::class, 'create'])->name('investments.create');

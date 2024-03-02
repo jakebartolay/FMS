@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use App\Models\Payouts;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -39,6 +40,7 @@ class UserController extends Controller
             ->orderBy('created_at')
             ->pluck('amount')
             ->toArray();
+            
 
         // Pass the investment data to the chart configuration
         $chartData = json_encode($investments);
@@ -60,7 +62,23 @@ class UserController extends Controller
 
         $activityLog = DB::table('activity_logs')->get();
 
-        return view('user.dashboard', compact('user', 'activityLog', 'roleName', 'formattedBalance', 'invest', 'chartData'));
+        $payouts = Payouts::count();
+        $payoutcount = Payouts::sum('amount');
+
+        ////PAYOUTS
+
+        $payoutAmounts = Payouts::where('user_id', auth()->id())
+        ->orderBy('created_at')
+        ->pluck('amount')
+        ->toArray();
+    
+        // Pass the investment data to the chart configuration
+        $payout = json_encode($payoutAmounts);
+    
+
+
+        return view('user.dashboard', compact('user', 'activityLog', 'roleName','payout', 
+        'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
     }
 
     public function Error()
@@ -139,48 +157,56 @@ class UserController extends Controller
         return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance'));
     }
 
+    public function transferForm(){
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+        return view('user.deposit.transfer', compact('user','roleName'));
+    }
+
     public function transfer(Request $request)
     {
+        // Validation
         $request->validate([
             'id' => 'required|exists:accounts,id',
             'amount' => 'required|numeric|min:0',
-        ]);        
-        
-        // Ensure the user is authenticated and has an associated account
-        $user = auth()->user();
-        if (!$user) {
-            return back()->with('error', 'User not authenticated.');
+        ]);
+
+        // Retrieve sender's account
+        $senderAccount = auth()->user()->accounts()->first(); // Assuming there's a relationship named 'account'
+
+        // Check if sender's account exists
+        if (!$senderAccount) {
+            return back()->with('error', 'Sender account not found.');
         }
-        
-        // Check if the user has an associated account
-        $senderAccount = Account::where('user_id', $user->id)->find($request->id);
-        
-        // Ensure the sender's account exists and has a balance
-        if (!$senderAccount || $senderAccount->balance === null || $senderAccount->balance < $request->amount) {
-            dd($senderAccount);
+
+        // Check if sender has sufficient balance
+        if ($senderAccount->balance < $request->amount) {
             return back()->with('error', 'Insufficient balance to transfer.');
         }
 
-              
-        
-        // Get the recipient's account
-        $recipientAccount = Account::findOrFail($request->id);
-        
-        // Perform the balance transfer
+
+        // Retrieve recipient's account
+        $recipientAccount = Account::findOrFail($request->id); // Assuming 'id' corresponds to the recipient's account ID
+
+        // Perform balance transfer
         $senderAccount->balance -= $request->amount;
         $recipientAccount->balance += $request->amount;
 
-        // Debug: Inspect the sender's account after balance transfer
-        dd($senderAccount);
-
-        // Save changes to both accounts
+        // Save changes
         $senderAccount->save();
         $recipientAccount->save();
 
         // Return response
-        return back()->with('success', 'Balance transferred successfully.');
-                
+        return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
     }
+    
 
     public function Wallet()
     {
@@ -280,7 +306,7 @@ class UserController extends Controller
     
             // Log the deposit request or notify admin for approval
     
-            return back()->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
+            return back()->route('wallet')->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
     }
 
     public function paywithPaypal()
@@ -410,7 +436,7 @@ class UserController extends Controller
     public function Investmentcancel(Request $request, $id)
     {
       
-  // Find the investment request by its ID
+        // Find the investment request by its ID
         $investmentRequest = InvestmentRequest::findOrFail($id);
 
         // Update the status of the investment request to cancelled
@@ -433,7 +459,6 @@ class UserController extends Controller
         return redirect()->route('investment')->with('success', 'Your investment has been cancelled and the amount has been returned to your account.');
     }
 
-
     public function Withdrawals()
     {
         $user = auth()->user();
@@ -454,11 +479,83 @@ class UserController extends Controller
             ->where('accounts.user_id', $userId)
             ->value('accounts.balance');
 
+        $payouts = Payouts::all();
+
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
-        return view('user.sidebar.withdrawal', compact('user', 'roleName', 'formattedBalance'));
+        return view('user.sidebar.withdrawal', compact('user', 'roleName', 'formattedBalance','payouts'));
     }
 
+    public function payoutGateways(){
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+
+        return view('user.deposit.payoutgate', compact('user', 'roleName'));
+    }
+    
+    public function paypal(){
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+
+      
+        return view('user.deposit.paypalpayouts', compact('user', 'roleName'));
+    }
+
+    public function processPayout(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'amount' => 'required|numeric|min:0|max:1000000',
+        ]);
+        
+        // Retrieve the authenticated user
+        $user = auth()->user();
+    
+        // Check if the user has an associated account
+        $account = Account::where('user_id', $user->id)->first();
+    
+        if (!$account) {
+            return back()->with('error', 'No account found for the user.');
+        }
+    
+        // Check if the user has sufficient balance for the payout
+        if ($account->balance < $request->amount) {
+            return back()->with('error', 'Insufficient balance for the payout.');
+        }
+    
+        // Deduct the amount from the user's account balance
+        $account->balance -= $request->amount;
+        $account->save();
+
+        // Record the payout
+        $payout = new Payouts();
+        $payout->user_id = $user->id;
+        $payout->firstname = $user->firstname; // Assuming these fields are present in the user model
+        $payout->lastname = $user->lastname;
+        $payout->email = $user->email;
+        $payout->amount = $request->amount;
+
+        // Assuming `status_id` in the `payouts` table corresponds to the user's role
+        $payout->status_id = $user->role;
+        // dd($payout);
+        $payout->save();
+        return redirect()->route('withdrawals')->with('success', 'Payout successful.');
+    }
+    
     public function ContactSupport()
     {
         $user = auth()->user();

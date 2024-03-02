@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Models\User;
+use App\Models\Vendorsuser;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->call(function(){
             User::whereNull('id')->delete();
+        })->everyMinute();
+        $schedule->call(function(){
+            users::whereNull('id')->delete();
         })->everyMinute();
     }
 

@@ -20,12 +20,17 @@
                             @include('layout.logo2')
                             <br>
                             <div class="card mb-3">
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <p style="color:red;">{{ $error }}</p>
+                                    @endforeach
+                                @endif
                                 <div class="card-body shadow-lg">
 
                                     <div class=" pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Forgot Password</h5>
                                     </div>
-                                    <form class="row g-3 needs-validation" action="{{ route('forgot-password') }}" novalidate
+                                    <form class="row g-3 needs-validation" action="{{ route('password.update') }}" novalidate
                                         method="POST">
                                         @csrf
                                         <div class="col-12">
@@ -33,6 +38,26 @@
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
                                                 <input type="email" name="email" class="form-control" id="email"
+                                                    placeholder="example@gmail.com" required>
+                                                <div class="invalid-feedback">Please enter your email.</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="password" class="form-label">Password</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="password" name="password" class="form-control" id="password"
+                                                    placeholder="example@gmail.com" required>
+                                                <div class="invalid-feedback">Please enter your email.</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="password_confirmation" class="form-label">Password</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="password_confirmation" name="password_confirmation" class="form-control" id="password_confirmation"
                                                     placeholder="example@gmail.com" required>
                                                 <div class="invalid-feedback">Please enter your email.</div>
                                             </div>

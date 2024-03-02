@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Support\Facades\Password;
 use Socialite;
 use Exception;
 use DB;
@@ -162,14 +163,47 @@ class AuthController extends Controller
         return view('forgot-password');
     }
 
-    public function forgotpassword()
+    public function forgotpassword(Request $request)
     {
-        if(Auth::user()){
-            $route = $this->redirectDash();
-            return redirect($route);
-        }
-        return view('forgot-password');
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+    
+        $status = Password::sendResetLink($request->only('email'));
+    
+        return $status === Password::RESET_LINK_SENT
+                    ? back()->with('status', __($status))
+                    : back()->withErrors(['email' => __($status)])->with('error','Email not exist to our system');
     }
+
+    public function showResetForm(Request $request, $token)
+    {
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->password = Hash::make($password);
+                $user->save();
+            }
+        );
+
+        return $status == Password::PASSWORD_RESET
+                    ? redirect()->route('login')->with('status', __($status))
+                    : back()->withErrors(['email' => [__($status)]]);
+    }
+
 
 
     public function loadLogin()
