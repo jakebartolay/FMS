@@ -240,8 +240,7 @@
                                                 @csrf
                                                 <div>
                                                     <label for="amount">Amount to Payout</label>
-                                                    <input type="number" placeholder="0.00" name="amount" id="amount" min="0" step="0.01"
-                                                        required>
+                                                    <input id="amount" name="amount" placeholder="ex.10,000" type="text" class="form-control" required maxlength="12" oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
                                                 </div>
                                                 <div class="text-center pt-2">
                                                     <button type="submit" class="btn btn-primary">Payouts</button>

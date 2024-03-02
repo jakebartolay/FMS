@@ -30,7 +30,7 @@
                         <i class="bi bi-search"></i>
                     </a>
                 </li><!-- End Search Icon-->
-{{-- 
+                {{-- 
                 <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -56,7 +56,8 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -91,7 +92,7 @@
         </nav><!-- End Icons Navigation -->
 
     </header><!-- End Header -->
-    
+
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
 
@@ -160,70 +161,86 @@
             </nav>
         </div><!-- End Page Title -->
         <section class="section profile">
-      <div class="row">
-        <div class="col-xl-5">
+            <div class="row">
+                <div class="col-xl-5">
 
-          <div class="card">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                    <div class="card">
+                        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-              <h2>{{$user->firstname}} {{$user->lastname}}</h2>
-              <h3>{{$roleName}}</h3>
-              <!-- <div class="social-links mt-2">
+                            <img src="assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
+                            <h2>{{ $user->firstname }} {{ $user->lastname }}</h2>
+                            <h3>{{ $roleName }}</h3>
+                            <!-- <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
                 <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
               </div> -->
-            </div>
-          </div>
+                        </div>
+                    </div>
 
-        </div>
+                </div>
 
-        <div class="col-xl-7">
+                <div class="col-xl-7">
 
-          <div class="card">
-            <div class="card-body pt-3">
-              <!-- Bordered Tabs -->
-              <ul class="nav nav-tabs nav-tabs-bordered">
-              @if ($errors->any())
-                                        @foreach ($errors->all() as $error)
-                                            <p style="color:red;">{{ $error }}</p>
-                                        @endforeach
-                                    @endif
-                <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                </li>
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+                                @if ($errors->any())
+                                    @foreach ($errors->all() as $error)
+                                        <p style="color:red;">{{ $error }}</p>
+                                    @endforeach
+                                @endif
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">Overview</button>
+                                </li>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
+                                        Profile</button>
+                                </li>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-settings">Settings</button>
+                                </li>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#profile-change-password">Change Password</button>
+                                </li>
 
-              </ul>
-              <div class="tab-content pt-2">
+                            </ul>
+                            <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">Profile Details</h5>
+                                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                                    <h5 class="card-title">Profile Details</h5>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">{{$user->firstname}} {{$user->lastname}}</div>
-                  </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Account Transfer ID</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {{-- @if ($account) --}}
+                                                {{ $account }}
+                                            {{-- @else
+                                                N/A
+                                            @endif --}}
+                                        </div>
+                                    </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">{{$user->email}}</div>
-                  </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                                        <div class="col-lg-9 col-md-8">{{ $user->firstname }} {{ $user->lastname }}
+                                        </div>
+                                    </div>
 
-                  {{-- <div class="row">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Email</div>
+                                        <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
+                                    </div>
+
+                                    {{-- <div class="row">
                     <div class="col-lg-3 col-md-4 label">Country</div>
                     <div class="col-lg-9 col-md-8">No Data Found</div>
                   </div>
@@ -238,55 +255,67 @@
                     <div class="col-lg-9 col-md-8">No Data Found</div>
                   </div> --}}
 
-                </div>
+                                </div>
 
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                  <!-- Profile Edit Form -->
-                  <form class="row g-3 needs-validation" action="{{ route('update-profile') }}" method="POST" novalidate>
-                                @csrf
-                                @method('PUT')
-                    <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/superadmin.jpg" alt="Profile">
-                        <div class="pt-2 mx-4">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
+                                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                    <!-- Profile Edit Form -->
+                                    <form class="row g-3 needs-validation" action="{{ route('update-profile') }}"
+                                        method="POST" novalidate>
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="row mb-3">
+                                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
+                                                Image</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <img src="assets/img/superadmin.jpg" alt="Profile">
+                                                <div class="pt-2 mx-4">
+                                                    <a href="#" class="btn btn-primary btn-sm"
+                                                        title="Upload new profile image"><i
+                                                            class="bi bi-upload"></i></a>
+                                                    <a href="#" class="btn btn-danger btn-sm"
+                                                        title="Remove my profile image"><i
+                                                            class="bi bi-trash"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <div class="row mb-3">
-                      <label for="valid12" class="col-md-4 col-lg-3 col-form-label">Firstname</label>
-                      <div class="col-md-8 col-lg-9 position-relative">
-                        <input name="firstname" type="text" class="form-control" id="valid12" value="{{$user->firstname}}" required>
-                        <div class="invalid-feedback">
-                            Please Enter Firstname
-                        </div>
-                      </div>
-                    </div>
+                                        <div class="row mb-3">
+                                            <label for="valid12"
+                                                class="col-md-4 col-lg-3 col-form-label">Firstname</label>
+                                            <div class="col-md-8 col-lg-9 position-relative">
+                                                <input name="firstname" type="text" class="form-control"
+                                                    id="valid12" value="{{ $user->firstname }}" required>
+                                                <div class="invalid-feedback">
+                                                    Please Enter Firstname
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <div class="row mb-3">
-                      <label for="valid13" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
-                      <div class="col-md-8 col-lg-9 position-relative">
-                        <input name="lastname" type="text" class="form-control" id="valid13" value="{{$user->lastname}}" required>
-                        <div class="invalid-feedback">
-                            Please Enter Lastname
-                        </div>
-                      </div>
-                    </div>
+                                        <div class="row mb-3">
+                                            <label for="valid13" class="col-md-4 col-lg-3 col-form-label">Last
+                                                Name</label>
+                                            <div class="col-md-8 col-lg-9 position-relative">
+                                                <input name="lastname" type="text" class="form-control"
+                                                    id="valid13" value="{{ $user->lastname }}" required>
+                                                <div class="invalid-feedback">
+                                                    Please Enter Lastname
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <div class="row mb-3">
-                      <label for="valid14" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                      <div class="col-md-8 col-lg-9 position-relative">
-                        <input name="email" type="email" class="form-control" id="valid14" value="{{$user->email}}"required>
-                        <div class="invalid-feedback">
-                            Please Enter Email
-                        </div>
-                      </div>
-                    </div>
+                                        <div class="row mb-3">
+                                            <label for="valid14"
+                                                class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                            <div class="col-md-8 col-lg-9 position-relative">
+                                                <input name="email" type="email" class="form-control"
+                                                    id="valid14" value="{{ $user->email }}"required>
+                                                <div class="invalid-feedback">
+                                                    Please Enter Email
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    {{-- <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="country" type="text" class="form-control" id="Country" value="No Data Found" required>
@@ -307,7 +336,7 @@
                       </div>
                     </div> --}}
 
-                    <!-- <div class="row mb-3">
+                                        <!-- <div class="row mb-3">
                       <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
@@ -335,104 +364,115 @@
                       </div>
                     </div> -->
 
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End Profile Edit Form -->
+
+                                </div>
+
+                                <div class="tab-pane fade pt-3" id="profile-settings">
+                                    <!-- Settings Form -->
+                                    <form>
+
+                                        <div class="row mb-3">
+                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email
+                                                Notifications</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="changesMade"
+                                                        checked>
+                                                    <label class="form-check-label" for="changesMade">
+                                                        Changes made to your account
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="newProducts"
+                                                        checked>
+                                                    <label class="form-check-label" for="newProducts">
+                                                        Information on new products and services
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="proOffers">
+                                                    <label class="form-check-label" for="proOffers">
+                                                        Marketing and promo offers
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="securityNotify" checked disabled>
+                                                    <label class="form-check-label" for="securityNotify">
+                                                        Security alerts
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End settings Form -->
+
+                                </div>
+
+                                <div class="tab-pane fade" id="profile-change-password">
+                                    <h5 class="card-title">Password</h5>
+                                    <!-- Change Password Form -->
+                                    <form class="needs-validation" action="{{ route('update-password') }}"
+                                        method="POST" novalidate>
+                                        @csrf
+                                        <div class="row mb-3">
+                                            <label for="valid1" class="col-md-4 col-lg-3 col-form-label">Current
+                                                Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="current_password" type="password" class="form-control"
+                                                    id="valid1" required>
+                                                <div class="invalid-feedback">
+                                                    Please Enter your old password.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="valid2" class="col-md-4 col-lg-3 col-form-label">New
+                                                Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="new_password" type="password" class="form-control"
+                                                    id="valid2" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter new password.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="valid3" class="col-md-4 col-lg-3 col-form-label">Re-enter
+                                                New Password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="new_password_confirmation" type="password"
+                                                    class="form-control" id="valid3" required>
+                                                <div class="invalid-feedback">
+                                                    Please re-enter new password.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Update Password</button>
+                                        </div>
+                                    </form><!-- End Change Password Form -->
+
+                                </div>
+
+                            </div><!-- End Bordered Tabs -->
+
+                        </div>
                     </div>
-                  </form><!-- End Profile Edit Form -->
 
                 </div>
-
-                <div class="tab-pane fade pt-3" id="profile-settings">
-                  <!-- Settings Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End settings Form -->
-
-                </div>
-
-                <div class="tab-pane fade" id="profile-change-password">
-                    <h5 class="card-title">Password</h5>
-                  <!-- Change Password Form -->
-                  <form class="needs-validation" action="{{ route('update-password') }}" method="POST" novalidate>
-                    @csrf
-                    <div class="row mb-3">
-                      <label for="valid1" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="current_password" type="password" class="form-control" id="valid1" required>
-                        <div class="invalid-feedback">
-                            Please Enter your old password.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="valid2" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="new_password" type="password" class="form-control" id="valid2" required>
-                        <div class="invalid-feedback">
-                            Please enter new password.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="valid3" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="new_password_confirmation" type="password" class="form-control" id="valid3" required>
-                        <div class="invalid-feedback">
-                            Please re-enter new password.
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Update Password</button>
-                    </div>
-                  </form><!-- End Change Password Form -->
-
-                </div>
-
-              </div><!-- End Bordered Tabs -->
-
             </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+        </section>
 
     </main><!-- End #main -->
 

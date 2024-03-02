@@ -77,7 +77,7 @@ class UserController extends Controller
     
 
 
-        return view('user.dashboard', compact('user', 'activityLog', 'roleName','payout', 
+        return view('user.dashboard', compact('user', 'activityLog', 'roleName','payout',
         'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
     }
 
@@ -101,17 +101,24 @@ class UserController extends Controller
     public function Profile()
     {
         $user = auth()->user();
-        $userRole = Role::find($user->role);
 
+        $userRole = Role::find($user->role);
+        
         if ($userRole) {
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
             $roleName = 'Client';
         }
+       
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+        $account = DB::table('accounts')
+            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
+            ->where('accounts.user_id', $id)
+            ->value('accounts.id');
 
-        $user = auth()->user();
-        return view('user.sidebar.profile', compact('user', 'roleName'));
+        
+        return view('user.sidebar.profile', compact('user', 'roleName', 'account'));
     }
 
     public function editProfile()
@@ -175,11 +182,11 @@ class UserController extends Controller
         // Validation
         $request->validate([
             'id' => 'required|exists:accounts,id',
-            'amount' => 'required|numeric|min:0',
+            'amount' => 'required|numeric|min:1000000',
         ]);
 
         // Retrieve sender's account
-        $senderAccount = auth()->user()->accounts()->first(); // Assuming there's a relationship named 'account'
+        $senderAccount = auth()->user()->account()->first(); // Assuming there's a relationship named 'account'
 
         // Check if sender's account exists
         if (!$senderAccount) {

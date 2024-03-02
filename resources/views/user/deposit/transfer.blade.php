@@ -174,14 +174,14 @@
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label for="id">Recipient Account ID:</label>
-                                    <input id="id" name="id" type="number" class="form-control" required>
+                                    <input id="id" name="id" placeholder="ex.00" type="text" class="form-control" maxlength="2" oninput="this.value = this.value.slice(0, 2)" required>
                                     @error('id')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="amount">Amount:</label>
-                                    <input id="amount" name="amount" type="number" class="form-control" required>
+                                    <input id="amount" name="amount" placeholder="ex.10,000" type="text" class="form-control" required maxlength="12" oninput="javascript: this.value = parseFloat(this.value.replace(/,/g, '')).toLocaleString('en'); if (this.value.length > 12) this.value = this.value.slice(0, 12);">
                                     @error('amount')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
