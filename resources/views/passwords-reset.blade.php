@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Login</title>
+    <title>Reseting Password</title>
     @include('layout.header')
 </head>
 
@@ -28,38 +28,28 @@
                                 <div class="card-body shadow-lg">
 
                                     <div class=" pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">Forgot Password</h5>
+                                        <h5 class="card-title text-center pb-0 fs-4">Reset Password</h5>
                                     </div>
                                     <form class="row g-3 needs-validation" action="{{ route('password.update') }}" novalidate
                                         method="POST">
                                         @csrf
                                         <div class="col-12">
-                                            <label for="email" class="form-label">Email</label>
+                                            <label for="password" class="form-label">New Password</label>
                                             <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="email" name="email" class="form-control" id="email"
-                                                    placeholder="example@gmail.com" required>
-                                                <div class="invalid-feedback">Please enter your email.</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <label for="password" class="form-label">Password</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <span class="input-group-text" id="inputGroupPrepend">🔑</span>
                                                 <input type="password" name="password" class="form-control" id="password"
-                                                    placeholder="example@gmail.com" required>
-                                                <div class="invalid-feedback">Please enter your email.</div>
+                                                    placeholder="**********" required>
+                                                <div class="invalid-feedback">Please enter your new password.</div>
                                             </div>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="password_confirmation" class="form-label">Password</label>
+                                            <label for="password_confirmation" class="form-label">Confirm Password</label>
                                             <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="password_confirmation" name="password_confirmation" class="form-control" id="password_confirmation"
-                                                    placeholder="example@gmail.com" required>
-                                                <div class="invalid-feedback">Please enter your email.</div>
+                                                <span class="input-group-text" id="inputGroupPrepend">🔑</span>
+                                                <input type="password" name="password_confirmation" class="form-control" id="password_confirmation"
+                                                    placeholder="**********" required>
+                                                <div class="invalid-feedback">Please re-enter your password.</div>
                                             </div>
                                         </div>
 

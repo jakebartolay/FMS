@@ -178,7 +178,7 @@ class AuthController extends Controller
 
     public function showResetForm(Request $request, $token)
     {
-        return view('auth.passwords.reset')->with(
+        return view('passwords-reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }

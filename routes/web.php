@@ -35,10 +35,10 @@ Route::get('/login',function(){
 Route::get('/forgot-password',[AuthController::class,'loadForgotPassword']);
 Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
 // Route for displaying the password reset form
-Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 
 // Route for handling the password reset request
-Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+Route::post('/reset-password', [AuthController::class, 'reset'])->name('password.update');
 
 Route::get('/login',function(){
     return redirect('/');

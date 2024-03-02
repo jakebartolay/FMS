@@ -41,8 +41,7 @@
                                         <div class="row justify-content-center align-items-center pt-3">
 
                                             <div class="col-6">
-                                                <button class="btn btn-primary w-100" type="submit"
-                                                    src="/admin/dashboard">Confirm</button>
+                                                <button class="btn btn-primary w-100" type="submit">Confirm</button>
                                             </div>
 
                                         </div>
