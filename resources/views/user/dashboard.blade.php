@@ -204,7 +204,7 @@
                                             <hr>
                                         </div>
                                         <div class="col-6">
-                                            <h6 class="text-primary fw-bold">0</h6>
+                                            <h6 class="text-primary fw-bold">{{ $payouts }}</h6>
                                             <span class="text-secondary">Withdrawal</span>
                                             <hr>
                                         </div>
@@ -295,7 +295,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Withdrawal Stats</h5>
-                                    <h5 class="mx-2 fw-bold text-primary">$ 0</h5>
+                                    <h5 class="mx-2 fw-bold text-primary">${{ $payoutcount }}</h5>
                                     <!-- Line Chart -->
                                     <div id="lineChart2"></div>
 
@@ -303,8 +303,9 @@
                                         document.addEventListener("DOMContentLoaded", () => {
                                             new ApexCharts(document.querySelector("#lineChart2"), {
                                                 series: [{
-                                                    name: "Desktops",
+                                                    name: "Withdrawals",
                                                     // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                                                    data: {!! $payout !!}
                                                 }],
                                                 chart: {
                                                     height: 350,

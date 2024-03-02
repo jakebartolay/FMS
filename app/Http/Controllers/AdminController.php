@@ -12,6 +12,7 @@ use App\Models\Investments;
 use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Artisan;
 use DB;
 
 class AdminController extends Controller
@@ -317,7 +318,7 @@ class AdminController extends Controller
         
         // Save the new Vendorsuser instance to the database
         $newVendor->save();
-        
+
         // Redirect the user to a success page and provide the default password
         return redirect()->route('vendorAdd')->with('success', 'New Vendor has been Created. Default Password: ' . $defaultPassword);
         
@@ -327,17 +328,42 @@ class AdminController extends Controller
         // Retrieve the vendor user from the database
         $vendorUser = Vendorsuser::findOrFail($id);
         
-        // Retrieve client and vendor users while excluding admin and super admin users
-        $data = Vendorsuser::whereIn('role_name', ['Client', 'Vendor'])
-                           ->whereNotIn('role_name', ['Admin', 'Super Admin'])
-                           ->get();
+        // Update the vendor user with the new data
+        $vendorUser->update($request->all());
         
-        // Retrieve the authenticated user
-        $user = auth()->user();
-    
-        // Pass the vendor user data and the authenticated user data to the view for editing
-        return redirect()->back()->with('success','Vendor User Update');
+        // Optionally, you can return a response or redirect the user
+        return redirect()->route('vendorManage')->with('success', 'Vendor user updated successfully');
     }
+
+    public function viewVendor($id) {
+        $user = auth()->user();
+
+        $vendor = Vendorsuser::findOrFail($id);
+        return view('admin.sidebar.layout.edit', compact('vendor','user'));
+    }
+    
+    public function updateVendor(Request $request, $id) {
+        $vendor = Vendorsuser::findOrFail($id);
+
+        // Update vendor attributes based on form data
+        $vendor->name = $request->input('name');
+        $vendor->email = $request->input('email');
+        $vendor->join_date = $request->input('date'); // Assuming 'join_date' is the attribute name
+        $vendor->role_name = $request->input('role_name'); // Assuming 'role_name' is the attribute name
+        
+        // Update other attributes as needed
+        // $vendor->other_attribute = $request->input('other_attribute');
+        
+        $vendor->save();
+        
+        // Get the updated role name
+        $role_name = $request->input('role_name');
+        
+        return redirect()->route('vendorManage')->with('success', "$role_name updated successfully");
+        
+    }
+    
+    
     
     public function vendorManage(Request $request){
         // Retrieve all users
@@ -345,8 +371,8 @@ class AdminController extends Controller
     
         // Retrieve only client and vendor users while excluding admin and super admin users
         $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])
-                           ->whereNotIn('role_name', ['Admin', 'Super Admin'])
                            ->get();
+        // dd($data);
     
         // Retrieve the authenticated user
         $user = auth()->user();

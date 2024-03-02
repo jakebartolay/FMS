@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Dasboard</title>
+    <title>Payout Paypal</title>
     @include('layout.header')
 </head>
 
@@ -236,7 +236,7 @@
                                     <hr>
                                     <div class="row d-flex align-items-center justify-content-center ">
                                         <div class="col-8">
-                                            <form method="POST" action="{{ route('deposit') }}">
+                                            {{-- <form method="POST" action="{{ route('deposit') }}"> --}}
                                                 @csrf
                                                 <div>
                                                     <label for="amount">Amount to Deposit</label>

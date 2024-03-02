@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Transaction</title>
+    <title>Dasboard</title>
     @include('layout.header')
 </head>
 
@@ -56,8 +56,7 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -72,11 +71,66 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/profile">
-                                <i class="bi bi-person-fill"></i>
-                                <span>My Profile</span>
+                            <a class="dropdown-item d-flex align-items-center" href="/">
+                                <i class="bi bi-gear"></i>
+                                <span>Dashboard</span>
                             </a>
-                        </li><!-- End Contact Page Nav -->
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Deposit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/transaction">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Transper Fund</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>My Investment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Withdrawal</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/admin/pages-faq">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Contract Support</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="/logout">
@@ -106,6 +160,13 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
+                <a class="nav-link collapsed" href="/profile">
+                    <i class="bi bi-person-fill"></i>
+                    <span>My Profile</span>
+                </a>
+            </li><!-- End Contact Page Nav -->
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="/wallet">
                     <i class="bi bi-credit-card-fill"></i>
                     <span>Wallet Deposit</span>
@@ -113,7 +174,7 @@
             </li><!-- End Contact Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="/transaction">
+                <a class="nav-link collapsed" href="/transaction">
                     <i class="bi bi-send-fill"></i>
                     <span>Transfer fund</span>
                 </a>
@@ -122,7 +183,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/investment">
                     <i class="bi bi-folder-fill"></i>
-                    <span>My Investment</span>
+                    <span>My Investments</span>
                 </a>
             </li><!-- End Contact Page Nav -->
 
@@ -156,26 +217,51 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Transaction</li>
+                    <li class="breadcrumb-item active">Paypal Payout</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section class="section dashboard">
+        <section class="section profile dashboard">
             <div class="row">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <h1>Transfer Fund</h1>
-                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
-                                <a href="{{ route('transferview') }}" class="btn btn-outline-primary">Send Money</a>
+                    <div class="row justify-content-center">
+
+                        <!-- Investment Card -->
+                        <div class="col-xxl-6 col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">Payout Using Paypal</h6>
+                                    <hr>
+                                    <div class="row d-flex align-items-center justify-content-center ">
+                                        <div class="col-8">
+                                            <form method="POST" action="{{ route('process.payout') }}">
+                                                @csrf
+                                                <div>
+                                                    <label for="amount">Amount to Payout</label>
+                                                    <input type="number" placeholder="0.00" name="amount" id="amount" min="0" step="0.01"
+                                                        required>
+                                                </div>
+                                                <div class="text-center pt-2">
+                                                    <button type="submit" class="btn btn-primary">Payouts</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-4">
+                                            <img src="assets/logo/paypal.jpg" width="100px" height="100px" alt="paypal"
+                                                srcset="">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </div><!-- End Investment Card -->
+
+                    </div><!-- End Right side columns -->
                 </div>
+
             </div><!-- End Left side columns -->
+            </div>
         </section>
 
     </main><!-- End #main -->

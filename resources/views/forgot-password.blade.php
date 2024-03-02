@@ -20,17 +20,12 @@
                             @include('layout.logo2')
                             <br>
                             <div class="card mb-3">
-                                @if ($errors->any())
-                                    @foreach ($errors->all() as $error)
-                                        <p style="color:red;">{{ $error }}</p>
-                                    @endforeach
-                                @endif
                                 <div class="card-body shadow-lg">
 
                                     <div class=" pb-2">
                                         <h5 class="card-title text-center pb-0 fs-4">Forgot Password</h5>
                                     </div>
-                                    <form class="row g-3 needs-validation" action="{{ route('login') }}" novalidate
+                                    <form class="row g-3 needs-validation" action="{{ route('forgot-password') }}" novalidate
                                         method="POST">
                                         @csrf
                                         <div class="col-12">
@@ -46,8 +41,7 @@
                                         <div class="row justify-content-center align-items-center pt-3">
 
                                             <div class="col-6">
-                                                <button class="btn btn-primary w-100" type="submit"
-                                                    src="/admin/dashboard">Confirm</button>
+                                                <button class="btn btn-primary w-100" type="submit">Confirm</button>
                                             </div>
 
                                         </div>
