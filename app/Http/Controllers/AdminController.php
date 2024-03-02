@@ -280,6 +280,7 @@ class AdminController extends Controller
         return view('admin.sidebar.vendoradd', compact('user'));
         
     }
+    
     public function createVendor(Request $request){
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -362,8 +363,6 @@ class AdminController extends Controller
         return redirect()->route('vendorManage')->with('success', "$role_name updated successfully");
         
     }
-    
-    
     
     public function vendorManage(Request $request){
         // Retrieve all users

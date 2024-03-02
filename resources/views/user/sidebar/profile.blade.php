@@ -168,7 +168,7 @@
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
                             <img src="assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                            <h2>{{ $user->firstname }} {{ $user->lastname }}</h2>
+                            <h2>{{ $user->firstname }}</h2>
                             <h3>{{ $roleName }}</h3>
                             <!-- <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>

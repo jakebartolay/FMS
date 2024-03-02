@@ -1,6 +1,7 @@
 <?php
-
+namespace App\Http\Middleware;
 namespace App\Http\Controllers;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,11 +15,13 @@ use App\Models\Account;
 use App\Models\Investments;
 use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
+use App\Models\Transferhistory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Models\Payouts;
+use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -62,8 +65,15 @@ class UserController extends Controller
 
         $activityLog = DB::table('activity_logs')->get();
 
-        $payouts = Payouts::count();
-        $payoutcount = Payouts::sum('amount');
+        $user = auth()->user(); // Assuming you're fetching the authenticated user
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+        
+        // Count the number of payouts associated with the authenticated user
+        $payoutcount = Payouts::where('user_id', $id)->count();
+        
+        // Sum the amounts of payouts associated with the authenticated user
+        $payouts = Payouts::where('user_id', $id)->count();
+        
 
         ////PAYOUTS
 
@@ -157,11 +167,15 @@ class UserController extends Controller
             ->where('accounts.user_id', $userId)
             ->value('accounts.balance');
 
-
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
+        $user = auth()->user(); // Assuming you're fetching the authenticated user
+        $userId = $user->id; // Assuming the user_id is stored in the `id` attribute of the user model
+        
+        // Retrieve transfer history records for the authenticated user
+        $transferhistory = TransferHistory::where('user_id', $userId)->get();
 
         $user = auth()->user();
-        return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance'));
+        return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance','transferhistory'));
     }
 
     public function transferForm(){
@@ -182,11 +196,11 @@ class UserController extends Controller
         // Validation
         $request->validate([
             'id' => 'required|exists:accounts,id',
-            'amount' => 'required|numeric|min:1000000',
+            'amount' => 'required|numeric|min:0',
         ]);
 
         // Retrieve sender's account
-        $senderAccount = auth()->user()->account()->first(); // Assuming there's a relationship named 'account'
+        $senderAccount = auth()->user()->accounts()->first();
 
         // Check if sender's account exists
         if (!$senderAccount) {
@@ -198,23 +212,35 @@ class UserController extends Controller
             return back()->with('error', 'Insufficient balance to transfer.');
         }
 
-
         // Retrieve recipient's account
-        $recipientAccount = Account::findOrFail($request->id); // Assuming 'id' corresponds to the recipient's account ID
+        $recipientAccount = Account::findOrFail($request->id);
 
-        // Perform balance transfer
+        // Check if recipient's account ID is the same as sender's account ID
+        if ($recipientAccount->id === $senderAccount->id) {
+            return back()->with('error', 'You cannot transfer money to your own account.');
+        }
+
+        // Perform balance deduction from sender's account
         $senderAccount->balance -= $request->amount;
-        $recipientAccount->balance += $request->amount;
+        $senderAccount->save(); // Save the updated sender's account balance
 
-        // Save changes
-        $senderAccount->save();
-        $recipientAccount->save();
+        // Create a new transfer history record
+        $transferHistory = new TransferHistory();
+        $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
+        $transferHistory->sender_id = $senderAccount->id;
+        $transferHistory->recipient_id = $recipientAccount->id;
+        $transferHistory->amount = $request->amount;
+        $transferHistory->role = '0'; // Assign a default role value
+        $transferHistory->save();
+
+        // Perform balance addition to recipient's account
+        $recipientAccount->balance += $request->amount;
+        $recipientAccount->save(); // Save the updated recipient's account balance
 
         // Return response
         return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
     }
     
-
     public function Wallet()
     {
 
@@ -258,9 +284,9 @@ class UserController extends Controller
             ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();
 
-        
+        $payouts = Payouts::count();
 
-        return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest'));
+        return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest','payouts'));
     }
 
     public function showContact()
@@ -486,7 +512,10 @@ class UserController extends Controller
             ->where('accounts.user_id', $userId)
             ->value('accounts.balance');
 
-        $payouts = Payouts::all();
+        $user = auth()->user(); // Assuming you're fetching the authenticated user
+        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
+            
+        $payouts = Payouts::where('user_id', $userId)->get();
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places

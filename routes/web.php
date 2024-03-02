@@ -68,21 +68,21 @@ function set_active($route) {
 
 // ********** User Routes *********
 Route::group(['middleware' => ['web', 'isUser']], function () {
+    
     Route::get('/dashboard',[UserController::class,'dashboard']);
     Route::get('/error',[UserController::class,'Error']);
 
     //CHANGE INFORMATION AND PASSWORD
 
-    Route::post('/profile',[SuperAdminController::class,'editProfile'])->name('/profile');
+    Route::post('/profile',[UserController::class,'editProfile'])->name('profile.edit');
     Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
     Route::post('/update-password',[SuperAdminController::class,'updatePassword'])->name('update-password');
 
+    Route::middleware('profile.complete')->group(function () {
+    ///INVEST
+    Route::get('/invest', [UserController::class, 'invest']);
     ///TRANSACTION
     Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::get('/invest', [UserController::class, 'invest'])->name('invest');
-    Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
-    Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
-
     ///TRANSFER BALANCE
     Route::get('/transferview', [UserController::class, 'transferForm'])->name('transferview');
     Route::post('/transfer', [UserController::class, 'transfer'])->name('transfer');
@@ -93,7 +93,14 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     //PAYOUT
     Route::get('/payoutpaypal', [UserController::class, 'paypal'])->name('paypal');
     Route::post('/process-payout', [UserController::class, 'processPayout'])->name('process.payout');
-    
+
+    // Route::get('/invest', [UserController::class, 'invest'])->middleware('profile.complete');
+    Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
+    Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
+    Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('paywithpaypal');
+});
+
+
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
@@ -101,7 +108,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/transaction',[UserController::class,'Transaction'])->name('transaction');
     Route::get('/investment',[UserController::class,'Investment'])->name('investment');
     Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('withdrawals');
-    Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');
+
 
     //////CONTACT
     Route::get('/contactsupport', [UserController::class, 'showContact']);

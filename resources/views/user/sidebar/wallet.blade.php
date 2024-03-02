@@ -162,7 +162,7 @@
                         </ol>
                     </nav>
                     <div class="d-flex justify-content-between align-items-center">
-                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="/investment">Investment</a>
+                        <a class="btn btn-outline-secondary rounded-pill btn-sm me-2" href="dashboard">Investment</a>
                         <a class="btn btn-primary rounded-pill btn-sm" href="#deposit">Deposit</a>
                     </div>
                 </div>
@@ -175,29 +175,8 @@
                 <div class="col-lg-12">
                     <div class="row">
 
-                        <!-- Investment Card -->
-                        <div class="col-xxl-6 col-md-6 col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Overall statistics</h5>
-                                    <div class="row d-flex align-items-center justify-content-center text-center">
-                                        <div class="col-6">
-                                            <h6 class="text-primary fw-bold">{{ $invest }}</h6>
-                                            <span class="text-secondary">Investment</span>
-                                            <hr>
-                                        </div>
-                                        <div class="col-6">
-                                            <h6 class="text-primary fw-bold">0</h6>
-                                            <span class="text-secondary">Withdrawal</span>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Investment Card -->
-
                         <!-- Balance Activity -->
-                        <div class="col-xxl-6 col-md-6 col-12">
+                        <div class="col-xxl-12 col-md-12 col-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Balances</h5>

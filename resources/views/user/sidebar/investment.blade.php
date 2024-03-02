@@ -183,12 +183,12 @@
                                         </div>
                                     </div>
                                     <table class="table table-responsive datatable">
-                                        <thead class="table-primary">
+                                        <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th>Account</th>
                                                 <th>Amount</th>
-                                                <th>Investment Date</th>
+                                                <th>Date</th>
                                                 <th>Status</th>
                                                 {{-- <th>Actions</th> --}}
                                             </tr>

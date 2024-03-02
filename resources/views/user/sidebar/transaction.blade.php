@@ -164,14 +164,43 @@
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <span class="fs-6 fw-bolder">Total Balance</span>
+                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
+                            </div>
+                            <a href="{{ route('transferview') }}" class="btn btn-outline-primary">Send Money</a>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h1>Transfer Fund</h1>
-                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
-                                <a href="{{ route('transferview') }}" class="btn btn-outline-primary">Send Money</a>
+                                <h5>Transfer History</h5>
                             </div>
+                            <table class="table datatable table-responsive">
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Recipient ID</th>
+                                    {{-- <th>Email</th> --}}
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($transferhistory as $data)
+                                        <tr>
+                                            <td>{{ $data->id }}</td>
+                                            <td>{{ $data->recipient_id }} {{ $data->lastname }}</td>
+                                            <td>{{ $data->amount }}</td>
+                                            <td>{{ $data->created_at->format('Y-m-d') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -295,7 +295,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Withdrawal Stats</h5>
-                                    <h5 class="mx-2 fw-bold text-primary">${{ $payoutcount }}</h5>
+                                    <h5 class="mx-2 fw-bold text-primary">${{ number_format($payoutcount, 2) }}                                    </h5>
                                     <!-- Line Chart -->
                                     <div id="lineChart2"></div>
 
