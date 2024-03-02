@@ -2,34 +2,34 @@
 <html lang="en">
 
 <head>
-    <title>Vendor List</title>
+    <title>Vendor Add</title>
     @include('layout.header')
 </head>
 
 <body>
-        <!-- ======= Header ======= -->
-        <header id="header" class="header fixed-top d-flex align-items-center">
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
 
-            @include('layout.logo')
-            <i class="bi bi-list toggle-sidebar-btn"></i>
-    
-            <div class="search-bar">
-                <form class="search-form d-flex align-items-center" method="POST" action="#">
-                    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                </form>
-            </div><!-- End Search Bar -->
-    
-            <nav class="header-nav ms-auto">
-                <ul class="d-flex align-items-center">
-    
-                    <li class="nav-item d-block d-lg-none">
-                        <a class="nav-link nav-icon search-bar-toggle " href="#">
-                            <i class="bi bi-search"></i>
-                        </a>
-                    </li><!-- End Search Icon-->
-    
-                    {{-- <li class="nav-item dropdown">
+        @include('layout.logo')
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+
+                {{-- <li class="nav-item dropdown">
     
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
@@ -103,8 +103,8 @@
                         </ul><!-- End Notification Dropdown Items -->
     
                     </li><!-- End Notification Nav --> --}}
-    
-                    {{-- <li class="nav-item dropdown">
+
+                {{-- <li class="nav-item dropdown">
     
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-chat-left-text"></i>
@@ -170,38 +170,38 @@
                         </ul><!-- End Messages Dropdown Items -->
     
                     </li><!-- End Messages Nav --> --}}
-    
-                    <li class="nav-item dropdown pe-3">
-    
-                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                            data-bs-toggle="dropdown">
-                            <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
-                        </a><!-- End Profile Iamge Icon -->
-    
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                            <li class="dropdown-header">
-                                <h6>{{ $user->firstname }}</h6>
-                                <span>Administration</span>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-    
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/logout">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    <span>Sign Out</span>
-                                </a>
-                            </li>
-    
-                        </ul><!-- End Profile Dropdown Items -->
-                    </li><!-- End Profile Nav -->
-    
-                </ul>
-            </nav><!-- End Icons Navigation -->
-    
-        </header><!-- End Header -->
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
+                        <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>{{ $user->firstname }}</h6>
+                            <span>Administration</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
@@ -224,7 +224,7 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/admin/vendoradd">
+                        <a href="/admin/vendoradd" class="active">
                             <i class="bi bi-circle"></i><span>Vendor Add</span>
                         </a>
                     </li>
@@ -234,7 +234,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/vendorlist" class="active">
+                        <a href="/admin/vendorlist">
                             <i class="bi bi-circle"></i><span>Vendor List</span>
                         </a>
                     </li>
@@ -285,7 +285,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Vendor List</li>
+                    <li class="breadcrumb-item active">Vendor Add</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -294,54 +294,69 @@
             <div class="container-fluid">
                 <div class="row">
                     {{-- <!-- List Vendor Sales --> --}}
-                    <div class="col-xxl-12 col-12">
+                    <div class="col-xxl-6 col-12 ">
                         <div class="card">
-                            <div class="card-body"> 
-                                <h5 class="card-title">Vendor List</h5>
-                                <table id="example" class="table display"  width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Date</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $row)
-                                            <tr>
-                                                <td>{{ $row->id }}</td>
-                                                <td>{{ $row->name }}</td>
-                                                <td>{{ $row->email }}</td>
-                                                <td>{{ date('m-d-Y', strtotime($row->join_date)) }}</td>
-                                                <td>{{ $row->role_name }}</td>
-                                                <td>{{ $row->status }}</td>
-                          
-                                                {{-- <td>{{ \Carbon\Carbon::parse($row->contract_start)->format('F d, Y') }}
-                                                </td>
-                                                <td>{{ \Carbon\Carbon::parse($row->contract_end)->format('F d, Y') }}
-                                                </td>
-                                                <td>{{ $row->payment_terms }}</td>
-                                                <td>
-                                                    @if ($row->status == 'Approve')
-                                                        <span class="badge bg-success">{{ $row->status }}</span>
-                                                    @elseif($row->status == 'Decline')
-                                                        <span class="badge bg-danger">{{ $row->status }}</span>
-                                                    @elseif($row->status == 'Waiting')
-                                                        <span class="badge bg-warning">{{ $row->status }}</span>
-                                                    @else
-                                                        <span class="badge bg-secondary">{{ $row->status }}</span>
-                                                    @endif
-                                                </td> --}}
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                            <div class="card-body">
+                                <h5 class="card-title">Vendor Add</h5>
+                                <div class="row">
+                                    <div class="col-12 justify-content-center d-flex align-content-center">
+                                        <form action="{{ route('create.vendor') }}" method="POST">
+                                            @csrf <!-- CSRF token for Laravel forms -->
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <label for="name" class="fw-bold">Name</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="text" name="name" id="name" placeholder="Ex. Juan DelaCruz" required oninput="capitalizeFirstLetter(this)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <label for="email" class="fw-bold">Email</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <label for="date" class="fw-bold">Date</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="date" name="date" id="date" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <label for="role" class="fw-bold">Role</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <select name="role_name" id="role" required class="form-control" style="border: 1px solid;">
+                                                                <option value="">Select Role</option>
+                                                                <option value="Vendor">Vendor</option>
+                                                                <option value="Client">Client</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-outline-primary">Create Vendor</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div><!-- End List Vendor Sales --> 
+                    </div><!-- End List Vendor Sales -->
                 </div>
             </div>
         </section>

@@ -200,7 +200,8 @@
 
   <div class="col-xl-6">
     <div class="card p-4">
-      <form action="forms/contact.php" method="post" class="php-email-form">
+      <form action="/contactsend" method="POST">
+        @csrf
         <div class="row gy-4">
 
           <div class="col-md-6">
@@ -216,19 +217,20 @@
           </div>
 
           <div class="col-md-12">
-            <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+            <textarea class="form-control" name="text" rows="6" placeholder="Message" required></textarea>
           </div>
 
           <div class="col-md-12 text-center">
-            <div class="loading">Loading</div>
+            {{-- <div class="loading">Loading</div>
             <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
+            <div class="sent-message">Your message has been sent. Thank you!</div> --}}
 
-            <button type="submit">Send Message</button>
+            <input type="submit" class="btn btn-outline-primary" value="Send Email">
           </div>
 
         </div>
       </form>
+      
     </div>
 
   </div>

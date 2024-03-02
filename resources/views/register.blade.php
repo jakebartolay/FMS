@@ -39,14 +39,14 @@
                                         <div class="col-6">
                                             <label for="firstname" class="form-label">First Name</label>
                                             <input type="text" name="firstname" class="form-control" id="firstname"
-                                                required placeholder="First Name">
+                                                required placeholder="First Name" oninput="capitalizeFirstLetter(this)">
                                             <div class="invalid-feedback">Please, enter your Firstname!</div>
                                         </div>
 
                                         <div class="col-6">
                                             <label for="lastname" class="form-label">Last Name</label>
                                             <input type="text" name="lastname" class="form-control" id="lastname"
-                                                required placeholder="Last Name">
+                                                required placeholder="Last Name" oninput="capitalizeFirstLetter(this)">
                                             <div class="invalid-feedback">Please, enter your Lastname!</div>
                                         </div>
 

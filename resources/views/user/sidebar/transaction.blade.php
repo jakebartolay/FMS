@@ -56,7 +56,8 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -169,15 +170,45 @@
                             <div class="card-title">
                                 <h1>Transfer Fund</h1>
                                 <h1 class="text-primary">${{ $formattedBalance }}</h1>
-                                <div class="btn btn-outline-primary">
-                                    Send Cash
-                                </div>
+                                <a href="#" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                    data-bs-target="#transfund">Send Money</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div><!-- End Left side columns -->
         </section>
+
+        <div class="modal fade" id="transfund" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Transfer</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('transfer.balance') }}">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="id">Recipient Account ID:</label>
+                                <input id="id" name="id" type="number" class="form-control" required>
+                                @error('id')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="amount">Amount:</label>
+                                <input id="amount" name="amount" type="number" class="form-control" required>
+                                @error('amount')
+                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Cash</button>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main><!-- End #main -->
 

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Email;
 use App\Models\Account;
 use App\Models\Investments;
 use App\Models\DepositRequest;
@@ -16,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
@@ -136,6 +139,49 @@ class UserController extends Controller
         return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance'));
     }
 
+    public function transfer(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:accounts,id',
+            'amount' => 'required|numeric|min:0',
+        ]);        
+        
+        // Ensure the user is authenticated and has an associated account
+        $user = auth()->user();
+        if (!$user) {
+            return back()->with('error', 'User not authenticated.');
+        }
+        
+        // Check if the user has an associated account
+        $senderAccount = Account::where('user_id', $user->id)->find($request->id);
+        
+        // Ensure the sender's account exists and has a balance
+        if (!$senderAccount || $senderAccount->balance === null || $senderAccount->balance < $request->amount) {
+            dd($senderAccount);
+            return back()->with('error', 'Insufficient balance to transfer.');
+        }
+
+              
+        
+        // Get the recipient's account
+        $recipientAccount = Account::findOrFail($request->id);
+        
+        // Perform the balance transfer
+        $senderAccount->balance -= $request->amount;
+        $recipientAccount->balance += $request->amount;
+
+        // Debug: Inspect the sender's account after balance transfer
+        dd($senderAccount);
+
+        // Save changes to both accounts
+        $senderAccount->save();
+        $recipientAccount->save();
+
+        // Return response
+        return back()->with('success', 'Balance transferred successfully.');
+                
+    }
+
     public function Wallet()
     {
 
@@ -182,6 +228,38 @@ class UserController extends Controller
         
 
         return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest'));
+    }
+
+    public function showContact()
+    {
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Client';
+        }
+        return view('user.sidebar.contactsupport', compact('user','roleName'));
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'subject' => $request->input('subject'),
+            'text' => $request->input('text')
+        ];
+        
+        Mail::send('user.sidebar.sendingmail', $data, function ($message) use ($request){
+            $message->from($request->input('email'), $request->input('name'));
+            $message->to('jakebartolay147@gmail.com');
+            $message->subject('Sent Throught Contact Us');
+        });
+        
+        return redirect()->back()->with('success', 'Email Successfully Send!');
     }
 
     public function Deposit(Request $request)

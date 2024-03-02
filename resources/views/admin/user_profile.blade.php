@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>{{ $user->name }} | Profile</title>
+  <title>Profile</title>
   @include('layout.header')
 
 </head>

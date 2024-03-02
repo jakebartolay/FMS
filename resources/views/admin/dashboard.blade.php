@@ -226,11 +226,20 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
+                        <a href="/admin/vendoradd">
+                            <i class="bi bi-circle"></i><span>Vendor Add</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/vendorview">
+                            <i class="bi bi-circle"></i><span>Vendor View</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/vendorlist">
                             <i class="bi bi-circle"></i><span>Vendor List</span>
                         </a>
                     </li>
-                    <li>
                 </ul>
             </li><!-- End Components Nav -->
 
@@ -317,7 +326,7 @@
                             <div class="card info-card customers-card">
 
                                 <div class="card-body">
-                                    <h5 class="card-title">Active Vendor</h5>
+                                    <h5 class="card-title">Inactive Vendor</h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
@@ -325,9 +334,35 @@
                                             <i class="bi bi-person-fill-dash"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $account3 }}</h6>
+                                            <h6>{{ $inactive }}</h6>{{-- {{ $account3 }} --}}
                                             {{-- <span class="text-danger small pt-1 fw-bold">12%</span> <span
                                                 class="text-muted small pt-2 ps-1">decrease</span> --}}
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div><!-- End Vendor Card -->
+
+                        <!-- Vendor Card -->
+                        <div class="col-xxl-3 col-md-6 col-6">
+
+                            <div class="card info-card customers-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Disable Vendor</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-fill-dash"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>{{ $disable }}</h6>{{-- {{ $account3 }} --}}
+                                            {{-- <span class="text-danger small pt-1 fw-bold">12%</span> <span
+                                                                        class="text-muted small pt-2 ps-1">decrease</span> --}}
 
                                         </div>
                                     </div>
@@ -405,7 +440,7 @@
                                             <i class="bi bi-person-fill-up"></i>
                                         </div>
                                         <div class="ps-3">
-                                        <h6>{{ number_format($countBalance, 2, '.', ',') }}</h6>
+                                            <h6>{{ number_format($countBalance, 2, '.', ',') }}</h6>
                                         </div>
                                     </div>
                                 </div>

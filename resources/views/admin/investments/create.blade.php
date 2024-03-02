@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Dasboard</title>
+    <title>Vendor Add</title>
     @include('layout.header')
 </head>
 
@@ -226,11 +226,20 @@
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
+                        <a href="/admin/vendoradd">
+                            <i class="bi bi-circle"></i><span>Vendor Add</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/vendormanage">
+                            <i class="bi bi-circle"></i><span>Vendor Manage</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/vendorlist">
                             <i class="bi bi-circle"></i><span>Vendor List</span>
                         </a>
                     </li>
-                    <li>
                 </ul>
             </li><!-- End Components Nav -->
 
