@@ -83,6 +83,7 @@ class AuthController extends Controller
         //     dd($e->getMessage());
         // }
     }
+    
     public function loadRegister()
     {
         if(Auth::user()){
@@ -203,7 +204,6 @@ class AuthController extends Controller
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withErrors(['email' => [__($status)]]);
     }
-
 
 
     public function loadLogin()
