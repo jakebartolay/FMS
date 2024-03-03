@@ -28,8 +28,16 @@
                                 <div class="card-body shadow-lg">
 
                                     <div class="pb-2">
-                                        <h5 class="card-title text-center pb-0 fs-4">User Login</h5>
+                                        <div class="row align-items-center">
+                                            <div class="col-auto">
+                                                <a class="btn btn-outline-primary btn-sm" href="/"><i class="bi bi-arrow-left"></i></a>
+                                            </div>
+                                            <div class="col-8 col-lg-8">
+                                                <h5 class="card-title text-center pb-0 fs-4">User Login</h5>
+                                            </div>
+                                        </div>
                                     </div>
+                                    
                                     <form class="row g-3 needs-validation" action="{{ route('login') }}" novalidate
                                         method="POST">
                                         @csrf
