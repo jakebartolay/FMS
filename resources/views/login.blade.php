@@ -67,6 +67,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                            var rememberMeCheckbox = document.getElementById('rememberMe');
+                                            var rememberMeValue = localStorage.getItem('rememberMe');
+                                            
+                                            if (rememberMeValue === 'true') {
+                                                rememberMeCheckbox.checked = true;
+                                            }
+                                        });
+                                        </script>
                                         <div class="row justify-content-center align-items-center pt-3">
 
                                             <div class="col-6">
