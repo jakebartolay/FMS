@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="public/assets/img/logo2.png" rel="icon">
-  <link href="public/assets/img/logo2.png" rel="apple-touch-icon">
+  <link href="{{ asset('assets/img/logo2.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/logo2.png') }}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -37,7 +37,7 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-      <h4 class="logo me-auto"><a href="index.html">Financial Guardian</a></h4>
+      <h4 class="logo me-auto"><img src="{{ asset('assets/img/logo2.png') }}" alt="" srcset=""><a href="index.html">Financial Guardian</a></h4>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
