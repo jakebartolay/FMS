@@ -416,6 +416,7 @@ class UserController extends Controller
 
         return view('user.deposit.investments', compact('user', 'roleName'));
     }
+    
 
     public function InvestmentRequest(Request $request)
     {

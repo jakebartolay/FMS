@@ -232,7 +232,7 @@
                     </li>
                     <li>
                         <a href="/admin/vendorview">
-                            <i class="bi bi-circle"></i><span>Vendor View</span>
+                            <i class="bi bi-circle"></i><span>Vendor Manage</span>
                         </a>
                     </li>
                     <li>
@@ -297,7 +297,7 @@
                         </div><!-- End Page Title -->
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
+                        <div class="col-xxl-3 col-md-4 col-6">
                             <div class="card info-card sales-card">
 
                                 <div class="card-body">
@@ -321,7 +321,7 @@
                         </div><!-- End Vendor Card -->
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
+                        <div class="col-xxl-3 col-md-4 col-6">
 
                             <div class="card info-card customers-card">
 
@@ -347,7 +347,7 @@
                         </div><!-- End Vendor Card -->
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-12">
+                        <div class="col-xxl-3 col-md-4 col-12">
 
                             <div class="card info-card customers-card">
 
