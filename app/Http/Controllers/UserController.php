@@ -172,7 +172,14 @@ class UserController extends Controller
         $userId = $user->id; // Assuming the user_id is stored in the `id` attribute of the user model
         
         // Retrieve transfer history records for the authenticated user
-        $transferhistory = TransferHistory::where('user_id', $userId)->get();
+        $transferhistory = DB::table('transferhistory')
+        ->join('users', 'users.id', '=', 'transferhistory.user_id')
+        ->join('accounts', 'accounts.user_id', '=', 'users.id')
+        ->select('transferhistory.*', 'users.*', 'accounts.balance', 'accounts.id as account_id')
+        ->where('transferhistory.user_id', $userId)
+        ->get();
+    
+
 
         $user = auth()->user();
         return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance','transferhistory'));

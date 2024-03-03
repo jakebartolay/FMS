@@ -292,6 +292,7 @@
 
                                 <div class="card-body">
                                     <div class="card-title">Deposit</div>
+                                    <div class="table-responsive">
                                     <table id="example" class="table display"  width="100%">
                                         <thead>
                                             <tr>
@@ -351,11 +352,12 @@
                                                         <a href="{{ route('cancel.deposit', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
                                                             title="Cancel"><i
                                                                 class="bi bi-pencil-square"></i></a>
+                                                        </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-     
+                                    </div>
                                     {{-- <button type="button" class="btn btn-success btn-sm mr-2"><i class="bi bi-check2"></i></button>
                                     <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-x"></i></button>
                                     <button type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button> --}}

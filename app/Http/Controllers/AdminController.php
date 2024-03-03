@@ -215,8 +215,16 @@ class AdminController extends Controller
                 return redirect()->route('investments.deposit')->with('success', 'Your investment has been cancelled and the amount has been refunded to your account.');
     }
     
+    public function InvestmentApprove($id)
+    {
+        $user = auth()->user();
 
-    public function Investmentapprove(Request $request, $id)
+        $invest = InvestmentRequest::findOrFail($id);
+        return view('admin.investments.approveinvestment', compact('invest','user'));
+    }
+
+
+    public function InvestApprove(Request $request, $id)
     {
         
         // // Find the deposit request by its ID
@@ -288,6 +296,14 @@ class AdminController extends Controller
         return redirect()->route('investments.index')->with('success', 'Investment request approved successfully.');
 
 
+    }
+
+    public function InvestCancel($id)
+    {
+        $user = auth()->user();
+
+        $invest = InvestmentRequest::findOrFail($id);
+        return view('admin.investments.cancelinvestment', compact('invest','user'));
     }
 
     public function Investmentcancel(Request $request, $id)
