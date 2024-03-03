@@ -212,7 +212,9 @@ class AuthController extends Controller
             $route = $this->redirectDash();
             return redirect($route);
         }
-        return view('login');
+        $rememberMe = old('remember') ? 'checked' : ''; // Assuming 'remember' is the name of the checkbox
+        return view('login', compact('rememberMe'));
+        
     }
 
     public function login(Request $request)

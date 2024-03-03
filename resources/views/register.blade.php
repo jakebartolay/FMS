@@ -26,9 +26,17 @@
 
                                     <div class="pt-4 pb-2">
                                         @if ($errors->any())
-                                        @foreach ($errors->all() as $error)
-                                            <p style="color:red;">{{ $error }}</p>
-                                        @endforeach
+                                        <div id="error-messages">
+                                            @foreach ($errors->all() as $error)
+                                                <p style="color:red;">{{ $error }}</p>
+                                            @endforeach
+                                        </div>
+                                        <script>
+                                            setTimeout(function() {
+                                                var errorMessages = document.getElementById('error-messages');
+                                                errorMessages.parentNode.removeChild(errorMessages);
+                                            }, 5000); // 12 seconds
+                                        </script>
                                     @endif
                                         <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                         <p class="text-center small">Enter your personal details to create account</p>
@@ -50,16 +58,16 @@
                                             <div class="invalid-feedback">Please, enter your Lastname!</div>
                                         </div>
 
-
                                         <div class="col-12">
                                             <label for="yourEmail" class="form-label">Your Email</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="email" name="email" class="form-control"
-                                                    id="yourEmail" required placeholder="example@gmail.com">
-                                                <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                                <input type="email" name="email" class="form-control" id="yourEmail" required 
+                                                       placeholder="example@gmail.com" pattern="[a-zA-Z0-9._%+-]+@gmail\.com">
+                                                <div class="invalid-feedback">Please enter a valid Gmail address!</div>
                                             </div>
                                         </div>
+                                        
 
                                         <div class="col-6">
                                             <label for="yourPassword" class="form-label">Password</label>

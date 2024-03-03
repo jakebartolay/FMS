@@ -214,6 +214,19 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">Coca Cola</span>
                                                     </div>
+                                                    @if ($errors->any())
+                                                    <div id="error-messages">
+                                                        @foreach ($errors->all() as $error)
+                                                            <p style="color:red;">{{ $error }}</p>
+                                                        @endforeach
+                                                    </div>
+                                                    <script>
+                                                        setTimeout(function() {
+                                                            var errorMessages = document.getElementById('error-messages');
+                                                            errorMessages.parentNode.removeChild(errorMessages);
+                                                        }, 5000); // 12 seconds
+                                                    </script>
+                                                @endif
                                                     <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="#cocola">Invest</a>
                                                 </div>
