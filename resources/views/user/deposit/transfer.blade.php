@@ -189,10 +189,24 @@
                             <form method="POST" action="{{ route('transfer') }}">
                                 @csrf
                                 <div class="form-group mb-3">
+                                    @if ($errors->any())
+                                    <div id="error-messages">
+                                        @foreach ($errors->all() as $error)
+                                            <p style="color:red;">{{ $error }}</p>
+                                        @endforeach
+                                    </div>
+                                    <script>
+                                        setTimeout(function() {
+                                            var errorMessages = document.getElementById('error-messages');
+                                            errorMessages.parentNode.removeChild(errorMessages);
+                                        }, 5000); // 12 seconds
+                                    </script>
+                                @endif
                                     <label for="id">Recipient Account ID:</label>
                                     <input id="id" name="id" placeholder="ex.00" type="text"
                                         class="form-control" maxlength="2"
                                         oninput="this.value = this.value.slice(0, 2)" required>
+
                                     @error('id')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
