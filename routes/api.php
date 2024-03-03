@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('vendor', function(){
-    return 'this is vendor api';
-});
+Route::get('vendor', [VendorController::class, 'index']);
+Route::post('vendor', [VendorController::class, 'store']);

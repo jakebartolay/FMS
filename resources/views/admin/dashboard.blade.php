@@ -347,7 +347,7 @@
                         </div><!-- End Vendor Card -->
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
+                        <div class="col-xxl-3 col-md-6 col-12">
 
                             <div class="card info-card customers-card">
 
@@ -405,6 +405,25 @@
 
                         <!-- Investment Card -->
                         <div class="col-xxl-3 col-md-6 col-6">
+                            <div class="card info-card warning-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Withdrawal</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-fill-down"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>$0.00</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Investment Card -->
+
+                        <!-- Investment Card -->
+                        <div class="col-xxl-3 col-md-6 col-12">
                             <div class="card info-card revenue-card">
 
                                 <div class="card-body">
@@ -427,7 +446,7 @@
                         </div><!-- End Investment Card -->
 
                         <!-- Investment Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
+                        <div class="col-xxl-3 col-md-6 col-12">
 
                             <div class="card info-card customers-card">
 
@@ -448,24 +467,6 @@
 
                         </div><!-- End Investment Card -->
 
-                        <!-- Investment Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
-                            <div class="card info-card warning-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Withdrawal</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-fill-down"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>$0.00</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Investment Card -->
 
                         <div class="pagetitle">
                             <nav>

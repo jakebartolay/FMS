@@ -298,6 +298,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Vendor Manage</h5>
+                                <div class="table-responsive">
                                 <table id="example" class="table display" width="100%">
                                     <thead>
                                         <tr>
@@ -324,6 +325,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div><!-- End List Vendor Sales -->

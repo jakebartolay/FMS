@@ -292,6 +292,7 @@
 
                                 <div class="card-body">
                                     <div class="card-title">Investment</div>
+                                    <div class="table-responsive">
                                     <table id="example" class="table display"  width="100%">
                                         <thead>
                                             <tr>
@@ -355,6 +356,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    </div>
 
                                     {{-- <button type="button" class="btn btn-success btn-sm mr-2"><i class="bi bi-check2"></i></button>
                                     <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-x"></i></button>
