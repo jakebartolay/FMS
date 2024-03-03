@@ -153,19 +153,28 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
     // Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
 
+
+
+    ////// APPROVE
+
+  
+    ///// NEW APPROVE
+    Route::get('/deposit-approve/{id}', [AdminController::class, 'approveDeposit'])->name('approve.deposit');
+    Route::match(['get', 'post'], '/approve/{id}', [AdminController::class, 'approve'])->name('requests.approve');
+    Route::get('/deposit-cancel/{id}', [AdminController::class, 'cancelDeposit'])->name('cancel.deposit');
+    Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('requests.cancel');
+    // Route::post('/approve/{id}', [AdminController::class, 'approve'])->name('requests.approve');  
+
+
+
+
+
+    ////// INVESTMENT 
     Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
     Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
     Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
     Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
-    ////// APPROVE
-
-    // Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
-    ///// NEW APPROVE
-    Route::get('/approve-deposit/{id}', [AdminController::class, 'approveDeposit'])->name('approve.deposit');
-    Route::post('/approve/{id}', [AdminController::class, 'approve'])->name('deposit_requests.approve');    
-
-    ////// INVESTMENT APPROVE
     Route::post('/Investmentapprove/{id}/', [AdminController::class, 'Investmentapprove'])->name('investment_requests.approve');
     Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 

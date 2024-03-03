@@ -5,7 +5,10 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Models\User;
+use App\Models\Account;
+use App\Models\DepositRequest;
 use App\Models\Vendorsuser;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -18,7 +21,14 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
             User::whereNull('id')->delete();
         })->everyMinute();
-        $schedule->command('accounts:id')->daily();
+
+        $schedule->call(function(){
+            Account::where('status_id', '=', '9')->update();
+        })->everyMinute();
+
+        $schedule->call(function(){
+            depositrequest::where('status', '=', '9')->update();
+        })->everyMinute();
 
     }
 
@@ -32,8 +42,5 @@ class Kernel extends ConsoleKernel
         require base_path('routes/console.php');
         
     }
-    protected $commands = [
-        Commands\id::class,
-    ];
     
 }

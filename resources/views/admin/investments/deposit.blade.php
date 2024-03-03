@@ -348,11 +348,9 @@
                                                         <a href="{{ route('approve.deposit', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
                                                             <i class="bi bi-check2"></i>
                                                         </a>
-                                                        <button type="button" class="btn btn-warning btn-sm mr-3"
-                                                            title="Cancel" data-bs-toggle="modal"
-                                                            data-bs-target="#cancel"><i
-                                                                class="bi bi-pencil-square"></i></button>
-                                                    </td>
+                                                        <a href="{{ route('cancel.deposit', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
+                                                            title="Cancel"><i
+                                                                class="bi bi-pencil-square"></i></a>
                                                 </tr>
                                             @endforeach
                                         </tbody>
