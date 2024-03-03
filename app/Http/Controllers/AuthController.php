@@ -115,6 +115,17 @@ class AuthController extends Controller
         return back()->with('success', 'User and account created successfully.');
     }
 
+    public function landingPage()
+    {
+        if (Auth::check()) {
+            $route = $this->redirectDash();
+            return redirect($route);
+        }
+        
+        // Load the backend login view
+        return view('index');
+    }
+
     public function loadBackEnd()
     {
         // If a user is already authenticated, redirect them to the appropriate dashboard

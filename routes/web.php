@@ -25,12 +25,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/',[AuthController::class,'load']);
+Route::get('/login',function(){
+    return redirect('/');
+});
+
+
 
 Route::get('/register',[AuthController::class,'loadRegister']);
 Route::post('/register',[AuthController::class,'register'])->name('register');
 Route::get('/login',function(){
     return redirect('/');
 });
+
 
 Route::get('/forgot-password',[AuthController::class,'loadForgotPassword']);
 Route::post('/forgot-password',[AuthController::class,'forgotpassword'])->name('forgot-password');
@@ -40,11 +47,10 @@ Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])-
 // Route for handling the password reset request
 Route::post('/reset-password', [AuthController::class, 'reset'])->name('password.update');
 
-Route::get('/login',function(){
-    return redirect('/');
-});
 
-Route::get('/',[AuthController::class,'loadLogin']);
+Route::post('/register',[AuthController::class,'register'])->name('register');
+
+Route::get('/login',[AuthController::class,'loadLogin']);
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
 //// GOGOGLE
