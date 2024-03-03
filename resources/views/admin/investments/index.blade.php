@@ -345,7 +345,7 @@
                                                         @endif
                                                     </td>
                                                     <td class="d-flex">
-                                                        <a href="{{ route('approve.investemt', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
+                                                        <a href="{{ route('approve.investment', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
                                                             <i class="bi bi-check2"></i>
                                                         </a>
                                                         <a href="{{ route('cancel.investment', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"

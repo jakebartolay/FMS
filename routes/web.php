@@ -176,7 +176,7 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
     //// NEW APPROVE INVESTMENT
-    Route::get('/investment-approve/{id}', [AdminController::class, 'InvestmentApprove'])->name('approve.investemt');
+    Route::get('/investment-approve/{id}', [AdminController::class, 'InvestmentApprove'])->name('approve.investment');
     Route::post('/Investmentapprove/{id}', [AdminController::class, 'InvestApprove'])->name('investment_requests.approve');
     Route::get('/investment-cancel/{id}', [AdminController::class, 'InvestCancel'])->name('cancel.investment');
     Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
