@@ -200,54 +200,157 @@ class UserController extends Controller
 
     public function transfer(Request $request)
     {
-        // Validation
-        $request->validate([
-            'id' => 'required|exists:accounts,id',
-            'amount' => 'required|numeric|min:0',
-        ]);
-
-        // Retrieve sender's account
-        $senderAccount = auth()->user()->accounts()->first();
+                // Validation
+                $request->validate([
+                    'id' => 'required|exists:accounts,id',
+                    'amount' => 'required|numeric|min:7',
+                ]);
+                
+                // Retrieve sender's account
+                $senderAccount = auth()->user()->accounts()->first();
 
         // Check if sender's account exists
-        if (!$senderAccount) {
+        if ($senderAccount) {
+            // Check if sender has sufficient balance
+            if ($senderAccount->balance < $request->amount) {
+                return back()->with('error', 'Insufficient balance to transfer.');
+            }
+
+            // Retrieve recipient's account
+            $recipientAccount = Account::findOrFail($request->id);
+
+            // Check if recipient's account ID is the same as sender's account ID
+            if ($recipientAccount->id === $senderAccount->id) {
+                return back()->with('error', 'You cannot transfer money to your own account.');
+            }
+
+            // Perform balance deduction from sender's account
+            $senderAccount->balance -= $request->amount;
+
+            // Create a new transfer history record
+            $transferHistory = new TransferHistory();
+            $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
+            $transferHistory->sender_id = $senderAccount->id;
+            $transferHistory->recipient_id = $recipientAccount->id;
+            $transferHistory->amount = $request->amount;
+            $transferHistory->role = '0'; // Assign a default role value
+            $transferHistory->save();
+
+            // Perform balance addition to recipient's account
+            $recipientAccount->balance += $request->amount;
+
+            // Save changes to sender's and recipient's accounts
+            $senderAccount->save();
+            $recipientAccount->save();
+
+            // Return response
+            return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
+        } else {
+            dd($senderAccount);
+            
             return back()->with('error', 'Sender account not found.');
         }
 
-        // Check if sender has sufficient balance
-        if ($senderAccount->balance < $request->amount) {
-            return back()->with('error', 'Insufficient balance to transfer.');
-        }
+        // // Validation
+        // $request->validate([
+        //     'id' => 'required|exists:accounts,id',
+        //     'amount' => 'required|numeric|min:7',
+        // ]);
 
-        // Retrieve recipient's account
-        $recipientAccount = Account::findOrFail($request->id);
+        // // Retrieve sender's account
+        // $senderAccount = auth()->user()->accounts()->first();
 
-        // Check if recipient's account ID is the same as sender's account ID
-        if ($recipientAccount->id === $senderAccount->id) {
-            return back()->with('error', 'You cannot transfer money to your own account.');
-        }
+        // // Check if sender's account exists
+        // if (!$senderAccount) {
+        //     return back()->with('error', 'Sender account not found.');
+        // }
 
-        // Perform balance deduction from sender's account
-        $senderAccount->balance -= $request->amount;
+        // // Check if sender has sufficient balance
+        // if ($senderAccount->balance < $request->amount) {
+        //     return back()->with('error', 'Insufficient balance to transfer.');
+        // }
 
-        // Create a new transfer history record
-        $transferHistory = new TransferHistory();
-        $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
-        $transferHistory->sender_id = $senderAccount->id;
-        $transferHistory->recipient_id = $recipientAccount->id;
-        $transferHistory->amount = $request->amount;
-        $transferHistory->role = '0'; // Assign a default role value
-        $transferHistory->save();
+        // // Retrieve recipient's account
+        // $recipientAccount = Account::findOrFail($request->id);
 
-        // Perform balance addition to recipient's account
-        $recipientAccount->balance += $request->amount;
+        // // Check if recipient's account ID is the same as sender's account ID
+        // if ($recipientAccount->id === $senderAccount->id) {
+        //     return back()->with('error', 'You cannot transfer money to your own account.');
+        // }
 
-        // Save changes to sender's and recipient's accounts
-        $senderAccount->save();
-        $recipientAccount->save();
+        // // Perform balance deduction from sender's account
+        // $senderAccount->balance -= $request->amount;
 
-        // Return response
-        return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
+        // // Create a new transfer history record
+        // $transferHistory = new TransferHistory();
+        // $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
+        // $transferHistory->sender_id = $senderAccount->id;
+        // $transferHistory->recipient_id = $recipientAccount->id;
+        // $transferHistory->amount = $request->amount;
+        // $transferHistory->role = '0'; // Assign a default role value
+        // $transferHistory->save();
+
+        // // Perform balance addition to recipient's account
+        // $recipientAccount->balance += $request->amount;
+
+        // // Save changes to sender's and recipient's accounts
+        // $senderAccount->save();
+        // $recipientAccount->save();
+
+        // // Return response
+        // return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
+
+
+
+        // // Validation
+        // $request->validate([
+        //     'id' => 'required|exists:accounts,id',
+        //     'amount' => 'required|numeric|min:1',
+        // ]);
+
+        // // Retrieve sender's account
+        // $senderAccount = auth()->user()->accounts()->first();
+        // Log::debug('Sender Account ID: ' . ($senderAccount ? $senderAccount->id : 'Not found'));
+
+        // // Check if sender's account exists
+        // if (!$senderAccount) {
+        //     return back()->with('error', 'Sender account not found.');
+        // }
+
+        // // Check if sender has sufficient balance
+        // if ($senderAccount->balance < $request->amount) {
+        //     return back()->with('error', 'Insufficient balance to transfer.');
+        // }
+
+        // // Retrieve recipient's account
+        // $recipientAccount = Account::findOrFail($request->id);
+
+        // // Check if recipient's account ID is the same as sender's account ID
+        // if ($recipientAccount->id === $senderAccount->id) {
+        //     return back()->with('error', 'You cannot transfer money to your own account.');
+        // }
+
+        // // Perform balance deduction from sender's account
+        // $senderAccount->balance -= $request->amount;
+
+        // // Create a new transfer history record
+        // $transferHistory = new TransferHistory();
+        // $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
+        // $transferHistory->sender_id = $senderAccount->id;
+        // $transferHistory->recipient_id = $recipientAccount->id;
+        // $transferHistory->amount = $request->amount;
+        // $transferHistory->role = '0'; // Assign a default role value
+        // $transferHistory->save();
+
+        // // Perform balance addition to recipient's account
+        // $recipientAccount->balance += $request->amount;
+
+        // // Save changes to sender's and recipient's accounts
+        // $senderAccount->save();
+        // $recipientAccount->save();
+
+        // // Return response
+        // return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
 
     }
     
@@ -416,12 +519,11 @@ class UserController extends Controller
 
         return view('user.deposit.investments', compact('user', 'roleName'));
     }
-    
 
     public function InvestmentRequest(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:0|max:1000000',
+            'amount' => 'required|numeric|min:1|max:100000',
             'investment_date' => 'required|date'
         ]);
         

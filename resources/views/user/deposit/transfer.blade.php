@@ -199,8 +199,11 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="amount">Amount:</label>
-                                    <input id="amount" name="amount" placeholder="ex.10,000"
-                                    type="text" class="form-control" required maxlength="6">
+                                    <input id="amount" name="amount" placeholder="ex.100,000" 
+                                    type="text" class="form-control" maxlength="7">
+
+
+
                                     @error('amount')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror

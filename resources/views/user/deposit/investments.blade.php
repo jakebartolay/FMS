@@ -205,8 +205,8 @@
                                 <div class="col-xl-12 col-md-12">
                                     <div class="row">
 
-                                        <div class="col-xxl-3 col-md-6 col-12">
-                                            <div class="card border py-3">
+                                        <div class="col-xxl-12 col-md-12 col-12">
+                                            <div class="  py-3">
                                                 <div class="card-body text-center">
                                                     <img src="assets/img/companylogo/coca-cola-logo.png"
                                                         class="border border-circle rounded-circle" alt="logo payment"
@@ -277,8 +277,8 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="amount">Amount:</label>
-                                <input id="amount" name="amount" type="number" placeholder="0.00"
-                                    min="0" max="10000000" class="form-control" required>
+                                <input id="amount" name="amount" placeholder="ex.100,000"
+                                class="form-control" required maxlength="6">
                                 @error('amount')
                                     <span class="invalid-feedback" role="alert">
                                         {{ $message }}
