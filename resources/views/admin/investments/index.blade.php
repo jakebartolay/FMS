@@ -344,14 +344,12 @@
                                                         @endif
                                                     </td>
                                                     <td class="d-flex">
-                                                        <button type="button" class="btn btn-primary btn-sm mr-2"
-                                                            title="Approve" data-bs-toggle="modal"
-                                                            data-bs-target="#investmentapprove"><i
-                                                                class="bi bi-check2"></i></button>
-                                                        <button type="button" class="btn btn-warning btn-sm mr-3"
-                                                            title="Cancel" data-bs-toggle="modal"
-                                                            data-bs-target="#investmentcancel"><i
-                                                                class="bi bi-pencil-square"></i></button>
+                                                        <a href="{{ route('approve.investemt', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
+                                                            <i class="bi bi-check2"></i>
+                                                        </a>
+                                                        <a href="{{ route('cancel.investment', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
+                                                            title="Cancel"><i
+                                                                class="bi bi-pencil-square"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -369,7 +367,7 @@
                 </div><!-- End Left side columns -->
             </div>
         </section>
-        <div class="modal fade" id="investmentapprove" tabindex="-1">
+        {{-- <div class="modal fade" id="investmentapprove" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -436,7 +434,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
     </main><!-- End #main -->
 
     @include('layout.footer')

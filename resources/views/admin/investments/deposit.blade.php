@@ -351,6 +351,7 @@
                                                         <a href="{{ route('cancel.deposit', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
                                                             title="Cancel"><i
                                                                 class="bi bi-pencil-square"></i></a>
+                                                        </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

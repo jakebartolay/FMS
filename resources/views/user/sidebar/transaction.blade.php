@@ -210,9 +210,9 @@
                                     @foreach ($transferhistory as $data)
                                         <tr>
                                             <td>{{ $data->id }}</td>
-                                            <td>{{ $data->recipient_id }} {{ $data->lastname }}</td>
+                                            <td>{{ $data->recipient_id }}</td>
                                             <td>{{ $data->amount }}</td>
-                                            <td>{{ $data->created_at->format('Y-m-d') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
