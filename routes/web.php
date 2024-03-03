@@ -151,7 +151,7 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/edit/{id}', [AdminController::class, 'viewVendor'])->name('edit.vendor');
     Route::put('/update/{id}', [AdminController::class, 'updateVendor'])->name('update.vendor');    
 
-    // Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
+    Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
 
 
 

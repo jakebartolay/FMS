@@ -495,6 +495,13 @@ class AdminController extends Controller
         return view('admin.sidebar.vendorlist', compact('user', 'data'));
     }
 
+    public function vendorView()
+    {
+        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
+        $user = auth()->user();
+        return view('admin.sidebar.vendorlist', compact('user', 'data'));
+    }
+
     public function index()
     {
         $user = auth()->user();

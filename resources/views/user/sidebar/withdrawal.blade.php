@@ -180,7 +180,7 @@
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
