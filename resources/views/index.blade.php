@@ -513,7 +513,7 @@
 
           <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><img src="assets/img/team/" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Aiman Mangotara</h4>
                 <span>Document Analysis</span>
