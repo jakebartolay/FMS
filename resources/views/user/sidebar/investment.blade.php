@@ -198,7 +198,8 @@
                                             <hr>
                                         </div>
                                     </div>
-                                    <table class="table table-responsive datatable">
+                                    <div class="table-responsive">
+                                    <table class="table" id="example">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -261,6 +262,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
                                 </div>
                             </div>
                         </div>
