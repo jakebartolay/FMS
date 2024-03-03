@@ -271,6 +271,9 @@
                                         </div>
                                         <hr>
                                     </div>
+                                    <div class="table-responsive">
+
+                               
                                     <table class="table table-striped datatable">
                                         <thead>
                                             <tr>
@@ -299,6 +302,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
 
                                 </div><!-- End Bordered Tabs -->
                             </div>
