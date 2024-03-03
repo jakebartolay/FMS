@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'isManager' => \App\Http\Middleware\ManagerAuthentication::class,
         'isEmployee' => \App\Http\Middleware\EmployeeAuthentication::class,
         'isUser' => \App\Http\Middleware\UserAuthentication::class,
+        'profile.complete' => \App\Http\Middleware\CheckProfileCompletion::class,
     ];
 }

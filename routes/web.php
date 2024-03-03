@@ -68,20 +68,19 @@ function set_active($route) {
 
 // ********** User Routes *********
 Route::group(['middleware' => ['web', 'isUser']], function () {
+    
     Route::get('/dashboard',[UserController::class,'dashboard']);
     Route::get('/error',[UserController::class,'Error']);
 
     //CHANGE INFORMATION AND PASSWORD
 
-    Route::post('/profile',[SuperAdminController::class,'editProfile'])->name('/profile');
+    Route::post('/profile',[UserController::class,'editProfile'])->name('profile.edit');
     Route::put('/update-profile',[SuperAdminController::class,'updateProfile'])->name('update-profile');
     Route::post('/update-password',[SuperAdminController::class,'updatePassword'])->name('update-password');
 
-    ///TRANSACTION
-    Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
-    Route::get('/invest', [UserController::class, 'invest'])->name('invest');
-    Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
-    Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
+    Route::middleware('profile.complete')->group(function () {
+    ///INVEST
+    Route::get('/invest', [UserController::class, 'invest']);
 
     ///TRANSFER BALANCE
     Route::get('/transferview', [UserController::class, 'transferForm'])->name('transferview');
@@ -93,7 +92,17 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     //PAYOUT
     Route::get('/payoutpaypal', [UserController::class, 'paypal'])->name('paypal');
     Route::post('/process-payout', [UserController::class, 'processPayout'])->name('process.payout');
+
+    // Route::get('/invest', [UserController::class, 'invest'])->middleware('profile.complete');
+    Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
+    Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
     
+    ///TRANSACTION
+    Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('paywithpaypal');
+    Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
+});
+
+
 
     //// SIDEBAR //////
     Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
@@ -101,7 +110,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/transaction',[UserController::class,'Transaction'])->name('transaction');
     Route::get('/investment',[UserController::class,'Investment'])->name('investment');
     Route::get('/withdrawals',[UserController::class,'Withdrawals'])->name('withdrawals');
-    Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('/paywithpaypal');
+
 
     //////CONTACT
     Route::get('/contactsupport', [UserController::class, 'showContact']);
@@ -144,16 +153,28 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
     // Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
 
+
+
+    ////// APPROVE
+
+  
+    ///// NEW APPROVE
+    Route::get('/deposit-approve/{id}', [AdminController::class, 'approveDeposit'])->name('approve.deposit');
+    Route::match(['get', 'post'], '/approve/{id}', [AdminController::class, 'approve'])->name('requests.approve');
+    Route::get('/deposit-cancel/{id}', [AdminController::class, 'cancelDeposit'])->name('cancel.deposit');
+    Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('requests.cancel');
+    // Route::post('/approve/{id}', [AdminController::class, 'approve'])->name('requests.approve');  
+
+
+
+
+
+    ////// INVESTMENT 
     Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
     Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
     Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
     Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
-    ////// APPROVE
-    Route::post('/approve/{id}/', [AdminController::class, 'approve'])->name('deposit_requests.approve');
-    Route::delete('/cancel/{id}', [AdminController::class, 'cancel'])->name('deposit_requests.cancel');
-    
-    ////// INVESTMENT APPROVE
     Route::post('/Investmentapprove/{id}/', [AdminController::class, 'Investmentapprove'])->name('investment_requests.approve');
     Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 
@@ -163,12 +184,6 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     Route::get('/users-profile',[AdminController::class,'profile'])->name('adminProfile');
     Route::get('/activity',[AdminController::class,'Activity'])->name('/activity');
 
-});
-
-
-// ********** Employee Routes *********
-Route::group(['prefix' => 'employee','middleware'=>['web','isEmployee']],function(){
-    Route::get('/dashboard',[EmployeeController::class,'dashboard']);
 });
 
 

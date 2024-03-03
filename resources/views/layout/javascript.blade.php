@@ -21,42 +21,47 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
 
-  @if(Session::has('success'))
-    <script>
-        toastr.options = {
-            "progressBar" : true,
-            "closeButton" : true,
-        }
+  @if (Session::has('success'))
+      <script>
+          toastr.options = {
+              "progressBar": true,
+              "closeButton": true,
+          }
 
-        toastr.success("{{ Session::get('success') }}",'Success!',{timeout:12000});
+          toastr.success("{{ Session::get('success') }}", 'Success!', {
+              timeout: 12000
+          });
 
-        // toastr.info("{{ Session::get('message') }}");
-        // toastr.warning("{{ Session::get('message') }}");
-        // toastr.error("{{ Session::get('message') }}");
-    </script>
-    @endif 
+          // toastr.info("{{ Session::get('message') }}");
+          // toastr.warning("{{ Session::get('message') }}");
+          // toastr.error("{{ Session::get('message') }}");
+      </script>
+  @endif
 
-    @if(Session::has('error'))
-    <script>
-        toastr.options = {
-            "progressBar" : true,
-            "closeButton" : true,
-        }
-        toastr.error("{{ Session::get('error') }}",'Failed!',{timeout:12000});
-        
-    </script>
-    @endif
-    <!-- 12345678910 -->
-    <!-- @if(Session::has('warning'))
-    <script>
-        toastr.options = {
-            "progressBar" : true,
-            "closeButton" : true,
-        }
-        toastr.warning("{{ Session::get('warning') }}",'Warning!',{timeout:12000});
-        
-    </script>
-    @endif -->
+  @if (Session::has('error'))
+      <script>
+          toastr.options = {
+              "progressBar": true,
+              "closeButton": true,
+          }
+          toastr.error("{{ Session::get('error') }}", 'Failed!', {
+              timeout: 12000
+          });
+      </script>
+  @endif
+  <!-- 12345678910 -->
+  <!-- @if (Session::has('warning'))
+<script>
+    toastr.options = {
+        "progressBar": true,
+        "closeButton": true,
+    }
+    toastr.warning("{{ Session::get('warning') }}", 'Warning!', {
+        timeout: 12000
+    });
+</script>
+@endif -->
+
 
   <script>
       new DataTable('#example', {
@@ -73,7 +78,9 @@
               }
           },
       });
+
       function capitalizeFirstLetter(input) {
-        input.value = input.value.charAt(0).toUpperCase() + input.value.slice(1);
-    }
+          input.value = input.value.charAt(0).toUpperCase() + input.value.slice(1);
+      }
+
   </script>

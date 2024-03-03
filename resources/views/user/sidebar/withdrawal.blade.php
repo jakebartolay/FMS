@@ -56,14 +56,31 @@
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -163,16 +180,16 @@
         <section class="section dashboard">
             <div class="row">
                 <!-- Left side columns -->
-                <div class="col-lg-12">
+                <div class="col-lg-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h1>Withdrawal</h1>
-                                <h1 class="text-primary">${{$formattedBalance}}</h1>
-                                <a class="btn btn-outline-primary" href="{{ route('payoutGateways') }}">
-                                    Withdraw
-                                </a>
+                                <span class="fs-6 fw-bolder">Total Balance</span>
+                                <h1 class="text-primary">${{ $formattedBalance }}</h1>
                             </div>
+                            <a class="btn btn-outline-primary" href="{{ route('payoutGateways') }}">
+                                Withdraw
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -181,29 +198,31 @@
                         <div class="card-body">
                             <div class="card-title">
                                 <h5>Withdrawal History</h5>
-                                <table class="table datatable">
-                                    <thead>
-                                        <th>ID</th>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Email</th>
-                                        <th>Date</th>
-                                        <th>File</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($payouts as $data)
-                                            <tr>
-                                                <td>{{ $data->id }}</td>
-                                                <td>{{ $data->firstname }}</td>
-                                                <td>{{ $data->lastname }}</td>
-                                                <td>{{ $data->email }}</td>
-                                                <td>{{ $data->amount }}</td>
-                                                <td>{{ $data->created_at }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
                             </div>
+                            <table class="table datatable">
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    {{-- <th>Email</th> --}}
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>File</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($payouts as $data)
+                                        <tr>
+                                            <td>{{ $data->id }}</td>
+                                            <td>{{ $data->firstname }} {{ $data->lastname }}</td>
+                                            {{-- <td>{{ $data->email }}</td> --}}
+                                            <td>{{ $data->amount }}</td>
+                                            <td>{{ $data->created_at->format('Y-m-d') }}</td>
+                                            <td>
+                                                <a class="btn btn-outline-primary">view</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

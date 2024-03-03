@@ -59,12 +59,28 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">
+                            @if ($user->firstname)
+                                {{ $user->firstname }}
+                            @elseif($user->lastname)
+                                {{ $user->lastname }}
+                            @else
+                                {{ $user->email }}
+                            @endif
+                        </span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>
+                                @if ($user->firstname)
+                                    {{ $user->firstname }}
+                                @elseif($user->lastname)
+                                    {{ $user->lastname }}
+                                @else
+                                    {{ $user->email }}
+                                @endif
+                            </h6>
                             <span>{{ $roleName }}</span>
                         </li>
                         <li>
@@ -203,7 +219,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
 
@@ -261,8 +277,8 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="amount">Amount:</label>
-                                <input id="amount" name="amount" type="number" placeholder="0.00" min="0"
-                                    max="10000000" class="form-control" required>
+                                <input id="amount" name="amount" type="number" placeholder="0.00"
+                                    min="0" max="10000000" class="form-control" required>
                                 @error('amount')
                                     <span class="invalid-feedback" role="alert">
                                         {{ $message }}

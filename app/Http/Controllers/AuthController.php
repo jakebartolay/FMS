@@ -40,7 +40,7 @@ class AuthController extends Controller
                     'lastname' => $user->lastname,
                     'email' => $user->email,
                     'google_id' => $user->id,
-                    'password' => encrypt('12345dummy') // Corrected typo here
+                    'password' => bcrypt('12345dummy') // Corrected typo here
                 ]);
 
                 Auth::login($newUser);

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class DepositRequest extends Model
 {
     protected $table = 'depositrequest'; // Specify the correct table name
+    protected $connection = "mysql";
 }

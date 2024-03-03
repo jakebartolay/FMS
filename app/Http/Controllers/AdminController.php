@@ -65,64 +65,156 @@ class AdminController extends Controller
         
     }
 
+    public function approveDeposit($id)
+    {
+        $user = auth()->user();
+
+        $deposit = depositrequest::findOrFail($id);
+        return view('admin.investments.approve', compact('deposit','user'));
+    }
+
     public function approve(Request $request, $id)
     {
-        // Find the deposit request by its ID
+        // try {
+        //     // Find the deposit request by its ID
+        //     $depositRequest = DepositRequest::findOrFail($id);
+    
+        //     // Check if the deposit request is already approved or canceled
+        //     if ($depositRequest->status === '9') {
+        //         return redirect()->route('investments.deposit')->with('error', 'Deposit request has already been approved.');
+        //     } elseif ($depositRequest->status === '10') {
+        //         return redirect()->route('investments.deposit')->with('error', 'Deposit request has already been canceled.');
+        //     }
+    
+        //     // Update the status of the deposit request to approved
+        //     $depositRequest->status = '9'; // Assuming '9' represents an approved status
+        //     $depositRequest->save();
+    
+        //     // Retrieve the account associated with the deposit request
+        //     $account = Account::updateOrCreate(
+        //         ['user_id' => $depositRequest->user_id], // Search criteria
+        //         ['user_id' => $depositRequest->user_id, 'balance' => \DB::raw('balance + ' . $depositRequest->amount)] // Data to update or insert
+        //     );
+    
+        //     return redirect()->route('investments.deposit')->with('success', 'Deposit request approved successfully.');
+        // } catch (\Exception $e) {
+        //     // Handle any exceptions
+        //     return redirect()->route('investments.deposit')->with('error', 'An error occurred while processing the deposit request.');
+        // }
+
         $depositRequest = DepositRequest::findOrFail($id);
-        
-        // Check if the deposit request is not already approved
-        if ($depositRequest->status !== '9') { // Assuming '9' represents an approved status
-            // Update the status of the deposit request to approved
-            $depositRequest->status = '9'; // Assuming '9' represents an approved status
-            $depositRequest->save();
-            
-            // Retrieve the account associated with the deposit request
-            $account = Account::where('user_id', $depositRequest->user_id)->first();
-            
-            // If account doesn't exist, create a new one
-            if (!$account) {
-                $account = new Account();
-                $account->user_id = $depositRequest->user_id;
-                $account->balance = $depositRequest->amount; // Assuming amount is the deposited amount
-                $account->save();
+
+        // Check if the current status is not '10' (canceled)
+        if ($depositRequest->status != '10') {
+            // Check if the current status is not '9' (approved)
+            if ($depositRequest->status != '9') {
+                // Update the status of the investment request to approved
+                $depositRequest->status = '9'; // Assuming '9' represents an approved status
+                $depositRequest->save();
+
+                // Retrieve the account associated with the investment request
+                $account = accounts::where('user_id', $depositRequest->user_id)->first();
+
+                // If account doesn't exist, create a new one
+                if (!$account) {
+                    $account = new Account();
+                    $account->user_id = $depositRequest->user_id;
+                    $account->amount = $depositRequest->amount; // Assuming amount is the deposited amount
+                    $account->save();
+                } else {
+                    // Update the account balance
+                    $account->amount += $depositRequest->amount; // Assuming amount is the deposited amount
+                    $account->save();
+                }
             } else {
-                // Update the account balance
-                $account->balance += $depositRequest->amount; // Assuming amount is the deposited amount
-                $account->save();
+                // Redirect with an error message if the investment request is already approved
+                return redirect()->route('investments.deposit')->with('error', 'Investment request is already approved.');
             }
-            
-            return redirect()->route('investments.deposit')->with('success', 'Deposit request approved successfully.');
         } else {
-            return redirect()->route('investments.deposit')->with('error', 'Deposit request has already been approved.');
+            // Redirect with an error message if the investment request is already cancelled
+            return redirect()->route('investments.deposit')->with('error', 'Investment request is already cancelled.');
         }
+
+        return redirect()->route('investments.deposit')->with('success', 'Investment request approved successfully.');
+
+    }
+    
+    
+    public function cancelDeposit($id)
+    {
+        $user = auth()->user();
+
+        $canceldeposit = depositrequest::findOrFail($id);
+        return view('admin.investments.cancel', compact('canceldeposit','user'));
     }
 
     public function cancel(Request $request, $id)
     {
-        // Find the deposit request by its ID
-        $depositRequest = DepositRequest::findOrFail($id);
+        // // Find the deposit request by its ID
+        // $depositRequest = DepositRequest::findOrFail($id);
         
-        // Update the status of the deposit request to cancelled
-        $depositRequest->status = 10; // Assuming '10' represents a cancelled status
-        $depositRequest->save();
+        // // Update the status of the deposit request to cancelled
+        // $depositRequest->status = 10; // Assuming '10' represents a cancelled status
+        // $depositRequest->save();
         
-        // Retrieve the account associated with the deposit request
-        $account = Account::where('user_id', $depositRequest->user_id)->first();
+        // // Retrieve the account associated with the deposit request
+        // $account = Account::where('user_id', $depositRequest->user_id)->first();
         
-        if (!$account) {
-            // This should not happen ideally because if a deposit request exists, there should be an associated account
-            return redirect()->route('investments.deposit')->with('error', 'No account found for the user.');
-        }
+        // if (!$account) {
+        //     // This should not happen ideally because if a deposit request exists, there should be an associated account
+        //     return redirect()->route('investments.deposit')->with('error', 'No account found for the user.');
+        // }
         
-        // Check if the account has enough balance to cancel the deposit request
-        if ($account->balance >= $depositRequest->amount) {
-            // Update the account balance by subtracting the deposited amount
-            $account->balance -= $depositRequest->amount; // Assuming amount is the deposited amount
-            $account->save();
-        }   
+        // // Check if the account has enough balance to cancel the deposit request
+        // if ($account->balance >= $depositRequest->amount) {
+        //     // Update the account balance by subtracting the deposited amount
+        //     $account->balance -= $depositRequest->amount; // Assuming amount is the deposited amount
+        //     $account->save();
+        // }   
     
-        return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Cancelled.');
+        // return redirect()->route('investments.deposit')->with('success', 'Your Deposit has been Cancelled.');
+
+                // Find the investment request by its ID
+                $depositRequest = DepositRequest::findOrFail($id);
+
+                // Check if the current status is '10' (cancelled)
+                if ($depositRequest->status == 10) {
+                    // Redirect with an error message if the investment request is already cancelled
+                    return redirect()->route('investments.deposit')->with('error', 'Investment request is already cancelled.');
+                }
+        
+                // Check if the current status is '9' (approved)
+                if ($depositRequest->status == 9) {
+                    // Redirect with an error message if the investment request is already approved
+                    return redirect()->route('investments.deposit')->with('error', 'Investment request is already approved.');
+                }
+        
+                // Update the status of the investment request to cancelled
+                $depositRequest->status = 10; // Assuming '10' represents a cancelled status
+                $depositRequest->save();
+        
+                // Retrieve the account associated with the investment request
+                $account = Account::where('user_id', $depositRequest->user_id)->first();
+        
+                if (!$account) {
+                    // This should not happen ideally because if an investment request exists, there should be an associated account
+                    return redirect()->route('investments.deposit')->with('error', 'No account found for the user.');
+                }
+        
+                // Check if the account has enough balance to refund the investment amount
+                if ($account->amount >= $depositRequest->amount) {
+                    // Refund the investment amount to the user's account
+                    $account->amount -= $depositRequest->amount;
+                    $account->save();
+                } else {
+                    // In this case, the user doesn't have enough balance to refund the full amount
+                    // You may want to handle this scenario differently, such as notifying the user or contacting support
+                    return redirect()->route('investments.deposit')->with('error', 'Insufficient balance to cancel the investment.');
+                }
+        
+                return redirect()->route('investments.deposit')->with('success', 'Your investment has been cancelled and the amount has been refunded to your account.');
     }
+    
 
     public function Investmentapprove(Request $request, $id)
     {
@@ -280,6 +372,7 @@ class AdminController extends Controller
         return view('admin.sidebar.vendoradd', compact('user'));
         
     }
+    
     public function createVendor(Request $request){
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -362,8 +455,6 @@ class AdminController extends Controller
         return redirect()->route('vendorManage')->with('success', "$role_name updated successfully");
         
     }
-    
-    
     
     public function vendorManage(Request $request){
         // Retrieve all users

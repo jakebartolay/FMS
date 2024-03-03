@@ -345,21 +345,17 @@
                                                         @endif
                                                     </td>
                                                     <td class="d-flex">
-                                                        <button type="button" class="btn btn-primary btn-sm mr-2"
-                                                            title="Approve" data-bs-toggle="modal"
-                                                            data-bs-target="#approve"><i
-                                                                class="bi bi-check2"></i></button>
-                                                        <button type="button" class="btn btn-warning btn-sm mr-3"
-                                                            title="Cancel" data-bs-toggle="modal"
-                                                            data-bs-target="#cancel"><i
-                                                                class="bi bi-pencil-square"></i></button>
-                                                    </td>
+                                                        <a href="{{ route('approve.deposit', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
+                                                            <i class="bi bi-check2"></i>
+                                                        </a>
+                                                        <a href="{{ route('cancel.deposit', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
+                                                            title="Cancel"><i
+                                                                class="bi bi-pencil-square"></i></a>
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
-
+     
                                     {{-- <button type="button" class="btn btn-success btn-sm mr-2"><i class="bi bi-check2"></i></button>
                                     <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-x"></i></button>
                                     <button type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button> --}}
@@ -371,74 +367,6 @@
                 </div><!-- End Left side columns -->
             </div>
         </section>
-
-        <div class="modal fade" id="approve" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Approve</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @foreach ($depositrequest as $deposit)
-                            <form id="approveForm{{ $deposit->id }}"
-                                action="{{ route('deposit_requests.approve', $deposit->id) }}" method="POST">
-                                @csrf
-                                @method('POST')
-
-                            </form>
-                        @endforeach
-                    </div>
-                    <h1>Are you sure you want to approve this deposit request?</h1>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary"
-                            onclick="approveDepositRequest('approveForm{{ $deposit->id }}')">Confirm</button>
-                    </div>
-                    <script>
-                        function approveDepositRequest(formId) {
-                            document.getElementById(formId).submit();
-                        }
-                    </script>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="cancel" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        @foreach ($depositrequest as $data)
-                            <form id="cancelForm{{ $data->id }}"
-                                action="{{ route('deposit_requests.cancel', ['id' => $data->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                        @endforeach
-                        <h1>Are you sure you want to Cancel this deposit request?</h1>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary"
-                                onclick="cancelDepositRequest('cancelForm{{ $data->id }}')">Confirm</button>
-                        </div>
-                    </div>
-
-                    <script>
-                        function cancelDepositRequest(formId) {
-                            document.getElementById(formId).submit();
-                        }
-                    </script>
-
-                </div>
-            </div>
-        </div>
 
 
 
