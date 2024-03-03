@@ -253,7 +253,7 @@
 
         <section class="section profile">
             <div class="row justify-content-center align-center d-flex">
-                <div class="col-6">
+                <div class="col-xl-6 col-12">
 
                     <div class="card">
                         <div class="card-body pt-3">

@@ -21,7 +21,7 @@
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
-        </div><!-- End Search Bar -->
+        </div><!-- End Search Barr -->
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -251,13 +251,6 @@
 
         <section class="section dashboard">
             <div class="row justify-content-center align-center d-flex">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body pt-3">
-                            <h1>Welcome, {{ $user->firstname }}</h1>
-                        </div>
-                    </div>
-                </div>
                 <!-- Investment Card -->
                 <div class="col-xxl-12 col-md-12 col-12">
                     <div class="card">
@@ -265,7 +258,9 @@
                             <h5 class="card-title">Log History</h5>
                             <span class="break"></span>
                             <div class="text-center">
-                                <table class="table table-striped datatable" style="width:100%" id="datatable">
+                                <div class="table-responsive">
+
+                                <table class="table table-striped display" style="width:100%" id="example">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -287,6 +282,8 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                                                    
+                            </div>
                             </div>
                         </div>
                     </div>
