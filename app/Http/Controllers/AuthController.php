@@ -102,7 +102,7 @@ class AuthController extends Controller
             'email' => 'string|email|required|max:100|unique:users',
             'password' => 'string|required|confirmed|min:10' // Minimum length set to 10 characters
         ]);
-
+    
         // Create a new user instance
         $user = new User();
         $user->firstname = $request->firstname;
@@ -110,7 +110,15 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
+    
+        // Create a corresponding account for the user
+        $account = new Account();
+        $account->user_id = $user->id; // Set the user's ID as the account's user_id
+        // You can set other properties of the account here if needed
+        $account->balance = 0; // Assuming starting balance is zero
+        $account->status_id = 1; // Assuming default status ID
+        $account->save();
+    
         // Redirect back with success message
         return back()->with('success', 'User and account created successfully.');
     }
