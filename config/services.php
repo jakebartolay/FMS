@@ -32,10 +32,16 @@ return [
     ],
 
     'google' => [
-        'client_id' => '1075446469724-sqembn4cadr3k550lv04tobh912cv3rd.apps.googleusercontent.com',
-        'client_secret' => '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',
-        'redirect' => 'https://fms10-vaims.fguardians-fms.com/auth/google/callback',
+        'client_id' => '1075446469724-m7i67jq8chf7c3aqo7cu5nqmu9ocrjr0.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://127.0.0.1:8000/auth/google/callback',
     ],
+
+    // 'google' => [
+    //     'client_id' => '1075446469724-sqembn4cadr3k550lv04tobh912cv3rd.apps.googleusercontent.com',
+    //     'client_secret' => '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',
+    //     'redirect' => 'https://fms10-vaims.fguardians-fms.com/auth/google/callback',
+    // ],
     
 
 ];
