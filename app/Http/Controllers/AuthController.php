@@ -32,8 +32,6 @@ class AuthController extends Controller
         
             if ($findUser) {
                 Auth::login($findUser);
-        
-                return redirect()->intended('/dashboard');
             } else {
                 $newUser = User::create([
                     'firstname' => $user->firstname,
@@ -42,46 +40,22 @@ class AuthController extends Controller
                     'google_id' => $user->id,
                     'password' => bcrypt('12345dummy') // Corrected typo here
                 ]);
-
+    
+                // Create a corresponding account for the user
+                $account = new Account();
+                $account->user_id = $newUser->id; // Set the user's ID as the account's user_id
+                // You can set other properties of the account here if needed
+                $account->balance = 0; // Assuming starting balance is zero
+                $account->status_id = 1; // Assuming default status ID
+                $account->save();
+    
                 Auth::login($newUser);
-        
-                return redirect()->intended('/dashboard');
             }
-
-            }
-             catch (Exception $e) {
-                dd($e->getMessage());
+    
+            return redirect()->intended('/dashboard');
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
-        // try {
-        //     $user = socialite::driver('google')->user();
-    
-        //     // Check if the user already exists in your database
-        //     $existingUser = User::where('google_id', $user->id)->first();
-    
-        //     if ($existingUser) {
-        //         // Log in the existing user
-        //         Auth::login($existingUser);
-        //     } else {
-        //         // Create a new user in your database
-        //         $newUser = User::create([
-        //             'firstname' => $user->firstname,
-        //             'lastname' => $user->lastname,
-        //             'email' => $user->email,
-        //             'google_id' => $user->id,
-        //             'password' => encrypt('12345dummy'),
-        //             // You might need to set a random password here or handle passwordless authentication
-        //         ]);
-    
-        //         // Log in the new user
-        //         Auth::login($newUser);
-        //     }
-    
-        //     // Redirect the user to the dashboard or any other desired page
-        //     return redirect('/dashboard');
-        // } catch (Exception $e) {
-        //     // Handle any errors that occur during the authentication process
-        //     dd($e->getMessage());
-        // }
     }
     
     public function loadRegister()

@@ -36,7 +36,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         $investments = InvestmentRequest::where('user_id', auth()->id())
@@ -118,7 +118,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
        
         $id = $user->id; // Assuming the primary key of the users table is `id`
@@ -140,7 +140,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
         $user = auth()->user();
         return view('user.sidebar.profile', compact('user', 'roleName'));
@@ -156,7 +156,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -193,7 +193,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
         return view('user.deposit.transfer', compact('user','roleName'));
     }
@@ -364,7 +364,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -411,7 +411,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
         return view('user.sidebar.contactsupport', compact('user','roleName'));
     }
@@ -466,7 +466,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -492,7 +492,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         $user = auth()->user();
@@ -514,7 +514,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         } 
 
         return view('user.deposit.investments', compact('user', 'roleName'));
@@ -616,7 +616,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
@@ -645,7 +645,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
         return view('user.deposit.payoutgate', compact('user', 'roleName'));
@@ -659,7 +659,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
 
       
@@ -716,7 +716,7 @@ class UserController extends Controller
             $roleName = $userRole->name;
         } else {
             // Handle the case where the role is not found
-            $roleName = 'Client';
+            $roleName = 'Investor';
         }
         $user = auth()->user();
         return view('user.sidebar.contactsupport', compact('user', 'roleName'));
