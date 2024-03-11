@@ -29,6 +29,7 @@ class UserController extends Controller
     //
     public function dashboard(Request $request)
     {
+        $activeNavItem = 'dashboard';
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -87,7 +88,7 @@ class UserController extends Controller
     
 
 
-        return view('user.dashboard', compact('user', 'activityLog', 'roleName','payout',
+        return view('user.dashboard', compact('user', 'activeNavItem' , 'activityLog', 'roleName','payout',
         'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
     }
 
@@ -110,6 +111,7 @@ class UserController extends Controller
     }
     public function Profile()
     {
+        $activeNavItem = '';
         $user = auth()->user();
 
         $userRole = Role::find($user->role);
@@ -128,7 +130,7 @@ class UserController extends Controller
             ->value('accounts.id');
 
         
-        return view('user.sidebar.profile', compact('user', 'roleName', 'account'));
+        return view('user.sidebar.profile', compact('user','activeNavItem', 'roleName', 'account'));
     }
 
     public function editProfile()
@@ -148,7 +150,7 @@ class UserController extends Controller
 
     public function Transaction()
     {
-
+        $activeNavItem = 'transaction';
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -182,7 +184,7 @@ class UserController extends Controller
 
 
         $user = auth()->user();
-        return view('user.sidebar.transaction', compact('user', 'roleName', 'formattedBalance','transferhistory'));
+        return view('user.sidebar.transaction', compact('user', 'activeNavItem', 'roleName', 'formattedBalance','transferhistory'));
     }
 
     public function transferForm(){
@@ -356,7 +358,7 @@ class UserController extends Controller
     
     public function Wallet()
     {
-
+        $activeNavItem = 'wallet';
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -399,11 +401,12 @@ class UserController extends Controller
 
         $payouts = Payouts::count();
 
-        return view('user.sidebar.wallet', compact('user', 'depositrequest', 'formattedBalance', 'roleName','invest','payouts'));
+        return view('user.sidebar.wallet', compact('user','activeNavItem', 'depositrequest', 'formattedBalance', 'roleName','invest','payouts'));
     }
 
     public function showContact()
     {
+        $activeNavItem = 'contractsupport';
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -413,7 +416,7 @@ class UserController extends Controller
             // Handle the case where the role is not found
             $roleName = 'Investor';
         }
-        return view('user.sidebar.contactsupport', compact('user','roleName'));
+        return view('user.sidebar.contactsupport', compact('user','activeNavItem','roleName'));
     }
 
     public function sendEmail(Request $request)
@@ -485,6 +488,7 @@ class UserController extends Controller
 
     public function Investment()
     {
+        $activeNavItem = 'investment';
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -503,7 +507,7 @@ class UserController extends Controller
             ->select('investmentrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
             ->get();        
 
-        return view('user.sidebar.investment', compact('invest', 'user', 'roleName'));
+        return view('user.sidebar.investment', compact('invest','activeNavItem', 'user', 'roleName'));
     }
     public function invest()
     {
@@ -609,6 +613,7 @@ class UserController extends Controller
 
     public function Withdrawals()
     {
+        $activeNavItem = 'withdrawals';
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -634,7 +639,7 @@ class UserController extends Controller
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
-        return view('user.sidebar.withdrawal', compact('user', 'roleName', 'formattedBalance','payouts'));
+        return view('user.sidebar.withdrawal', compact('user','activeNavItem', 'roleName', 'formattedBalance','payouts'));
     }
 
     public function payoutGateways(){
@@ -707,21 +712,6 @@ class UserController extends Controller
         return redirect()->route('withdrawals')->with('success', 'Payout successful.');
     }
     
-    public function ContactSupport()
-    {
-        $user = auth()->user();
-        $userRole = Role::find($user->role);
-
-        if ($userRole) {
-            $roleName = $userRole->name;
-        } else {
-            // Handle the case where the role is not found
-            $roleName = 'Investor';
-        }
-        $user = auth()->user();
-        return view('user.sidebar.contactsupport', compact('user', 'roleName'));
-    }
-
     public function updateProfile(Request $request)
     {
         // return dd($request->all());
