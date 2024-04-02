@@ -86,7 +86,7 @@
                                             ?>
                                             
                                             <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>                                            
-                                            <td>{{ $data->amount }}</td>
+                                            <td>${{ $data->amount }}</td>
                                             <td> <span class="bg-success badge">{{ $data->type }}</span></td>
                                             <td>{{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}</td>
                                         </tr>

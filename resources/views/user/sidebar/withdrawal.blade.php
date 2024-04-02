@@ -85,7 +85,7 @@
                                             
                                             <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>      
                                             {{-- {{-- <td>{{ $data->email }}</td>  --}}
-                                            <td>{{ $data->amount }}</td>
+                                            <td>${{ $data->amount }}</td>
                                             <td>{{ $data->created_at->format('Y-m-d') }}</td>
                                             <td>
                                                 <a class="btn btn-outline-primary">view</a>
