@@ -29,7 +29,7 @@ class InvestmentController extends Controller
     }
 
     public function users(){
-        $User = Investments::all();
+        $User = User::all();
         if($User->count() > 0){
             
             return response()->json([
