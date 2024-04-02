@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Investments;
+use App\Models\User;
 
 class InvestmentController extends Controller
 {
@@ -17,6 +18,23 @@ class InvestmentController extends Controller
             return response()->json([
                 'status' => 200,
                 'investor' => $investor
+            ], 200);
+        }else{
+
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Records Found'
+            ], 404);
+        }
+    }
+
+    public function users(){
+        $User = Investments::all();
+        if($User->count() > 0){
+            
+            return response()->json([
+                'status' => 200,
+                'users' => $User
             ], 200);
         }else{
 

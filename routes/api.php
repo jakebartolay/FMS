@@ -24,3 +24,5 @@ Route::get('vendor', [VendorController::class, 'index']);
 Route::post('vendor', [VendorController::class, 'store']);
 
 Route::get('investor', [InvestmentController::class, 'index']);
+
+Route::get('investor/users', [InvestmentController::class, 'users']);
