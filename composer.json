@@ -13,7 +13,6 @@
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
         "league/omnipay": "^3.2",
-        "mckenziearts/laravel-notify": "^2.4",
         "omnipay/paypal": "^3.0",
         "srmklive/paypal": "~3.0"
     },

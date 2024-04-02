@@ -169,7 +169,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
     ])->toArray(),
 
     /*
