@@ -72,7 +72,7 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
-
+        @include('notify::components.notify')
         <div class="pagetitle">
             <div class="row">
                 <div class="d-flex justify-content-between">
@@ -106,10 +106,10 @@
                                                 <div>
                                                     <label for="amount">Amount to Payout</label>
                                                     <input id="amount" name="amount" placeholder="ex.10,000"
-                                                    type="text" class="form-control" required maxlength="6">
+                                                    type="number" class="form-control" required maxlength="6">
                                                 </div>
                                                 <div class="text-center pt-2">
-                                                    <button type="submit" class="btn btn-primary">Payouts</button>
+                                                    <button type="submit" class="btn btn-outline-primary">Payouts</button>
                                                 </div>
                                             </form>
                                         </div>

@@ -53,13 +53,17 @@
                                     <h5 class="card-title">Overall statistics</h5>
                                     <div class="row d-flex align-items-center justify-content-center text-center">
                                         <div class="col-6">
-                                            <h6 class="text-primary fw-bold">{{ $invest }}</h6>
-                                            <span class="text-secondary">Investment</span>
+                                            <h6 class="text-primary fw-bold"></h6>
+                                            <span class="text-secondary fw-bold">Investment</span>
+                                            <br>
+                                            <span class="text-primary">{{ $invest }}</span>
                                             <hr>
                                         </div>
                                         <div class="col-6">
-                                            <h6 class="text-primary fw-bold">{{ $payouts }}</h6>
-                                            <span class="text-secondary">Withdrawal</span>
+                                            <h6 class="text-primary fw-bold"></h6>
+                                            <span class="text-secondary fw-bold">Withdrawal</span>
+                                            <br>
+                                            <span class="text-primary">{{ $payout }}</span>
                                             <hr>
                                         </div>
                                     </div>
@@ -149,7 +153,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Withdrawal Stats</h5>
-                                    <h5 class="mx-2 fw-bold text-primary">${{ number_format($payoutcount, 2) }}                                    </h5>
+                                    <h5 class="mx-2 fw-bold text-primary">$                                   </h5>
                                     <!-- Line Chart -->
                                     <div id="lineChart2"></div>
 
@@ -159,7 +163,7 @@
                                                 series: [{
                                                     name: "Withdrawals",
                                                     // data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-                                                    data: {!! $payout !!}
+                                                  
                                                 }],
                                                 chart: {
                                                     height: 350,
@@ -203,7 +207,7 @@
                 <!-- Right side columns -->
                 <div class="col-lg-12 col-12" id="invest">
                     <!-- Website Traffic -->
-                    <div class="card">
+
                         <div class="card-body">
                             <h5 class="card-title">Investment</h5>
                             <div class="row g-4">
@@ -273,7 +277,7 @@
 
                             </div>
                         </div>
-                    </div>
+ 
                 </div><!-- End Website Traffic -->
                 {{-- <div class="col-lg-12">
                     <div class="row">

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Socialite;
 use Exception;
 use DB;
@@ -33,23 +34,49 @@ class AuthController extends Controller
             if ($findUser) {
                 Auth::login($findUser);
             } else {
+                // Generate a unique ID for the user
+                $id = uniqid();
+                $trimmedId = substr($id, -8);
+
+                // Create the new user
                 $newUser = User::create([
-                    'firstname' => $user->firstname,
-                    'lastname' => $user->lastname,
-                    'email' => $user->email,
-                    'google_id' => $user->id,
-                    'password' => bcrypt('12345dummy') // Corrected typo here
+                    'id' => $trimmedId,
+                    'firstname' => $user->user['given_name'],
+                    'lastname' => $user->user['family_name'],
+                    'phone' => $user->phone_number,
+                    'address' => $user->address,
+                    'google_id' => $user->getId(),
+                    'name' => $user->getName(),
+                    'email' => $user->getEmail(),
+                    'password' => Hash::make($user->getName() . '@' . $user->getId()),
+                    'profile_path_picture' => 'https://ui-avatars.com/api/?name=' . urlencode($user->user['given_name'] . ' ' . $user->user['family_name']),
+                    'role' => 0,
                 ]);
-    
-                // Create a corresponding account for the user
+
+                // Update the user_id of the new user with its own ID
+                $newUser->user_id = $newUser->id;
+                $newUser->save();
+
+                // Generate a random UUID for the account ID
+                $accountId = Str::uuid();
+
+                // Create an account for the new user
                 $account = new Account();
+                $account->id = $accountId; // Set the generated UUID as the account's ID
                 $account->user_id = $newUser->id; // Set the user's ID as the account's user_id
-                // You can set other properties of the account here if needed
+                $account->firstname = $newUser->firstname; // Set the user's firstname
+                $account->lastname = $newUser->lastname; // Set the user's lastname
                 $account->balance = 0; // Assuming starting balance is zero
-                $account->status_id = 1; // Assuming default status ID
+                $account->status = 'Active'; // Set the status directly
                 $account->save();
-    
+
+
+
+                // Log in the new user
                 Auth::login($newUser);
+
+                // Get the ID of the newly created account
+                $accountId = $account->id;
             }
     
             return redirect()->intended('/dashboard');
@@ -76,22 +103,38 @@ class AuthController extends Controller
             'email' => 'string|email|required|max:100|unique:users',
             'password' => 'string|required|confirmed|min:10' // Minimum length set to 10 characters
         ]);
-    
+
         // Create a new user instance
         $user = new User();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
+        $user->name = $request->lastname . ' ' . $request->firstname; // Concatenate first name and last name
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->role = '0';
+        $user->profile_path_picture = 'https://ui-avatars.com/api/?name=' . urlencode($user->firstname . ' ' . $user->lastname); // Set profile picture URL
         $user->save();
-    
+
+        // Retrieve the ID of the newly created user
+        $userId = $user->id;
+
+
+        // Retrieve the ID of the newly created user
+        $userId = $user->id;
+
+        $accountId = Str::uuid();
+
         // Create a corresponding account for the user
         $account = new Account();
-        $account->user_id = $user->id; // Set the user's ID as the account's user_id
-        // You can set other properties of the account here if needed
+        $account->id = $accountId; // Set the generated UUID as the account's ID
+        $account->user_id = $userId; // Set the user's ID as the account's user_id
+        $account->firstname = $request->firstname; // Set the user's firstname
+        $account->lastname = $request->lastname; // Set the user's lastname
         $account->balance = 0; // Assuming starting balance is zero
-        $account->status_id = 1; // Assuming default status ID
+        $account->status = 'Active'; // Assuming default status ID
         $account->save();
+
+
     
         // Redirect back with success message
         return back()->with('success', 'User and account created successfully.');

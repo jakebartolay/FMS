@@ -20,16 +20,16 @@ class AdminController extends Controller
     //
     public function dashboard()
     {
-        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
+        // $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
 
-        $inactive = Vendorsuser::where('status', 'Inactive')->count();
+        // $inactive = Vendorsuser::where('status', 'Inactive')->count();
 
-        $disable = Vendorsuser::where('status', 'disable')->count();
+        // $disable = Vendorsuser::where('status', 'disable')->count();
         
         
 
-        $account1 = $data->count();        
-        $account2 = User::where('role', '=', 0)->count();
+        // $account1 = $data->count();        
+        $userCount = User::where('role', '=', 0)->count();
 
         $user = auth()->user();
 
@@ -46,7 +46,7 @@ class AdminController extends Controller
 
         $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        return view('admin.dashboard', compact('user', 'roleName', 'account1', 'account2', 'inactive','disable','countBalance','investment'));
+        return view('admin.dashboard', compact('user','userCount', 'roleName','countBalance','investment'));
     }
     
     public function Deposit()

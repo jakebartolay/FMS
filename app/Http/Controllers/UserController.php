@@ -16,13 +16,17 @@ use App\Models\Investments;
 use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
 use App\Models\Transferhistory;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use App\Events\TransferEvent;
 use App\Models\Payouts;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class UserController extends Controller
 {
@@ -40,21 +44,21 @@ class UserController extends Controller
             $roleName = 'Investor';
         }
 
-        $investments = InvestmentRequest::where('user_id', auth()->id())
+        $investments = Investments::where('user_id', auth()->id())
             ->orderBy('created_at')
             ->pluck('amount')
             ->toArray();
             
 
-        // Pass the investment data to the chart configuration
+        // // Pass the investment data to the chart configuration
         $chartData = json_encode($investments);
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
-        $invest = InvestmentRequest::where('user_id', auth()->id())
-        ->whereNotIn('status', [3, 10])
-        ->count();
+        // $invest = InvestmentRequest::where('user_id', auth()->id())
+        // ->whereNotIn('status', [3, 10])
+        // ->count();
     
 
         $account = DB::table('accounts')
@@ -66,30 +70,41 @@ class UserController extends Controller
 
         $activityLog = DB::table('activity_logs')->get();
 
+        // $user = auth()->user(); // Assuming you're fetching the authenticated user
+        // $id = $user->id; // Assuming the primary key of the users table is `id`
+        
+        // // Count the number of payouts associated with the authenticated user
+        // $payoutcount = Payouts::where('user_id', $id)->count();
+        
+        // // Sum the amounts of payouts associated with the authenticated user
+        // $payouts = Payouts::where('user_id', $id)->count();
+        
+
+        // ////PAYOUTS
+
+        // $payoutAmounts = Payouts::where('user_id', auth()->id())
+        // ->orderBy('created_at')
+        // ->pluck('amount')
+        // ->toArray();
+    
+        // // Pass the investment data to the chart configuration
+        // $payout = json_encode($payoutAmounts);
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
         
-        // Count the number of payouts associated with the authenticated user
-        $payoutcount = Payouts::where('user_id', $id)->count();
+        // Count the number of investments associated with the authenticated user
+        $invest = Investments::where('user_id', $id)->count();
+        $payout = Payouts::where('user_id', $id)->count();
         
-        // Sum the amounts of payouts associated with the authenticated user
-        $payouts = Payouts::where('user_id', $id)->count();
+        // Now $count contains the total number of investments for the authenticated user
         
-
-        ////PAYOUTS
-
-        $payoutAmounts = Payouts::where('user_id', auth()->id())
-        ->orderBy('created_at')
-        ->pluck('amount')
-        ->toArray();
-    
-        // Pass the investment data to the chart configuration
-        $payout = json_encode($payoutAmounts);
     
 
 
-        return view('user.dashboard', compact('user', 'activeNavItem' , 'activityLog', 'roleName','payout',
-        'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
+        // return view('user.dashboard', compact('user', 'activeNavItem' , 'activityLog', 'roleName','payout',
+        // 'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
+        
+        return view('user.dashboard', compact('user','roleName','activeNavItem','chartData','invest','payout','formattedBalance'));
     }
 
     public function Error()
@@ -123,14 +138,17 @@ class UserController extends Controller
             $roleName = 'Investor';
         }
        
-        $id = $user->id; // Assuming the primary key of the users table is `id`
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
+        $id = $user->id;
+        $accountData = DB::table('accounts')
+            ->join('users', 'users.id', '=', 'accounts.user_id')
             ->where('accounts.user_id', $id)
-            ->value('accounts.id');
-
+            ->select('accounts.id as account_id', 'accounts.status')
+            ->first();
         
-        return view('user.sidebar.profile', compact('user','activeNavItem', 'roleName', 'account'));
+        $accountId = $accountData->account_id;
+        $accountStatus = $accountData->status;
+        
+        return view('user.sidebar.profile', compact('user', 'activeNavItem', 'roleName', 'accountId', 'accountStatus'));
     }
 
     public function editProfile()
@@ -160,13 +178,15 @@ class UserController extends Controller
             // Handle the case where the role is not found
             $roleName = 'Investor';
         }
-
         $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+
+        // $user = auth()->user(); // Assuming you're fetching the authenticated user
+        // $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
 
         $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id')
-            ->where('accounts.user_id', $userId)
+            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
+            ->where('accounts.user_id', $id)
             ->value('accounts.balance');
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
@@ -175,16 +195,14 @@ class UserController extends Controller
         
         // Retrieve transfer history records for the authenticated user
         $transferhistory = DB::table('transferhistory')
-        ->join('users', 'users.id', '=', 'transferhistory.user_id')
-        ->join('accounts', 'accounts.user_id', '=', 'users.id')
-        ->select('transferhistory.*', 'users.*', 'accounts.balance', 'accounts.id as account_id')
-        ->where('transferhistory.user_id', $userId)
-        ->get();
-    
-
+            ->join('users', 'users.id', '=', 'transferhistory.user_id')
+            ->join('accounts', 'accounts.user_id', '=', 'users.id')
+            ->select('transferhistory.*', 'users.*', 'accounts.balance', 'accounts.id as account_id', 'transferhistory.id as transfer_id') // Alias the transferhistory.id column as transfer_id
+            ->where('transferhistory.user_id', $userId)
+            ->get();
 
         $user = auth()->user();
-        return view('user.sidebar.transaction', compact('user', 'activeNavItem', 'roleName', 'formattedBalance','transferhistory'));
+        return view('user.sidebar.transaction', compact('user', 'activeNavItem', 'roleName', 'formattedBalance', 'transferhistory'));
     }
 
     public function transferForm(){
@@ -211,47 +229,53 @@ class UserController extends Controller
                 // Retrieve sender's account
                 $senderAccount = auth()->user()->accounts()->first();
 
-        // Check if sender's account exists
-        if ($senderAccount) {
-            // Check if sender has sufficient balance
-            if ($senderAccount->balance < $request->amount) {
-                return back()->with('error', 'Insufficient balance to transfer.');
-            }
+                // Check if sender's account exists
+                if ($senderAccount) {
+                    // Check if sender has sufficient balance
+                    if ($senderAccount->balance < $request->amount) {
+                        return back()->with('error', 'Insufficient balance to transfer.');
+                    }
 
-            // Retrieve recipient's account
-            $recipientAccount = Account::findOrFail($request->id);
+                    // Retrieve recipient's account
+                    $recipientAccount = Account::findOrFail($request->id);
 
-            // Check if recipient's account ID is the same as sender's account ID
-            if ($recipientAccount->id === $senderAccount->id) {
-                return back()->with('error', 'You cannot transfer money to your own account.');
-            }
+                    // Check if recipient's account ID is the same as sender's account ID
+                    if ($recipientAccount->user_id === $senderAccount->user_id) {
+                        return back()->with('error', 'You cannot transfer money to your own account.');
+                    }
 
-            // Perform balance deduction from sender's account
-            $senderAccount->balance -= $request->amount;
+                    // Perform balance deduction from sender's account
+                    $senderAccount->balance -= $request->amount;
 
-            // Create a new transfer history record
-            $transferHistory = new TransferHistory();
-            $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
-            $transferHistory->sender_id = $senderAccount->id;
-            $transferHistory->recipient_id = $recipientAccount->id;
-            $transferHistory->amount = $request->amount;
-            $transferHistory->role = '0'; // Assign a default role value
-            $transferHistory->save();
+                    // Retrieve sender's details directly from the authenticated user
+                    $sender = auth()->user();
 
-            // Perform balance addition to recipient's account
-            $recipientAccount->balance += $request->amount;
+                    // Create a new transfer history record
+                    $transferHistory = new TransferHistory();
+                    $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
+                    $transferHistory->firstname = $sender->firstname; // Assuming 'firstname' is the field name in the User model
+                    $transferHistory->lastname = $sender->lastname; // Assuming 'lastname' is the field name in the User model
+                    $transferHistory->sender_id = $senderAccount->id;
+                    $transferHistory->recipient_id = $recipientAccount->id;
+                    $transferHistory->amount = $request->amount;
+                    $transferHistory->type = 'success'; // Assign a default role value
+                    $transferHistory->save();
+                    
 
-            // Save changes to sender's and recipient's accounts
-            $senderAccount->save();
-            $recipientAccount->save();
+                    // Perform balance addition to recipient's account
+                    $recipientAccount->balance += $request->amount;
 
-            // Return response
-            return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
-        } else {
-            dd($senderAccount);
-            
-            return back()->with('error', 'Sender account not found.');
-        }
+                    // Save changes to sender's and recipient's accounts
+                    $senderAccount->save();
+                    $recipientAccount->save();
+
+                    // Return response
+                    event(new TransferEvent($transferHistory));
+                    return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
+                } else {
+                    return back()->with('error', 'Sender account not found.');
+                }
+
 
         // // Validation
         // $request->validate([
@@ -355,7 +379,7 @@ class UserController extends Controller
         // return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
 
     }
-    
+
     public function Wallet()
     {
         $activeNavItem = 'wallet';
@@ -372,9 +396,9 @@ class UserController extends Controller
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
 
-        $invest = InvestmentRequest::where('user_id', auth()->id())
-        ->where('status', '<>', 10)
-        ->count();
+        // $invest = InvestmentRequest::where('user_id', auth()->id())
+        // ->where('status', '<>', 10)
+        // ->count();
 
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id')
@@ -384,24 +408,112 @@ class UserController extends Controller
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
-        $userId = auth()->id();
 
         // Retrieve the currently authenticated user
         $user = auth()->user();
 
-        // Assuming the primary key of the users table is `id`, you can retrieve the user's ID
-        $id = $user->id;
+        $transactions = Transaction::where('user_id', $user->id)->get();
+
 
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
-        $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
-            ->join('users', 'users.id', '=', 'depositrequest.user_id')
-            ->where('users.id', $id) // Filter the deposit requests by the user's ID
-            ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
-            ->get();
+        // $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
+        //     ->join('users', 'users.id', '=', 'depositrequest.user_id')
+        //     ->where('users.id', $id) // Filter the deposit requests by the user's ID
+        //     ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
+        //     ->get();
 
-        $payouts = Payouts::count();
+        // $payouts = Payouts::count();
 
-        return view('user.sidebar.wallet', compact('user','activeNavItem', 'depositrequest', 'formattedBalance', 'roleName','invest','payouts'));
+        // return view('user.sidebar.wallet', compact('user','activeNavItem', 'depositrequest', 'formattedBalance', 'roleName','invest','payouts'));
+        return view('user.sidebar.wallet', compact('user','activeNavItem', 'formattedBalance', 'roleName','transactions'));
+    }
+
+    public function paypal()
+    {
+        $user = auth()->user();
+        $userRole = Role::find($user->role);
+
+        if ($userRole) {
+            $roleName = $userRole->name;
+        } else {
+            // Handle the case where the role is not found
+            $roleName = 'Investor';
+        }
+
+        $user = auth()->user(); // Assuming you're fetching the authenticated user
+        $id = $user->id; // Assuming the primary key of the users table is `id`
+
+        $account = DB::table('accounts')
+            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
+            ->where('accounts.user_id', $id)
+            ->value('accounts.balance');
+
+
+        $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
+
+        return view('user.deposit.paypal', compact('user', 'formattedBalance', 'roleName'));
+    }
+
+    public function deposit(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'amount' => 'required|numeric|min:0.01|max:10000', // Adjust the validation rules as needed
+        ]);
+    
+        // Process the deposit
+        try {
+
+            // Retrieve the authenticated user
+            $user = Auth::user();
+
+            // Check if the user has an associated account
+            if ($user->user_id) {
+                // If an account exists, get the user_id and update the balance
+                $user_id = $user->user_id;
+                $account = Account::where('user_id', $user_id)->first(); // Retrieve the account record
+                if ($account) {
+                    $account->balance += $validatedData['amount'];
+                    $account->save();
+                } else {
+                    // Log an error if no account is found for the user
+                    \Log::error('Attempt to deposit to a non-existent account for user: ' . $user_id);
+                    // Return a response or redirect the user with an error message
+                    return redirect()->back()->with('error', 'Failed to deposit. No account found.');
+                }
+            } else {
+                // Log an error if the user does not have a user_id
+                \Log::error('User does not have a user_id: ' . $user->id);
+                // Return a response or redirect the user with an error message
+                return redirect()->back()->with('error', 'Failed to deposit. User does not have a user_id.');
+            }
+
+            // Create a deposit transaction record
+            Transaction::create([
+                'user_id' => $user->id,
+                'firstname' => $user->firstname,
+                'lastname' => $user->lastname,
+                'amount' => $validatedData['amount'],
+                'type' => 'Deposit',
+                // Add any other relevant fields to the transaction record
+            ]);
+
+            // Commit the transaction
+            \DB::commit();
+
+            // Redirect back with a success message
+            return redirect()->route('wallet')->with('success', 'Deposit successful.');
+
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an error
+            \DB::rollBack();
+    
+            // Log the error for debugging
+            \Log::error('Deposit failed: ' . $e->getMessage());
+            dd($validatedData);
+            // Redirect back with an error message
+            return Redirect::back()->with('error', 'An error occurred while processing your deposit. Please try again later.');
+        }
     }
 
     public function showContact()
@@ -437,54 +549,28 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Email Successfully Send!');
     }
 
-    public function Deposit(Request $request)
-    {
-        $request->validate([
-            'amount' => 'required|numeric',
-        ]);
+    // public function Depositt(Request $request)
+    // {
+    //     $request->validate([
+    //         'amount' => 'required|numeric',
+    //     ]);
         
-        $user = auth()->user();
-        $amount = $request->amount;
+    //     $user = auth()->user();
+    //     $amount = $request->amount;
         
-        // Create a new deposit request
-        $depositRequest = new depositrequest();
-        $depositRequest->user_id = $user->id;
-        $depositRequest->amount = $amount;
-        $depositRequest->status = '3'; // Initial status is pending
-        // dd($depositRequest);
-        $depositRequest->save();
+    //     // Create a new deposit request
+    //     $depositRequest = new depositrequest();
+    //     $depositRequest->user_id = $user->id;
+    //     $depositRequest->amount = $amount;
+    //     $depositRequest->status = '3'; // Initial status is pending
+    //     // dd($depositRequest);
+    //     $depositRequest->save();
         
-        // Log the deposit request or notify admin for approval
+    //     // Log the deposit request or notify admin for approval
         
-        // Redirect back to the wallet page with a success message
-        return redirect()->route('wallet')->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
-    }
-
-    public function paywithPaypal()
-    {
-        $user = auth()->user();
-        $userRole = Role::find($user->role);
-
-        if ($userRole) {
-            $roleName = $userRole->name;
-        } else {
-            // Handle the case where the role is not found
-            $roleName = 'Investor';
-        }
-
-        $user = auth()->user(); // Assuming you're fetching the authenticated user
-        $id = $user->id; // Assuming the primary key of the users table is `id`
-
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
-            ->where('accounts.user_id', $id)
-            ->value('accounts.balance');
-
-
-        $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
-
-        return view('user.deposit.paypal', compact('user', 'formattedBalance', 'roleName'));
-    }
+    //     // Redirect back to the wallet page with a success message
+    //     return redirect()->route('wallet')->with('success', 'Deposit request submitted successfully. It will be processed after approval.');
+    // }
 
     public function Investment()
     {
@@ -501,13 +587,11 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $invest = investmentrequest::join('investment_statuses', 'investment_statuses.id', '=', 'investmentrequest.status')
-            ->join('users', 'users.id', '=', 'investmentrequest.user_id')
-            ->where('investmentrequest.user_id', $user->id)
-            ->select('investmentrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
-            ->get();        
-
-        return view('user.sidebar.investment', compact('invest','activeNavItem', 'user', 'roleName'));
+        // Retrieve investments associated with the authenticated user
+        $invest = Investments::where('user_id', $user->id)->get();
+        
+        return view('user.sidebar.investment', compact('invest', 'activeNavItem', 'user', 'roleName'));
+        
     }
     public function invest()
     {
@@ -540,50 +624,33 @@ class UserController extends Controller
             return back()->with('error', 'Insufficient balance. Please deposit funds first.');
         }
         
-        // Create a new Investment request
-        $investRequest = new investmentrequest();
-        $investRequest->user_id = $user->id;
-        $investRequest->amount = $request->amount;
-        $investRequest->status = '3'; // Initial status is pending
+        // Calculate tax amount (assuming tax_rate is a fixed percentage)
+        $taxRate = 0.05; // Example tax rate of 5%
+        $taxAmount = $request->amount * $taxRate;
         
-        // Save the Investment request
-        $investRequest->save();
+        // Calculate total amount including tax
+        $totalAmount = $request->amount + $taxAmount;
+        
+        // Create the investment request
+        $investment = new Investments();
+        $investment->user_id = $user->id;
+        $investment->firstname = $user->firstname;
+        $investment->lastname = $user->lastname;
+        $investment->amount = $totalAmount; // Save total amount including tax
+        $investment->tax_amount = $taxAmount; // Save tax amount separately
+        $investment->investment_date = $request->investment_date;
+        $investment->type = 'Investment'; // Assuming type is passed in the request
+        $investment->save();
         
         // Update the user's account balance
-        $account->balance -= $request->amount;
+        $account->balance -= $totalAmount; // Deduct total amount including tax
         $account->save();
         
         // Redirect back with a success message
-        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');        
-
-        // Validate the form data
-        // try {
-        //     $user = auth()->user();
-
-        //     // Validate the request data
-        //     $request->validate([
-        //         'amount' => 'required|numeric|min:0|max:10000000',
-        //         'investment_date' => 'required|date',
-        //     ]);
-            
-        //     // Create a new deposit request
-        //     $investmentRequest = new investmentrequest();
-        //     $investmentRequest->user_id = $user->id;
-        //     $investmentRequest->amount = $request->amount; // Assign the amount from the request
-        //     $investmentRequest->status = '3'; // Initial status is pending
-        //     $investmentRequest->save();
-            
-        //     // Redirect to the investment route with success message
-        //     return redirect()->route('invest')->with('success', 'Investment created successfully.');
-        // } catch (\Exception $e) {
-        //     // Log the error
-        //     \Log::error('Error creating investment: ' . $e->getMessage());
-
-        //     // Redirect back with error message
-        //     return redirect()->back()->with('error', 'Failed to create investment. Please try again.');
-        // }
-
+        return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');
+             
     }
+    
 
     public function Investmentcancel(Request $request, $id)
     {
@@ -639,7 +706,7 @@ class UserController extends Controller
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
-        return view('user.sidebar.withdrawal', compact('user','activeNavItem', 'roleName', 'formattedBalance','payouts'));
+        return view('user.sidebar.withdrawal', compact('user','activeNavItem','payouts', 'roleName', 'formattedBalance'));
     }
 
     public function payoutGateways(){
@@ -656,7 +723,7 @@ class UserController extends Controller
         return view('user.deposit.payoutgate', compact('user', 'roleName'));
     }
     
-    public function paypal(){
+    public function payout(){
         $user = auth()->user();
         $userRole = Role::find($user->role);
 
@@ -667,7 +734,6 @@ class UserController extends Controller
             $roleName = 'Investor';
         }
 
-      
         return view('user.deposit.paypalpayouts', compact('user', 'roleName'));
     }
 
@@ -704,9 +770,7 @@ class UserController extends Controller
         $payout->lastname = $user->lastname;
         $payout->email = $user->email;
         $payout->amount = $request->amount;
-
-        // Assuming `status_id` in the `payouts` table corresponds to the user's role
-        $payout->status_id = $user->role;
+        $payout->status = 'success';
         // dd($payout);
         $payout->save();
         return redirect()->route('withdrawals')->with('success', 'Payout successful.');
@@ -714,75 +778,84 @@ class UserController extends Controller
     
     public function updateProfile(Request $request)
     {
-        // return dd($request->all());
-        $user = auth()->user();
 
+        // Retrieve the authenticated user
+        $user = Auth::user();
+        
         // Validate the request
         $request->validate([
             'firstname' => 'required|string|min:2',
             'lastname' => 'required|string|min:2',
-            'email' => 'required|string|email|max:100|unique:users,email,' . $user->id,
-            // Other validation rules for password and role if necessary
+            'email' => 'required|string|email|max:100|unique:users,email,' . ($user ? $user->id : 'NULL'),
+            'age' => 'required|integer|min:18',
+            'birthdate' => 'required|date', // Adjust the validation rule for birthday as needed
+        ]);
+        
+        // Update the authenticated user's profile if $user is defined
+        if ($user) {
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->email = $request->email;
+            $user->age = $request->age;
+            $user->birthdate = $request->birthdate;
+            $user->save();
+        
+            return back()->with('success', 'Information has been updated successfully.');
+        } else {
+            // Handle the case where the user is not authenticated
+            return redirect()->route('login')->with('error', 'User not authenticated.');
+        }
+        
+    }
+
+    public function updatePassword(Request $request)
+    {
+                // $request->validate([
+            //     'current_password' => 'required|min:6|max:100',
+            //     'new_password' => 'required|min:6|max:100',
+            //     'new_password_confirmation' => 'required|same:new_password',
+            // ]);
+
+            // $current_user = auth()->user();
+
+            // if (Hash::check($request->current_password, $current_user->password)) {
+            //     $current_user->update([
+            //         'password' => bcrypt($request->new_password)
+            //     ]);
+            //     return redirect()->back()->with('success', 'Password successfully updated.');
+            // } else {
+            //     return redirect()->back()->with('error', 'Current password is incorrect.');
+            // }
+
+        // Validate the form data
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
         ]);
 
-        // Update the authenticated user's profile
+        // Get the current user
         $user = auth()->user();
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->email = $request->email;
-        $user->save();
 
-        return back()->with('success', 'Information has been updated successfully.');
-    }
+        // Check if the user's password was set automatically
+        if ($user->password === bcrypt('12345dummy')) {
+            // Password was set automatically, no need to verify current password
+            $user->password = bcrypt($request->new_password);
+            $user->save();
+            
+            return redirect()->back()->with('success', 'Password updated successfully!');
+        }
 
-        public function updatePassword(Request $request)
-{
-            // $request->validate([
-        //     'current_password' => 'required|min:6|max:100',
-        //     'new_password' => 'required|min:6|max:100',
-        //     'new_password_confirmation' => 'required|same:new_password',
-        // ]);
+        // Verify the current password
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->with('error', 'The current password is incorrect.');
+        }
 
-        // $current_user = auth()->user();
-
-        // if (Hash::check($request->current_password, $current_user->password)) {
-        //     $current_user->update([
-        //         'password' => bcrypt($request->new_password)
-        //     ]);
-        //     return redirect()->back()->with('success', 'Password successfully updated.');
-        // } else {
-        //     return redirect()->back()->with('error', 'Current password is incorrect.');
-        // }
-
-    // Validate the form data
-    $request->validate([
-        'current_password' => 'required',
-        'new_password' => 'required|min:8|confirmed',
-    ]);
-
-    // Get the current user
-    $user = auth()->user();
-
-    // Check if the user's password was set automatically
-    if ($user->password === bcrypt('12345dummy')) {
-        // Password was set automatically, no need to verify current password
+        // Update the password
         $user->password = bcrypt($request->new_password);
         $user->save();
-        
+
         return redirect()->back()->with('success', 'Password updated successfully!');
     }
-
-    // Verify the current password
-    if (!Hash::check($request->current_password, $user->password)) {
-        return redirect()->back()->with('error', 'The current password is incorrect.');
-    }
-
-    // Update the password
-    $user->password = bcrypt($request->new_password);
-    $user->save();
-
-    return redirect()->back()->with('success', 'Password updated successfully!');
-}
 
     public function createUsers(Request $request)
     {
@@ -804,5 +877,9 @@ class UserController extends Controller
         $user->save();
 
         return back()->with('success', 'Created Account has been successfull.');
+    }
+
+    public function maintenance(){
+        return view('layout/maintenance');
     }
 }

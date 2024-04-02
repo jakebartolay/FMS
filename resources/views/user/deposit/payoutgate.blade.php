@@ -85,7 +85,7 @@
                 <!-- Right side columns -->
                 <div class="col-lg-12 col-12" id="deposit">
                     <!-- Website Traffic -->
-                    <div class="card">
+ 
                         <div class="card-body">
                             <h5 class="card-title">Payouts Gateways</h5>
                             <div class="row gy-4">
@@ -104,7 +104,7 @@
                                                             payment
                                                             gateway</span>
                                                     </div>
-                                                    <a href="{{ route('paypal') }}" class="btn btn-primary">Payout
+                                                    <a href="{{ route('payout.paypal') }}" class="btn btn-primary">Payout
                                                         Paypal</a>
                                                 </div>
                                             </div>
@@ -121,7 +121,7 @@
                                                             payment
                                                             gateway</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Pay with
+                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Pay with
                                                         Gcash</a>
                                                 </div>
                                             </div>
@@ -138,7 +138,7 @@
                                                             payment
                                                             gateway</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Pay with
+                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Pay with
                                                         Paymaya</a>
                                                 </div>
                                             </div>
@@ -155,7 +155,7 @@
                                                             payment
                                                             gateway</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Pay with HM</a>
+                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Pay with HM</a>
                                                 </div>
                                             </div>
                                         </div>

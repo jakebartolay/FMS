@@ -18,10 +18,15 @@ class CheckProfileCompletion
     {
         $user = $request->user();
 
-        if (!$user || !$user->firstname || !$user->lastname) {
-            return redirect()->route('profile.edit')->with('error', 'Please complete your profile');
+        if (!$user ||
+            !$user->firstname ||
+            !$user->lastname ||
+            !$user->age ||
+            !$user->birthdate ||
+            !$user->status) {
+                return redirect()->route('profile.edit')->with('error', 'Please complete your profile');
         }
-
+        
         return $next($request);
     }
 }

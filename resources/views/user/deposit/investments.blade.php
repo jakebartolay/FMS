@@ -89,7 +89,7 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <div class="row">
+            <div class="row justify-content-center">
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
@@ -98,7 +98,7 @@
                     </div><!-- End Right side columns -->
                 </div>
                 <!-- Right side columns -->
-                <div class="col-lg-12 col-12" id="invest">
+                <div class="col-lg-6 col-12 " id="invest">
                     <!-- Website Traffic -->
                     <div class="card">
                         <div class="card-body">

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\VendorController;
+use App\Http\Controllers\Api\InvestmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('vendor', [VendorController::class, 'index']);
 Route::post('vendor', [VendorController::class, 'store']);
+
+Route::get('investor', [InvestmentController::class, 'index']);

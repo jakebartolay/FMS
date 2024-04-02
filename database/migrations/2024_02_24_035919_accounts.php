@@ -12,11 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_id')->nullable();
-            $table->decimal('balance', 10, 2)->change();
+            $table->uuid('id')->primary(); // Define 'id' column as UUID and primary key
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('balance', 12, 2)->default(0);
+            $table->enum('status', ['Active', 'Inactive', 'Pending', 'Completed', 'Cancelled', 'Suspended', 'Failed', 'Refunded', 'Approve', 'Cancel', 'Delete'])->default('Active');
             $table->timestamps();
-        });
+        });        
+        
     }
 
     /**

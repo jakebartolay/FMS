@@ -14,6 +14,8 @@
       <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
         <h2>503 (Service unavailable) </h2>
         <h6>The server is currently unavailable (down for maintenance). Generally, this is a temporary</h2>
+          <br>
+          <a href="{{ url()->previous() }}" class="btn btn-primary btn-outline-primary">Go Back</a>
       </section>
 
     </div>

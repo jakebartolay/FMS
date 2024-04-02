@@ -1,3 +1,4 @@
+
   <!-- Vendor JS Files -->
   <script src="../assets/vendor/apexcharts/apexcharts.min.js" type="text/javascript"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
@@ -50,19 +51,6 @@
       </script>
   @endif
   <!-- 12345678910 -->
-  <!-- @if (Session::has('warning'))
-<script>
-    toastr.options = {
-        "progressBar": true,
-        "closeButton": true,
-    }
-    toastr.warning("{{ Session::get('warning') }}", 'Warning!', {
-        timeout: 12000
-    });
-</script>
-@endif -->
-
-
   <script>
       new DataTable('#example', {
           layout: {

@@ -62,7 +62,7 @@
                                                 <th>Amount</th>
                                                 <th>Date</th>
                                                 <th>Status</th>
-                                                {{-- <th>Actions</th> --}}
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -73,46 +73,46 @@
                                                     <td>{{ number_format($row->amount, 2) }}</td>
                                                     <td>{{ $row->created_at->format('m-d-y') }}</td>
                                                     <td>
-                                                        @if ($row->status_name == 'Active')
+                                                        @if ($row->status == 'Active')
                                                             <span
-                                                                class="badge bg-success">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Inactive')
+                                                                class="badge bg-success">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Inactive')
                                                             <span
-                                                                class="badge bg-danger">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Pending')
+                                                                class="badge bg-danger">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Pending')
                                                             <span
-                                                                class="badge bg-warning text-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Completed')
+                                                                class="badge bg-warning text-dark">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Completed')
                                                             <span
-                                                                class="badge bg-primary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Cancelled')
+                                                                class="badge bg-primary">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Cancelled')
                                                             <span
-                                                                class="badge bg-secondary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Suspended')
-                                                            <span class="badge bg-info">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Failed')
-                                                            <span class="badge bg-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Refunded')
+                                                                class="badge bg-secondary">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Suspended')
+                                                            <span class="badge bg-info">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Failed')
+                                                            <span class="badge bg-dark">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Refunded')
                                                             <span
-                                                                class="badge bg-light text-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Approve')
+                                                                class="badge bg-light text-dark">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Approve')
                                                             <span
-                                                                class="badge bg-primary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Cancel')
+                                                                class="badge bg-primary">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Cancel')
                                                             <span
-                                                                class="badge bg-warning text-black">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Delete')
+                                                                class="badge bg-warning text-black">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Delete')
                                                             <span
-                                                                class="badge bg-danger text-white">{{ $row->status_name }}</span>
+                                                                class="badge bg-danger text-white">{{ $row->status }}</span>
                                                         @endif
 
                                                     </td>
-                                                    {{-- <td>
+                                                    <td>
                                                         <button type="button" class="btn btn-warning btn-sm mr-3"
                                                             title="Cancel" data-bs-toggle="modal"
                                                             data-bs-target="#investmentcancel"><i
                                                                 class="bi bi-pencil-square"></i></button>
-                                                    </td> --}}
+                                                    </td> 
                                                 </tr>
                                             @endforeach
                                         </tbody>

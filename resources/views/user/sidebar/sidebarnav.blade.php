@@ -49,3 +49,4 @@
         </ul>
 
     </aside>
+    <x-notify::notify />
