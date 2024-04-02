@@ -115,8 +115,11 @@ class AuthController extends Controller
         $user->profile_path_picture = 'https://ui-avatars.com/api/?name=' . urlencode($user->firstname . ' ' . $user->lastname); // Set profile picture URL
         $user->save();
 
-        // Retrieve the ID of the newly created user
-        $userId = $user->id;
+        // Set the user_id attribute to the user's ID
+        $user->user_id = $user->id;
+
+        // Save the user again to update the user_id attribute
+        $user->save();
 
 
         // Retrieve the ID of the newly created user

@@ -238,7 +238,7 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">McDonals</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Invest</a>
+                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Invest</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,7 +252,7 @@
                                                     <div class="my-3">
                                                         <span class="fs-6 text-muted py-5">Samsung</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Invest</a>
+                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Invest</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -266,7 +266,7 @@
                                                     <div class=" my-3">
                                                         <span class="fs-6 text-muted py-5">Toyota</span>
                                                     </div>
-                                                    <a href="#" class="btn btn-primary">Invest</a>
+                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Invest</a>
                                                 </div>
                                             </div>
 
