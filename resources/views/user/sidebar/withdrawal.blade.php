@@ -17,7 +17,6 @@
     <!-- End Sidebar-->
 
     <main id="main" class="main">
-
         <div class="pagetitle">
             <div class="row">
                 <div class="d-flex justify-content-between">
@@ -54,21 +53,38 @@
                             <div class="card-title">
                                 <h5>Withdrawal History</h5>
                             </div>
-                            <table class="table datatable">
+                            <table class="table datatable" style="width: 100%">
                                 <thead>
                                     <th>ID</th>
                                     <th>Name</th>
                                     {{-- <th>Email</th> --}}
                                     <th>Amount</th>
                                     <th>Date</th>
-                                    <th>File</th>
+                                    <th>Action</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($payouts as $data)
                                         <tr>
                                             <td>{{ $data->id }}</td>
-                                            <td>{{ $data->firstname }} {{ $data->lastname }}</td>
-                                            {{-- <td>{{ $data->email }}</td> --}}
+                                            <?php
+                                            $firstname = $data->firstname;
+                                            $lastname = $data->lastname;
+                                            
+                                            // Get the first character of the first name
+                                            $firstCharFirstName = substr($firstname, 0, 1);
+                                            
+                                            // Replace all characters of the first name except the first character with '*'
+                                            $asteriskFirstName = $firstCharFirstName . str_repeat('*', strlen($firstname) - 1);
+                                            
+                                            // Get the first character of the last name
+                                            $firstCharLastName = substr($lastname, 0, 1);
+                                            
+                                            // Replace all characters of the last name except the first character with '*'
+                                            $asteriskLastName = $firstCharLastName . str_repeat('*', strlen($lastname) - 1);
+                                            ?>
+                                            
+                                            <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>      
+                                            {{-- {{-- <td>{{ $data->email }}</td>  --}}
                                             <td>{{ $data->amount }}</td>
                                             <td>{{ $data->created_at->format('Y-m-d') }}</td>
                                             <td>

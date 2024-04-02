@@ -5,6 +5,36 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+  const element = document.body;
+  element.classList.toggle("dark-mode");
+}
+
+// Example: Toggle dark mode when a button is clicked
+document.getElementById("dark-mode-toggle").addEventListener("click", function() {
+  toggleDarkMode();
+});
+
+// Function to set dark mode preference in localStorage
+function setDarkModePreference(isDarkMode) {
+  localStorage.setItem("darkMode", isDarkMode);
+}
+
+// Function to load dark mode preference from localStorage
+function loadDarkModePreference() {
+  return localStorage.getItem("darkMode") === "true";
+}
+
+// Apply dark mode on page load if user preference is set
+window.onload = function() {
+  const isDarkMode = loadDarkModePreference();
+  if (isDarkMode) {
+      toggleDarkMode();
+  }
+};
+
 (function() {
   "use strict";
 

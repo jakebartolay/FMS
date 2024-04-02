@@ -177,12 +177,12 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->name }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>{{ $user->name }}</h6>
                             <span>Administration</span>
                         </li>
                         <li>
@@ -291,90 +291,6 @@
                         <div class="pagetitle">
                             <nav>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active">Vendor Management</li>
-                                </ol>
-                            </nav>
-                        </div><!-- End Page Title -->
-
-                        <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-4 col-6">
-                            <div class="card info-card sales-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Vendor Account</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-fill-check"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $account1 }}</h6>
-                                            {{-- <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">increase</span> --}}
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Vendor Card -->
-
-                        <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-4 col-6">
-
-                            <div class="card info-card customers-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Inactive Vendor</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-fill-dash"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $inactive }}</h6>{{-- {{ $account3 }} --}}
-                                            {{-- <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                                class="text-muted small pt-2 ps-1">decrease</span> --}}
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div><!-- End Vendor Card -->
-
-                        <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-4 col-12">
-
-                            <div class="card info-card customers-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Disable Vendor</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-fill-dash"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $disable }}</h6>{{-- {{ $account3 }} --}}
-                                            {{-- <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                                                        class="text-muted small pt-2 ps-1">decrease</span> --}}
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div><!-- End Vendor Card -->
-
-                        <div class="pagetitle">
-                            <nav>
-                                <ol class="breadcrumb">
                                     <li class="breadcrumb-item active">Investment Management</li>
                                 </ol>
                             </nav>
@@ -393,7 +309,7 @@
                                             <i class="bi bi-person-fill-check"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $account2 }}</h6>
+                                            <h6>{{ $userCount }}</h6>
                                             {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                 class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
@@ -471,7 +387,7 @@
                         <div class="pagetitle">
                             <nav>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active">Vendor Management</li>
+                                    <li class="breadcrumb-item active">Investment Management</li>
                                 </ol>
                             </nav>
                         </div><!-- End Page Title -->
@@ -564,100 +480,6 @@
                         </div><!-- End Reports -->
 
 
-                        <div class="pagetitle">
-                            <nav>
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active">Investment Management</li>
-                                </ol>
-                            </nav>
-                        </div><!-- End Page Title -->
-
-                        <!-- Reports -->
-                        <div class="col-12">
-                            <div class="card">
-
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                                    <!-- Line Chart -->
-                                    <div id="reportsChart2"></div>
-
-                                    <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#reportsChart2"), {
-                                                series: [{
-                                                    name: 'Sales',
-                                                    data: [31, 40, 28, 51, 42, 82, 56],
-                                                }, {
-                                                    name: 'Revenue',
-                                                    data: [11, 32, 45, 32, 34, 52, 41]
-                                                }, {
-                                                    name: 'Customers',
-                                                    data: [15, 11, 32, 18, 9, 24, 11]
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'area',
-                                                    toolbar: {
-                                                        show: false
-                                                    },
-                                                },
-                                                markers: {
-                                                    size: 4
-                                                },
-                                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                                                fill: {
-                                                    type: "gradient",
-                                                    gradient: {
-                                                        shadeIntensity: 1,
-                                                        opacityFrom: 0.3,
-                                                        opacityTo: 0.4,
-                                                        stops: [0, 90, 100]
-                                                    }
-                                                },
-                                                dataLabels: {
-                                                    enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'smooth',
-                                                    width: 2
-                                                },
-                                                xaxis: {
-                                                    type: 'datetime',
-                                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
-                                                        "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
-                                                        "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
-                                                        "2018-09-19T06:30:00.000Z"
-                                                    ]
-                                                },
-                                                tooltip: {
-                                                    x: {
-                                                        format: 'dd/MM/yy HH:mm'
-                                                    },
-                                                }
-                                            }).render();
-                                        });
-                                    </script>
-                                    <!-- End Line Chart -->
-
-                                </div>
-
-                            </div>
-                        </div><!-- End Reports -->
                     </div>
                 </div><!-- End Left side columns -->
             </div>

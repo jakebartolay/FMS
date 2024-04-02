@@ -18,7 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-    ];
+        'App\Events\TransferEvent' => [
+            'App\Listeners\SendTransferNotification',
+        ],
+    ];    
 
     /**
      * Register any events for your application.
@@ -35,4 +38,5 @@ class EventServiceProvider extends ServiceProvider
     {
         return false;
     }
+    
 }

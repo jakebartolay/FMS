@@ -38,15 +38,15 @@
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                            <img src="assets/img/user.jpg" alt="Profile" class="rounded-circle">
-                            <h2>{{ $user->firstname }}</h2>
+                            <img src="{{ $user->profile_path_picture }}" alt="Profile" class="rounded-circle">
+                            <h2>{{ $user->firstname }} {{ $user->lastname }}</h2>
                             <h3>{{ $roleName }}</h3>
                             <!-- <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div> -->
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div> -->
                         </div>
                     </div>
 
@@ -90,15 +90,23 @@
                                     <h5 class="card-title">Profile Details</h5>
 
                                     <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Status</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            <span class="badge bg-warning">{{ $user->status }}</span>
+                                            </div>
+                                    </div>
+
+                                    <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Account Transfer ID</div>
                                         <div class="col-lg-9 col-md-8">
                                             {{-- @if ($account) --}}
-                                            {{ $account }}
+                                            {{ $accountId }}
                                             {{-- @else
                                                 N/A
                                             @endif --}}
                                         </div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Full Name</div>
@@ -110,6 +118,17 @@
                                         <div class="col-lg-3 col-md-4 label">Email</div>
                                         <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Age:</div>
+                                        <div class="col-lg-9 col-md-8">{{ $user->age }}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Birthday:</div>
+                                        <div class="col-lg-9 col-md-8">{{ $user->birthdate }}</div>
+                                    </div>
+
 
                                     {{-- <div class="row">
                     <div class="col-lg-3 col-md-4 label">Country</div>
@@ -138,7 +157,7 @@
                                             <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                                 Image</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <img src="assets/img/user.jpg" class="rounded-circle" alt="Profile">
+                                                <img src="{{ $user->profile_path_picture }}" class="rounded-circle" alt="Profile">
                                                 <div class="pt-2 mx-4">
                                                     <a href="#" class="btn btn-primary btn-sm"
                                                         title="Upload new profile image"><i
@@ -182,6 +201,30 @@
                                                     id="valid14" value="{{ $user->email }}"required>
                                                 <div class="invalid-feedback">
                                                     Please Enter Email
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="valid14"
+                                                class="col-md-4 col-lg-3 col-form-label">Age</label>
+                                            <div class="col-md-8 col-lg-9 position-relative">
+                                                <input name="age" type="number" class="form-control"
+                                                    id="valid14" value="{{ $user->age }}"required>
+                                                <div class="invalid-feedback">
+                                                    Please input age
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="valid14"
+                                                class="col-md-4 col-lg-3 col-form-label">Birthday</label>
+                                            <div class="col-md-8 col-lg-9 position-relative">
+                                                <input name="birthdate" type="date" class="form-control"
+                                                    id="valid14" value="{{ $user->birthdate }}"required>
+                                                <div class="invalid-feedback">
+                                                    Enter Your birthday
                                                 </div>
                                             </div>
                                         </div>

@@ -77,6 +77,7 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     
     Route::get('/dashboard',[UserController::class,'dashboard']);
     Route::get('/error',[UserController::class,'Error']);
+    Route::get('/maintenance',[UserController::class,'maintenance'])->name('maintenance');
 
     //CHANGE INFORMATION AND PASSWORD
 
@@ -96,22 +97,21 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     Route::get('/payoutgateways', [UserController::class, 'payoutGateways'])->name('payoutGateways');
 
     //PAYOUT
-    Route::get('/payoutpaypal', [UserController::class, 'paypal'])->name('paypal');
+    Route::get('/payoutpaypal', [UserController::class, 'payout'])->name('payout.paypal');
     Route::post('/process-payout', [UserController::class, 'processPayout'])->name('process.payout');
 
     // Route::get('/invest', [UserController::class, 'invest'])->middleware('profile.complete');
     Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
     Route::delete('/investment_requests/{id}', [UserController::class, 'Investmentcancel'])->name('investment_requests.cancel');
-    
-    ///TRANSACTION
-    Route::get('/paywithpaypal',[UserController::class,'paywithPaypal'])->name('paywithpaypal');
-    Route::post('/deposit', [UserController::class, 'Deposit'])->name('deposit');
+   
+    //DEPOSIT
+    Route::get('paypal',[UserController::class,'paypal'])->name('paypal');
+    Route::post('paypal/payment',[UserController::class,'deposit'])->name('payment.paypal');
 });
 
 
-
     //// SIDEBAR //////
-    Route::get('/profile',[UserController::class,'Profile'])->name('/profile');
+    Route::get('/profile',[UserController::class,'Profile'])->name('profile');
     Route::get('/wallet',[UserController::class,'Wallet'])->name('wallet');
     Route::get('/transaction',[UserController::class,'Transaction'])->name('transaction');
     Route::get('/investment',[UserController::class,'Investment'])->name('investment');

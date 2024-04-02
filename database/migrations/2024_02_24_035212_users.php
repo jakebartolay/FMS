@@ -13,14 +13,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->string('email')->nullable();
+            $table->string('google_id')->nullable();
             $table->string('password')->nullable();
             $table->string('role')->nullable();
+            $table->string('profile_path_picture')->nullable();
             $table->string('user_id')->nullable();
+            $table->string('age')->nullable();
+            $table->enum('status', ['Active', 'Inactive', 'Pending', 'Completed', 'Verify', 'Cancelled', 'Suspended', 'Failed', 'Refunded', 'Approve', 'Cancel', 'Delete'])->default('Pending');
+            $table->date('birthdate')->nullable(); // Added birthdate column
             $table->timestamps();
-        });
+        });                    
     }
 
     /**

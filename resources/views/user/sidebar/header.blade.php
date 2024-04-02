@@ -20,7 +20,7 @@
                 </a>
             </li><!-- End Search Icon-->
 
-            {{-- <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
@@ -41,13 +41,13 @@
 
                 </ul><!-- End Notification Dropdown Items -->
 
-            </li><!-- End Notification Nav --> --}}
+            </li><!-- End Notification Nav -->
 
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                     data-bs-toggle="dropdown">
-                    <img src="../assets/img/user.jpg" alt="Profile" class="rounded-circle">
+                    <img src="{{ $user->profile_path_picture }}" alt="Profile" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2">
                         @if ($user->firstname)
                             {{ $user->firstname }}
@@ -64,7 +64,7 @@
                     <li class="dropdown-header">
                         <h6>
                             @if ($user->firstname)
-                                {{ $user->firstname }}
+                                {{ $user->firstname }} {{ $user->lastname }}
                             @elseif($user->lastname)
                                 {{ $user->lastname }}
                             @else
