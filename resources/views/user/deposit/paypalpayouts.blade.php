@@ -72,7 +72,6 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
-        @include('notify::components.notify')
         <div class="pagetitle">
             <div class="row">
                 <div class="d-flex justify-content-between">

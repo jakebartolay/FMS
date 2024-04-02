@@ -70,7 +70,7 @@
                                                 <tr class="text-center">
                                                     <th scope="row">{{ $row->id }}</th>
                                                     <td>{{ $row->firstname }} {{ $row->lastname }}</td>
-                                                    <td>{{ number_format($row->amount, 2) }}</td>
+                                                    <td>${{ number_format($row->amount, 2) }}</td>
                                                     <td>{{ $row->created_at->format('m-d-y') }}</td>
                                                     <td>
                                                         @if ($row->status == 'Active')

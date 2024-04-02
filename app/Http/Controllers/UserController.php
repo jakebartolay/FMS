@@ -494,7 +494,7 @@ class UserController extends Controller
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
                 'amount' => $validatedData['amount'],
-                'type' => 'Deposit',
+                'type' => 'Paypal',
                 // Add any other relevant fields to the transaction record
             ]);
 

@@ -208,7 +208,7 @@
                                                     <tr>
                                                         <th scope="row">{{ $row->user_id }}</th>
                                                         <td>{{ $row->firstname }} {{ $row->lastname }}</td>
-                                                        <td>{{ number_format($row->amount, 2) }}</td>
+                                                        <td>${{ number_format($row->amount, 2) }}</td>
                                                         <td><span class="badge bg-success">{{ $row->type }}</span></td>
                                                         <td>{{ \Carbon\Carbon::parse($row->created_at)->format('F j, Y') }}</td>
                                                     </tr>
