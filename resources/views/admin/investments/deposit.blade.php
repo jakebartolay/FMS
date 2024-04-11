@@ -308,41 +308,57 @@
                                             @foreach ($depositrequest as $row)
                                                 <tr>
                                                     <th scope="row">{{ $row->id }}</th>
-                                                    <td>{{ $row->firstname }} {{ $row->lastname }}</td>
+                                                    <?php
+                                                    $firstname = $row->firstname;
+                                                    $lastname = $row->lastname;
+                                                    
+                                                    // Get the first character of the first name
+                                                    $firstCharFirstName = substr($firstname, 0, 1);
+                                                    
+                                                    // Replace all characters of the first name except the first character with '*'
+                                                    $asteriskFirstName = $firstCharFirstName . str_repeat('*', strlen($firstname) - 1);
+                                                    
+                                                    // Get the first character of the last name
+                                                    $firstCharLastName = substr($lastname, 0, 1);
+                                                    
+                                                    // Replace all characters of the last name except the first character with '*'
+                                                    $asteriskLastName = $firstCharLastName . str_repeat('*', strlen($lastname) - 1);
+                                                    ?>
+                                                    
+                                                    <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>  
                                                     <td>{{ number_format($row->amount, 2) }}</td>
                                                     <td>{{ $row->created_at->format('m-d-Y') }}</td>
                                                     <td>
-                                                        @if ($row->status_name == 'Active')
+                                                        @if ($row->status == 'Active')
                                                             <span
-                                                                class="badge bg-success">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Inactive')
+                                                                class="badge bg-success">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Inactive')
+                                                            <span class="badge bg-danger">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Pending')
                                                             <span
-                                                                class="badge bg-danger">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Pending')
+                                                                class="badge bg-warning text-dark">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Completed')
                                                             <span
-                                                                class="badge bg-warning text-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Completed')
+                                                                class="badge bg-primary">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Cancelled')
                                                             <span
-                                                                class="badge bg-primary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Cancelled')
+                                                                class="badge bg-secondary">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Suspended')
+                                                            <span class="badge bg-info">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Failed')
+                                                            <span class="badge bg-dark">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Refunded')
                                                             <span
-                                                                class="badge bg-secondary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Suspended')
-                                                            <span class="badge bg-info">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Failed')
-                                                            <span class="badge bg-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Refunded')
+                                                                class="badge bg-light text-dark">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Approve')
                                                             <span
-                                                                class="badge bg-light text-dark">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Approve')
+                                                                class="badge bg-primary">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Cancel')
                                                             <span
-                                                                class="badge bg-primary">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Cancel')
+                                                                class="badge bg-warning text-black">{{ $row->status }}</span>
+                                                        @elseif($row->status == 'Delete')
                                                             <span
-                                                                class="badge bg-warning text-black">{{ $row->status_name }}</span>
-                                                        @elseif($row->status_name == 'Delete')
-                                                            <span
-                                                                class="badge bg-danger text-white">{{ $row->status_name }}</span>
+                                                                class="badge bg-danger text-white">{{ $row->status }}</span>
                                                         @endif
                                                     </td>
                                                     <td class="d-flex">

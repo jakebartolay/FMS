@@ -24,7 +24,10 @@ use Illuminate\Support\Facades\Log;
 use App\Events\TransferEvent;
 use App\Models\Payouts;
 use Closure;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use function App\Http\Controllers\generateRandomString;
 
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -105,6 +108,30 @@ class UserController extends Controller
         // 'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
         
         return view('user.dashboard', compact('user','roleName','activeNavItem','chartData','invest','payout','formattedBalance'));
+    }
+
+    public function downloadPdf($id)
+    {
+        $payout = Payouts::findOrFail($id);
+    
+        // Initialize Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
+    
+        // Load HTML content into Dompdf
+        $view = view('user.deposit.receipt', compact('payout'));
+        $html = $view->render();
+        $dompdf->loadHtml($html);
+    
+        // Set paper size and orientation (optional)
+        $dompdf->setPaper('A4', 'portrait');
+    
+        // Render PDF
+        $dompdf->render();
+    
+        // Download PDF
+        return $dompdf->stream('receipt.pdf');
     }
 
     public function Error()
@@ -766,13 +793,14 @@ class UserController extends Controller
         // Record the payout
         $payout = new Payouts();
         $payout->user_id = $user->id;
-        $payout->firstname = $user->firstname; // Assuming these fields are present in the user model
+        $payout->withdrawal_account = mt_rand(1000000000, 9999999999); // Generate a 10-digit random number
+        $payout->firstname = $user->firstname;
         $payout->lastname = $user->lastname;
         $payout->email = $user->email;
         $payout->amount = $request->amount;
         $payout->status = 'success';
-        // dd($payout);
-        $payout->save();
+        $payout->save();        
+        
         return redirect()->route('withdrawals')->with('success', 'Payout successful.');
     }
     

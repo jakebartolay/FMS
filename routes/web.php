@@ -99,6 +99,9 @@ Route::group(['middleware' => ['web', 'isUser']], function () {
     //PAYOUT
     Route::get('/payoutpaypal', [UserController::class, 'payout'])->name('payout.paypal');
     Route::post('/process-payout', [UserController::class, 'processPayout'])->name('process.payout');
+    // Route::get('/payouts/{id}/receipt', [UserController::class, 'showReceipt'])->name('payouts.receipt');
+    Route::get('/payouts/{id}/pdf', [UserController::class, 'downloadPdf'])->name('payouts.pdf');
+
 
     // Route::get('/invest', [UserController::class, 'invest'])->middleware('profile.complete');
     Route::post('/invest/post', [UserController::class, 'InvestmentRequest'])->name('InvestmentRequest.store');
@@ -175,17 +178,17 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
 
 
-    ////// INVESTMENT 
-    Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
-    Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
-    Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
-    Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
+    // ////// INVESTMENT 
+    // Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
+    // Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
+    // Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
+    // Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
-    //// NEW APPROVE INVESTMENT
-    Route::get('/investment-approve/{id}', [AdminController::class, 'InvestmentApprove'])->name('approve.investment');
-    Route::post('/Investmentapprove/{id}', [AdminController::class, 'InvestApprove'])->name('investment_requests.approve');
-    Route::get('/investment-cancel/{id}', [AdminController::class, 'InvestCancel'])->name('cancel.investment');
-    Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
+    // //// NEW APPROVE INVESTMENT
+    // Route::get('/investment-approve/{id}', [AdminController::class, 'InvestmentApprove'])->name('approve.investment');
+    // Route::post('/Investmentapprove/{id}', [AdminController::class, 'InvestApprove'])->name('investment_requests.approve');
+    // Route::get('/investment-cancel/{id}', [AdminController::class, 'InvestCancel'])->name('cancel.investment');
+    // Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
 
 
 

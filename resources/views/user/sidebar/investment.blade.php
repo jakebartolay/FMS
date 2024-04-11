@@ -69,7 +69,24 @@
                                             @foreach ($invest as $row)
                                                 <tr class="text-center">
                                                     <th scope="row">{{ $row->id }}</th>
-                                                    <td>{{ $row->firstname }} {{ $row->lastname }}</td>
+                                                    <?php
+                                                    $firstname = $row->firstname;
+                                                    $lastname = $row->lastname;
+                                                    
+                                                    // Get the first character of the first name
+                                                    $firstCharFirstName = substr($firstname, 0, 1);
+                                                    
+                                                    // Replace all characters of the first name except the first character with '*'
+                                                    $asteriskFirstName = $firstCharFirstName . str_repeat('*', strlen($firstname) - 1);
+                                                    
+                                                    // Get the first character of the last name
+                                                    $firstCharLastName = substr($lastname, 0, 1);
+                                                    
+                                                    // Replace all characters of the last name except the first character with '*'
+                                                    $asteriskLastName = $firstCharLastName . str_repeat('*', strlen($lastname) - 1);
+                                                    ?>
+                                                    
+                                                    <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>  
                                                     <td>${{ number_format($row->amount, 2) }}</td>
                                                     <td>{{ $row->created_at->format('m-d-y') }}</td>
                                                     <td>
