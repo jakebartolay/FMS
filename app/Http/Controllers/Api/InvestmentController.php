@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Investments;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Account;
 
 class InvestmentController extends Controller
 {
@@ -30,12 +31,37 @@ class InvestmentController extends Controller
     }
 
     public function users(){
-        $User = User::all();
-        if($User->count() > 0){
+        // Retrieve all users from the database
+        $users = User::all();
+    
+        // Remove users with IDs 1 or 2
+        $filteredUsers = $users->reject(function ($user) {
+            return $user->id == 1 || $user->id == 2;
+        });
+    
+        if($filteredUsers->count() > 0){
+            // Return a JSON response with the remaining users
+            return response()->json([
+                'status' => 200,
+                'users' => $filteredUsers
+            ], 200);
+        } else {
+            // Return a JSON response with a 404 error if no users are found
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Records Found'
+            ], 404);
+        }
+    }
+
+    
+    public function accounts(){
+        $transaction = Transaction::all();
+        if($transaction->count() > 0){
             
             return response()->json([
                 'status' => 200,
-                'users' => $User
+                'users' => $transaction
             ], 200);
         }else{
 

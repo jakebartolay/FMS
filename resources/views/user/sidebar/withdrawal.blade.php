@@ -88,7 +88,7 @@
                                             <td>${{ $data->amount }}</td>
                                             <td>{{ $data->created_at->format('Y-m-d') }}</td>
                                             <td>
-                                                <a class="btn btn-outline-primary">view</a>
+                                                <a href="{{ route('payouts.pdf', ['id' => $data->id]) }}" class="btn btn-outline-primary" target="_blank">Print Reciept</a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -331,7 +331,7 @@
                                             <i class="bi bi-person-fill-down"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>$0.00</h6>
+                                            <h6>${{ number_format($data, 2, '.', ',') }}</h6>
                                         </div>
                                     </div>
                                 </div>

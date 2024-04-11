@@ -25,6 +25,8 @@ Route::post('vendor', [VendorController::class, 'store']);
 
 Route::get('payments', [InvestmentController::class, 'money']);
 
+Route::get('budget', [InvestmentController::class, 'accounts']);
+
 Route::get('investor', [InvestmentController::class, 'index']);
 
 Route::get('investor/users', [InvestmentController::class, 'users']);

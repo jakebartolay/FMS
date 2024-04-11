@@ -8,6 +8,7 @@ use App\Models\Vendorsuser;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Payouts;
 use App\Models\Investments;
 use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
@@ -20,7 +21,9 @@ class AdminController extends Controller
     //
     public function dashboard()
     {
-        // $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
+        $data = Payouts::whereNotNull('amount')->sum('amount');
+
+
 
         // $inactive = Vendorsuser::where('status', 'Inactive')->count();
 
@@ -46,7 +49,7 @@ class AdminController extends Controller
 
         $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        return view('admin.dashboard', compact('user','userCount', 'roleName','countBalance','investment'));
+        return view('admin.dashboard', compact('user','data','userCount', 'roleName','countBalance','investment'));
     }
     
     public function Deposit()
@@ -56,11 +59,7 @@ class AdminController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
                 
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
-        $depositrequest = depositrequest::join('investment_statuses', 'investment_statuses.id', '=', 'depositrequest.status')
-        ->join('users', 'users.id', '=', 'depositrequest.user_id')
-        ->select('depositrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
-        ->get();
-
+        $depositrequest = Payouts::all();
         return view('admin.investments.deposit', compact('user', 'depositrequest' ));
         
     }
@@ -138,7 +137,6 @@ class AdminController extends Controller
         return redirect()->route('investments.deposit')->with('success', 'Investment request approved successfully.');
 
     }
-    
     
     public function cancelDeposit($id)
     {
@@ -222,7 +220,6 @@ class AdminController extends Controller
         $invest = InvestmentRequest::findOrFail($id);
         return view('admin.investments.approveinvestment', compact('invest','user'));
     }
-
 
     public function InvestApprove(Request $request, $id)
     {
@@ -487,7 +484,6 @@ class AdminController extends Controller
         return view('admin.sidebar.vendormanage', compact('user', 'data', 'vendorUser'));
     }
     
-
     public function vendorList()
     {
         $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
@@ -506,10 +502,7 @@ class AdminController extends Controller
     {
         $user = auth()->user();
 
-        $InvestmentRequest  = InvestmentRequest::join('investment_statuses', 'investment_statuses.id', '=', 'investmentrequest.status')
-        ->join('users', 'users.id', '=', 'investmentrequest.user_id')
-        ->select('investmentrequest.*', 'investment_statuses.name as status_name', 'users.firstname as firstname', 'users.lastname as lastname')
-        ->get();
+        $InvestmentRequest  = Investments::all();
 
         return view('admin.investments.index', compact('user','InvestmentRequest'));
     }
