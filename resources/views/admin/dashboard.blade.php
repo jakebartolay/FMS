@@ -225,7 +225,7 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
+                    {{-- <li>
                         <a href="/admin/vendoradd">
                             <i class="bi bi-circle"></i><span>Vendor Add</span>
                         </a>
@@ -234,7 +234,7 @@
                         <a href="/admin/vendorview">
                             <i class="bi bi-circle"></i><span>Vendor Manage</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/admin/vendorlist">
                             <i class="bi bi-circle"></i><span>Vendor List</span>
@@ -351,7 +351,7 @@
                                             <i class="bi bi-person-lines-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ number_format($investment, 2, '.', ',') }}</h6>
+                                            <h6>${{ number_format($investment, 2, '.', ',') }}</h6>
                                             {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                                         class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
@@ -375,7 +375,7 @@
                                             <i class="bi bi-person-fill-up"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ number_format($countBalance, 2, '.', ',') }}</h6>
+                                            <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -417,60 +417,76 @@
                                     <div id="reportsChart"></div>
 
                                     <script>
-                                        document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#reportsChart"), {
-                                                series: [{
-                                                    name: 'Sales',
-                                                    data: [31, 40, 28, 51, 42, 82, 56],
-                                                }, {
-                                                    name: 'Revenue',
-                                                    data: [11, 32, 45, 32, 34, 52, 41]
-                                                }, {
-                                                    name: 'Customers',
-                                                    data: [15, 11, 32, 18, 9, 24, 11]
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'area',
-                                                    toolbar: {
-                                                        show: false
-                                                    },
-                                                },
-                                                markers: {
-                                                    size: 4
-                                                },
-                                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                                                fill: {
-                                                    type: "gradient",
-                                                    gradient: {
-                                                        shadeIntensity: 1,
-                                                        opacityFrom: 0.3,
-                                                        opacityTo: 0.4,
-                                                        stops: [0, 90, 100]
-                                                    }
-                                                },
-                                                dataLabels: {
-                                                    enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'smooth',
-                                                    width: 2
-                                                },
-                                                xaxis: {
-                                                    type: 'datetime',
-                                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
-                                                        "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
-                                                        "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
-                                                        "2018-09-19T06:30:00.000Z"
-                                                    ]
-                                                },
-                                                tooltip: {
-                                                    x: {
-                                                        format: 'dd/MM/yy HH:mm'
-                                                    },
-                                                }
-                                            }).render();
-                                        });
+document.addEventListener("DOMContentLoaded", () => {
+    fetch('{{ route('fetch.data') }}')
+        .then(response => response.json())
+        .then(data => {
+            // Extract data for each series
+            const investmentData = data.investment.map(item => item.total);
+            const balanceData = data.accounts.map(item => item.total);
+            const payoutsData = data.payouts.map(item => item.total);
+            
+            // Define month labels for all months of the year
+            // 'Jan', 'Feb', 'Mar', 
+            const monthLabels = [
+                'Apr', 'May', 'Jun', 
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            ];
+            
+            new ApexCharts(document.querySelector("#reportsChart"), {
+                series: [{
+                    name: 'Investment',
+                    data: investmentData,
+                }, {
+                    name: 'Account',
+                    data: balanceData,
+                }, {
+                    name: 'Payouts',
+                    data: payoutsData,
+                }],
+                chart: {
+                    height: 350,
+                    type: 'area',
+                    toolbar: {
+                        show: false
+                    },
+                },
+                markers: {
+                    size: 4
+                },
+                colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.3,
+                        opacityTo: 0.4,
+                        stops: [0, 90, 100]
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                xaxis: {
+                    type: 'category', // Use categories as labels
+                    categories: monthLabels, // Use all months of the year
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                }
+            }).render();
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+
                                     </script>
                                     <!-- End Line Chart -->
 

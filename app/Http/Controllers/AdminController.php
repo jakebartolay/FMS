@@ -15,14 +15,14 @@ use App\Models\InvestmentRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
 use Dompdf\Dompdf;
-use DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     //
     public function dashboard()
     {
-        $data = Payouts::whereNotNull('amount')->sum('amount');
 
 
 
@@ -50,8 +50,41 @@ class AdminController extends Controller
 
         $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
+        $data = Payouts::whereNotNull('amount')->sum('amount');
+
         return view('admin.dashboard', compact('user','data','userCount', 'roleName','countBalance','investment'));
     }
+
+    public function fetchData()
+{
+
+
+// Fetch total investment count grouped by month
+$investmentCountsByMonth = Investments::select(DB::raw('MONTH(investment_date) as month'), DB::raw('COUNT(*) as total'))
+    ->whereNotNull('investment_date')
+    ->groupBy(DB::raw('MONTH(investment_date)'))
+    ->get();
+
+// Fetch total account count grouped by month
+$accountCountsByMonth = Account::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
+    ->whereNotNull('created_at')
+    ->groupBy(DB::raw('MONTH(created_at)'))
+    ->get();
+
+// Fetch total payout count grouped by month
+$payoutCountsByMonth = Payouts::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
+    ->whereNotNull('created_at')
+    ->groupBy(DB::raw('MONTH(created_at)'))
+    ->get();
+
+return response()->json([
+    'investment' => $investmentCountsByMonth,
+    'accounts' => $accountCountsByMonth,
+    'payouts' => $payoutCountsByMonth,
+]);
+    
+
+}
     
     public function Deposit()
     {
@@ -471,26 +504,42 @@ class AdminController extends Controller
     }
     
     public function vendorManage(Request $request){
-        // Retrieve all users
-        $vendorUser = Vendorsuser::all();
-    
-        // Retrieve only client and vendor users while excluding admin and super admin users
-        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])
-                           ->get();
-        // dd($data);
-    
+
         // Retrieve the authenticated user
         $user = auth()->user();
     
-        return view('admin.sidebar.vendormanage', compact('user', 'data', 'vendorUser'));
+        return view('admin.sidebar.vendormanage', compact('user'));
     }
     
     public function vendorList()
     {
-        $data = Vendorsuser::whereIn('role_name', ['client', 'vendor'])->get();
-        $user = auth()->user();
-        return view('admin.sidebar.vendorlist', compact('user', 'data'));
+        try {
+            // Make an HTTP GET request to the API endpoint
+            $response = Http::get('https://fms7-apar.fguardians-fms.com/api/vendor');
+    
+            // Check if the request was successful (status code 2xx)
+            if ($response->successful()) {
+                // Decode the JSON response body
+                $data = $response->json();
+    
+                // Extract the vendor data from the response
+                $vendors = $data['vendor'];
+    
+                $user = auth()->user();
+    
+                // Pass the vendor data to the view
+                return view('admin.sidebar.vendorlist', compact('user', 'vendors'));
+            } else {
+                // Handle the case where the request was not successful
+                return response()->json(['error' => 'Failed to retrieve vendor data'], $response->status());
+            }
+        } catch (\Exception $e) {
+            // Handle any exceptions that occur during the request
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+    
+    
 
     public function vendorView()
     {
