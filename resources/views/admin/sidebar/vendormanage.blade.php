@@ -310,7 +310,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $row)
+                                        {{-- @foreach ($data as $row)
                                         <tr>
                                             <td>{{ $row->id }}</td>
                                             <td>{{ $row->name }}</td>
@@ -322,7 +322,7 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>

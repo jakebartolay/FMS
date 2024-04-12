@@ -167,6 +167,9 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     ////// deposit
     Route::get('/print-receipt/{id}', [AdminController::class,'printReceipt'])->name('print.receipt');
 
+    Route::get('/fetch-data', [AdminController::class,'fetchData'])->name('fetch.data');
+
+
   
     ///// NEW APPROVE
     Route::get('/deposit-approve/{id}', [AdminController::class, 'approveDeposit'])->name('approve.deposit');

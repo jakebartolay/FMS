@@ -7,29 +7,29 @@
 </head>
 
 <body>
-        <!-- ======= Header ======= -->
-        <header id="header" class="header fixed-top d-flex align-items-center">
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
 
-            @include('layout.logo')
-            <i class="bi bi-list toggle-sidebar-btn"></i>
-    
-            <div class="search-bar">
-                <form class="search-form d-flex align-items-center" method="POST" action="#">
-                    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-                </form>
-            </div><!-- End Search Bar -->
-    
-            <nav class="header-nav ms-auto">
-                <ul class="d-flex align-items-center">
-    
-                    <li class="nav-item d-block d-lg-none">
-                        <a class="nav-link nav-icon search-bar-toggle " href="#">
-                            <i class="bi bi-search"></i>
-                        </a>
-                    </li><!-- End Search Icon-->
-    
-                    {{-- <li class="nav-item dropdown">
+        @include('layout.logo')
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+
+                {{-- <li class="nav-item dropdown">
     
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
@@ -103,8 +103,8 @@
                         </ul><!-- End Notification Dropdown Items -->
     
                     </li><!-- End Notification Nav --> --}}
-    
-                    {{-- <li class="nav-item dropdown">
+
+                {{-- <li class="nav-item dropdown">
     
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-chat-left-text"></i>
@@ -170,38 +170,38 @@
                         </ul><!-- End Messages Dropdown Items -->
     
                     </li><!-- End Messages Nav --> --}}
-    
-                    <li class="nav-item dropdown pe-3">
-    
-                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                            data-bs-toggle="dropdown">
-                            <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                            <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
-                        </a><!-- End Profile Iamge Icon -->
-    
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                            <li class="dropdown-header">
-                                <h6>{{ $user->firstname }}</h6>
-                                <span>Administration</span>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-    
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="/logout">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    <span>Sign Out</span>
-                                </a>
-                            </li>
-    
-                        </ul><!-- End Profile Dropdown Items -->
-                    </li><!-- End Profile Nav -->
-    
-                </ul>
-            </nav><!-- End Icons Navigation -->
-    
-        </header><!-- End Header -->
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
+                        <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>{{ $user->firstname }}</h6>
+                            <span>Administration</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
@@ -223,7 +223,7 @@
                         class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav1" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-                    <li>
+                    {{-- <li>
                         <a href="/admin/vendoradd">
                             <i class="bi bi-circle"></i><span>Vendor Add</span>
                         </a>
@@ -232,7 +232,7 @@
                         <a href="/admin/vendormanage">
                             <i class="bi bi-circle"></i><span>Vendor Manage</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/admin/vendorlist" class="active">
                             <i class="bi bi-circle"></i><span>Vendor List</span>
@@ -296,54 +296,50 @@
                     {{-- <!-- List Vendor Sales --> --}}
                     <div class="col-xxl-12 col-12">
                         <div class="card">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <h5 class="card-title">Vendor List</h5>
                                 <div class="table-responsive">
-                                    <table id="example" class="table display"  width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Date</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $row)
+                                    <table id="example" class="table display" width="100%">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $row->id }}</td>
-                                                <td>{{ $row->name }}</td>
-                                                <td>{{ $row->email }}</td>
-                                                <td>{{ date('m-d-Y', strtotime($row->join_date)) }}</td>
-                                                <td>{{ $row->role_name }}</td>
-                                                <td>{{ $row->status }}</td>
-                          
-                                                {{-- <td>{{ \Carbon\Carbon::parse($row->contract_start)->format('F d, Y') }}
-                                                </td>
-                                                <td>{{ \Carbon\Carbon::parse($row->contract_end)->format('F d, Y') }}
-                                                </td>
-                                                <td>{{ $row->payment_terms }}</td>
-                                                <td>
-                                                    @if ($row->status == 'Approve')
-                                                        <span class="badge bg-success">{{ $row->status }}</span>
-                                                    @elseif($row->status == 'Decline')
-                                                        <span class="badge bg-danger">{{ $row->status }}</span>
-                                                    @elseif($row->status == 'Waiting')
-                                                        <span class="badge bg-warning">{{ $row->status }}</span>
-                                                    @else
-                                                        <span class="badge bg-secondary">{{ $row->status }}</span>
-                                                    @endif
-                                                </td> --}}
+                                                <th>ID</th>
+                                                <th>Full Name</th>
+                                                <th>Company Name</th>
+                                                <th>Gender</th>
+                                                <th>Contact No</th>
+                                                <th>City</th>
+                                                <th>Region</th>
+                                                <th>Address</th>
+                                                <th>Contract Start</th>
+                                                <th>Contract Due</th>
+                                                <th>Payment Method</th>
+                                                <th>Payment Term</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($vendors as $vendor)
+                                                <tr>
+                                                    <td>{{ $vendor['id'] }}</td>
+                                                    <td>{{ $vendor['full_name'] }}</td>
+                                                    <td>{{ $vendor['company_name'] }}</td>
+                                                    <td>{{ $vendor['gender'] }}</td>
+                                                    <td>{{ $vendor['contact_no'] }}</td>
+                                                    <td>{{ $vendor['city'] }}</td>
+                                                    <td>{{ $vendor['region'] }}</td>
+                                                    <td>{{ $vendor['address'] }}</td>
+                                                    <td>{{ $vendor['contract_start'] }}</td>
+                                                    <td>{{ $vendor['contract_due'] }}</td>
+                                                    <td>{{ $vendor['payment_method'] }}</td>
+                                                    <td>{{ $vendor['payment_term'] }}</td>
+                                                    <!-- Add more table cells for additional information if needed -->
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div><!-- End List Vendor Sales --> 
+                    </div><!-- End List Vendor Sales -->
                 </div>
             </div>
         </section>
