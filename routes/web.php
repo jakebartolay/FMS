@@ -162,9 +162,10 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
     Route::get('/vendorview',[AdminController::class,'vendorView'])->name('view.vendor');
 
-
-
-    ////// APPROVE
+    ////// Investment
+    Route::get('/invest-receipt/{id}', [AdminController::class,'printReceiptInvestment'])->name('receiptinvestment');
+    ////// deposit
+    Route::get('/print-receipt/{id}', [AdminController::class,'printReceipt'])->name('print.receipt');
 
   
     ///// NEW APPROVE
@@ -175,21 +176,10 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
     // Route::post('/approve/{id}', [AdminController::class, 'approve'])->name('requests.approve');  
 
 
-
-
-
     // ////// INVESTMENT 
-    // Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
-    // Route::get('/create', [AdminController::class, 'create'])->name('investments.create');
-    // Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
-    // Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
-
-    // //// NEW APPROVE INVESTMENT
-    // Route::get('/investment-approve/{id}', [AdminController::class, 'InvestmentApprove'])->name('approve.investment');
-    // Route::post('/Investmentapprove/{id}', [AdminController::class, 'InvestApprove'])->name('investment_requests.approve');
-    // Route::get('/investment-cancel/{id}', [AdminController::class, 'InvestCancel'])->name('cancel.investment');
-    // Route::delete('/Investmentcancel/{id}', [AdminController::class, 'Investmentcancel'])->name('investment_requests.cancel');
-
+    Route::get('/investments', [AdminController::class, 'index'])->name('investments.index');
+    Route::post('/investments', [AdminController::class, 'store'])->name('investments.store');
+    Route::get('/deposit', [AdminController::class, 'Deposit'])->name('investments.deposit');
 
 
     ////ADMIN SIDE BAR ROUTE////

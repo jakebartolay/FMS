@@ -14,6 +14,7 @@ use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
+use Dompdf\Dompdf;
 use DB;
 
 class AdminController extends Controller
@@ -505,6 +506,54 @@ class AdminController extends Controller
         $InvestmentRequest  = Investments::all();
 
         return view('admin.investments.index', compact('user','InvestmentRequest'));
+    }
+
+    public function printReceiptInvestment($id)
+    {
+        // Fetch the deposit details by ID
+        $invest = Investments::findOrFail($id);
+    
+        // Load the view for printing
+        $html = view('admin.investments.printinvest', compact('invest'))->render();
+    
+        // Create a new Dompdf instance
+        $dompdf = new Dompdf();
+    
+        // Load HTML content into Dompdf
+        $dompdf->loadHtml($html);
+    
+        // Set paper size and orientation (optional)
+        $dompdf->setPaper('A4', 'portrait');
+    
+        // Render the PDF
+        $dompdf->render();
+    
+        // Output the generated PDF (inline or download)
+        return $dompdf->stream('receipt.pdf');
+    }
+
+    public function printReceipt($id)
+    {
+        // Fetch the deposit details by ID
+        $deposit = Payouts::findOrFail($id);
+    
+        // Load the view for printing
+        $html = view('admin.investments.print', compact('deposit'))->render();
+    
+        // Create a new Dompdf instance
+        $dompdf = new Dompdf();
+    
+        // Load HTML content into Dompdf
+        $dompdf->loadHtml($html);
+    
+        // Set paper size and orientation (optional)
+        $dompdf->setPaper('A4', 'portrait');
+    
+        // Render the PDF
+        $dompdf->render();
+    
+        // Output the generated PDF (inline or download)
+        return $dompdf->stream('receipt.pdf');
     }
 
     public function create()

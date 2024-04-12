@@ -194,27 +194,44 @@
                             <div class="form-group mb-3">
                                 <label for="amount">Amount:</label>
                                 <input id="amount" name="amount" placeholder="ex.100,000"
-                                class="form-control" required maxlength="6">
+                                       class="form-control" required maxlength="6">
                                 @error('amount')
-                                    <span class="invalid-feedback" role="alert">
-                                        {{ $message }}
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </span>
                                 @enderror
                             </div>
-
+                        
                             <div class="form-group mb-3">
                                 <label for="investment_date">Investment Date:</label>
                                 <input type="date" name="investment_date" id="investment_date"
-                                    class="form-control" required>
+                                       class="form-control" required>
                                 @error('investment_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
-
+                        
+                            <div class="form-group mb-3">
+                                <label for="revenue_percentage">Revenue Percentage:</label>
+                                <input type="text" id="revenue_percentage" class="form-control" disabled>
+                            </div>
+                        
                             <button type="submit" class="btn btn-primary">Confirm</button>
                         </form>
+                        
+                        <script>
+                            document.getElementById('amount').addEventListener('input', function() {
+                                var amount = parseFloat(this.value);
+                                if (!isNaN(amount)) {
+                                    var revenuePercentage = (amount * 8) / 100; // Assuming revenue is 8% of the investment amount
+                                    document.getElementById('revenue_percentage').value = revenuePercentage.toFixed(2);
+                                } else {
+                                    document.getElementById('revenue_percentage').value = '';
+                                }
+                            });
+                        </script>                        
                     </div>
                 </div>
             </div>

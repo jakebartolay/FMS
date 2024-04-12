@@ -329,7 +329,7 @@
                                                         <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>  
                                                     <td>{{ number_format($row->amount, 2) }}</td>
                                                     <td>{{ ($row->type) }}</td>
-                                                    <td>{{ $row->created_at->format('m-d-Y') }}</td>
+                                                    <td>{{ $row->created_at->format('F d, Y') }}</td>
                                                     <td>
                                                         @if ($row->status == 'Active')
                                                             <span
@@ -364,12 +364,9 @@
                                                         @endif
                                                     </td>
                                                     <td class="d-flex">
-                                                        <a href="{{ route('approve.investment', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
-                                                            <i class="bi bi-check2"></i>
-                                                        </a>
-                                                        <a href="{{ route('cancel.investment', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
-                                                            title="Cancel"><i
-                                                                class="bi bi-pencil-square"></i></a>
+                                                        <a href="{{ route('receiptinvestment', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Print Receipt">
+                                                            <i class="bi bi-print"></i> Print Receipt
+                                                        </a>                                                        
                                                     </td>
                                                 </tr>
                                             @endforeach
