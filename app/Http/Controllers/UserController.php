@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Events\TransferEvent;
 use App\Models\Payouts;
+use App\Models\Earnings;
 use Closure;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -51,7 +52,6 @@ class UserController extends Controller
             ->orderBy('created_at')
             ->pluck('amount')
             ->toArray();
-            
 
         // // Pass the investment data to the chart configuration
         $chartData = json_encode($investments);
@@ -59,10 +59,6 @@ class UserController extends Controller
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
-        // $invest = InvestmentRequest::where('user_id', auth()->id())
-        // ->whereNotIn('status', [3, 10])
-        // ->count();
-    
 
         $account = DB::table('accounts')
             ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
@@ -73,41 +69,33 @@ class UserController extends Controller
 
         $activityLog = DB::table('activity_logs')->get();
 
-        // $user = auth()->user(); // Assuming you're fetching the authenticated user
-        // $id = $user->id; // Assuming the primary key of the users table is `id`
-        
-        // // Count the number of payouts associated with the authenticated user
-        // $payoutcount = Payouts::where('user_id', $id)->count();
-        
-        // // Sum the amounts of payouts associated with the authenticated user
-        // $payouts = Payouts::where('user_id', $id)->count();
-        
-
-        // ////PAYOUTS
-
-        // $payoutAmounts = Payouts::where('user_id', auth()->id())
-        // ->orderBy('created_at')
-        // ->pluck('amount')
-        // ->toArray();
-    
-        // // Pass the investment data to the chart configuration
-        // $payout = json_encode($payoutAmounts);
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
         
         // Count the number of investments associated with the authenticated user
         $invest = Investments::where('user_id', $id)->count();
         $payout = Payouts::where('user_id', $id)->count();
-        
-        // Now $count contains the total number of investments for the authenticated user
-        
+
+        $formattedBalance = DB::table('earnings')
+        ->where('user_id', $id)
+        ->sum('amount');
+
+        $earnings = number_format($formattedBalance, 2); 
+
+        $withdrawal = Payouts::where('user_id', auth()->id())
+        ->orderBy('created_at')
+        ->pluck('amount')
+        ->toArray();
+
+        // // Pass the investment data to the chart configuration
+        $chartData2 = json_encode($withdrawal);
+
+        $payouts = Payouts::where('user_id', $id)->sum('amount');
+
+        $payout2 = number_format($payouts, 2);
     
-
-
-        // return view('user.dashboard', compact('user', 'activeNavItem' , 'activityLog', 'roleName','payout',
-        // 'formattedBalance', 'invest', 'chartData','payouts','payoutcount'));
         
-        return view('user.dashboard', compact('user','roleName','activeNavItem','chartData','invest','payout','formattedBalance'));
+        return view('user.dashboard', compact('user','payout2','chartData2','earnings','roleName','activeNavItem','chartData','invest','payout','formattedBalance'));
     }
 
     public function downloadPdf($id)
@@ -673,10 +661,20 @@ class UserController extends Controller
         $account->balance -= $totalAmount; // Deduct total amount including tax
         $account->save();
         
+        // Calculate revenue (for example, based on interest rate or investment performance)
+        $revenue = $totalAmount * 0.08; // Assuming a fixed revenue rate of 8%
+        
+        // Create revenue record
+        $earning = new Earnings();
+        $earning->user_id = $user->id;
+        $earning->amount = $revenue;
+        $earning->investment_id = $investment->id; // Associate revenue with the investment
+        $earning->save();
+        
         // Redirect back with a success message
         return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');
-             
     }
+    
     
 
     public function Investmentcancel(Request $request, $id)

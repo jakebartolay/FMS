@@ -87,7 +87,7 @@
                                             <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>      
                                             <td>{{ $data->email }}</td> 
                                             <td>${{ $data->amount }}</td>
-                                            <td>{{ $data->created_at->format('F d, Y')g}}</td>
+                                            <td>{{ $data->created_at->format('F d, Y')}}</td>
                                             <td><span class="bg-success badge">{{ $data->status }}</span></td>
                                             <td>
                                                 <a href="{{ route('payouts.pdf', ['id' => $data->id]) }}" class="btn btn-outline-primary" target="_blank">Print Reciept</a>
