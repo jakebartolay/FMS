@@ -327,9 +327,9 @@
                                                     
                                                     <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>  
                                                     <td>{{ number_format($row->amount, 2) }}</td>
-                                                    <td>{{ $row->created_at->format('m-d-Y') }}</td>
+                                                    <td>{{ $row->created_at->format('F d, Y') }}</td>
                                                     <td>
-                                                        @if ($row->status == 'Active')
+                                                        @if ($row->status == 'Completed')
                                                             <span
                                                                 class="badge bg-success">{{ $row->status }}</span>
                                                         @elseif($row->status == 'Inactive')
@@ -362,13 +362,9 @@
                                                         @endif
                                                     </td>
                                                     <td class="d-flex">
-                                                        <a href="{{ route('approve.deposit', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Approve">
-                                                            <i class="bi bi-check2"></i>
-                                                        </a>
-                                                        <a href="{{ route('cancel.deposit', ['id' => $row->id]) }}" class="btn btn-warning btn-sm mr-3"
-                                                            title="Cancel"><i
-                                                                class="bi bi-pencil-square"></i></a>
-                                                        </td>
+                                                        <a href="{{ route('print.receipt', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Print Receipt">
+                                                            <i class="bi bi-print"></i> Print Receipt
+                                                        </a>                                                        
                                                 </tr>
                                             @endforeach
                                         </tbody>

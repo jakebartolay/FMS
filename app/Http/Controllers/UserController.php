@@ -76,11 +76,11 @@ class UserController extends Controller
         $invest = Investments::where('user_id', $id)->count();
         $payout = Payouts::where('user_id', $id)->count();
 
-        $formattedBalance = DB::table('earnings')
+        $earninsss = DB::table('earnings')
         ->where('user_id', $id)
         ->sum('amount');
 
-        $earnings = number_format($formattedBalance, 2); 
+        $earnings = number_format($earninsss, 2); 
 
         $withdrawal = Payouts::where('user_id', auth()->id())
         ->orderBy('created_at')
