@@ -798,7 +798,7 @@ class UserController extends Controller
         $payout->lastname = $user->lastname;
         $payout->email = $user->email;
         $payout->amount = $request->amount;
-        $payout->status = 'success';
+        $payout->status = 'Completed';
         $payout->save();        
         
         return redirect()->route('withdrawals')->with('success', 'Payout successful.');
