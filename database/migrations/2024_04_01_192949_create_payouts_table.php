@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payouts', function (Blueprint $table) {
+        Schema::create('fms10_payouts', function (Blueprint $table) {
             $table->id();
             $table->string('withdrawal_account');
             $table->foreignId('user_id');

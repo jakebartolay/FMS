@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('fms10_payments', function (Blueprint $table) {
             $table->id();
             $table->string('payment_id');
             $table->string('payer_id');

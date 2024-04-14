@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Investments extends Model
+class fms10_investments extends Model
 {
     protected $fillable = ['user_id', 'amount','tax_amount', 'investment_date'];
 

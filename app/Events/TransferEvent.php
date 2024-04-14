@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\TransferHistory;
+use App\Models\fms10_transferhistory;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -13,7 +13,7 @@ class TransferEvent
 
     public $transferHistory;
 
-    public function __construct(TransferHistory $transferHistory)
+    public function __construct(fms10_transferhistory $transferHistory)
     {
         $this->transferHistory = $transferHistory;
     }
