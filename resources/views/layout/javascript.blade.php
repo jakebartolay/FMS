@@ -33,9 +33,6 @@
               timeout: 12000
           });
 
-          // toastr.info("{{ Session::get('message') }}");
-          // toastr.warning("{{ Session::get('message') }}");
-          // toastr.error("{{ Session::get('message') }}");
       </script>
   @endif
 
@@ -50,6 +47,10 @@
           });
       </script>
   @endif
+
+  {{-- // toastr.info("{{ Session::get('message') }}");
+  // toastr.warning("{{ Session::get('message') }}");
+  // toastr.error("{{ Session::get('message') }}"); --}}
   <!-- 12345678910 -->
   <script>
       new DataTable('#example', {

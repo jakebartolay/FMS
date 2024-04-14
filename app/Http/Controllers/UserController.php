@@ -12,8 +12,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Email;
 use App\Models\fms10_accounts;
+use App\Models\fms10_companybudget;
 use App\Models\fms10_investments;
 use App\Models\fms10_transferhistory;
+use App\Models\fms10_transactionhistory;
 use App\Models\fms10_transactions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -240,166 +242,82 @@ class UserController extends Controller
 
     public function transfer(Request $request)
     {
-                // Validation
-                $request->validate([
-                    'id' => 'required|exists:fms10_accounts,id',
-                    'amount' => 'required|numeric|min:7',
-                ]);
-                
-                // Retrieve sender's account
-                $senderAccount = auth()->user()->accounts()->first();
+        // Validation
+        $request->validate([
+            'id' => 'required|exists:fms10_accounts,id',
+            'amount' => 'required|numeric|min:7',
+        ]);
+        
+        // Retrieve sender's account
+        $senderAccount = auth()->user()->accounts()->first();
+    
+        // Check if sender's account exists
+        if ($senderAccount) {
+            // Check if sender has sufficient balance
+            if ($senderAccount->balance < $request->amount) {
+                return back()->with('error', 'Insufficient balance to transfer.');
+            }
+    
+            // Retrieve recipient's account
+            $recipientAccount = fms10_accounts::findOrFail($request->id);
+    
+            // Check if recipient's account ID is the same as sender's account ID
+            if ($recipientAccount->user_id === $senderAccount->user_id) {
+                return back()->with('error', 'You cannot transfer money to your own account.');
+            }
+    
+            // Calculate tax amount (for example, 10%)
+            $taxRate = 0.1;
+            $taxAmount = $request->amount * $taxRate;
+    
+            // Calculate total amount to send (including tax)
+            $totalAmountToSend = $request->amount + $taxAmount;
+    
+            // Perform balance deduction from sender's account (including tax)
+            $senderAccount->balance -= $totalAmountToSend;
+            $senderAccount->save();
+    
+            // Retrieve sender's details directly from the authenticated user
+            $sender = auth()->user();
+    
+            // Create a transaction record for tax
+            $transactionTax = new fms10_companybudget();
+            $transactionTax->user_id = $sender->id;
+            $transactionTax->budget = $taxAmount; // Save the tax amount in the transaction record
+            $transactionTax->description = 'Transfer Fee'; // Adjust the type as needed
+            $transactionTax->save();
+    
+            // Create a transfer history record
+            $transferHistory = new fms10_transferhistory();
+            $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
+            $transferHistory->firstname = $sender->firstname; // Assuming 'firstname' is the field name in the User model
+            $transferHistory->lastname = $sender->lastname; // Assuming 'lastname' is the field name in the User model
+            $transferHistory->sender_id = $senderAccount->id;
+            $transferHistory->recipient_id = $recipientAccount->id;
+            $transferHistory->amount = $request->amount;
+            $transferHistory->type = 'Successful'; // Assign a default role value
+            $transferHistory->save();
 
-                // Check if sender's account exists
-                if ($senderAccount) {
-                    // Check if sender has sufficient balance
-                    if ($senderAccount->balance < $request->amount) {
-                        return back()->with('error', 'Insufficient balance to transfer.');
-                    }
-
-                    // Retrieve recipient's account
-                    $recipientAccount = fms10_accounts::findOrFail($request->id);
-
-                    // Check if recipient's account ID is the same as sender's account ID
-                    if ($recipientAccount->user_id === $senderAccount->user_id) {
-                        return back()->with('error', 'You cannot transfer money to your own account.');
-                    }
-
-                    // Perform balance deduction from sender's account
-                    $senderAccount->balance -= $request->amount;
-
-                    // Retrieve sender's details directly from the authenticated user
-                    $sender = auth()->user();
-
-                    // Create a new transfer history record
-                    $transferHistory = new fms10_transferhistory();
-                    $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
-                    $transferHistory->firstname = $sender->firstname; // Assuming 'firstname' is the field name in the User model
-                    $transferHistory->lastname = $sender->lastname; // Assuming 'lastname' is the field name in the User model
-                    $transferHistory->sender_id = $senderAccount->id;
-                    $transferHistory->recipient_id = $recipientAccount->id;
-                    $transferHistory->amount = $request->amount;
-                    $transferHistory->type = 'success'; // Assign a default role value
-                    $transferHistory->save();
-                    
-
-                    // Perform balance addition to recipient's account
-                    $recipientAccount->balance += $request->amount;
-
-                    // Save changes to sender's and recipient's accounts
-                    $senderAccount->save();
-                    $recipientAccount->save();
-
-                    // Return response
-                    event(new TransferEvent($transferHistory));
-                    return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
-                } else {
-                    return back()->with('error', 'Sender account not found.');
-                }
-
-
-        // // Validation
-        // $request->validate([
-        //     'id' => 'required|exists:accounts,id',
-        //     'amount' => 'required|numeric|min:7',
-        // ]);
-
-        // // Retrieve sender's account
-        // $senderAccount = auth()->user()->accounts()->first();
-
-        // // Check if sender's account exists
-        // if (!$senderAccount) {
-        //     return back()->with('error', 'Sender account not found.');
-        // }
-
-        // // Check if sender has sufficient balance
-        // if ($senderAccount->balance < $request->amount) {
-        //     return back()->with('error', 'Insufficient balance to transfer.');
-        // }
-
-        // // Retrieve recipient's account
-        // $recipientAccount = Account::findOrFail($request->id);
-
-        // // Check if recipient's account ID is the same as sender's account ID
-        // if ($recipientAccount->id === $senderAccount->id) {
-        //     return back()->with('error', 'You cannot transfer money to your own account.');
-        // }
-
-        // // Perform balance deduction from sender's account
-        // $senderAccount->balance -= $request->amount;
-
-        // // Create a new transfer history record
-        // $transferHistory = new TransferHistory();
-        // $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
-        // $transferHistory->sender_id = $senderAccount->id;
-        // $transferHistory->recipient_id = $recipientAccount->id;
-        // $transferHistory->amount = $request->amount;
-        // $transferHistory->role = '0'; // Assign a default role value
-        // $transferHistory->save();
-
-        // // Perform balance addition to recipient's account
-        // $recipientAccount->balance += $request->amount;
-
-        // // Save changes to sender's and recipient's accounts
-        // $senderAccount->save();
-        // $recipientAccount->save();
-
-        // // Return response
-        // return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
-
-
-
-        // // Validation
-        // $request->validate([
-        //     'id' => 'required|exists:accounts,id',
-        //     'amount' => 'required|numeric|min:1',
-        // ]);
-
-        // // Retrieve sender's account
-        // $senderAccount = auth()->user()->accounts()->first();
-        // Log::debug('Sender Account ID: ' . ($senderAccount ? $senderAccount->id : 'Not found'));
-
-        // // Check if sender's account exists
-        // if (!$senderAccount) {
-        //     return back()->with('error', 'Sender account not found.');
-        // }
-
-        // // Check if sender has sufficient balance
-        // if ($senderAccount->balance < $request->amount) {
-        //     return back()->with('error', 'Insufficient balance to transfer.');
-        // }
-
-        // // Retrieve recipient's account
-        // $recipientAccount = Account::findOrFail($request->id);
-
-        // // Check if recipient's account ID is the same as sender's account ID
-        // if ($recipientAccount->id === $senderAccount->id) {
-        //     return back()->with('error', 'You cannot transfer money to your own account.');
-        // }
-
-        // // Perform balance deduction from sender's account
-        // $senderAccount->balance -= $request->amount;
-
-        // // Create a new transfer history record
-        // $transferHistory = new TransferHistory();
-        // $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
-        // $transferHistory->sender_id = $senderAccount->id;
-        // $transferHistory->recipient_id = $recipientAccount->id;
-        // $transferHistory->amount = $request->amount;
-        // $transferHistory->role = '0'; // Assign a default role value
-        // $transferHistory->save();
-
-        // // Perform balance addition to recipient's account
-        // $recipientAccount->balance += $request->amount;
-
-        // // Save changes to sender's and recipient's accounts
-        // $senderAccount->save();
-        // $recipientAccount->save();
-
-        // // Return response
-        // return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
-
+            $transactionHistory = new fms10_transactionhistory();
+            $transactionHistory->user_id = auth()->id();
+            $transactionHistory->firstname = $senderAccount->firstname;
+            $transactionHistory->lastname = $senderAccount->lastname;
+            $transactionHistory->amount = $request->amount; // Use the validated amount from the request
+            $transactionHistory->description = 'Transfer Money'; // Adjust the description as needed
+            $transactionHistory->type = 'Transfer Money'; // Adjust the type as needed
+            $transactionHistory->save();
+    
+            // Perform balance addition to recipient's account
+            $recipientAccount->balance += $request->amount;
+            $recipientAccount->save();
+    
+            // Return response
+            return redirect()->route('transaction')->with('success', 'Transfer updated successfully');
+        } else {
+            return back()->with('error', 'Sender account not found.');
+        }
     }
-
+    
     public function Wallet()
     {
         $activeNavItem = 'wallet';
@@ -476,17 +394,17 @@ class UserController extends Controller
 
     public function deposit(Request $request)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'amount' => 'required|numeric|min:0.01|max:10000', // Adjust the validation rules as needed
         ]);
-    
-        // Process the deposit
+        
+        // Begin the database transaction
+        \DB::beginTransaction();
+        
         try {
-
             // Retrieve the authenticated user
             $user = Auth::user();
-
+        
             // Check if the user has an associated account
             if ($user->user_id) {
                 // If an account exists, get the user_id and update the balance
@@ -496,46 +414,58 @@ class UserController extends Controller
                     $account->balance += $validatedData['amount'];
                     $account->save();
                 } else {
-                    // dd($account);
                     // Log an error if no account is found for the user
                     \Log::error('Attempt to deposit to a non-existent account for user: ' . $user_id);
-                    // Return a response or redirect the user with an error message
+                    // Rollback the transaction and return with an error message
+                    \DB::rollBack();
                     return redirect()->back()->with('error', 'Failed to deposit. No account found.');
                 }
             } else {
                 // Log an error if the user does not have a user_id
-                \Log::error('User does not have a user_id: ' . $user->id);
-                // Return a response or redirect the user with an error message
+                \Log::error('User does not have a user_id: ' . Auth::id());
+                // Rollback the transaction and return with an error message
+                \DB::rollBack();
                 return redirect()->back()->with('error', 'Failed to deposit. User does not have a user_id.');
             }
-
+        
             // Create a deposit transaction record
             fms10_transactions::create([
                 'user_id' => $user->id,
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
-                'amount' => $validatedData['amount'],
+                'amount' => $validatedData['amount'], // Use the validated amount from the request
                 'type' => 'Paypal',
                 // Add any other relevant fields to the transaction record
             ]);
-
+        
+            // Create a transaction history record
+            $transactionHistory = new fms10_transactionhistory();
+            $transactionHistory->user_id = $user->id;
+            $transactionHistory->firstname = $user->firstname;
+            $transactionHistory->lastname = $user->lastname;
+            $transactionHistory->amount = $validatedData['amount']; // Use the validated amount from the request
+            $transactionHistory->description = 'Deposit'; // Adjust the description as needed
+            $transactionHistory->type = 'Paypal'; // Adjust the type as needed
+            $transactionHistory->save();
+        
             // Commit the transaction
             \DB::commit();
-
+        
             // Redirect back with a success message
             return redirect()->route('wallet')->with('success', 'Deposit successful.');
-
+        
         } catch (\Exception $e) {
             // Rollback the transaction in case of an error
             \DB::rollBack();
-    
+        
             // Log the error for debugging
             \Log::error('Deposit failed: ' . $e->getMessage());
-            dd($validatedData);
             // Redirect back with an error message
             return Redirect::back()->with('error', 'An error occurred while processing your deposit. Please try again later.');
         }
+        
     }
+
 
     public function showContact()
     {
@@ -614,6 +544,7 @@ class UserController extends Controller
         return view('user.sidebar.investment', compact('invest', 'activeNavItem', 'user', 'roleName'));
         
     }
+
     public function invest()
     {
         $user = auth()->user();
@@ -640,7 +571,7 @@ class UserController extends Controller
         $user = auth()->user();
         
         // Check if the user has sufficient balance
-        $account = Account::where('user_id', $user->id)->first();
+        $account = fms10_accounts::where('user_id', $user->id)->first();
         if (!$account || $account->balance < $request->amount) {
             return back()->with('error', 'Insufficient balance. Please deposit funds first.');
         }
@@ -651,27 +582,37 @@ class UserController extends Controller
         
         // Calculate total amount including tax
         $totalAmount = $request->amount + $taxAmount;
+    
+        // Calculate fee amount (assuming fee_rate is a fixed percentage)
+        $feeRate = 0.02; // Example fee rate of 2%
+        $feeAmount = $request->amount * $feeRate;
+    
+        // Save fee amount in company budget
+        $companyBudget = new fms10_companybudget();
+        $companyBudget->user_id = $user->id;
+        $companyBudget->budget = $feeAmount; // Save the fee amount in the company budget
+        $companyBudget->description = 'Investment Fee'; // Adjust the description as needed
+        $companyBudget->save();
         
         // Create the investment request
-        $investment = new Investments();
+        $investment = new fms10_investments();
         $investment->user_id = $user->id;
         $investment->firstname = $user->firstname;
         $investment->lastname = $user->lastname;
-        $investment->amount = $totalAmount; // Save total amount including tax
-        $investment->tax_amount = $taxAmount; // Save tax amount separately
+        $investment->amount = $request->amount; // Save investment amount without tax
         $investment->investment_date = $request->investment_date;
         $investment->type = 'Investment'; // Assuming type is passed in the request
         $investment->save();
         
-        // Update the user's account balance
-        $account->balance -= $totalAmount; // Deduct total amount including tax
+        // Update the user's account balance (deduct total amount)
+        $account->balance -= $totalAmount;
         $account->save();
         
         // Calculate revenue (for example, based on interest rate or investment performance)
         $revenue = $totalAmount * 0.08; // Assuming a fixed revenue rate of 8%
         
         // Create revenue record
-        $earning = new Earnings();
+        $earning = new fms10_earnings();
         $earning->user_id = $user->id;
         $earning->amount = $revenue;
         $earning->investment_id = $investment->id; // Associate revenue with the investment
@@ -682,7 +623,6 @@ class UserController extends Controller
     }
     
     
-
     public function Investmentcancel(Request $request, $id)
     {
       
@@ -774,7 +714,7 @@ class UserController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:0|max:1000000',
         ]);
-        
+    
         // Retrieve the authenticated user
         $user = auth()->user();
     
@@ -790,10 +730,34 @@ class UserController extends Controller
             return back()->with('error', 'Insufficient balance for the payout.');
         }
     
-        // Deduct the amount from the user's account balance
-        $account->balance -= $request->amount;
+        // Define the fee rate (e.g., 1%)
+        $feeRate = 0.01;
+        // Calculate the fee amount
+        $feeAmount = $request->amount * $feeRate;
+        // Calculate the payout amount after deducting the fee
+        $payoutAmount = $request->amount - $feeAmount;
+    
+        // Deduct the payout amount from the user's account balance
+        $account->balance -= $payoutAmount;
         $account->save();
-
+    
+        // Record the transaction for the fee deduction
+        $transactionTax = new fms10_companybudget();
+        $transactionTax->user_id = $user->id;
+        $transactionTax->budget = $feeAmount; // Save the fee amount in the transaction record
+        $transactionTax->description = 'Payout Fee'; // Adjust the description as needed
+        $transactionTax->save();
+    
+        // Record the transaction history for the payout
+        $transactionHistory = new fms10_transactionhistory();
+        $transactionHistory->user_id = $user->id;
+        $transactionHistory->firstname = $user->firstname;
+        $transactionHistory->lastname = $user->lastname;
+        $transactionHistory->amount = $payoutAmount; // Save the payout amount after fee deduction
+        $transactionHistory->description = 'Payouts'; // Adjust the description as needed
+        $transactionHistory->type = 'Paypal'; // Adjust the type as needed
+        $transactionHistory->save();
+    
         // Record the payout
         $payout = new fms10_payouts();
         $payout->user_id = $user->id;
@@ -801,12 +765,14 @@ class UserController extends Controller
         $payout->firstname = $user->firstname;
         $payout->lastname = $user->lastname;
         $payout->email = $user->email;
-        $payout->amount = $request->amount;
+        $payout->amount = $payoutAmount; // Save the payout amount after fee deduction
         $payout->status = 'Completed';
-        $payout->save();        
-        
+        $payout->save();
+    
         return redirect()->route('withdrawals')->with('success', 'Payout successful.');
     }
+    
+    
     
     public function updateProfile(Request $request)
     {

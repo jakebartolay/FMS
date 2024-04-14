@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fms10_investments', function (Blueprint $table) {
+        Schema::create('fms10_transactionhistory', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->string('firstname');
             $table->string('lastname');
             $table->decimal('amount', 10, 2);
+            $table->string('description');
             $table->string('type');
-            $table->date('investment_date');
-            $table->enum('status', ['Active', 'Inactive', 'Pending', 'Completed', 'Cancelled', 'Suspended', 'Failed', 'Refunded', 'Approve', 'Cancel', 'Delete'])->default('Active');
             $table->timestamps();
+            
+            // Define foreign key constraints
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // Add more foreign key constraints if needed
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('fms10_transactionhistory');
     }
 };

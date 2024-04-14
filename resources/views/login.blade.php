@@ -30,14 +30,15 @@
                                     <div class="pb-2">
                                         <div class="row align-items-center">
                                             <div class="col-auto">
-                                                <a class="btn btn-outline-primary btn-sm" href="/"><i class="bi bi-arrow-left"></i></a>
+                                                <a class="btn btn-outline-primary btn-sm" href="/"><i
+                                                        class="bi bi-arrow-left"></i></a>
                                             </div>
                                             <div class="col-8 col-lg-8">
-                                                <h5 class="card-title text-center pb-0 fs-4">User Login</h5>
+                                                <h5 class="card-title text-center pb-0 fs-4">Investor Login</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <form class="row g-3 needs-validation" action="{{ route('login') }}" novalidate
                                         method="POST">
                                         @csrf
@@ -77,13 +78,13 @@
                                         </div>
                                         <script>
                                             document.addEventListener('DOMContentLoaded', function() {
-                                            var rememberMeCheckbox = document.getElementById('rememberMe');
-                                            var rememberMeValue = localStorage.getItem('rememberMe');
-                                            
-                                            if (rememberMeValue === 'true') {
-                                                rememberMeCheckbox.checked = true;
-                                            }
-                                        });
+                                                var rememberMeCheckbox = document.getElementById('rememberMe');
+                                                var rememberMeValue = localStorage.getItem('rememberMe');
+
+                                                if (rememberMeValue === 'true') {
+                                                    rememberMeCheckbox.checked = true;
+                                                }
+                                            });
                                         </script>
                                         <div class="row justify-content-center align-items-center pt-3">
 
@@ -102,8 +103,10 @@
                             </div>
                             <span class="text-muted">-----or-----</span>
                             <div class="text-center pt-3">
-                                <img src="{{ url('assets/logo/google.png') }}" class="img-fluid" width="25px" height="25px" alt="Google Logo">
-                                <a href="{{ url('auth/google') }}">Login using Google</a>
+                                <a href="{{ url('auth/google') }}">
+                                    <img src="{{ url('assets/logo/google.png') }}" class="img-fluid" width="25px"
+                                        height="25px" alt="Google Logo">
+                                </a>
                             </div>
                         </div>
                     </div>
