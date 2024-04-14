@@ -7,7 +7,7 @@ use App\Models\Vendors;
 use App\Models\Vendorsuser;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Account;
+use App\Models\fms10_accounts;
 use App\Models\Payouts;
 use App\Models\Investments;
 use App\Models\DepositRequest;
@@ -24,14 +24,11 @@ class AdminController extends Controller
     public function dashboard()
     {
 
-
-
         // $inactive = Vendorsuser::where('status', 'Inactive')->count();
 
         // $disable = Vendorsuser::where('status', 'disable')->count();
         
-        
-
+    
         // $account1 = $data->count();        
         $userCount = User::where('role', '=', 0)->count();
 
@@ -56,35 +53,35 @@ class AdminController extends Controller
     }
 
     public function fetchData()
-{
+    {
 
 
-// Fetch total investment count grouped by month
-$investmentCountsByMonth = Investments::select(DB::raw('MONTH(investment_date) as month'), DB::raw('COUNT(*) as total'))
-    ->whereNotNull('investment_date')
-    ->groupBy(DB::raw('MONTH(investment_date)'))
-    ->get();
+    // Fetch total investment count grouped by month
+    $investmentCountsByMonth = Investments::select(DB::raw('MONTH(investment_date) as month'), DB::raw('COUNT(*) as total'))
+        ->whereNotNull('investment_date')
+        ->groupBy(DB::raw('MONTH(investment_date)'))
+        ->get();
 
-// Fetch total account count grouped by month
-$accountCountsByMonth = Account::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
-    ->whereNotNull('created_at')
-    ->groupBy(DB::raw('MONTH(created_at)'))
-    ->get();
+    // Fetch total account count grouped by month
+    $accountCountsByMonth = Account::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
+        ->whereNotNull('created_at')
+        ->groupBy(DB::raw('MONTH(created_at)'))
+        ->get();
 
-// Fetch total payout count grouped by month
-$payoutCountsByMonth = Payouts::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
-    ->whereNotNull('created_at')
-    ->groupBy(DB::raw('MONTH(created_at)'))
-    ->get();
+    // Fetch total payout count grouped by month
+    $payoutCountsByMonth = Payouts::select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
+        ->whereNotNull('created_at')
+        ->groupBy(DB::raw('MONTH(created_at)'))
+        ->get();
 
-return response()->json([
-    'investment' => $investmentCountsByMonth,
-    'accounts' => $accountCountsByMonth,
-    'payouts' => $payoutCountsByMonth,
-]);
-    
+    return response()->json([
+        'investment' => $investmentCountsByMonth,
+        'accounts' => $accountCountsByMonth,
+        'payouts' => $payoutCountsByMonth,
+    ]);
+        
 
-}
+    }   
     
     public function Deposit()
     {

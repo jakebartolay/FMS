@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('fms10_accounts', function (Blueprint $table) {
             $table->uuid('id')->primary(); // Define 'id' column as UUID and primary key
             $table->string('firstname');
             $table->string('lastname');

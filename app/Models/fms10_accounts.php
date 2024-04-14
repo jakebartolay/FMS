@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InvestmentRequest extends Model
+class fms10_accounts extends Model
 {
+    protected $table = 'fms10_accounts'; 
+    
     protected $fillable = [
+        'firstname',
+        'lastname',
         'user_id',
-        'amount',
-        'status',
+        'balance',
     ];
-    protected $table = 'investmentrequest'; // Specify the correct table name
 }

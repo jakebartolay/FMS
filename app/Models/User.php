@@ -61,10 +61,10 @@ class User extends Authenticatable
     }
     public function investments()
     {
-        return $this->hasMany(Investment::class);
+        return $this->hasMany(fms10_investments::class);
     }
     public function accounts()
     {
-        return $this->hasMany(Account::class, 'user_id');
+        return $this->hasMany(fms10_accounts::class, 'user_id');
     }
 }

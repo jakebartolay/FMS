@@ -417,75 +417,75 @@
                                     <div id="reportsChart"></div>
 
                                     <script>
-document.addEventListener("DOMContentLoaded", () => {
-    fetch('{{ route('fetch.data') }}')
-        .then(response => response.json())
-        .then(data => {
-            // Extract data for each series
-            const investmentData = data.investment.map(item => item.total);
-            const balanceData = data.accounts.map(item => item.total);
-            const payoutsData = data.payouts.map(item => item.total);
-            
-            // Define month labels for all months of the year
-            // 'Jan', 'Feb', 'Mar', 
-            const monthLabels = [
-                'Apr', 'May', 'Jun', 
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-            ];
-            
-            new ApexCharts(document.querySelector("#reportsChart"), {
-                series: [{
-                    name: 'Investment',
-                    data: investmentData,
-                }, {
-                    name: 'Account',
-                    data: balanceData,
-                }, {
-                    name: 'Payouts',
-                    data: payoutsData,
-                }],
-                chart: {
-                    height: 350,
-                    type: 'area',
-                    toolbar: {
-                        show: false
-                    },
-                },
-                markers: {
-                    size: 4
-                },
-                colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.3,
-                        opacityTo: 0.4,
-                        stops: [0, 90, 100]
-                    }
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth',
-                    width: 2
-                },
-                xaxis: {
-                    type: 'category', // Use categories as labels
-                    categories: monthLabels, // Use all months of the year
-                },
-                tooltip: {
-                    x: {
-                        format: 'dd/MM/yy HH:mm'
-                    },
-                }
-            }).render();
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch('{{ route('fetch.data') }}')
+                .then(response => response.json())
+                .then(data => {
+                    // Extract data for each series
+                    const investmentData = data.investment.map(item => item.total);
+                    const balanceData = data.accounts.map(item => item.total);
+                    const payoutsData = data.payouts.map(item => item.total);
+                    
+                    // Define month labels for all months of the year
+                    // 'Jan', 'Feb', 'Mar', 
+                    const monthLabels = [
+                        'Apr', 'May', 'Jun', 
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                    ];
+                    
+                    new ApexCharts(document.querySelector("#reportsChart"), {
+                        series: [{
+                            name: 'Investment',
+                            data: investmentData,
+                        }, {
+                            name: 'Account',
+                            data: balanceData,
+                        }, {
+                            name: 'Payouts',
+                            data: payoutsData,
+                        }],
+                        chart: {
+                            height: 350,
+                            type: 'area',
+                            toolbar: {
+                                show: false
+                            },
+                        },
+                        markers: {
+                            size: 4
+                        },
+                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.3,
+                                opacityTo: 0.4,
+                                stops: [0, 90, 100]
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            curve: 'smooth',
+                            width: 2
+                        },
+                        xaxis: {
+                            type: 'category', // Use categories as labels
+                            categories: monthLabels, // Use all months of the year
+                        },
+                        tooltip: {
+                            x: {
+                                format: 'dd/MM/yy HH:mm'
+                            },
+                        }
+                    }).render();
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
         });
-});
 
                                     </script>
                                     <!-- End Line Chart -->
@@ -506,7 +506,8 @@ document.addEventListener("DOMContentLoaded", () => {
     @include('layout.footer')
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+            class="bi bi-arrow-up-short"></i>
+    </a>
 
     @include('layout.javascript')
 </body>

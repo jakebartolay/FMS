@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Account;
+use App\Models\fms10_accounts;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -61,7 +61,7 @@ class AuthController extends Controller
                 $accountId = Str::uuid();
 
                 // Create an account for the new user
-                $account = new Account();
+                $account = new fms10_accounts();
                 $account->id = $accountId; // Set the generated UUID as the account's ID
                 $account->user_id = $newUser->id; // Set the user's ID as the account's user_id
                 $account->firstname = $newUser->firstname; // Set the user's firstname
@@ -128,7 +128,7 @@ class AuthController extends Controller
         $accountId = Str::uuid();
 
         // Create a corresponding account for the user
-        $account = new Account();
+        $account = new fms10_accounts();
         $account->id = $accountId; // Set the generated UUID as the account's ID
         $account->user_id = $userId; // Set the user's ID as the account's user_id
         $account->firstname = $request->firstname; // Set the user's firstname
@@ -284,7 +284,7 @@ class AuthController extends Controller
             $user = Auth::user();
             if ($user->role != 1 || $user->role != 2) {
                 // Redirect the user to the appropriate dashboard
-                DB::table('activity_logs')->insert($activityLog);
+                DB::table('fms10_activity_logs')->insert($activityLog);
                 $route = $this->redirectDash();
                 return redirect($route);
             } else {
@@ -348,7 +348,7 @@ class AuthController extends Controller
                 'date_time' => $todayDate,
             ];
     
-            DB::table('activity_logs')->insert($activityLog);
+            DB::table('fms10_activity_logs')->insert($activityLog);
     
             // Clear the session and logout
             $request->session()->flush();

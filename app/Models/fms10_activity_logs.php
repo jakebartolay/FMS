@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Payouts extends Model
+class fms10_activity_logs extends Model
 {
-    protected $table = 'payouts'; 
-
-    
+    use HasFactory;
 }

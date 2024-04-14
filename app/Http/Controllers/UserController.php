@@ -11,19 +11,18 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Email;
-use App\Models\Account;
-use App\Models\Investments;
-use App\Models\DepositRequest;
-use App\Models\InvestmentRequest;
-use App\Models\Transferhistory;
-use App\Models\Transaction;
+use App\Models\fms10_accounts;
+use App\Models\fms10_investments;
+use App\Models\fms10_transferhistory;
+use App\Models\fms10_transactions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use App\Models\fms10_activity_logs;
 use App\Events\TransferEvent;
-use App\Models\Payouts;
-use App\Models\Earnings;
+use App\Models\fms10_payouts;
+use App\Models\fms10_earnings;
 use Closure;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -48,7 +47,7 @@ class UserController extends Controller
             $roleName = 'Investor';
         }
 
-        $investments = Investments::where('user_id', auth()->id())
+        $investments = fms10_investments::where('user_id', auth()->id())
             ->orderBy('created_at')
             ->pluck('amount')
             ->toArray();
@@ -60,29 +59,29 @@ class UserController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
 
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
-            ->where('accounts.user_id', $id)
-            ->value('accounts.balance');
+        $account = DB::table('fms10_accounts')
+            ->join('users', 'users.id', '=', 'fms10_accounts.user_id') // Join on the primary key of the users table
+            ->where('fms10_accounts.user_id', $id)
+            ->value('fms10_accounts.balance');
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
 
-        $activityLog = DB::table('activity_logs')->get();
+        $activityLog = DB::table('fms10_activity_logs')->get();
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
         
         // Count the number of investments associated with the authenticated user
-        $invest = Investments::where('user_id', $id)->count();
-        $payout = Payouts::where('user_id', $id)->count();
+        $invest = fms10_investments::where('user_id', $id)->count();
+        $payout = fms10_payouts::where('user_id', $id)->count();
 
-        $earninsss = DB::table('earnings')
+        $earninsss = DB::table('fms10_earnings')
         ->where('user_id', $id)
         ->sum('amount');
 
         $earnings = number_format($earninsss, 2); 
 
-        $withdrawal = Payouts::where('user_id', auth()->id())
+        $withdrawal = fms10_payouts::where('user_id', auth()->id())
         ->orderBy('created_at')
         ->pluck('amount')
         ->toArray();
@@ -90,7 +89,7 @@ class UserController extends Controller
         // // Pass the investment data to the chart configuration
         $chartData2 = json_encode($withdrawal);
 
-        $payouts = Payouts::where('user_id', $id)->sum('amount');
+        $payouts = fms10_payouts::where('user_id', $id)->sum('amount');
 
         $payout2 = number_format($payouts, 2);
     
@@ -100,7 +99,7 @@ class UserController extends Controller
 
     public function downloadPdf($id)
     {
-        $payout = Payouts::findOrFail($id);
+        $payout = fms10_payouts::findOrFail($id);
     
         // Initialize Dompdf
         $options = new Options();
@@ -154,15 +153,21 @@ class UserController extends Controller
         }
        
         $id = $user->id;
-        $accountData = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id')
-            ->where('accounts.user_id', $id)
-            ->select('accounts.id as account_id', 'accounts.status')
-            ->first();
-        
-        $accountId = $accountData->account_id;
-        $accountStatus = $accountData->status;
-        
+
+        $accountId = null;
+        $accountStatus = null;
+        $accountData = DB::table('fms10_accounts')
+        ->join('users', 'users.id', '=', 'fms10_accounts.user_id')
+        ->where('fms10_accounts.user_id', $id)
+        ->select('fms10_accounts.id as account_id', 'fms10_accounts.status')
+        ->first();
+    
+        if ($accountData) {
+            $accountId = $accountData->account_id;
+            $accountStatus = $accountData->status;
+        }
+    
+
         return view('user.sidebar.profile', compact('user', 'activeNavItem', 'roleName', 'accountId', 'accountStatus'));
     }
 
@@ -199,21 +204,21 @@ class UserController extends Controller
         // $user = auth()->user(); // Assuming you're fetching the authenticated user
         // $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
 
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
-            ->where('accounts.user_id', $id)
-            ->value('accounts.balance');
+        $account = DB::table('fms10_accounts')
+            ->join('users', 'users.id', '=', 'fms10_accounts.user_id') // Join on the primary key of the users table
+            ->where('fms10_accounts.user_id', $id)
+            ->value('fms10_accounts.balance');
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `id` attribute of the user model
         
         // Retrieve transfer history records for the authenticated user
-        $transferhistory = DB::table('transferhistory')
-            ->join('users', 'users.id', '=', 'transferhistory.user_id')
-            ->join('accounts', 'accounts.user_id', '=', 'users.id')
-            ->select('transferhistory.*', 'users.*', 'accounts.balance', 'accounts.id as account_id', 'transferhistory.id as transfer_id') // Alias the transferhistory.id column as transfer_id
-            ->where('transferhistory.user_id', $userId)
+        $transferhistory = DB::table('fms10_transferhistory')
+            ->join('users', 'users.id', '=', 'fms10_transferhistory.user_id')
+            ->join('fms10_accounts', 'fms10_accounts.user_id', '=', 'users.id')
+            ->select('fms10_transferhistory.*', 'users.*', 'fms10_accounts.balance', 'fms10_accounts.id as account_id', 'fms10_transferhistory.id as transfer_id') // Alias the transferhistory.id column as transfer_id
+            ->where('fms10_transferhistory.user_id', $userId)
             ->get();
 
         $user = auth()->user();
@@ -237,7 +242,7 @@ class UserController extends Controller
     {
                 // Validation
                 $request->validate([
-                    'id' => 'required|exists:accounts,id',
+                    'id' => 'required|exists:fms10_accounts,id',
                     'amount' => 'required|numeric|min:7',
                 ]);
                 
@@ -252,7 +257,7 @@ class UserController extends Controller
                     }
 
                     // Retrieve recipient's account
-                    $recipientAccount = Account::findOrFail($request->id);
+                    $recipientAccount = fms10_accounts::findOrFail($request->id);
 
                     // Check if recipient's account ID is the same as sender's account ID
                     if ($recipientAccount->user_id === $senderAccount->user_id) {
@@ -266,7 +271,7 @@ class UserController extends Controller
                     $sender = auth()->user();
 
                     // Create a new transfer history record
-                    $transferHistory = new TransferHistory();
+                    $transferHistory = new fms10_transferhistory();
                     $transferHistory->user_id = auth()->id(); // Set the user_id to the authenticated user's ID
                     $transferHistory->firstname = $sender->firstname; // Assuming 'firstname' is the field name in the User model
                     $transferHistory->lastname = $sender->lastname; // Assuming 'lastname' is the field name in the User model
@@ -415,10 +420,10 @@ class UserController extends Controller
         // ->where('status', '<>', 10)
         // ->count();
 
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id')
-            ->where('accounts.user_id', $userId)
-            ->value('accounts.balance');
+        $account = DB::table('fms10_accounts')
+            ->join('users', 'users.id', '=', 'fms10_accounts.user_id')
+            ->where('fms10_accounts.user_id', $userId)
+            ->value('fms10_accounts.balance');
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
@@ -427,7 +432,7 @@ class UserController extends Controller
         // Retrieve the currently authenticated user
         $user = auth()->user();
 
-        $transactions = Transaction::where('user_id', $user->id)->get();
+        $transactions = fms10_transactions::where('user_id', $user->id)->get();
 
 
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
@@ -458,10 +463,10 @@ class UserController extends Controller
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $id = $user->id; // Assuming the primary key of the users table is `id`
 
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id') // Join on the primary key of the users table
-            ->where('accounts.user_id', $id)
-            ->value('accounts.balance');
+        $account = DB::table('fms10_accounts')
+            ->join('users', 'users.id', '=', 'fms10_accounts.user_id') // Join on the primary key of the users table
+            ->where('fms10_accounts.user_id', $id)
+            ->value('fms10_accounts.balance');
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
@@ -486,11 +491,12 @@ class UserController extends Controller
             if ($user->user_id) {
                 // If an account exists, get the user_id and update the balance
                 $user_id = $user->user_id;
-                $account = Account::where('user_id', $user_id)->first(); // Retrieve the account record
+                $account = fms10_accounts::where('user_id', $user_id)->first(); // Retrieve the account record
                 if ($account) {
                     $account->balance += $validatedData['amount'];
                     $account->save();
                 } else {
+                    // dd($account);
                     // Log an error if no account is found for the user
                     \Log::error('Attempt to deposit to a non-existent account for user: ' . $user_id);
                     // Return a response or redirect the user with an error message
@@ -504,7 +510,7 @@ class UserController extends Controller
             }
 
             // Create a deposit transaction record
-            Transaction::create([
+            fms10_transactions::create([
                 'user_id' => $user->id,
                 'firstname' => $user->firstname,
                 'lastname' => $user->lastname,
@@ -603,7 +609,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         // Retrieve investments associated with the authenticated user
-        $invest = Investments::where('user_id', $user->id)->get();
+        $invest = fms10_investments::where('user_id', $user->id)->get();
         
         return view('user.sidebar.investment', compact('invest', 'activeNavItem', 'user', 'roleName'));
         
@@ -688,7 +694,7 @@ class UserController extends Controller
         $investmentRequest->save();
 
         // Retrieve the associated investment record
-        $account = account::where('user_id', $investmentRequest->user_id)->first();
+        $account = fms10_accounts::where('user_id', $investmentRequest->user_id)->first();
 
         // Check if the associated investment record exists
         if ($account) {
@@ -719,15 +725,15 @@ class UserController extends Controller
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
 
-        $account = DB::table('accounts')
-            ->join('users', 'users.id', '=', 'accounts.user_id')
-            ->where('accounts.user_id', $userId)
-            ->value('accounts.balance');
+        $account = DB::table('fms10_accounts')
+            ->join('users', 'users.id', '=', 'fms10_accounts.user_id')
+            ->where('fms10_accounts.user_id', $userId)
+            ->value('fms10_accounts.balance');
 
         $user = auth()->user(); // Assuming you're fetching the authenticated user
         $userId = $user->id; // Assuming the user_id is stored in the `user_id` attribute of the user model
             
-        $payouts = Payouts::where('user_id', $userId)->get();
+        $payouts = fms10_payouts::where('user_id', $userId)->get();
 
 
         $formattedBalance = number_format($account, 2); // Assuming you want two decimal places
@@ -773,7 +779,7 @@ class UserController extends Controller
         $user = auth()->user();
     
         // Check if the user has an associated account
-        $account = Account::where('user_id', $user->id)->first();
+        $account = fms10_accounts::where('user_id', $user->id)->first();
     
         if (!$account) {
             return back()->with('error', 'No account found for the user.');
@@ -789,7 +795,7 @@ class UserController extends Controller
         $account->save();
 
         // Record the payout
-        $payout = new Payouts();
+        $payout = new fms10_payouts();
         $payout->user_id = $user->id;
         $payout->withdrawal_account = mt_rand(1000000000, 9999999999); // Generate a 10-digit random number
         $payout->firstname = $user->firstname;

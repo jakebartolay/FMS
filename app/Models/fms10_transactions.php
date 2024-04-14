@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SenderHistory extends Model
+class fms10_transactions extends Model
 {
     use HasFactory;
 
-    protected $table = 'senderhistory'; 
+    protected $table = 'fms10_transactions'; 
 
     protected $fillable = [
-        'user_id',
         'firstname',
         'lastname',
-        'recipient_id',
+        'user_id',
         'amount',
         'type',
     ];
