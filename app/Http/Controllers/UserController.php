@@ -466,7 +466,6 @@ class UserController extends Controller
         
     }
 
-
     public function showContact()
     {
         $activeNavItem = 'contractsupport';
@@ -603,6 +602,16 @@ class UserController extends Controller
         $investment->investment_date = $request->investment_date;
         $investment->type = 'Investment'; // Assuming type is passed in the request
         $investment->save();
+
+        // Record the transaction history for the payout
+        $transactionHistory = new fms10_transactionhistory();
+        $transactionHistory->user_id = $user->id;
+        $transactionHistory->firstname = $user->firstname;
+        $transactionHistory->lastname = $user->lastname;
+        $transactionHistory->amount = $request->amount;// Save the payout amount after fee deduction
+        $transactionHistory->description = 'Investment'; // Adjust the description as needed
+        $transactionHistory->type = 'Balance'; // Adjust the type as needed
+        $transactionHistory->save();
         
         // Update the user's account balance (deduct total amount)
         $account->balance -= $totalAmount;
@@ -621,7 +630,6 @@ class UserController extends Controller
         // Redirect back with a success message
         return back()->with('success', 'Investment request submitted successfully. It will be processed after approval.');
     }
-    
     
     public function Investmentcancel(Request $request, $id)
     {
@@ -771,7 +779,6 @@ class UserController extends Controller
     
         return redirect()->route('withdrawals')->with('success', 'Payout successful.');
     }
-    
     
     
     public function updateProfile(Request $request)
