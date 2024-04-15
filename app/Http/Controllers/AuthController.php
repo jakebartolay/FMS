@@ -48,7 +48,7 @@ class AuthController extends Controller
                     'google_id' => $user->getId(),
                     'name' => $user->getName(),
                     'email' => $user->getEmail(),
-                    'password' => Hash::make($user->getName() . '@' . $user->getId()),
+                    'password' => Hash::make('12345dummy'),
                     'profile_path_picture' => 'https://ui-avatars.com/api/?name=' . urlencode($user->user['given_name'] . ' ' . $user->user['family_name']),
                     'role' => 0,
                 ]);
@@ -282,7 +282,8 @@ class AuthController extends Controller
         if (Auth::attempt($userCredential)) {
             // Check if the authenticated user has a role other than admin or superadmin
             $user = Auth::user();
-            if ($user->role != 1 || $user->role != 2) {
+            if ($user->role != 0 && $user->role != 1 && $user->role != 2 && $user->role != 2 && $user->role != 3 && $user->role != 4 && $user->role != 5
+            && $user->role != 6 && $user->role != 7 && $user->role != 8 && $user->role != 9 && $user->role != 10) {
                 // Redirect the user to the appropriate dashboard
                 DB::table('fms10_activity_logs')->insert($activityLog);
                 $route = $this->redirectDash();
