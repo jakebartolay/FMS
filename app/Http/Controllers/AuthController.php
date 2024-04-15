@@ -50,7 +50,7 @@ class AuthController extends Controller
                     'email' => $user->getEmail(),
                     'password' => Hash::make('12345dummy'),
                     'profile_path_picture' => 'https://ui-avatars.com/api/?name=' . urlencode($user->user['given_name'] . ' ' . $user->user['family_name']),
-                    'role' => 0,
+                    'role' => 100,
                 ]);
 
                 // Update the user_id of the new user with its own ID
@@ -111,7 +111,7 @@ class AuthController extends Controller
         $user->name = $request->lastname . ' ' . $request->firstname; // Concatenate first name and last name
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role = '0';
+        $user->role = '100';
         $user->profile_path_picture = 'https://ui-avatars.com/api/?name=' . urlencode($user->firstname . ' ' . $user->lastname); // Set profile picture URL
         $user->save();
 

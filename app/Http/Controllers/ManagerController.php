@@ -14,7 +14,7 @@ class ManagerController extends Controller
     public function dashboard()
     {
         $account1 = vendorInfo::count();
-        $account2 = User::where('role', '=', 0)->count();
+        $account2 = User::where('role', '=', 100)->count();
 
         $user = auth()->user();
 
