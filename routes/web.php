@@ -169,6 +169,9 @@ Route::group(['prefix' => 'admin','middleware'=>['web','isAdmin']],function(){
 
     Route::get('/fetch-data', [AdminController::class,'fetchData'])->name('fetch.data');
 
+    Route::get('/investoraccount', [AdminController::class,'investorAcc'])->name('investorAcc');
+
+
 
   
     ///// NEW APPROVE

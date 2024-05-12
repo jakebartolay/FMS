@@ -230,49 +230,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xxl-3 col-md-6 col-12">
-                                            <div class="card border py-3">
-                                                <div class="card-body text-center">
-                                                    <img src="assets/img/companylogo/mcdonalds-logo.png"
-                                                        class="border border-circle rounded-circle" alt="logo payment"
-                                                        width="100px" height="100px" srcset="">
-                                                    <div class="my-3">
-                                                        <span class="fs-6 text-muted py-5">McDonals</span>
-                                                    </div>
-                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Invest</a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-3 col-md-6  col-12">
-                                            <div class="card border py-3">
-                                                <div class="card-body text-center">
-                                                    <img src="assets/img/companylogo/samsung-logo.png"
-                                                        class="border border-circle rounded-circle" alt="logo payment"
-                                                        width="100px" height="100px" srcset="">
-                                                    <div class="my-3">
-                                                        <span class="fs-6 text-muted py-5">Samsung</span>
-                                                    </div>
-                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Invest</a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-3 col-md-6 col-12">
-                                            <div class="card border py-3">
-                                                <div class="card-body text-center">
-                                                    <img src="assets/img/companylogo/toyota-logo.png"
-                                                        class="border border-circle rounded-circle" alt="logo payment"
-                                                        width="100px" height="100px" srcset="">
-                                                    <div class=" my-3">
-                                                        <span class="fs-6 text-muted py-5">Toyota</span>
-                                                    </div>
-                                                    <a href="{{ route('maintenance') }}" class="btn btn-primary">Invest</a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
                                     </div>
                                 </div>
 

@@ -8,8 +8,8 @@ use App\Models\Vendorsuser;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\fms10_accounts;
-use App\Models\Payouts;
-use App\Models\Investments;
+use App\Models\fms10_payouts;
+use App\Models\fms10_investments;
 use App\Models\DepositRequest;
 use App\Models\InvestmentRequest;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +30,7 @@ class AdminController extends Controller
         
     
         // $account1 = $data->count();        
-        $userCount = User::where('role', '=', 0)->count();
+        $userCount = User::where('role', '=', 100)->count();
 
         $user = auth()->user();
 
@@ -43,13 +43,13 @@ class AdminController extends Controller
             $roleName = 'Unknown';
         }
 
-        $investment = DB::table('investments')->sum(DB::raw('CAST(amount AS DECIMAL(10, 2))'));
+        // $investment = DB::table('investments')->sum(DB::raw('CAST(amount AS DECIMAL(10, 2))'));
 
-        $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
+        // $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        $data = Payouts::whereNotNull('amount')->sum('amount');
+        // $data = Payouts::whereNotNull('amount')->sum('amount');
 
-        return view('admin.dashboard', compact('user','data','userCount', 'roleName','countBalance','investment'));
+        return view('admin.dashboard', compact('user','userCount', 'roleName'));
     }
 
     public function fetchData()
@@ -90,7 +90,7 @@ class AdminController extends Controller
         $id = $user->id; // Assuming the primary key of the users table is `id`
                 
         // Join the `accounts` table with the `users` table using the `user_id` foreign key
-        $depositrequest = Payouts::all();
+        $depositrequest = fms10_payouts::all();
         return view('admin.investments.deposit', compact('user', 'depositrequest' ));
         
     }
@@ -535,6 +535,15 @@ class AdminController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function investorAcc()
+    {
+
+        $user = auth()->user();
+        return view('admin.investments.investoracc', compact('user'));
+
+    }
+    
     
     
 
@@ -549,7 +558,7 @@ class AdminController extends Controller
     {
         $user = auth()->user();
 
-        $InvestmentRequest  = Investments::all();
+        $InvestmentRequest  = fms10_investments::all();
 
         return view('admin.investments.index', compact('user','InvestmentRequest'));
     }

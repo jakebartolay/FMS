@@ -13,20 +13,9 @@
 
         @include('layout.logo')
 
-        
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                
-                <li class="nav-item">
-                    <form id="timeForm me-2">
-                        <div>
-                            <span id="horas" class="fw-bold">Loading...</span>
-                            <br>
-                        </div>
-                    </form>
-                </li><!-- End Search Icon-->
 
                 {{-- <li class="nav-item dropdown">
 
@@ -253,12 +242,12 @@
                         </a>
                     </li> --}}
                     <li>
-                        <a href="/admin/investoraccount">
+                        <a href="/admin/investoraccount" class="active">
                             <i class="bi bi-circle"></i><span>Investor Account</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/investments" class="active">
+                        <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
                         </a>
                     </li>
@@ -294,7 +283,7 @@
                             <div class="card">
 
                                 <div class="card-body">
-                                    <div class="card-title">Investment</div>
+                                    <div class="card-title">Investor Account</div>
                                     <div class="table-responsive">
                                     <table id="example" class="table display"  width="100%">
                                         <thead class="text-center">
@@ -309,7 +298,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($InvestmentRequest as $row)
+                                            {{-- @foreach ($InvestmentRequest as $row)
                                                 <tr class="text-center">
                                                     <th scope="row">{{ $row->id }}</th>
                                                         <?php
@@ -372,7 +361,7 @@
                                                         </a>                                                        
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                     </div>

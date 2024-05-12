@@ -258,46 +258,47 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         $email = $request->email;
-
+    
         $dt = Carbon::now();
         $todayDate = $dt->toDayDateTimeString();
-
+    
         $activityLog = [ 
             'name' => $email,
             'email' => $email,
             'description' => 'Has Log In',
             'date_time' => $todayDate,
         ];
-
+    
         $request->validate([
-            'email' => 'string|required|email',
-            'password' => 'string|required'
+            'account_number' => 'required|string',
+            'password' => 'required|string'
         ]);
-        
-        $userCredential = $request->only('email','password');
-        
+    
+        $userCredential = $request->only('account_number','password');
+    
         // Attempt to authenticate the user
         if (Auth::attempt($userCredential)) {
             // Check if the authenticated user has a role other than admin or superadmin
             $user = Auth::user();
-            if ($user->role != 0 && $user->role != 1 && $user->role != 2 && $user->role != 2 && $user->role != 3 && $user->role != 4 && $user->role != 5
-            && $user->role != 6 && $user->role != 7 && $user->role != 8 && $user->role != 9 && $user->role != 10) {
-                // Redirect the user to the appropriate dashboard
-                DB::table('fms10_activity_logs')->insert($activityLog);
-                $route = $this->redirectDash();
-                return redirect($route);
-            } else {
-                // If the user is admin or superadmin, log them out
-                Auth::logout();
-                return back()->with('error','Admins and SuperAdmin cannot login here.');
-            }            
+            // Log activity
+            DB::table('fms10_activity_logs')->insert($activityLog);
+            $route = $this->redirectDash();
+            return redirect($route);
         } else {
-            // If authentication fails, redirect back with an error message
-            return back()->with('error','Username & Password is incorrect');
-        }
+            // Check if authentication failed due to account number or Password
+            if (empty($request->account_number)) {
+                return back()->with('error', 'Please enter your account number.');
+            } elseif (empty($request->password)) {
+                return back()->with('error', 'Please enter your Password.');
+            } else {
+                // dd($userCredential);
+                return back()->with('error', 'Account number & Password is incorrect');
+            }
+        }        
     }
+    
+    
 
     public function loadDashboard()
     {

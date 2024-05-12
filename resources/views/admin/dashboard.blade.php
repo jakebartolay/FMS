@@ -12,98 +12,38 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         @include('layout.logo')
-        <i class="bi bi-list toggle-sidebar-btn"></i>
-
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div><!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
+                <li class="nav-item">
+                    <form id="timeForm me-2">
+                        <div>
+                            <span id="horas" class="fw-bold">Loading...</span>
+                            <br>
+                        </div>
+                    </form>
                 </li><!-- End Search Icon-->
 
-                {{-- <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
 
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
+                        <span class="badge bg-primary badge-number">0</span>
                     </a><!-- End Notification Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            You have 4 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                            You have 0 new notifications
+                            {{-- <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a> --}}
                         </li>
-                        <li>
+                        {{-- <li>
                             <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-exclamation-circle text-warning"></i>
-                            <div>
-                                <h4>Lorem Ipsum</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>30 min. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-x-circle text-danger"></i>
-                            <div>
-                                <h4>Atque rerum nesciunt</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>1 hr. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-check-circle text-success"></i>
-                            <div>
-                                <h4>Sit rerum fuga</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>2 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="dropdown-footer">
-                            <a href="#">Show all notifications</a>
-                        </li>
+                        </li> --}}
 
                     </ul><!-- End Notification Dropdown Items -->
 
-                </li><!-- End Notification Nav --> --}}
+                </li><!-- End Notification Nav -->
 
                 {{-- <li class="nav-item dropdown">
 
@@ -256,6 +196,11 @@
                         </a>
                     </li> --}}
                     <li>
+                        <a href="/admin/investoraccount">
+                            <i class="bi bi-circle"></i><span>Investor</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/admin/investments">
                             <i class="bi bi-circle"></i><span>Investment</span>
                         </a>
@@ -291,33 +236,168 @@
                         <div class="pagetitle">
                             <nav>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active">Investment Management</li>
+                                    <li class="breadcrumb-item active">Vendor Management</li>
                                 </ol>
                             </nav>
                         </div><!-- End Page Title -->
 
-                        <!-- Investment Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
-                            <div class="card info-card sales-card">
+                        <!-- Vendor Card -->
+                        <a href="{{ route('vendorList') }}">
+                            <div class="col-xxl-3 col-md-6 col-6">
+                                <div class="card info-card sales-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Vendor Account</h5>
+                                        <div class="d-flex align-items-center">
+                                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-person-fill-check"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <span id="vendorCount" class="text-black pt-1 fw-bold">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>                                               
+                        <!-- End Vendor Card -->
 
+                        <script>
+                            // Fetch data from the API endpoint
+                            fetch('https://fms7-apar.fguardians-fms.com/api/vendor')
+                                .then(response => response.json())
+                                .then(data => {
+                                    // Count the number of vendors
+                                    const vendorCount = data.vendor.length;
+                                    // Display the count in the designated element
+                                    document.getElementById('vendorCount').textContent = vendorCount;
+                                })
+                                .catch(error => console.error('Error fetching data:', error));
+                        </script>
+                        
+
+
+                        <!-- Vendor Card -->
+                        <div class="col-xxl-3 col-md-6 col-6">
+                            <div class="card info-card warning-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Users </h5>
+                                    <h5 class="card-title">Withdrawal</h5>
 
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-fill-check"></i>
+                                            <i class="bi bi-person-fill-down"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $userCount }}</h6>
+                                            {{-- <h6>${{ number_format($data, 2, '.', ',') }}</h6> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Vendor Card -->
+
+                        <!-- Vendor Card -->
+                        <div class="col-xxl-3 col-md-6 col-12">
+                            <div class="card info-card revenue-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Investment </h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-lines-fill"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            {{-- <h6>${{ number_format($investment, 2, '.', ',') }}</h6> --}}
                                             {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                                class="text-muted small pt-2 ps-1">increase</span> --}}
+                                                                                                class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Investment Card -->
+                        </div><!-- End Vendor Card -->
+
+                        <!-- Vendor Card -->
+                        <div class="col-xxl-3 col-md-6 col-12">
+
+                            <div class="card info-card customers-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Deposits</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-fill-up"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            {{-- <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- End Vendor Card -->
+
+                        <div class="pagetitle">
+                            <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active">Investment Management</li>
+                                </ol>
+                            </nav>
+                        </div><!-- End Page Title -->
+
+<!-- Investment Card -->
+<a href="{{ route('investorAcc') }}">
+<div class="col-xxl-3 col-md-6 col-6">
+    <div class="card info-card sales-card">
+        <div class="card-body">
+            <h5 class="card-title">Investor Account</h5>
+            <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-fill-check"></i>
+                </div>
+                <div class="ps-3">
+                    <span id="investorCount"
+                    class="text-black pt-1 fw-bold">Loading...</span>
+                    {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
+                        class="text-muted small pt-2 ps-1">increase</span> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</a>
+<!-- End Investment Card -->
+
+<script>
+// Display loading text initially
+document.getElementById('investorCount').textContent = 'Loading...';
+
+// Fetch data from the API endpoint
+fetch('http://127.0.0.1:8000/api/investor/users')
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log('Fetched data:', data);
+        // Extract the "users" object from the response
+        const usersObject = data.users;
+        // Count the number of users
+        const investorCount = Object.keys(usersObject).length;
+        // Display the count
+        document.getElementById('investorCount').textContent = investorCount;
+    })
+    .catch(error => {
+        // Display error message if fetching fails
+        console.error('Error fetching data:', error);
+        document.getElementById('investorCount').textContent = 'Error fetching data';
+    });
+
+</script>
+
 
                         <!-- Investment Card -->
                         <div class="col-xxl-3 col-md-6 col-6">
@@ -331,7 +411,7 @@
                                             <i class="bi bi-person-fill-down"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>${{ number_format($data, 2, '.', ',') }}</h6>
+                                            {{-- <h6>${{ number_format($data, 2, '.', ',') }}</h6> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -351,7 +431,7 @@
                                             <i class="bi bi-person-lines-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>${{ number_format($investment, 2, '.', ',') }}</h6>
+                                            {{-- <h6>${{ number_format($investment, 2, '.', ',') }}</h6> --}}
                                             {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
                                                                         class="text-muted small pt-2 ps-1">increase</span> --}}
                                         </div>
@@ -375,125 +455,13 @@
                                             <i class="bi bi-person-fill-up"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6>
+                                            {{-- <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div><!-- End Investment Card -->
-
-
-                        <div class="pagetitle">
-                            <nav>
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active">Investment Management</li>
-                                </ol>
-                            </nav>
-                        </div><!-- End Page Title -->
-
-                        <!-- Reports -->
-                        <div class="col-12">
-                            <div class="card">
-
-                                <div class="filter">
-                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                            class="bi bi-three-dots"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                        <li class="dropdown-header text-start">
-                                            <h6>Filter</h6>
-                                        </li>
-
-                                        <li><a class="dropdown-item" href="#">Today</a></li>
-                                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                                    <!-- Line Chart -->
-                                    <div id="reportsChart"></div>
-
-                                    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            fetch('{{ route('fetch.data') }}')
-                .then(response => response.json())
-                .then(data => {
-                    // Extract data for each series
-                    const investmentData = data.investment.map(item => item.total);
-                    const balanceData = data.accounts.map(item => item.total);
-                    const payoutsData = data.payouts.map(item => item.total);
-                    
-                    // Define month labels for all months of the year
-                    // 'Jan', 'Feb', 'Mar', 
-                    const monthLabels = [
-                        'Apr', 'May', 'Jun', 
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-                    ];
-                    
-                    new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                            name: 'Investment',
-                            data: investmentData,
-                        }, {
-                            name: 'Account',
-                            data: balanceData,
-                        }, {
-                            name: 'Payouts',
-                            data: payoutsData,
-                        }],
-                        chart: {
-                            height: 350,
-                            type: 'area',
-                            toolbar: {
-                                show: false
-                            },
-                        },
-                        markers: {
-                            size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                            type: "gradient",
-                            gradient: {
-                                shadeIntensity: 1,
-                                opacityFrom: 0.3,
-                                opacityTo: 0.4,
-                                stops: [0, 90, 100]
-                            }
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        stroke: {
-                            curve: 'smooth',
-                            width: 2
-                        },
-                        xaxis: {
-                            type: 'category', // Use categories as labels
-                            categories: monthLabels, // Use all months of the year
-                        },
-                        tooltip: {
-                            x: {
-                                format: 'dd/MM/yy HH:mm'
-                            },
-                        }
-                    }).render();
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        });
-
-                                    </script>
-                                    <!-- End Line Chart -->
-
-                                </div>
-
-                            </div>
-                        </div><!-- End Reports -->
 
 
                     </div>

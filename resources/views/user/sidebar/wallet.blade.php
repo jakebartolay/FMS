@@ -91,7 +91,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xxl-3 col-md-6 col-12">
+                                           {{-- <div class="col-xxl-3 col-md-6 col-12">
                                                 <div class="card border py-2">
                                                     <div class="card-body text-center">
                                                         <img src="assets/logo/gcash.jpg"
@@ -142,8 +142,8 @@
                                                         <a href="/maintenance" class="btn btn-primary">Pay with HM</a>
                                                     </div>
                                                 </div>
-                                            </div>
-
+                                            </div> --}}
+ 
                                         </div>
                                     </div>
 

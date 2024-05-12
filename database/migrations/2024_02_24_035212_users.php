@@ -16,14 +16,13 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
+            $table->string('account_number')->nullable();
             $table->string('email')->nullable();
-            $table->string('google_id')->nullable();
             $table->string('password')->nullable();
             $table->string('role')->nullable();
             $table->string('profile_path_picture')->nullable();
             $table->string('user_id')->nullable();
-            $table->string('age')->nullable();
-            $table->enum('status', ['Active', 'Inactive', 'Pending', 'Completed', 'Verify', 'Cancelled', 'Suspended', 'Failed', 'Refunded', 'Approve', 'Cancel', 'Delete'])->default('Pending');
+            $table->enum('status', ['Active', 'Inactive', 'Suspended', 'Closed'])->default('Active');
             $table->date('birthdate')->nullable(); // Added birthdate column
             $table->timestamps();
         });                    

@@ -92,9 +92,31 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Status</div>
                                         <div class="col-lg-9 col-md-8">
-                                            <span class="badge bg-warning">{{ $user->status }}</span>
-                                            </div>
+                                            @php
+                                                $status = strtolower($user->status);
+                                                $badgeClass = '';
+                                                switch ($status) {
+                                                    case 'active':
+                                                        $badgeClass = 'badge bg-success';
+                                                        break;
+                                                    case 'inactive':
+                                                        $badgeClass = 'badge bg-secondary';
+                                                        break;
+                                                    case 'suspended':
+                                                        $badgeClass = 'badge bg-danger';
+                                                        break;
+                                                    case 'closed':
+                                                        $badgeClass = 'badge bg-dark';
+                                                        break;
+                                                    default:
+                                                        $badgeClass = 'badge bg-warning';
+                                                        break;
+                                                }
+                                            @endphp
+                                            <span class="{{ $badgeClass }}">{{ ucfirst($user->status) }}</span>
+                                        </div>
                                     </div>
+                                    
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Account Transfer ID</div>
@@ -120,11 +142,6 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Age:</div>
-                                        <div class="col-lg-9 col-md-8">{{ $user->age }}</div>
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Birthday:</div>
                                         <div class="col-lg-9 col-md-8">{{ $user->birthdate }}</div>
                                     </div>
@@ -138,12 +155,11 @@
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Address</div>
                     <div class="col-lg-9 col-md-8">No Data Found</div>
-                  </div>
+                  </div>--}}
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">No Data Found</div>
-                  </div> --}}
+                  {{-- <div class="row">
+                    <div class="col-lg-3 col-md-4 label"><a href="">Verify Account</a></div>
+                  </div>  --}}
 
                                 </div>
 
@@ -174,7 +190,7 @@
                                                 class="col-md-4 col-lg-3 col-form-label">Firstname</label>
                                             <div class="col-md-8 col-lg-9 position-relative">
                                                 <input name="firstname" type="text" class="form-control"
-                                                    id="valid12" value="{{ $user->firstname }}" required oninput="capitalizeFirstLetter(this)">
+                                                    id="valid12" value="{{ $user->firstname }}" placeholder="Firstname" required oninput="capitalizeFirstLetter(this)">
                                                 <div class="invalid-feedback">
                                                     Please Enter Firstname
                                                 </div>
@@ -186,7 +202,7 @@
                                                 Name</label>
                                             <div class="col-md-8 col-lg-9 position-relative">
                                                 <input name="lastname" type="text" class="form-control"
-                                                    id="valid13" value="{{ $user->lastname }}" required oninput="capitalizeFirstLetter(this)">
+                                                    id="valid13" value="{{ $user->lastname }}" placeholder="Lastname" required oninput="capitalizeFirstLetter(this)">
                                                 <div class="invalid-feedback">
                                                     Please Enter Lastname
                                                 </div>
@@ -197,22 +213,10 @@
                                             <label for="valid14"
                                                 class="col-md-4 col-lg-3 col-form-label">Email</label>
                                             <div class="col-md-8 col-lg-9 position-relative">
-                                                <input name="email" type="email" class="form-control"
+                                                <input name="email" type="email" placeholder="example@gmail.com" class="form-control"
                                                     id="valid14" value="{{ $user->email }}"required>
                                                 <div class="invalid-feedback">
                                                     Please Enter Email
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="valid14"
-                                                class="col-md-4 col-lg-3 col-form-label">Age</label>
-                                            <div class="col-md-8 col-lg-9 position-relative">
-                                                <input name="age" type="number" class="form-control"
-                                                    id="valid14" value="{{ $user->age }}"required>
-                                                <div class="invalid-feedback">
-                                                    Please input age
                                                 </div>
                                             </div>
                                         </div>

@@ -1,39 +1,10 @@
 /**
 * Template Name: NiceAdmin
-* Updated: Jan 29 2024 with Bootstrap v5.3.2
 * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+* Updated: Apr 20 2024 with Bootstrap v5.3.3
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-
-// Function to toggle dark mode
-function toggleDarkMode() {
-  const element = document.body;
-  element.classList.toggle("dark-mode");
-}
-
-// Example: Toggle dark mode when a button is clicked
-document.getElementById("dark-mode-toggle").addEventListener("click", function() {
-  toggleDarkMode();
-});
-
-// Function to set dark mode preference in localStorage
-function setDarkModePreference(isDarkMode) {
-  localStorage.setItem("darkMode", isDarkMode);
-}
-
-// Function to load dark mode preference from localStorage
-function loadDarkModePreference() {
-  return localStorage.getItem("darkMode") === "true";
-}
-
-// Apply dark mode on page load if user preference is set
-window.onload = function() {
-  const isDarkMode = loadDarkModePreference();
-  if (isDarkMode) {
-      toggleDarkMode();
-  }
-};
 
 (function() {
   "use strict";
@@ -212,17 +183,16 @@ window.onload = function() {
   /**
    * Initiate TinyMCE Editor
    */
+
   const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
 
   tinymce.init({
     selector: 'textarea.tinymce-editor',
-    plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
+    plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
     editimage_cors_hosts: ['picsum.photos'],
     menubar: 'file edit view insert format tools table help',
-    toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-    toolbar_sticky: true,
-    toolbar_sticky_offset: isSmallScreen ? 102 : 108,
+    toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | pagebreak anchor codesample | ltr rtl",
     autosave_ask_before_unload: true,
     autosave_interval: '30s',
     autosave_prefix: '{path}{query}-{id}-',
@@ -280,24 +250,6 @@ window.onload = function() {
         });
       }
     },
-    templates: [{
-        title: 'New Table',
-        description: 'creates a new table',
-        content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
-      },
-      {
-        title: 'Starting my story',
-        description: 'A cure for writers block',
-        content: 'Once upon a time...'
-      },
-      {
-        title: 'New list with dates',
-        description: 'New List with dates',
-        content: '<div class="mceTmpl"><span class="cdate">cdate</span><br><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>'
-      }
-    ],
-    template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
-    template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
     height: 600,
     image_caption: true,
     quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',

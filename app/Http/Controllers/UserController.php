@@ -792,7 +792,6 @@ class UserController extends Controller
             'firstname' => 'required|string|min:2',
             'lastname' => 'required|string|min:2',
             'email' => 'required|string|email|max:100|unique:users,email,' . ($user ? $user->id : 'NULL'),
-            'age' => 'required|integer|min:18',
             'birthdate' => 'required|date', // Adjust the validation rule for birthday as needed
         ]);
         
@@ -801,7 +800,6 @@ class UserController extends Controller
             $user->firstname = $request->firstname;
             $user->lastname = $request->lastname;
             $user->email = $request->email;
-            $user->age = $request->age;
             $user->birthdate = $request->birthdate;
             $user->save();
         
