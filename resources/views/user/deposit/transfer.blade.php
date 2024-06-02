@@ -92,21 +92,8 @@
                             <form method="POST" action="{{ route('transfer') }}">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    @if ($errors->any())
-                                    <div id="error-messages">
-                                        @foreach ($errors->all() as $error)
-                                            <p style="color:red;">{{ $error }}</p>
-                                        @endforeach
-                                    </div>
-                                    <script>
-                                        setTimeout(function() {
-                                            var errorMessages = document.getElementById('error-messages');
-                                            errorMessages.parentNode.removeChild(errorMessages);
-                                        }, 5000); // 12 seconds
-                                    </script>
-                                @endif
                                     <label for="id">Recipient Account ID:</label>
-                                    <input id="id" name="id" placeholder="ex.07dcae2a-a716-456f-8307-e772542b9982" type="text"
+                                    <input id="id" name="id" placeholder="ex.10076888" type="text"
                                         class="form-control" required>
                                         <div class="form-text">Click<a class="badge text-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">here.</a> To see Transfer ID</div>
 
@@ -116,11 +103,19 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="amount">Amount:</label>
+                                    <div class="input-group">
+                                    <span class="input-group-text">$</span>
                                     <input id="amount" name="amount" placeholder="ex.10,000" 
                                     type="text" class="form-control" maxlength="7">
-                                    <div class="form-text">Please enter the amount you wish to deposit (maximum $10,000).</div>
-
-
+                                    </div>
+                                    <div class="form-text">Please enter the amount you wish to transfer (maximum $10,000).</div>
+                                    <div class="text-center mb-3">
+                                        <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('10,000.00')">$10,000.00</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('25,000.00')">$25,000.00</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('50,000.00')">$50,000.00</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('75,000.00')">$75,000.00</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('100,000.00')">$100,000.00</button>
+                                    </div>
                                     @error('amount')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
@@ -174,6 +169,17 @@
             class="bi bi-arrow-up-short"></i></a>
 
     @include('layout.javascript')
+
+    <script>
+        function setDepositAmount(amount) {
+            // Remove commas from the amount if present
+            const cleanAmount = amount.replace(/,/g, '');
+            // Parse the clean amount to a float with two decimal places
+            const parsedAmount = parseFloat(cleanAmount).toFixed(2);
+            // Set the parsed amount as the input value
+            document.getElementById('amount').value = parsedAmount;
+        }
+    </script>
 </body>
 
 </html>

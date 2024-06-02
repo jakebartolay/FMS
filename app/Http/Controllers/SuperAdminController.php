@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\fms10_activity_logs;
 use App\Models\vendorInfo;
 use DB;
 
@@ -21,7 +22,7 @@ class SuperAdminController extends Controller
         
         $user = auth()->user();
         
-        $activityLog = DB::table('activity_logs')->get();
+        $activityLog = DB::table('fms10_activity_logs')->get();
         
         return view('super-admin.dashboard', compact('users', 'roles', 'user', 'activityLog'));
     }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('role')->nullable();
             $table->string('profile_path_picture')->nullable();
             $table->string('user_id')->nullable();
+            $table->string('type')->nullable();
             $table->enum('status', ['Active', 'Inactive', 'Suspended', 'Closed'])->default('Active');
             $table->date('birthdate')->nullable(); // Added birthdate column
             $table->timestamps();

@@ -46,7 +46,7 @@
                 <div class="col-lg-12">
                     <div class="row">
 
-                        <!-- Balance Activity -->
+                        {{-- <!-- Balance Activity -->
                         <div class="col-xxl-3 col-12">
                             
                                 <div class="card-body">
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                           
-                        </div><!-- Balance Activity -->
+                        </div><!-- Balance Activity --> --}}
 
                         <!-- Right side columns -->
                         <div class="col-lg-12 col-12" id="deposit">

@@ -164,12 +164,12 @@
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
                         <img src="../assets/img/superadmin.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->firstname }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->name }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ $user->firstname }}</h6>
+                            <h6>{{ $user->name }}</h6>
                             <span>Administration</span>
                         </li>
                         <li>
@@ -290,16 +290,15 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Acc Name</th>
-                                                <th>Amount</th>
+                                                <th>Birthdate</th>
                                                 <th>Type</th>
-                                                <th>Date</th>
+                                                <th>Acc Created</th>
                                                 <th>Status</th>
-                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($InvestmentRequest as $row)
-                                                <tr class="text-center">
+                                             @foreach ($investAcc as $row)
+                                                <tr>
                                                     <th scope="row">{{ $row->id }}</th>
                                                         <?php
                                                         $firstname = $row->firstname;
@@ -319,7 +318,7 @@
                                                         ?>
                                                         
                                                         <td>{{ $asteriskFirstName }} {{ $asteriskLastName }}</td>  
-                                                    <td>{{ number_format($row->amount, 2) }}</td>
+                                                    <td>{{ $row->formatted_birthdate }}</td>
                                                     <td>{{ ($row->type) }}</td>
                                                     <td>{{ $row->created_at->format('F d, Y') }}</td>
                                                     <td>
@@ -355,13 +354,8 @@
                                                                 class="badge bg-danger text-white">{{ $row->status }}</span>
                                                         @endif
                                                     </td>
-                                                    <td class="d-flex">
-                                                        <a href="{{ route('receiptinvestment', ['id' => $row->id]) }}" class="btn btn-primary btn-sm mr-3" title="Print Receipt">
-                                                            <i class="bi bi-print"></i> Print Receipt
-                                                        </a>                                                        
-                                                    </td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach 
                                         </tbody>
                                     </table>
                                     </div>

@@ -119,15 +119,16 @@
                                     
 
                                     <div class="row">
-                                        <div class="col-lg-3 col-md-4 label ">Account Transfer ID</div>
+                                        <div class="col-lg-3 col-md-4 label">Account Transfer ID</div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{-- @if ($account) --}}
-                                            {{ $accountId }}
-                                            {{-- @else
+                                            @if ($user && $accountId)
+                                                {{ $accountId }}
+                                            @else
                                                 N/A
-                                            @endif --}}
+                                            @endif
                                         </div>
                                     </div>
+                                    
 
 
                                     <div class="row">

@@ -15,6 +15,7 @@ use App\Models\InvestmentRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
 use Dompdf\Dompdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 
@@ -43,13 +44,13 @@ class AdminController extends Controller
             $roleName = 'Unknown';
         }
 
-        // $investment = DB::table('investments')->sum(DB::raw('CAST(amount AS DECIMAL(10, 2))'));
+        $investment = DB::table('fms10_investments')->sum(DB::raw('CAST(amount AS DECIMAL(10, 2))'));
 
-        // $countBalance = DB::table('accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
+        $countBalance = DB::table('fms10_accounts')->sum(DB::raw('CAST(balance AS DECIMAL(10, 2))'));
 
-        // $data = Payouts::whereNotNull('amount')->sum('amount');
+        $data = fms10_payouts::whereNotNull('amount')->sum('amount');
 
-        return view('admin.dashboard', compact('user','userCount', 'roleName'));
+        return view('admin.dashboard', compact('user','userCount', 'roleName','data','investment','countBalance'));
     }
 
     public function fetchData()
@@ -540,7 +541,19 @@ class AdminController extends Controller
     {
 
         $user = auth()->user();
-        return view('admin.investments.investoracc', compact('user'));
+
+        // Get all users where role is equal to 100
+        $investAcc = User::where('role', 100)->get()->map(function ($user) {
+            if ($user->birthdate) {
+                $user->formatted_birthdate = Carbon::parse($user->birthdate)->format('F d, Y');
+            } else {
+                $user->formatted_birthdate = 'N/A';
+            }
+            return $user;
+        });
+        
+        return view('admin.investments.investoracc', compact('user', 'investAcc'));
+        
 
     }
     

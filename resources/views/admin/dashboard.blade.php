@@ -197,7 +197,7 @@
                     </li> --}}
                     <li>
                         <a href="/admin/investoraccount">
-                            <i class="bi bi-circle"></i><span>Investor</span>
+                            <i class="bi bi-circle"></i><span>Investor Account</span>
                         </a>
                     </li>
                     <li>
@@ -277,7 +277,7 @@
 
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-6">
+                        {{-- <div class="col-xxl-3 col-md-6 col-6">
                             <div class="card info-card warning-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Withdrawal</h5>
@@ -288,15 +288,15 @@
                                             <i class="bi bi-person-fill-down"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{-- <h6>${{ number_format($data, 2, '.', ',') }}</h6> --}}
+                                    
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Vendor Card -->
+                        </div><!-- End Vendor Card --> --}}
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-12">
+                        {{-- <div class="col-xxl-3 col-md-6 col-12">
                             <div class="card info-card revenue-card">
 
                                 <div class="card-body">
@@ -308,18 +308,16 @@
                                             <i class="bi bi-person-lines-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{-- <h6>${{ number_format($investment, 2, '.', ',') }}</h6> --}}
-                                            {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                                                                                class="text-muted small pt-2 ps-1">increase</span> --}}
+ 
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Vendor Card -->
+                        </div><!-- End Vendor Card --> --}}
 
                         <!-- Vendor Card -->
-                        <div class="col-xxl-3 col-md-6 col-12">
+                        {{-- <div class="col-xxl-3 col-md-6 col-12">
 
                             <div class="card info-card customers-card">
 
@@ -332,13 +330,13 @@
                                             <i class="bi bi-person-fill-up"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{-- <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6> --}}
+                    
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                        </div><!-- End Vendor Card -->
+                        </div><!-- End Vendor Card --> --}}
 
                         <div class="pagetitle">
                             <nav>
@@ -348,59 +346,63 @@
                             </nav>
                         </div><!-- End Page Title -->
 
-<!-- Investment Card -->
-<a href="{{ route('investorAcc') }}">
-<div class="col-xxl-3 col-md-6 col-6">
-    <div class="card info-card sales-card">
-        <div class="card-body">
-            <h5 class="card-title">Investor Account</h5>
-            <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-person-fill-check"></i>
-                </div>
-                <div class="ps-3">
-                    <span id="investorCount"
-                    class="text-black pt-1 fw-bold">Loading...</span>
-                    {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
-                        class="text-muted small pt-2 ps-1">increase</span> --}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</a>
-<!-- End Investment Card -->
+                        <!-- Investment Card -->
+       
+                        <div class="col-xxl-3 col-md-6 col-6">
+                            <a href="{{ route('investorAcc') }}">
+                            <div class="card info-card sales-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Investor Account</h5>
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-fill-check"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span id="investorCount"
+                                            class="text-black pt-1 fw-bold">Loading...</span>
+                                            {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
+                                                class="text-muted small pt-2 ps-1">increase</span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+           
+                        <!-- End Investment Card -->
 
-<script>
-// Display loading text initially
-document.getElementById('investorCount').textContent = 'Loading...';
+                        <script>
+                        // Display loading text initially
+                        document.getElementById('investorCount').textContent = 'Loading...';
 
-// Fetch data from the API endpoint
-fetch('http://127.0.0.1:8000/api/investor/users')
-    .then(response => {
-        console.log('Response status:', response.status);
-        return response.json();
-    })
-    .then(data => {
-        console.log('Fetched data:', data);
-        // Extract the "users" object from the response
-        const usersObject = data.users;
-        // Count the number of users
-        const investorCount = Object.keys(usersObject).length;
-        // Display the count
-        document.getElementById('investorCount').textContent = investorCount;
-    })
-    .catch(error => {
-        // Display error message if fetching fails
-        console.error('Error fetching data:', error);
-        document.getElementById('investorCount').textContent = 'Error fetching data';
-    });
+                        // Fetch data from the API endpoint
+                        fetch('http://127.0.0.1:8000/api/investor/users')
+                            .then(response => {
+                                console.log('Response status:', response.status);
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Fetched data:', data);
+                                // Extract the "users" object from the response
+                                const usersObject = data.users;
+                                // Count the number of users
+                                const investorCount = Object.keys(usersObject).length;
+                                // Display the count
+                                document.getElementById('investorCount').textContent = investorCount;
+                            })
+                            .catch(error => {
+                                // Display error message if fetching fails
+                                console.error('Error fetching data:', error);
+                                document.getElementById('investorCount').textContent = 'Error fetching data';
+                            });
 
-</script>
+                        </script>
 
 
                         <!-- Investment Card -->
+                       
                         <div class="col-xxl-3 col-md-6 col-6">
+                            <a href="">
                             <div class="card info-card warning-card">
                                 <div class="card-body">
                                     <h5 class="card-title">Withdrawal</h5>
@@ -411,15 +413,19 @@ fetch('http://127.0.0.1:8000/api/investor/users')
                                             <i class="bi bi-person-fill-down"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{-- <h6>${{ number_format($data, 2, '.', ',') }}</h6> --}}
+                                            <h6>${{ number_format($data, 2, '.', ',') }}</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Investment Card -->
+                        </a>
+                        </div>
+                   <!-- End Investment Card -->
 
                         <!-- Investment Card -->
+                       
                         <div class="col-xxl-3 col-md-6 col-12">
+                            <a href="">
                             <div class="card info-card revenue-card">
 
                                 <div class="card-body">
@@ -431,19 +437,20 @@ fetch('http://127.0.0.1:8000/api/investor/users')
                                             <i class="bi bi-person-lines-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{-- <h6>${{ number_format($investment, 2, '.', ',') }}</h6> --}}
-                                            {{-- <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                                                        class="text-muted small pt-2 ps-1">increase</span> --}}
+                                            <h6>${{ number_format($investment, 2, '.', ',') }}</h6>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Investment Card -->
+                        </a>
+                        </div>
+                   <!-- End Investment Card -->
 
                         <!-- Investment Card -->
+                       
                         <div class="col-xxl-3 col-md-6 col-12">
-
+                            <a href="">
                             <div class="card info-card customers-card">
 
                                 <div class="card-body">
@@ -455,12 +462,12 @@ fetch('http://127.0.0.1:8000/api/investor/users')
                                             <i class="bi bi-person-fill-up"></i>
                                         </div>
                                         <div class="ps-3">
-                                            {{-- <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6> --}}
+                                            <h6>${{ number_format($countBalance, 2, '.', ',') }}</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                        </a>
                         </div><!-- End Investment Card -->
 
 

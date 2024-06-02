@@ -17,6 +17,9 @@ class UserSeeder extends Seeder
         // Create a SuperAdmin user
         User::create([
             'name' => 'SuperAdmin',
+            'firstname' => 'SuperAdmin',
+            'lastname' => 'SuperAdmin',
+            'account_number' => '101',
             'email' => 'superadmin@gmail.com',
             'password' => bcrypt('admin123'), // Change 'password' to your desired password
             'role' => '1',
@@ -25,18 +28,22 @@ class UserSeeder extends Seeder
         // Create an Admin user
         User::create([
             'name' => 'Admin',
+            'firstname' => 'Admin',
+            'lastname' => 'Admin',
+            'account_number' => '102',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin123'), // Change 'password' to your desired password
             'role' => '2',
         ]);
 
         User::create([
-            'name' => 'jake bartolay',
-            'firstname' => 'jake',
-            'lastname' => 'bartolay',
-            'account_number' => '123',
+            'name' => 'Jake Bartolay',
+            'firstname' => 'Jake',
+            'lastname' => 'Bartolay',
+            'account_number' => '987654',
             'user_id' => '3',
             'email' => 'jakebartolay147@gmail.com',
+            'type' => 'Investor',
             'profile_path_picture' => 'https://ui-avatars.com/api/?name=Jake+Bartolay',
             'password' => bcrypt('12345678'), // Change 'password' to your desired password
             'role' => '100',
@@ -44,10 +51,33 @@ class UserSeeder extends Seeder
         ]);
 
         fms10_accounts::create([
-            'id' => '18d04826-49ae-41b1-b72f-1442ac6d7cb8',
-            'firstname' => 'jake',
-            'lastname' => 'bartolay',
+            'id' => '20016708',
+            'firstname' => 'Jake',
+            'lastname' => 'Bartolay',
             'user_id' => '3',
+            'balance' => '0.00',
+            'status' => 'Active',
+        ]);
+
+        User::create([
+            'name' => 'James Smith',
+            'firstname' => 'James',
+            'lastname' => 'Smith',
+            'account_number' => '998877',
+            'user_id' => '4',
+            'email' => 'jamessmith@gmail.com',
+            'type' => 'Investor',
+            'profile_path_picture' => 'https://ui-avatars.com/api/?name=James+Smith',
+            'password' => bcrypt('12345678'), // Change 'password' to your desired password
+            'role' => '100',
+            'status' => 'Active',
+        ]);
+
+        fms10_accounts::create([
+            'id' => '20016800',
+            'firstname' => 'James',
+            'lastname' => 'Smith',
+            'user_id' => '4',
             'balance' => '0.00',
             'status' => 'Active',
         ]);

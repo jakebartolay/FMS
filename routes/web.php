@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AuthController::class,'landingPage']);
+Route::get('/',[AuthController::class,'loadLogin']);
 Route::get('/login',function(){
     return redirect('/');
 });

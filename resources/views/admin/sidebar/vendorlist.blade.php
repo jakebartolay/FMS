@@ -313,7 +313,6 @@
                                                 <th>Contact No</th>
                                                 <th>City</th>
                                                 <th>Region</th>
-                                                <th>Address</th>
                                                 <th>Contract Start</th>
                                                 <th>Contract Due</th>
                                                 <th>Payment Method</th>
@@ -330,7 +329,6 @@
                                                     <td>{{ $vendor['contact_no'] }}</td>
                                                     <td>{{ $vendor['city'] }}</td>
                                                     <td>{{ $vendor['region'] }}</td>
-                                                    <td>{{ $vendor['address'] }}</td>
                                                     <td>{{ $vendor['contract_start'] }}</td>
                                                     <td>{{ $vendor['contract_due'] }}</td>
                                                     <td>{{ $vendor['payment_method'] }}</td>

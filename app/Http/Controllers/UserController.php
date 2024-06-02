@@ -245,7 +245,7 @@ class UserController extends Controller
         // Validation
         $request->validate([
             'id' => 'required|exists:fms10_accounts,id',
-            'amount' => 'required|numeric|min:7',
+            'amount' => 'required|numeric|min:0|max:1000000',
         ]);
         
         // Retrieve sender's account
@@ -395,7 +395,7 @@ class UserController extends Controller
     public function deposit(Request $request)
     {
         $validatedData = $request->validate([
-            'amount' => 'required|numeric|min:0.01|max:10000', // Adjust the validation rules as needed
+            'amount' => 'required|numeric|min:0.01|max:200000', // Adjust the validation rules as needed
         ]);
         
         // Begin the database transaction

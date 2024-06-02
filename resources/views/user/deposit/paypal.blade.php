@@ -103,9 +103,11 @@
                                             <div class="form-text">Please enter the amount you wish to deposit (maximum $10,000).</div>
                                         </div>                                        
                                         <div class="text-center mb-3">
-                                            <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('1,000.00')">$1,000.00</button>
-                                            <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('4,000.00')">$5,000.00</button>
                                             <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('10,000.00')">$10,000.00</button>
+                                            <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('25,000.00')">$25,000.00</button>
+                                            <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('50,000.00')">$50,000.00</button>
+                                            <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('75,000.00')">$75,000.00</button>
+                                            <button type="button" class="btn btn-outline-primary" onclick="setDepositAmount('100,000.00')">$100,000.00</button>
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Deposit</button>
